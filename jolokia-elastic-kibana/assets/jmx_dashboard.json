@@ -1,0 +1,465 @@
+[
+  {
+    "_id": "11b3baa0-6f11-11ea-8de0-ff7b1d71f04d",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Confluent Platform Kafka Consumer Dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"size_x\":12,\"size_y\":8,\"panelIndex\":1,\"type\":\"visualization\",\"id\":\"c5cb8230-6f10-11ea-8de0-ff7b1d71f04d\",\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "f315c990-6eec-11ea-8bb0-d3c62957163d",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Confluent Platform Overall Dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"5c296c90-6eeb-11ea-8bb0-d3c62957163d\",\"panelIndex\":1,\"row\":2,\"size_x\":12,\"size_y\":3,\"type\":\"visualization\"},{\"col\":8,\"id\":\"bc8f9330-6eea-11ea-8bb0-d3c62957163d\",\"panelIndex\":2,\"row\":5,\"size_x\":5,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"8966ea40-6ee9-11ea-8bb0-d3c62957163d\",\"panelIndex\":4,\"row\":5,\"size_x\":5,\"size_y\":9,\"type\":\"visualization\"},{\"col\":6,\"id\":\"955fce30-6cd1-11ea-9fd8-27748c9efdf1\",\"panelIndex\":5,\"row\":5,\"size_x\":2,\"size_y\":2,\"type\":\"visualization\"},{\"col\":6,\"id\":\"f8a53d10-6eeb-11ea-8bb0-d3c62957163d\",\"panelIndex\":6,\"row\":10,\"size_x\":7,\"size_y\":4,\"type\":\"visualization\"},{\"col\":6,\"id\":\"fb7c5870-6ca7-11ea-901c-cd436ac7e699\",\"panelIndex\":7,\"row\":7,\"size_x\":2,\"size_y\":3,\"type\":\"visualization\"},{\"size_x\":12,\"size_y\":1,\"panelIndex\":8,\"type\":\"visualization\",\"id\":\"e04806f0-6eee-11ea-8de0-ff7b1d71f04d\",\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-2\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}},\"P-5\":{\"vis\":{\"defaultColors\":{\"0 - 1\":\"rgb(0,104,55)\"}}},\"P-6\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}},\"P-7\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "0c907d00-6cce-11ea-9bcf-f9147928f9d6",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Confluent Platform ZooKeeper Dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":5,\"id\":\"59fe8dc0-6cb0-11ea-9b77-d9f6741f3370\",\"panelIndex\":1,\"row\":4,\"size_x\":5,\"size_y\":3,\"type\":\"visualization\"},{\"col\":10,\"id\":\"acc9a270-6cb4-11ea-b734-0b2476c9d922\",\"panelIndex\":2,\"row\":2,\"size_x\":3,\"size_y\":8,\"type\":\"visualization\"},{\"col\":1,\"id\":\"36d763e0-6cb4-11ea-b734-0b2476c9d922\",\"panelIndex\":3,\"row\":2,\"size_x\":4,\"size_y\":8,\"type\":\"visualization\"},{\"col\":5,\"id\":\"36205040-6cb1-11ea-9b77-d9f6741f3370\",\"panelIndex\":4,\"row\":7,\"size_x\":5,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"783409c0-6cb8-11ea-9733-d5d0debe3ec9\",\"panelIndex\":5,\"row\":2,\"size_x\":5,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"e0656310-6cb6-11ea-b734-0b2476c9d922\",\"panelIndex\":6,\"row\":10,\"size_x\":12,\"size_y\":5,\"type\":\"visualization\"},{\"size_x\":12,\"size_y\":1,\"panelIndex\":7,\"type\":\"visualization\",\"id\":\"e04806f0-6eee-11ea-8de0-ff7b1d71f04d\",\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-2\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-3\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-5\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-6\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "d691f030-6caa-11ea-b2ee-89683d00e3f8",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Confluent Platform Kafka Broker Dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"2f007260-6caa-11ea-901c-cd436ac7e699\",\"panelIndex\":1,\"row\":17,\"size_x\":12,\"size_y\":6,\"type\":\"visualization\"},{\"col\":8,\"id\":\"8cc24970-6ca8-11ea-901c-cd436ac7e699\",\"panelIndex\":2,\"row\":10,\"size_x\":5,\"size_y\":7,\"type\":\"visualization\"},{\"col\":3,\"id\":\"fb7c5870-6ca7-11ea-901c-cd436ac7e699\",\"panelIndex\":3,\"row\":2,\"size_x\":2,\"size_y\":3,\"type\":\"visualization\"},{\"col\":8,\"id\":\"b5445330-6cac-11ea-901c-cd436ac7e699\",\"panelIndex\":4,\"row\":2,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"955fce30-6cd1-11ea-9fd8-27748c9efdf1\",\"panelIndex\":5,\"row\":2,\"size_x\":2,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"d69b49c0-6cd0-11ea-9fd8-27748c9efdf1\",\"panelIndex\":6,\"row\":2,\"size_x\":3,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"e04806f0-6eee-11ea-8de0-ff7b1d71f04d\",\"panelIndex\":7,\"row\":1,\"size_x\":12,\"size_y\":1,\"type\":\"visualization\"},{\"col\":1,\"id\":\"6ed77df0-6f04-11ea-8de0-ff7b1d71f04d\",\"panelIndex\":8,\"row\":8,\"size_x\":7,\"size_y\":8,\"type\":\"visualization\"},{\"col\":8,\"id\":\"6238f8a0-6f02-11ea-8de0-ff7b1d71f04d\",\"panelIndex\":9,\"row\":6,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"size_x\":7,\"size_y\":3,\"panelIndex\":10,\"type\":\"visualization\",\"id\":\"50f457f0-6f0d-11ea-8de0-ff7b1d71f04d\",\"col\":1,\"row\":5}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"vis\":{\"defaultColors\":{\"2 - 1,995\":\"rgb(0,104,55)\",\"1,995 - 3,988\":\"rgb(135,203,103)\",\"3,988 - 5,981\":\"rgb(255,255,190)\",\"5,981 - 7,975\":\"rgb(249,142,82)\"}}},\"P-2\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}},\"P-3\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-5\":{\"vis\":{\"defaultColors\":{\"0 - 1\":\"rgb(0,104,55)\"}}},\"P-6\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}},\"P-9\":{\"vis\":{\"defaultColors\":{\"0% - 10%\":\"rgb(0,104,55)\",\"10% - 20%\":\"rgb(26,151,80)\",\"20% - 30%\":\"rgb(102,189,99)\",\"30% - 40%\":\"rgb(166,217,106)\",\"40% - 50%\":\"rgb(217,239,139)\",\"50% - 60%\":\"rgb(255,255,190)\",\"60% - 70%\":\"rgb(254,224,139)\",\"70% - 80%\":\"rgb(253,174,97)\",\"80% - 90%\":\"rgb(244,109,67)\",\"90% - 100%\":\"rgb(214,47,39)\"}}},\"P-10\":{\"vis\":{\"defaultColors\":{\"0 - 2500\":\"rgb(0,104,55)\",\"2500 - 4000\":\"rgb(255,255,190)\",\"4000 - 5500\":\"rgb(165,0,38)\"}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "78d26770-6cca-11ea-9bcf-f9147928f9d6",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Confluent Platform Kafka Connect Dashboard",
+      "hits": 0,
+      "description": "This dashboard provides a drill down for all Kafka Connect Metrics.",
+      "panelsJSON": "[{\"col\":1,\"id\":\"25858750-6cc0-11ea-9bcf-f9147928f9d6\",\"panelIndex\":1,\"row\":2,\"size_x\":6,\"size_y\":10,\"type\":\"visualization\"},{\"col\":7,\"id\":\"3c23cb30-6cc4-11ea-9bcf-f9147928f9d6\",\"panelIndex\":2,\"row\":7,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"2507ab20-6cc8-11ea-9bcf-f9147928f9d6\",\"panelIndex\":3,\"row\":12,\"size_x\":12,\"size_y\":5,\"type\":\"visualization\"},{\"col\":7,\"id\":\"42c650d0-6ccd-11ea-9bcf-f9147928f9d6\",\"panelIndex\":4,\"row\":2,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"e04806f0-6eee-11ea-8de0-ff7b1d71f04d\",\"panelIndex\":5,\"row\":1,\"size_x\":12,\"size_y\":1,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":6,\"direction\":\"desc\"}}}},\"P-2\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":2,\"direction\":\"desc\"}}}},\"P-3\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":3,\"direction\":\"desc\"}}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "25858750-6cc0-11ea-9bcf-f9147928f9d6",
+    "_type": "visualization",
+    "_source": {
+      "title": "Connect - Overall Status",
+      "visState": "{\"title\":\"Connect - Overall Status\",\"type\":\"table\",\"params\":{\"perPage\":25,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"connector.keyword\",\"size\":100,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Connector Name\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"connector-type.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Connector Type\"}},{\"id\":\"9\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"status.keyword\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Connector Status\"}},{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-total-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Tasks\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-running-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Running Tasks\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-paused-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Paused Tasks\"}},{\"id\":\"6\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-failed-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Failed Tasks\"}},{\"id\":\"7\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-destroyed-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Destroyed Tasks\"}},{\"id\":\"8\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-unassigned-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Unassigned Tasks\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaConnect\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaConnect\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"connector-metrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"connector-metrics\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "36205040-6cb1-11ea-9b77-d9f6741f3370",
+    "_type": "visualization",
+    "_source": {
+      "title": "ZooKeeper - Heap Usage",
+      "visState": "{\"title\":\"ZooKeeper - Heap Usage\",\"type\":\"line\",\"params\":{\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{\"text\":\"Timestamp\"}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"line\",\"mode\":\"normal\",\"data\":{\"label\":\"Heap Used\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true},{\"show\":true,\"mode\":\"normal\",\"type\":\"line\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"interpolate\":\"linear\",\"lineWidth\":2,\"data\":{\"id\":\"3\",\"label\":\"Off Heap Used\"},\"valueAxis\":\"ValueAxis-1\"}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"bottom\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"HeapMemoryUsage.used\",\"customLabel\":\"Heap Used\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"createdDateTime\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Timestamp\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"NonHeapMemoryUsage.used\",\"customLabel\":\"Off Heap Used\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Host Name\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type\",\"negate\":false,\"type\":\"phrase\",\"value\":\"Memory\"},\"query\":{\"match\":{\"type\":{\"query\":\"Memory\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "59fe8dc0-6cb0-11ea-9b77-d9f6741f3370",
+    "_type": "visualization",
+    "_source": {
+      "title": "ZooKeeper - Node and Watch Count",
+      "visState": "{\"title\":\"ZooKeeper - Node and Watch Count\",\"type\":\"line\",\"params\":{\"grid\":{\"categoryLines\":true,\"style\":{\"color\":\"#eee\"},\"valueAxis\":\"ValueAxis-1\"},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{\"text\":\"TimeStamp\"}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"line\",\"mode\":\"normal\",\"data\":{\"label\":\"Node Count\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true},{\"show\":true,\"mode\":\"normal\",\"type\":\"line\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"interpolate\":\"linear\",\"lineWidth\":2,\"data\":{\"id\":\"3\",\"label\":\"Watch Count\"},\"valueAxis\":\"ValueAxis-1\"}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"times\":[],\"addTimeMarker\":true},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"NodeCount\",\"customLabel\":\"Node Count\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"createdDateTime\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"TimeStamp\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"WatchCount\",\"customLabel\":\"Watch Count\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"name1\",\"negate\":false,\"type\":\"phrase\",\"value\":\"InMemoryDataTree\"},\"query\":{\"match\":{\"name1\":{\"query\":\"InMemoryDataTree\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "2507ab20-6cc8-11ea-9bcf-f9147928f9d6",
+    "_type": "visualization",
+    "_source": {
+      "title": "Connect - Task Error Drill Down",
+      "visState": "{\"title\":\"Connect - Task Error Drill Down\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"connector.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Connector Name\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Host Name\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"task.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Task ID\"}},{\"id\":\"6\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"last-error-timestamp\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Last Error Timestamp\"}},{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"total-retries\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Retries\"}},{\"id\":\"7\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"total-records-skipped\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Records Skipped\"}},{\"id\":\"8\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"total-record-failures\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Record Failures\"}},{\"id\":\"9\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"total-record-errors\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Record Errors\"}},{\"id\":\"10\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"total-errors-logged\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Errors Logged\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaConnect\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaConnect\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"task-error-metrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"task-error-metrics\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "783409c0-6cb8-11ea-9733-d5d0debe3ec9",
+    "_type": "visualization",
+    "_source": {
+      "title": "ZooKeeper - Current Controller",
+      "visState": "{\"title\":\"ZooKeeper - Current Controller\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":true,\"autoExtend\":false,\"percentageMode\":false,\"gaugeType\":\"Metric\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"useRange\":false,\"colorsRange\":[{\"from\":0,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"simple\",\"style\":{\"fontSize\":\"26\",\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"EphemeralNodes.keyword\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"EphemeralNodes.keyword\",\"sortOrder\":\"desc\",\"customLabel\":\"Current Value\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query_string\":{\"query\":\"\\\"/controller\\\"\"}}},\"label\":\"Current Controller\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"injectedServerType\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "acc9a270-6cb4-11ea-b734-0b2476c9d922",
+    "_type": "visualization",
+    "_source": {
+      "title": "ZooKeeper - Metrics 2",
+      "visState": "{\"title\":\"ZooKeeper - Metrics 2\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":true,\"autoExtend\":false,\"percentageMode\":false,\"gaugeType\":\"Metric\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"useRange\":false,\"colorsRange\":[{\"from\":0,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"simple\",\"style\":{\"fontSize\":60,\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"AvgRequestLatency\",\"customLabel\":\"Average Request Latency\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"MaxRequestLatency\",\"customLabel\":\"Max Request Latency\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"OutstandingRequests\",\"customLabel\":\"Outstanding Requests\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName\",\"negate\":false,\"type\":\"phrase\",\"value\":\"org.apache.ZooKeeperService\"},\"query\":{\"match\":{\"injectedBeanName\":{\"query\":\"org.apache.ZooKeeperService\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "6238f8a0-6f02-11ea-8de0-ff7b1d71f04d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Request Response Queue Size",
+      "visState": "{\"title\":\"Kafka - Request Response Queue Size\",\"type\":\"heatmap\",\"params\":{\"addLegend\":true,\"addTooltip\":true,\"colorSchema\":\"Green to Red\",\"colorsNumber\":10,\"colorsRange\":[],\"enableHover\":false,\"invertColors\":false,\"legendPosition\":\"top\",\"percentageMode\":true,\"setColorRange\":false,\"times\":[],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"color\":\"#000\",\"rotate\":0,\"show\":true},\"scale\":{\"defaultYExtents\":false,\"type\":\"linear\"},\"show\":false,\"type\":\"value\"}]},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Value\",\"customLabel\":\"Average Load\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":10,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Hostname\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"name.keyword\",\"size\":10,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Queue Size type\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0% - 10%\":\"rgb(0,104,55)\",\"10% - 20%\":\"rgb(26,151,80)\",\"20% - 30%\":\"rgb(102,189,99)\",\"30% - 40%\":\"rgb(166,217,106)\",\"40% - 50%\":\"rgb(217,239,139)\",\"50% - 60%\":\"rgb(255,255,190)\",\"60% - 70%\":\"rgb(254,224,139)\",\"70% - 80%\":\"rgb(253,174,97)\",\"80% - 90%\":\"rgb(244,109,67)\",\"90% - 100%\":\"rgb(214,47,39)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaBroker\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"kafka.network\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"kafka.network\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"RequestChannel\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"RequestChannel\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "c5cb8230-6f10-11ea-8de0-ff7b1d71f04d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Consumer Lag Details",
+      "visState": "{\"title\":\"Kafka - Consumer Lag Details\",\"type\":\"table\",\"params\":{\"perPage\":20,\"showPartialRows\":true,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"records-lag-max\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Max Lag\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"client-id.keyword\",\"size\":9999,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Client ID\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"topic.keyword\",\"size\":9999,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Topic Name\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"partition.keyword\",\"size\":9999,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Partition ID\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"records-lag\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Current Lag\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"injectedBeanName.keyword\",\"value\":\"kafka.consumer\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"kafka.consumer\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"consumer-fetch-manager-metrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"consumer-fetch-manager-metrics\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"exists\",\"key\":\"client-id.keyword\",\"value\":\"exists\"},\"exists\":{\"field\":\"client-id.keyword\"},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"exists\",\"key\":\"records-lag-max\",\"value\":\"exists\"},\"exists\":{\"field\":\"records-lag-max\"},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "f8a53d10-6eeb-11ea-8bb0-d3c62957163d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Overall - Connectors Status",
+      "visState": "{\"title\":\"Overall - Connectors Status\",\"type\":\"table\",\"params\":{\"perPage\":7,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"connector.keyword\",\"size\":100,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Connector Name\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"connector-type.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Connector Type\"}},{\"id\":\"9\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"status.keyword\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Connector Status\"}},{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-total-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Tasks\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-running-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Running Tasks\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-paused-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Paused Tasks\"}},{\"id\":\"6\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-failed-task-count\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Failed Tasks\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaConnect\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaConnect\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"connector-metrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"connector-metrics\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "e04806f0-6eee-11ea-8de0-ff7b1d71f04d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Overall - Confluent Platform Tab View",
+      "visState": "{\"title\":\"Overall - Confluent Platform Tab View\",\"type\":\"markdown\",\"params\":{\"markdown\":\"###  §§        [Overall](#/dashboard/f315c990-6eec-11ea-8bb0-d3c62957163d)        §§        [ZooKeeper Drilldown](#/dashboard/0c907d00-6cce-11ea-9bcf-f9147928f9d6)        §§        [Kafka Broker Drilldown](#/dashboard/d691f030-6caa-11ea-b2ee-89683d00e3f8)        §§        [Kafka Connect Drilldown](#/dashboard/78d26770-6cca-11ea-9bcf-f9147928f9d6)        §§\"},\"aggs\":[],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"query\":{\"match_all\":{}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "e0656310-6cb6-11ea-b734-0b2476c9d922",
+    "_type": "visualization",
+    "_source": {
+      "title": "ZooKeeper - Client Latencies",
+      "visState": "{\"title\":\"ZooKeeper - Client Latencies\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"name2.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Server Address\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"MaxLatency\"}},{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"AvgLatency\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"MinLatency\",\"customLabel\":\"Min Latency\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"OutstandingRequests\",\"customLabel\":\"Outstanding Requests\"}},{\"id\":\"6\",\"enabled\":false,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"name3.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Internal Client Name\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName\",\"negate\":false,\"type\":\"phrase\",\"value\":\"org.apache.ZooKeeperService\"},\"query\":{\"match\":{\"injectedBeanName\":{\"query\":\"org.apache.ZooKeeperService\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "d69b49c0-6cd0-11ea-9fd8-27748c9efdf1",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - OfflinePartitionCount",
+      "visState": "{\"title\":\"Kafka - OfflinePartitionCount\",\"type\":\"table\",\"params\":{\"perPage\":5,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"Value\",\"aggregate\":\"sum\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Last Value\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Hostname\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaBroker\"},\"query\":{\"match\":{\"injectedServerType.keyword\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaController\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"KafkaController\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"name.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"OfflinePartitionsCount\"},\"query\":{\"match\":{\"name.keyword\":{\"query\":\"OfflinePartitionsCount\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "fb7c5870-6ca7-11ea-901c-cd436ac7e699",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Total Topics",
+      "visState": "{\"title\":\"Kafka - Total Topics\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":false,\"autoExtend\":false,\"percentageMode\":false,\"gaugeType\":\"Metric\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"useRange\":false,\"colorsRange\":[{\"from\":0,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"simple\",\"style\":{\"fontSize\":60,\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"topic.keyword\",\"customLabel\":\"Topics\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query_string\":{\"query\":\"injectedServerType: KafkaBroker\"}}},\"label\":\"Total Topics in Kafka\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "2f007260-6caa-11ea-901c-cd436ac7e699",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Busy Topics in Cluster",
+      "visState": "{\"title\":\"Kafka - Busy Topics in Cluster\",\"type\":\"heatmap\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"enableHover\":true,\"legendPosition\":\"bottom\",\"times\":[],\"colorsNumber\":4,\"colorSchema\":\"Green to Red\",\"setColorRange\":false,\"colorsRange\":[],\"invertColors\":false,\"percentageMode\":false,\"valueAxes\":[{\"show\":false,\"id\":\"ValueAxis-1\",\"type\":\"value\",\"scale\":{\"type\":\"linear\",\"defaultYExtents\":true},\"labels\":{\"show\":true,\"rotate\":0,\"color\":\"#000\"}}]},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"MeanRate\",\"customLabel\":\"Average Byte Rate\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"name.keyword\",\"size\":20,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Metric Type\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"topic.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Topic Name\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"1 - 1,842\":\"rgb(0,104,55)\",\"1,842 - 3,683\":\"rgb(135,203,103)\",\"3,683 - 5,524\":\"rgb(255,255,190)\",\"5,524 - 7,365\":\"rgb(249,142,82)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"java.lang\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"java.lang\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type.keyword\",\"negate\":false,\"params\":[\"Memory\",\"OperatingSystem\"],\"type\":\"phrases\",\"value\":\"Memory, OperatingSystem\"},\"query\":{\"bool\":{\"minimum_should_match\":1,\"should\":[{\"match_phrase\":{\"type.keyword\":\"Memory\"}},{\"match_phrase\":{\"type.keyword\":\"OperatingSystem\"}}]}}},{\"meta\":{\"negate\":false,\"index\":\"kafka-jmx-logs-*\",\"type\":\"phrase\",\"key\":\"injectedServerType\",\"value\":\"KafkaBroker\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"negate\":false,\"index\":\"kafka-jmx-logs-*\",\"type\":\"phrase\",\"key\":\"type\",\"value\":\"BrokerTopicMetrics\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"type\":{\"query\":\"BrokerTopicMetrics\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "5c296c90-6eeb-11ea-8bb0-d3c62957163d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Overall - Total CPU usage per Component Type",
+      "visState": "{\"title\":\"Overall - Total CPU usage per Component Type\",\"type\":\"goal\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":false,\"autoExtend\":false,\"percentageMode\":true,\"gaugeType\":\"Arc\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"useRanges\":false,\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"colorsRange\":[{\"from\":0,\"to\":10000}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"meter\",\"style\":{\"bgFill\":\"#000\",\"bgColor\":false,\"labelColor\":false,\"subText\":\"\",\"fontSize\":60}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"SystemCpuLoad\",\"customLabel\":\"Combined CPU Load\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedServerType.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"ServerType\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"java.lang\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"java.lang\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"OperatingSystem\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"OperatingSystem\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "50f457f0-6f0d-11ea-8de0-ff7b1d71f04d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Partition Count per Broker",
+      "visState": "{\"title\":\"Kafka - Partition Count per Broker\",\"type\":\"goal\",\"params\":{\"addLegend\":false,\"addTooltip\":true,\"gauge\":{\"autoExtend\":false,\"backStyle\":\"Full\",\"colorSchema\":\"Green to Red\",\"colorsRange\":[{\"from\":0,\"to\":2500},{\"from\":2500,\"to\":4000},{\"from\":4000,\"to\":5500}],\"gaugeColorMode\":\"None\",\"gaugeStyle\":\"Full\",\"gaugeType\":\"Arc\",\"invertColors\":false,\"labels\":{\"color\":\"black\",\"show\":true},\"orientation\":\"vertical\",\"percentageMode\":false,\"scale\":{\"color\":\"#333\",\"labels\":false,\"show\":true,\"width\":2},\"style\":{\"bgColor\":false,\"bgFill\":\"#000\",\"fontSize\":60,\"labelColor\":true,\"subText\":\"\"},\"type\":\"meter\",\"useRanges\":false,\"verticalSplit\":false},\"type\":\"gauge\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"Value\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"_term\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 2500\":\"rgb(0,104,55)\",\"2500 - 4000\":\"rgb(255,255,190)\",\"4000 - 5500\":\"rgb(165,0,38)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"injectedBeanName.keyword\",\"value\":\"kafka.server\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"kafka.server\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"ReplicaManager\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"ReplicaManager\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"name.keyword\",\"value\":\"PartitionCount\"},\"query\":{\"match\":{\"name.keyword\":{\"query\":\"PartitionCount\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "42c650d0-6ccd-11ea-9bcf-f9147928f9d6",
+    "_type": "visualization",
+    "_source": {
+      "title": "Connect - Overall Status Pie",
+      "visState": "{\"title\":\"Connect - Overall Status Pie\",\"type\":\"pie\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"connector-total-task-count\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"connector.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Connectors\"}},{\"id\":\"6\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"connector-total-task-count\",\"size\":100,\"orderAgg\":{\"id\":\"6-orderAgg\",\"enabled\":true,\"type\":\"avg\",\"schema\":{\"group\":\"none\",\"name\":\"orderAgg\",\"title\":\"Order Agg\",\"hideCustomLabel\":true,\"aggFilter\":[\"!top_hits\",\"!percentiles\",\"!median\",\"!std_dev\",\"!derivative\",\"!moving_avg\",\"!serial_diff\",\"!cumulative_sum\",\"!avg_bucket\",\"!max_bucket\",\"!min_bucket\",\"!sum_bucket\"],\"min\":0,\"max\":null,\"editor\":false,\"params\":[],\"deprecate\":false},\"params\":{\"field\":\"connector-total-task-count\"}},\"order\":\"desc\",\"orderBy\":\"custom\",\"customLabel\":\"Tasks\"}},{\"id\":\"8\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Task Status\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaConnect\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaConnect\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"type\":\"phrases\",\"key\":\"type.keyword\",\"value\":\"connector-task-metrics, connector-metrics\",\"params\":[\"connector-task-metrics\",\"connector-metrics\"],\"negate\":false,\"disabled\":false,\"alias\":null},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"type.keyword\":\"connector-task-metrics\"}},{\"match_phrase\":{\"type.keyword\":\"connector-metrics\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "36d763e0-6cb4-11ea-b734-0b2476c9d922",
+    "_type": "visualization",
+    "_source": {
+      "title": "ZooKeeper - Metrics",
+      "visState": "{\"title\":\"ZooKeeper - Metrics\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":true,\"autoExtend\":false,\"percentageMode\":false,\"gaugeType\":\"Metric\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"useRange\":false,\"colorsRange\":[{\"from\":0,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"simple\",\"style\":{\"fontSize\":60,\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"DataDirSize\",\"customLabel\":\"Data Directory Size\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"NumAliveConnections\",\"customLabel\":\"Alive Connections\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"max\",\"schema\":\"metric\",\"params\":{\"field\":\"PacketsReceived\",\"customLabel\":\"Packets Received\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"PacketsSent\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"ZooKeeper\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"ZooKeeper\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName\",\"negate\":false,\"type\":\"phrase\",\"value\":\"org.apache.ZooKeeperService\"},\"query\":{\"match\":{\"injectedBeanName\":{\"query\":\"org.apache.ZooKeeperService\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "8dd27730-6ee8-11ea-8bb0-d3c62957163d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Overall - Top 10 Servers ( Free Swap Space )",
+      "visState": "{\"title\":\"Overall - Top 10 Servers ( Free Swap Space )\",\"type\":\"heatmap\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"enableHover\":false,\"legendPosition\":\"right\",\"times\":[],\"colorsNumber\":4,\"colorSchema\":\"Greens\",\"setColorRange\":false,\"colorsRange\":[],\"invertColors\":false,\"percentageMode\":false,\"valueAxes\":[{\"show\":false,\"id\":\"ValueAxis-1\",\"type\":\"value\",\"scale\":{\"type\":\"linear\",\"defaultYExtents\":false},\"labels\":{\"show\":false,\"rotate\":0,\"color\":\"#555\"}}]},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"FreeSwapSpaceSize\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Free Swap Size - From JMX\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"HostName\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"createdDateTime\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Timestamp\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 250,000,000\":\"rgb(247,252,245)\",\"250,000,000 - 500,000,000\":\"rgb(199,233,192)\",\"500,000,000 - 750,000,000\":\"rgb(116,196,118)\",\"750,000,000 - 1,000,000,000\":\"rgb(35,139,69)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"java.lang\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"java.lang\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"OperatingSystem\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"OperatingSystem\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "8966ea40-6ee9-11ea-8bb0-d3c62957163d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Overall - Average Heap & Non Heap space usage per server",
+      "visState": "{\"title\":\"Overall - Average Heap & Non Heap space usage per server\",\"type\":\"line\",\"params\":{\"grid\":{\"categoryLines\":true,\"style\":{\"color\":\"#eee\"},\"valueAxis\":\"ValueAxis-1\"},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100,\"filter\":true},\"title\":{\"text\":\"TimeStamp\"}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"square root\",\"mode\":\"wiggle\",\"defaultYExtents\":false,\"setYExtents\":false},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":true,\"truncate\":100},\"title\":{\"text\":\"\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"line\",\"mode\":\"normal\",\"data\":{\"label\":\"Heap Space Used\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true},{\"show\":true,\"mode\":\"normal\",\"type\":\"line\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"interpolate\":\"linear\",\"lineWidth\":2,\"data\":{\"id\":\"5\",\"label\":\"Average NonHeapMemoryUsage.used\"},\"valueAxis\":\"ValueAxis-1\"}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"bottom\",\"times\":[],\"addTimeMarker\":true},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"HeapMemoryUsage.used\",\"customLabel\":\"Heap Space Used\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"split\",\"params\":{\"field\":\"injectedServerType.keyword\",\"size\":10,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Server Type\",\"row\":true}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":10,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"HostName\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"createdDateTime\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"TimeStamp\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"NonHeapMemoryUsage.used\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"java.lang\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"java.lang\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"Memory\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"Memory\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "bc8f9330-6eea-11ea-8bb0-d3c62957163d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Overall - Current System Stats",
+      "visState": "{\"title\":\"Overall - Current System Stats\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"4\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"AvailableProcessors\",\"aggregate\":\"max\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"No of Processors\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"SystemCpuLoad\",\"customLabel\":\"CPU Load\"}},{\"id\":\"6\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"OpenFileDescriptorCount\",\"customLabel\":\"Avg Open File Descriptors\"}},{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"FreeSwapSpaceSize\",\"customLabel\":\"Free Swap Size\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"injectedServerType.keyword\",\"size\":100,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Server Type\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":100,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"HostName\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"java.lang\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"java.lang\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"OperatingSystem\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"OperatingSystem\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "6ed77df0-6f04-11ea-8de0-ff7b1d71f04d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Broker Request Queue Metrics",
+      "visState": "{\"title\":\"Kafka - Broker Request Queue Metrics\",\"type\":\"histogram\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"show\":true,\"truncate\":100},\"position\":\"bottom\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"Timestamp\"},\"type\":\"category\"}],\"grid\":{\"categoryLines\":true,\"style\":{\"color\":\"#eee\"},\"valueAxis\":null},\"legendPosition\":\"top\",\"seriesParams\":[{\"data\":{\"id\":\"1\",\"label\":\"Avg One Minute Rate\"},\"drawLinesBetweenPoints\":true,\"interpolate\":\"cardinal\",\"mode\":\"stacked\",\"show\":\"true\",\"showCircles\":true,\"type\":\"histogram\",\"valueAxis\":\"ValueAxis-1\"},{\"show\":true,\"mode\":\"normal\",\"type\":\"line\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"interpolate\":\"cardinal\",\"lineWidth\":3,\"data\":{\"id\":\"5\",\"label\":\"Average Mean\"},\"valueAxis\":\"ValueAxis-2\"}],\"times\":[],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"left\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"Avg One Minute Rate\"},\"type\":\"value\"},{\"id\":\"ValueAxis-2\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":100},\"name\":\"RightAxis-1\",\"position\":\"right\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"Average Mean\"},\"type\":\"value\"}]},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"99thPercentile\",\"customLabel\":\"Avg One Minute Rate\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"request.keyword\",\"size\":200,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Metric Type\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"createdDateTime\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Timestamp\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Mean\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"split\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Hostname\",\"row\":true}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaBroker\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedBeanName.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"kafka.network\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"kafka.network\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"RequestMetrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"RequestMetrics\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"name.keyword\",\"value\":\"RequestQueueTimeMs\"},\"query\":{\"match\":{\"name.keyword\":{\"query\":\"RequestQueueTimeMs\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"type\":\"phrases\",\"key\":\"request.keyword\",\"value\":\"Produce, FetchConsumer, FetchFollower\",\"params\":[\"Produce\",\"FetchConsumer\",\"FetchFollower\"],\"negate\":false,\"disabled\":false,\"alias\":null},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"request.keyword\":\"Produce\"}},{\"match_phrase\":{\"request.keyword\":\"FetchConsumer\"}},{\"match_phrase\":{\"request.keyword\":\"FetchFollower\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "b5445330-6cac-11ea-901c-cd436ac7e699",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Heap Usage",
+      "visState": "{\"title\":\"Kafka - Heap Usage\",\"type\":\"line\",\"params\":{\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{\"text\":\"Timestamp\"}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"line\",\"mode\":\"normal\",\"data\":{\"label\":\"Heap Used\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true},{\"show\":true,\"mode\":\"normal\",\"type\":\"line\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"interpolate\":\"linear\",\"lineWidth\":2,\"data\":{\"id\":\"3\",\"label\":\"Off Heap Used\"},\"valueAxis\":\"ValueAxis-1\"}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"HeapMemoryUsage.used\",\"customLabel\":\"Heap Used\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"createdDateTime\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Timestamp\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"NonHeapMemoryUsage.used\",\"customLabel\":\"Off Heap Used\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Host Name\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaBroker\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type\",\"negate\":false,\"type\":\"phrase\",\"value\":\"Memory\"},\"query\":{\"match\":{\"type\":{\"query\":\"Memory\",\"type\":\"phrase\"}}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "8cc24970-6ca8-11ea-901c-cd436ac7e699",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Top 50 Topics with Partition count",
+      "visState": "{\"title\":\"Kafka - Top 50 Topics with Partition count\",\"type\":\"table\",\"params\":{\"perPage\":16,\"showPartialRows\":false,\"showMeticsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"partition.keyword\",\"customLabel\":\"Partitions\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"topic.keyword\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Top 50 Topics\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"injectedServerType.keyword\",\"value\":\"KafkaBroker\"},\"query\":{\"match\":{\"injectedServerType.keyword\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "fbab8620-6f15-11ea-8de0-ff7b1d71f04d",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Consumer - Client ID Count",
+      "visState": "{\"title\":\"Kafka - Consumer - Client ID Count\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":false,\"autoExtend\":false,\"percentageMode\":false,\"gaugeType\":\"Metric\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"useRange\":false,\"colorsRange\":[{\"from\":0,\"to\":100}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"simple\",\"style\":{\"fontSize\":60,\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"cardinality\",\"schema\":\"metric\",\"params\":{\"field\":\"client-id.keyword\",\"customLabel\":\"Total Clients\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"injectedBeanName.keyword\",\"value\":\"kafka.consumer\"},\"query\":{\"match\":{\"injectedBeanName.keyword\":{\"query\":\"kafka.consumer\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"consumer-fetch-manager-metrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"consumer-fetch-manager-metrics\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"exists\",\"key\":\"client-id.keyword\",\"value\":\"exists\"},\"exists\":{\"field\":\"client-id.keyword\"},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"exists\",\"key\":\"records-lag-max\",\"value\":\"exists\"},\"exists\":{\"field\":\"records-lag-max\"},\"$state\":{\"store\":\"globalState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "955fce30-6cd1-11ea-9fd8-27748c9efdf1",
+    "_type": "visualization",
+    "_source": {
+      "title": "Kafka - Active Controller",
+      "visState": "{\"title\":\"Kafka - Active Controller\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"verticalSplit\":false,\"autoExtend\":false,\"percentageMode\":false,\"gaugeType\":\"Metric\",\"gaugeStyle\":\"Full\",\"backStyle\":\"Full\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"gaugeColorMode\":\"None\",\"useRange\":false,\"colorsRange\":[{\"from\":0,\"to\":1}],\"invertColors\":false,\"labels\":{\"show\":true,\"color\":\"black\"},\"scale\":{\"show\":false,\"labels\":false,\"color\":\"#333\",\"width\":2},\"type\":\"simple\",\"style\":{\"fontSize\":\"20\",\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"Value\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Controller\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"injectedHostName.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Controller Label\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"defaultColors\":{\"0 - 1\":\"rgb(0,104,55)\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaBroker\"},\"query\":{\"match\":{\"injectedServerType.keyword\":{\"query\":\"KafkaBroker\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"globalState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"type.keyword\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaController\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"KafkaController\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"name.keyword\",\"value\":\"ActiveControllerCount\"},\"query\":{\"match\":{\"name.keyword\":{\"query\":\"ActiveControllerCount\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"globalState\"}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"Value\",\"value\":\"1\"},\"query\":{\"match\":{\"Value\":{\"query\":1,\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "3c23cb30-6cc4-11ea-9bcf-f9147928f9d6",
+    "_type": "visualization",
+    "_source": {
+      "title": "Connect - Task Drill Down",
+      "visState": "{\"title\":\"Connect - Task Drill Down\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showMeticsAtAllLevels\":false,\"showPartialRows\":false,\"showTotal\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"4\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"status.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Status\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"connector.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Connector Name\"}},{\"id\":\"13\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"running-ratio\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Running Ratio\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"task.keyword\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"_term\",\"customLabel\":\"Task ID\"}},{\"id\":\"14\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"pause-ratio\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Pause Ratio\"}},{\"id\":\"10\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"batch-size-max\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Max Batch Size\"}},{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"batch-size-avg\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Avg Batch Size\"}},{\"id\":\"11\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"offset-commit-avg-time-ms\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Offset Commit Avg Time (ms)\"}},{\"id\":\"12\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"offset-commit-failure-percentage\",\"aggregate\":\"average\",\"size\":1,\"sortField\":\"createdDateTime\",\"sortOrder\":\"desc\",\"customLabel\":\"Offset Commit Failure %age\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":8,\"direction\":\"desc\"}}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"kafka-jmx-logs-*\",\"query\":{\"match_all\":{}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"kafka-jmx-logs-*\",\"key\":\"injectedServerType\",\"negate\":false,\"type\":\"phrase\",\"value\":\"KafkaConnect\"},\"query\":{\"match\":{\"injectedServerType\":{\"query\":\"KafkaConnect\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"kafka-jmx-logs-*\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"type.keyword\",\"value\":\"connector-task-metrics\"},\"query\":{\"match\":{\"type.keyword\":{\"query\":\"connector-task-metrics\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  }
+]
