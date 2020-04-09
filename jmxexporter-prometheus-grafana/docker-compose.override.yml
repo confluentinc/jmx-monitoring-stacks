@@ -31,6 +31,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.11.1
+    container_name: prometheus
     ports:
       - 9090:9090
     volumes:
@@ -38,6 +39,7 @@ services:
 
   node-exporter:
     image: prom/node-exporter:v0.18.1
+    container_name: node-exporter
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -50,6 +52,7 @@ services:
 
   kafka-lag-exporter:
     image: lightbend/kafka-lag-exporter:0.5.5
+    container_name: kafka-lag-exporter
     hostname: kafka-lag-exporter
     restart: always
     volumes:
@@ -58,6 +61,7 @@ services:
 
   grafana:
     image: grafana/grafana:6.6.2
+    container_name: grafana
     environment:
       GF_INSTALL_PLUGINS: grafana-piechart-panel
     ports:
