@@ -1,9 +1,13 @@
 # Overview
 
-Two JMX monitoring stacks to be run in conjunction with [cp-demo](https://github.com/confluentinc/cp-demo)
+This GitHub repo provides example JMX monitoring stacks that can monitor Confluent Platform.
+They serve a larger purpose to our customers, typically allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have visibility in one place.
+That said, Control Center should always be the best at providing an opinionated view of Kafka monitoring.
 
 * jmxexporter-prometheus-grafana
 * jolokia-elastic-kibana
+
+This repo is intended to be run specifically with [cp-demo](https://github.com/confluentinc/cp-demo).
 
 # Run
 
