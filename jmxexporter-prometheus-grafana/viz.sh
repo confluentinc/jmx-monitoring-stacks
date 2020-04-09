@@ -2,7 +2,7 @@
 
 KAFKA_CLUSTER_ID=$(docker-compose exec zookeeper zookeeper-shell zookeeper:2181 get /cluster/id 2> /dev/null | grep \"version\" | jq -r .id)
 #KAFKA_LAG_EXPORTER="User:kafkaLagExporter"
-KAFKA_LAG_EXPORTER="User:clientListen"
+KAFKA_LAG_EXPORTER="User:kafkaLagExporter"
 echo "Creating role bindings for kafka lag exporter"
 docker-compose exec tools bash -c "confluent iam rolebinding create \
     --principal $KAFKA_LAG_EXPORTER \
