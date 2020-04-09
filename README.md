@@ -7,7 +7,10 @@ Two JMX monitoring stacks to be run in conjunction with [cp-demo](https://github
 
 # Run
 
-1. Define parameters `CONFLUENT_RELEASE_TAG_OR_BRANCH` (GitHub branch: supports only `5.4.1-post` at this time) and `STACK` (monitoring stack: supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`).
+1. Define parameters:
+
+* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both conflueentinc/cp-demo and confleuntinc/jmx-monitoring-stacks (supports only `5.4.1-post` at this time)
+* `STACK`: monitoring stack to demo (supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`)
 
 ```bash
 CONFLUENT_RELEASE_TAG_OR_BRANCH=5.4.1-post
@@ -42,7 +45,7 @@ yes | cp -f jmx-monitoring-stacks/${STACK}/docker-compose.override.yml .
 ./scripts/start.sh
 ```
 
-6. Run additional containers required for the monitoring stack.
+6. Bring up additional containers required for the monitoring stack and visualizations.
 
 ```bash
 ./jmx-monitoring-stacks/${STACK}/viz.sh
