@@ -17,7 +17,7 @@ This repo is intended to be run specifically with [cp-demo](https://github.com/c
 * `STACK`: monitoring stack to demo (supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`)
 
 ```bash
-CONFLUENT_RELEASE_TAG_OR_BRANCH=5.4.1-post
+CONFLUENT_RELEASE_TAG_OR_BRANCH=DEVX-1696
 STACK=jolokia-elastic-kibana
 ```
 
