@@ -3,13 +3,13 @@ services:
 
   zookeeper:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
       EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
 
   kafka1:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
                   -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
@@ -18,7 +18,7 @@ services:
 
   kafka2:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
                   -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
@@ -27,7 +27,7 @@ services:
 
   connect:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets/prometheus/jmx-exporter/:/tmp/jmx-exporter
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/tmp/jmx-exporter
 
   prometheus:
     image: prom/prometheus:v2.11.1
@@ -35,7 +35,7 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets/prometheus/prometheus-config/:/etc/prometheus/
+      - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus/
 
   node-exporter:
     image: prom/node-exporter:v0.18.1
@@ -56,8 +56,8 @@ services:
     hostname: kafka-lag-exporter
     restart: always
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets/prometheus/kafka-lag-exporter:/opt/docker/conf
-      - ./scripts/security:/etc/kafka/secrets
+      - $MONITORING_STACK/assets/prometheus/kafka-lag-exporter:/opt/docker/conf
+      - $MONITORING_STACK/assets/prometheus/security:/etc/kafka/secrets
 
   grafana:
     image: grafana/grafana:6.6.2
@@ -67,4 +67,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - $PWD/jmx-monitoring-stacks/jmxexporter-prometheus-grafana/assets//prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
