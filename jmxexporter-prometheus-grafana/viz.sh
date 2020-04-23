@@ -1,6 +1,9 @@
 #!/bin/bash
 
-CP_DEMO_HOME=$(realpath ../../cp-demo)
+DEFAULT_CP_DEMO_HOME=$(realpath ../../cp-demo)
+CP_DEMO_HOME=${CP_DEMO_HOME:-$DEFAULT_CP_DEMO_HOME}
+
+echo "Using cp-demo in $CP_DEMO_HOME"
 
 export MONITORING_STACK=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 export DOCKER_COMPOSE_OPTS="-f $CP_DEMO_HOME/docker-compose.yml -f $MONITORING_STACK/docker-compose.override.yml"
