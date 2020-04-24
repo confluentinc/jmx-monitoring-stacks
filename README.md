@@ -13,7 +13,7 @@ This repo is intended to be run specifically with [cp-demo](https://github.com/c
 
 1. Define parameters:
 
-* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both conflueentinc/cp-demo and confleuntinc/jmx-monitoring-stacks (supports only `5.4.1-post` at this time)
+* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both conflueentinc/cp-demo and confleuntinc/jmx-monitoring-stacks (supports only `5.4.1-post` and `5.5.0-post` at this time)
 * `STACK`: monitoring stack to demo (supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`)
 
 ```bash
@@ -29,28 +29,15 @@ cd cp-demo
 git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull
 ```
 
-3. Clone jmx-monitoring-stacks specifically into the main cp-demo folder.
+3. Clone jmx-monitoring-stacks and checkout the appropriate release
 
 ```bash
-# Do this from within the cp-demo directory
 [[ -d "jmx-monitoring-stacks" ]] || git clone https://github.com/confluentinc/jmx-monitoring-stacks.git
 (cd jmx-monitoring-stacks && git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull)
 ```
 
-4. Copy the docker-compose.override.yml file.
+4. Start cp-demo with the STACK of your choice 
 
 ```bash
-yes | cp -f jmx-monitoring-stacks/${STACK}/docker-compose.override.yml .
-```
-
-5. Run cp-demo.
-
-```bash
-./scripts/start.sh
-```
-
-6. Bring up additional containers required for the monitoring stack and visualizations.
-
-```bash
-./jmx-monitoring-stacks/${STACK}/viz.sh
+./jmx-monitoring-stacks/${STACK}/start.sh
 ```
