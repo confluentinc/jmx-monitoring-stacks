@@ -14,6 +14,7 @@ echo -e "Launch CP - demo"
 echo -e "Create user and certificates for kafkaLagExporter"
 KAFKA_LAG_EXPORTER="User:kafkaLagExporter"
 cd $MONITORING_STACK/assets/prometheus/security
+mkdir -p $MONITORING_STACK/assets/prometheus/security
 rm -f *.crt *.csr *_creds *.jks *.srl *.key *.pem *.der *.p12
 $CP_DEMO_HOME/scripts/security/certs-create-per-user.sh kafkaLagExporter
 
