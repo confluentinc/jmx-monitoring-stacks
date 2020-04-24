@@ -9,8 +9,7 @@ export MONITORING_STACK=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 export DOCKER_COMPOSE_OPTS="-f $CP_DEMO_HOME/docker-compose.yml -f $MONITORING_STACK/docker-compose.override.yml"
 
 echo -e "Launch CP - demo"
-cd $CP_DEMO_HOME
-./scripts/start.sh
+(cd $CP_DEMO_HOME && ./scripts/start.sh)
 
 echo -e "Create user and certificates for kafkaLagExporter"
 KAFKA_LAG_EXPORTER="User:kafkaLagExporter"
