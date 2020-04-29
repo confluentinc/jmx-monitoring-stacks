@@ -24,8 +24,7 @@ STACK=jmxexporter-prometheus-grafana
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
-cd cp-demo
-git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull
+(cd cp-demo && git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull)
 ```
 
 3. Clone this repo `jmx-monitoring-stacks` and checkout a compatible release.
