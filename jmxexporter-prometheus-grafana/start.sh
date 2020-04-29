@@ -1,6 +1,8 @@
 #!/bin/bash
 
-DEFAULT_CP_DEMO_HOME=$(realpath ../../cp-demo)
+. ../helper/fullpath.sh
+
+DEFAULT_CP_DEMO_HOME=$(fullpath ../../cp-demo)
 CP_DEMO_HOME=${CP_DEMO_HOME:-$DEFAULT_CP_DEMO_HOME}
 
 echo "Using cp-demo in $CP_DEMO_HOME"
