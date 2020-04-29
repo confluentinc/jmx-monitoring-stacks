@@ -43,3 +43,10 @@ git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull
 cd ${MONITORING_STACK}
 ./start.sh
 ```
+
+5. Start cp-demo and the MONITORING_STACK
+
+```bash
+cd ${MONITORING_STACK}
+./stop.sh
+```
