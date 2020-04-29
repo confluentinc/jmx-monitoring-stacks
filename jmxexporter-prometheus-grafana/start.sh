@@ -4,7 +4,7 @@
 # Start cp-demo
 ########################################
 
-export MONITORING_STACK=$(realpath $(dirname "${BASH_SOURCE[0]}"))
+export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 . $MONITORING_STACK/../utils/setup_cp_demo.sh
 
