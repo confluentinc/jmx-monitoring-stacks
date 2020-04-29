@@ -1,16 +1,29 @@
 #!/bin/bash
 
-. ../helper/configure_cp_demo.sh
+########################################
+# Start cp-demo
+########################################
+
+DEFAULT_CP_DEMO_HOME=$(realpath ../../cp-demo)
+CP_DEMO_HOME=${CP_DEMO_HOME:-$DEFAULT_CP_DEMO_HOME}
+
+export MONITORING_STACK=$(realpath $(dirname "${BASH_SOURCE[0]}"))
+export COMPOSE_FILE="$CP_DEMO_HOME/docker-compose.yml:$MONITORING_STACK/docker-compose.override.yml"
 
 echo -e "Launch cp-demo in $CP_DEMO_HOME and monitoring stack in $MONITORING_STACK"
 (cd $CP_DEMO_HOME && ./scripts/start.sh)
 
+
+########################################
+# Start monitoring solution
+########################################
+
 echo -e "Create user and certificates for kafkaLagExporter"
 KAFKA_LAG_EXPORTER="User:kafkaLagExporter"
-mkdir -p $MONITORING_STACK/assets/prometheus/security
-cd $MONITORING_STACK/assets/prometheus/security
-rm -f *.crt *.csr *_creds *.jks *.srl *.key *.pem *.der *.p12
-ROOT_CA_DIR=$PWD $CP_DEMO_HOME/scripts/security/certs-create-per-user.sh kafkaLagExporter
+SECURITY_DIR="${MONITORING_STACK}/assets/prometheus/security"
+mkdir -p $SECURITY_DIR
+(cd $SECURITY_DIR && rm -f *.crt *.csr *_creds *.jks *.srl *.key *.pem *.der *.p12)
+(cd $SECURITY_DIR && $CP_DEMO_HOME/scripts/security/certs-create-per-user.sh kafkaLagExporter)
 
 echo -e "Create role binding for kafkaLagExporter"
 cd $CP_DEMO_HOME
