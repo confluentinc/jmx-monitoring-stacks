@@ -37,16 +37,14 @@ git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull
 (cd jmx-monitoring-stacks && git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull)
 ```
 
-4. Start cp-demo with the MONITORING_STACK of your choice 
+4. Start cp-demo with the MONITORING_STACK
 
 ```bash
-cd ${MONITORING_STACK}
-./start.sh
+${MONITORING_STACK}/start.sh
 ```
 
-5. Start cp-demo and the MONITORING_STACK
+5. Stop cp-demo and the MONITORING_STACK
 
 ```bash
-cd ${MONITORING_STACK}
-./stop.sh
+${MONITORING_STACK}/stop.sh
 ```
