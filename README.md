@@ -13,12 +13,13 @@ This repo is intended to be run specifically with [cp-demo](https://github.com/c
 
 1. Define parameters:
 
-* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both conflueentinc/cp-demo and confleuntinc/jmx-monitoring-stacks (supports only `5.4.1-post` and `5.5.0-post` at this time)
-* `STACK`: monitoring stack to demo (supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`)
+* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both conflueentinc/cp-demo and confleuntinc/jmx-monitoring-stacks (supports only `5.5.0-post` at this time)
+* `MONITORING_STACK`: monitoring stack to demo (supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`)
 
 ```bash
-CONFLUENT_RELEASE_TAG_OR_BRANCH=5.4.1-post
-STACK=jolokia-elastic-kibana
+CONFLUENT_RELEASE_TAG_OR_BRANCH=5.5.0-post
+MONITORING_STACK=jmxexporter-prometheus-grafana
+
 ```
 
 2. Clone cp-demo and checkout the appropriate release.
@@ -36,8 +37,9 @@ git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull
 (cd jmx-monitoring-stacks && git fetch && git checkout ${CONFLUENT_RELEASE_TAG_OR_BRANCH} && git pull)
 ```
 
-4. Start cp-demo with the STACK of your choice 
+4. Start cp-demo with the MONITORING_STACK of your choice 
 
 ```bash
-./jmx-monitoring-stacks/${STACK}/start.sh
+cd ${MONITORING_STACK}
+./start.sh
 ```
