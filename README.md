@@ -1,7 +1,7 @@
 # Overview
 
 This GitHub repo provides example JMX monitoring stacks that can monitor Confluent Platform.
-Control Center is the best at providing an opinionated view of Kafka monitoring but JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
+Control Center provides an opinionated view of Apache Kafka monitoring but JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
 * jmxexporter-prometheus-grafana
 * jolokia-elastic-kibana
