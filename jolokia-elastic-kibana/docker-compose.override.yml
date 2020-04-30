@@ -3,7 +3,7 @@ services:
 
   zookeeper:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
+      - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_jaas.conf
                   -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider
@@ -12,7 +12,7 @@ services:
 
   kafka1:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
+      - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
                   -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
@@ -21,7 +21,7 @@ services:
 
   kafka2:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
+      - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
                   -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
@@ -30,7 +30,7 @@ services:
 
   connect:
     volumes:
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
+      - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
       KAFKA_OPTS: -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.connect.truststore.jks
                   -Djavax.net.ssl.trustStorePassword=confluent
@@ -46,7 +46,7 @@ services:
     depends_on:
       - kibana
     volumes:
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/Parse_JMX.py:/tmp/JMXParser/Parse_JMX.py:rw
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/requirements.txt:/tmp/JMXParser/requirements.txt:rw
-      - $PWD/jmx-monitoring-stacks/jolokia-elastic-kibana/assets/jmx_dashboard.json:/tmp/JMXParser/jmx_dashboard.json:rw
+      - $MONITORING_STACK/assets/Parse_JMX.py:/tmp/JMXParser/Parse_JMX.py:rw
+      - $MONITORING_STACK/assets/requirements.txt:/tmp/JMXParser/requirements.txt:rw
+      - $MONITORING_STACK/assets/jmx_dashboard.json:/tmp/JMXParser/jmx_dashboard.json:rw
     command: "bash -c 'pip install -r /tmp/JMXParser/requirements.txt && cd /tmp/JMXParser && python /tmp/JMXParser/Parse_JMX.py'"
