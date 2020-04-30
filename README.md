@@ -1,19 +1,23 @@
 # Overview
 
-This GitHub repo provides example JMX monitoring stacks that can monitor Confluent Platform.
-Control Center provides an opinionated view of Apache Kafka monitoring but JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
+https://github.com/confluentinc/jmx-monitoring-stacks provides example JMX monitoring stacks that can monitor Confluent Platform.
+While Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
-* jmxexporter-prometheus-grafana
-* jolokia-elastic-kibana
+* [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
+* [jolokia-elastic-kibana](jolokia-elastic-kibana)
 
-This repo is intended to be run specifically with [cp-demo](https://github.com/confluentinc/cp-demo).
+# Disclaimer
+
+This repo is intentionally private at the moment.
 
 # Run
 
+This repo is intended to be run specifically with [cp-demo](https://github.com/confluentinc/cp-demo).
+
 1. Define parameters:
 
-* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both conflueentinc/cp-demo and confleuntinc/jmx-monitoring-stacks (supports only `5.5.0-post` at this time)
-* `STACK`: monitoring stack to demo (supports either `jmxexporter-prometheus-grafana` or `jolokia-elastic-kibana`)
+* `CONFLUENT_RELEASE_TAG_OR_BRANCH`: GitHub branch to use in both confluentinc/cp-demo and confluentinc/jmx-monitoring-stacks (supports only `5.5.0-post` at this time)
+* `STACK`: monitoring stack to demo (supports either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana) or [jolokia-elastic-kibana](jolokia-elastic-kibana))
 
 ```bash
 CONFLUENT_RELEASE_TAG_OR_BRANCH=5.5.0-post
