@@ -5,10 +5,7 @@ services:
     volumes:
       - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
-      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_jaas.conf
-                  -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider
-                  -DrequireClientAuthScheme=sasl
-                  -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
+      EXTRA_ARGS: -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
 
   kafka1:
     volumes:
@@ -43,8 +40,6 @@ services:
     container_name: jmx-data-poller
     cpus: 0.2
     restart: always
-    depends_on:
-      - kibana
     volumes:
       - $MONITORING_STACK/assets/Parse_JMX.py:/tmp/JMXParser/Parse_JMX.py:rw
       - $MONITORING_STACK/assets/requirements.txt:/tmp/JMXParser/requirements.txt:rw
