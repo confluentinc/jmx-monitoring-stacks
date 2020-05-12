@@ -41,13 +41,13 @@ STACK=jolokia-elastic-kibana
 (cd jmx-monitoring-stacks && git fetch && git checkout 5.5.0-post && git pull)
 ```
 
-5. Start the monitoring solution with the STACK selected. Note that this also starts cp-demo, you do not need to start cp-demo separately.
+5. Start the monitoring solution with the STACK selected. This command also starts cp-demo, you do not need to start cp-demo separately.
 
 ```bash
 ${STACK}/start.sh
 ```
 
-6. Stop the monitoring solution.
+6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
 ```bash
 ${STACK}/stop.sh
