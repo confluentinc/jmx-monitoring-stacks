@@ -6,10 +6,6 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 * [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 * [jolokia-elastic-kibana](jolokia-elastic-kibana)
 
-# Disclaimer
-
-This repo is intentionally private at the moment.
-
 # Run
 
 This repo is intended to be run specifically with [cp-demo](https://github.com/confluentinc/cp-demo).
