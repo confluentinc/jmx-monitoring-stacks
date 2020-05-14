@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This method does a job similar to realpath, but avoid that extra dependency.
+# It returns fullpath for a given parameter to avoind using relative paths.
 fullpath ()
 {
    fullpath=$(cd $1 && pwd -P)
