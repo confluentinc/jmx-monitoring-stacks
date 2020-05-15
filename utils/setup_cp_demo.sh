@@ -1,6 +1,15 @@
 #!/bin/bash
 
-DEFAULT_CP_DEMO_HOME=$(realpath ${MONITORING_STACK}/../../cp-demo)
+# This method does a job similar to realpath, but avoid that extra dependency.
+# It returns fullpath for a given parameter to avoind using relative paths.
+fullpath ()
+{
+   fullpath=$(cd $1 && pwd -P)
+   echo $fullpath
+   cd $OLDPWD
+}
+
+DEFAULT_CP_DEMO_HOME=$(fullpath ${MONITORING_STACK}/../../cp-demo)
 CP_DEMO_HOME=${CP_DEMO_HOME:-$DEFAULT_CP_DEMO_HOME}
 
 [ -d "${CP_DEMO_HOME}" ] || {

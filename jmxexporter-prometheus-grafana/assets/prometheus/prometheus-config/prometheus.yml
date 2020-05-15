@@ -1,6 +1,14 @@
 global:
-  scrape_interval:     15s # By default, scrape targets every 15 seconds.
-  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+  # How frequently to scrape targets by default.
+  # Default 15s
+  scrape_interval:     60s
+  # How frequently to evaluate rules.
+  # Default 15s
+  evaluation_interval: 15s
+  # How long until a scrape request times out.
+  # Default to 10s.
+  # Required because cp-demo is using cpu throttling, so let's leave enough time to fetch the metrics in particular for the first time as it needs to compile all rexps
+  scrape_timeout: 30s
 
 rule_files:
   - 'alert.rules'
@@ -36,19 +44,21 @@ scrape_configs:
       labels:
         env: 'dev'
 
-  - job_name: 'producer'
-    static_configs:
-      - targets:
-          - 'producer:1234'
-        labels:
-          env: 'dev'
+# No producer for the moment in cp-demo
+#  - job_name: 'producer'
+#    static_configs:
+#      - targets:
+#          - 'producer:1234'
+#        labels:
+#          env: 'dev'
 
-  - job_name: 'consumer'
-    static_configs:
-      - targets:
-          - "consumer:1234"
-        labels:
-          env: 'dev'
+# No consumer for the moment in cp-demo
+#  - job_name: 'consumer'
+#    static_configs:
+#      - targets:
+#          - "consumer:1234"
+#        labels:
+#          env: 'dev'
 
   - job_name: 'kafka-lag-exporter'
     static_configs:

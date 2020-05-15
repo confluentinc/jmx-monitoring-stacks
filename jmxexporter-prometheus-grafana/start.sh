@@ -12,6 +12,7 @@ echo -e "Launch cp-demo in $CP_DEMO_HOME (version $CP_DEMO_VERSION) and monitori
 (cd $CP_DEMO_HOME && ./scripts/start.sh)
 
 
+
 ########################################
 # Start monitoring solution
 ########################################
