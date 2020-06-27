@@ -36,7 +36,8 @@ services:
                   -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
 
   elasticsearch:
-    cpu: 0.8
+    cpus: 0.8
+
   jmx-data-poller:
     image: abhiwalia/kafkajmxexporter:latest
     container_name: jmx-data-poller
