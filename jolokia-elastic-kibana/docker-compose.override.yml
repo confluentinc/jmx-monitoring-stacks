@@ -35,13 +35,27 @@ services:
                   -Djavax.net.ssl.keyStorePassword=confluent
                   -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
 
+  elasticsearch:
+    cpu: 0.8
   jmx-data-poller:
-    image: python:latest
+    image: abhiwalia/kafkajmxexporter:latest
     container_name: jmx-data-poller
     cpus: 0.2
     restart: always
-    volumes:
-      - $MONITORING_STACK/assets/Parse_JMX.py:/tmp/JMXParser/Parse_JMX.py:rw
-      - $MONITORING_STACK/assets/requirements.txt:/tmp/JMXParser/requirements.txt:rw
-      - $MONITORING_STACK/assets/jmx_dashboard.json:/tmp/JMXParser/jmx_dashboard.json:rw
-    command: "bash -c 'pip install -r /tmp/JMXParser/requirements.txt && cd /tmp/JMXParser && python /tmp/JMXParser/Parse_JMX.py'"
+    command: [ #Core JMX Metrics Gather Configurations
+              "--jmx-zk-server","http://zookeeper:49900/",
+              "--jmx-kafka-server","http://kafka1:49900/",
+              "--jmx-kafka-server","http://kafka2:49900/",
+              "--jmx-connect-server","http://connect:49900/",
+              # Connect REST data ingestion
+              "--enable-connect-rest-source",
+              "--connect-rest-endpoint","https://connect:8083/",
+              "--enable-connect-rest-auth",
+              "--connect-rest-auth-user","superUser",
+              "--connect-rest-auth-pass","superUser",
+              # Enable ES Data Sink to Gather all the JMX data and stream it to Elastic
+              "--enable-elastic-sink",
+              "--es-url","http://elasticsearch:9200/",
+              "--kibana-url","http://kibana:5601/",
+              "--es-bulk-url-timeout","60"
+    ]
