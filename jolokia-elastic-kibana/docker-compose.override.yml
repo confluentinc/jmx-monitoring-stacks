@@ -48,6 +48,7 @@ services:
               "--jmx-kafka-server","http://kafka1:49900/",
               "--jmx-kafka-server","http://kafka2:49900/",
               "--jmx-connect-server","http://connect:49900/",
+              "--jmx-ksql-server","http://ksqldb-server:49900/",
               # Connect REST data ingestion
               "--enable-connect-rest-source",
               "--connect-rest-endpoint","https://connect:8083/",
@@ -60,3 +61,11 @@ services:
               "--kibana-url","http://kibana:5601/",
               "--es-bulk-url-timeout","60"
     ]
+
+  ksqldb-server:
+    volumes:
+      - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
+    ports:
+      - 49931:49900
+    environment:
+      KSQL_OPTS: -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
