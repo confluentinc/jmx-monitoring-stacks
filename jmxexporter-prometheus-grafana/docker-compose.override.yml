@@ -62,7 +62,7 @@ services:
       - $MONITORING_STACK/assets/prometheus/security:/etc/kafka/secrets
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:7.0.6
     container_name: grafana
     environment:
       GF_INSTALL_PLUGINS: grafana-piechart-panel
