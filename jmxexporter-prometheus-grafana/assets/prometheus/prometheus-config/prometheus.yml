@@ -44,6 +44,14 @@ scrape_configs:
       labels:
         env: 'dev'
 
+  - job_name: 'connect'
+    static_configs:
+    - targets:
+        - 'connect:1234'
+      labels:
+        env: 'dev'
+        cluster: 'cluster1'
+
 # No producer for the moment in cp-demo
 #  - job_name: 'producer'
 #    static_configs:
