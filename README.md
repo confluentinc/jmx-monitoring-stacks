@@ -52,3 +52,12 @@ ${STACK}/start.sh
 ```bash
 ${STACK}/stop.sh
 ```
+
+# Confluent Cloud
+
+If you are using Confluent Cloud, you can also use the [Metrics API](https://docs.confluent.io/current/cloud/metrics-api.html), a queryable HTTP API to pull operational metrics about your Confluent Cloud deployment.
+See example usage:
+
+* https://github.com/Dabz/ccloudexporter
+* https://github.com/vdesabou/kafka-docker-playground/tree/master/ccloud/ccloudexporter
+* https://github.com/derplarsen/ccloud_utilization_analyzer
