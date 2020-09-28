@@ -1,6 +1,5 @@
 version: "2.3"
 services:
-
   zookeeper:
     volumes:
       - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
@@ -11,26 +10,27 @@ services:
     volumes:
       - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
-                  -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
-                  -Djavax.net.ssl.trustStorePassword=confluent
-                  -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-broker.yml
+      KAFKA_OPTS:
+        -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
+        -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
+        -Djavax.net.ssl.trustStorePassword=confluent
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-broker.yml
 
   kafka2:
     volumes:
       - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
-                  -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
-                  -Djavax.net.ssl.trustStorePassword=confluent
-                  -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-broker.yml
+      KAFKA_OPTS:
+        -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
+        -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
+        -Djavax.net.ssl.trustStorePassword=confluent
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-broker.yml
 
   streams-demo:
     volumes:
       - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
       JAVA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/streams.yml
-
 
   connect:
     volumes:
@@ -54,10 +54,10 @@ services:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.ignored-mount-points'
-      - '^(aufs|proc|nsfs|shm|cgroup|tmpfs|binfmt_misc|debugfs|devpts|fusectl|hugetlbfs|fuse.lxcfs|mqueue|pstore|securityfs|sysfs|autofs|devtmpfs|configfs)'
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.ignored-mount-points"
+      - "^(aufs|proc|nsfs|shm|cgroup|tmpfs|binfmt_misc|debugfs|devpts|fusectl|hugetlbfs|fuse.lxcfs|mqueue|pstore|securityfs|sysfs|autofs|devtmpfs|configfs)"
 
   kafka-lag-exporter:
     image: lightbend/kafka-lag-exporter:0.5.5
@@ -72,7 +72,10 @@ services:
     image: grafana/grafana:7.0.6
     container_name: grafana
     environment:
-      GF_INSTALL_PLUGINS: grafana-piechart-panel
+      - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
+      - "GF_SECURITY_ADMIN_USER=admin"
+      - "GF_SECURITY_ADMIN_PASSWORD=password"
+      - "GF_USERS_ALLOW_SIGN_UP=false"
     ports:
       - 3000:3000
     volumes:

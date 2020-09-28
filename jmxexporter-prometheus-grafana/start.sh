@@ -35,5 +35,5 @@ docker-compose exec tools bash -c "confluent iam rolebinding create \
 echo -e "Launch $MONITORING_STACK"
 docker-compose up -d prometheus node-exporter kafka-lag-exporter grafana
 
-echo -e "\nView Grafana dashboards at (admin/admin) ->"
+echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"
