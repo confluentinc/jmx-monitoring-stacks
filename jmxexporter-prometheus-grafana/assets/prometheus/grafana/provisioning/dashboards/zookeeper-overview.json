@@ -15,20 +15,22 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 6,
   "links": [],
   "panels": [
     {
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": null,
       "description": "Quorum Size of Zookeeper ensemble",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -60,7 +62,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -84,6 +85,8 @@
       "targets": [
         {
           "expr": "count(zookeeper_quorumsize)",
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -106,13 +109,15 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": null,
       "description": "Number of Alive Connections",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -144,7 +149,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -168,6 +172,8 @@
       "targets": [
         {
           "expr": "sum(zookeeper_numaliveconnections)",
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -192,20 +198,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                10
-              ],
+              "params": [10],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -228,6 +228,12 @@
       "dashes": false,
       "datasource": null,
       "description": "Number of queued requests in the server. This goes up when the server receives more requests than it can process",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -264,6 +270,7 @@
       "targets": [
         {
           "expr": "zookeeper_outstandingrequests",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -322,13 +329,15 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -360,7 +369,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -384,6 +392,8 @@
       "targets": [
         {
           "expr": "avg(zookeeper_inmemorydatatree_nodecount)",
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -406,13 +416,15 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": null,
       "description": "Number of Watchers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -444,7 +456,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -468,6 +479,8 @@
       "targets": [
         {
           "expr": "sum(zookeeper_inmemorydatatree_watchcount)",
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -493,6 +506,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -581,6 +600,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -669,6 +694,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -757,6 +788,12 @@
       "dashes": false,
       "datasource": null,
       "description": "Amount of time it takes for the server to respond to a client request",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -844,20 +881,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                10
-              ],
+              "params": [10],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -880,6 +911,12 @@
       "dashes": false,
       "datasource": null,
       "description": "Amount of time it takes for the server to respond to a client request",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -975,20 +1012,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                20
-              ],
+              "params": [20],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -1011,6 +1042,12 @@
       "dashes": false,
       "datasource": null,
       "description": "Amount of time it takes for the server to respond to a client request",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1102,7 +1139,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 22,
+  "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1114,7 +1151,6 @@
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
       "10s",
       "30s",
       "1m",
@@ -1129,5 +1165,5 @@
   "timezone": "",
   "title": "Zookeeper Overview",
   "uid": "H4xS98vWk",
-  "version": 1
+  "version": 2
 }
