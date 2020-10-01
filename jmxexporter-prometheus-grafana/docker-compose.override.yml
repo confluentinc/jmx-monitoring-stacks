@@ -14,7 +14,7 @@ services:
         -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
         -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
         -Djavax.net.ssl.trustStorePassword=confluent
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-broker.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   kafka2:
     volumes:
@@ -24,19 +24,37 @@ services:
         -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
         -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
         -Djavax.net.ssl.trustStorePassword=confluent
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-broker.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   streams-demo:
     volumes:
       - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      JAVA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/streams.yml
+      JAVA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_streams.yml
 
   connect:
     volumes:
       - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      KAFKA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka-connect.yml
+      KAFKA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_connect.yml
+
+  schemaregistry:
+    volumes:
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
+    environment:
+      SCHEMA_REGISTRY_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_schemaregistry.yml
+
+  ksqldb-server:
+    volumes:
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
+    environment:
+      KSQL_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_ksql.yml
+
+  restproxy:
+    volumes:
+      - $MONITORING_STACK/assets/prometheus/jmx-exporter/:/usr/share/jmx-exporter
+    environment:
+      KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
 
   prometheus:
     image: prom/prometheus:v2.11.1
