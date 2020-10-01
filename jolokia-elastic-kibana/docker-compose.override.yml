@@ -1,7 +1,8 @@
 version: "2.3"
 services:
-
   zookeeper:
+    ports:
+      - 49900:49900
     volumes:
       - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
@@ -11,56 +12,77 @@ services:
     volumes:
       - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
-      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
-                  -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
-                  -Djavax.net.ssl.trustStorePassword=confluent
-                  -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
+      KAFKA_OPTS:
+        -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
+        -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka1.truststore.jks
+        -Djavax.net.ssl.trustStorePassword=confluent
+        -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
 
   kafka2:
     volumes:
       - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
-      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
-                  -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
-                  -Djavax.net.ssl.trustStorePassword=confluent
-                  -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
+      KAFKA_OPTS:
+        -Djava.security.auth.login.config=/etc/kafka/secrets/broker_jaas.conf
+        -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.kafka2.truststore.jks
+        -Djavax.net.ssl.trustStorePassword=confluent
+        -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
 
   connect:
     volumes:
       - $MONITORING_STACK/assets/jolokia-jvm-1.6.2-agent.jar:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar:rw
     environment:
-      KAFKA_OPTS: -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.connect.truststore.jks
-                  -Djavax.net.ssl.trustStorePassword=confluent
-                  -Djavax.net.ssl.keyStore=/etc/kafka/secrets/kafka.connect.keystore.jks
-                  -Djavax.net.ssl.keyStorePassword=confluent
-                  -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
+      KAFKA_OPTS:
+        -Djavax.net.ssl.trustStore=/etc/kafka/secrets/kafka.connect.truststore.jks
+        -Djavax.net.ssl.trustStorePassword=confluent
+        -Djavax.net.ssl.keyStore=/etc/kafka/secrets/kafka.connect.keystore.jks
+        -Djavax.net.ssl.keyStorePassword=confluent
+        -javaagent:/tmp/jolokia/jolokia-jvm-1.6.2-agent.jar=port=49900,host=*
 
   elasticsearch:
     cpus: 0.8
 
   jmx-data-poller:
-    image: abhiwalia/kafkajmxexporter:latest
+    image: abhiwalia/kafkajmxexporter:1.0
     container_name: jmx-data-poller
     cpus: 0.2
     restart: always
-    command: [ #Core JMX Metrics Gather Configurations
-              "--jmx-zk-server","http://zookeeper:49900/",
-              "--jmx-kafka-server","http://kafka1:49900/",
-              "--jmx-kafka-server","http://kafka2:49900/",
-              "--jmx-connect-server","http://connect:49900/",
-              "--jmx-ksql-server","http://ksqldb-server:49900/",
-              # Connect REST data ingestion
-              "--enable-connect-rest-source",
-              "--connect-rest-endpoint","https://connect:8083/",
-              "--enable-connect-rest-auth",
-              "--connect-rest-auth-user","superUser",
-              "--connect-rest-auth-pass","superUser",
-              # Enable ES Data Sink to Gather all the JMX data and stream it to Elastic
-              "--enable-elastic-sink",
-              "--es-url","http://elasticsearch:9200/",
-              "--kibana-url","http://kibana:5601/",
-              "--es-bulk-url-timeout","60"
-    ]
+    command: #Core JMX Metrics Gather Configurations
+      [
+        "--jmx-zk-server",
+        "http://zookeeper:49900/",
+        "--jmx-kafka-server",
+        "http://kafka1:49900/",
+        "--jmx-kafka-server",
+        "http://kafka2:49900/",
+        "--jmx-connect-server",
+        "http://connect:49900/",
+        "--jmx-ksql-server",
+        "http://ksqldb-server:49900/",
+        "--jmx-default-bean",
+        "java.lang:type=Memo*",
+        "--jmx-default-bean",
+        "java.lang:type=Threadi*",
+        "--jmx-default-bean",
+        "java.lang:type=OperatingSyst*",
+        # Connect REST data ingestion
+        "--enable-connect-rest-source",
+        "--connect-rest-endpoint",
+        "https://connect:8083/",
+        "--enable-connect-rest-auth",
+        "--connect-rest-auth-user",
+        "superUser",
+        "--connect-rest-auth-pass",
+        "superUser",
+        # Enable ES Data Sink to Gather all the JMX data and stream it to Elastic
+        "--enable-elastic-sink",
+        "--es-url",
+        "http://elasticsearch:9200/",
+        "--kibana-url",
+        "http://kibana:5601/",
+        "--es-bulk-url-timeout",
+        "60",
+      ]
 
   ksqldb-server:
     volumes:
