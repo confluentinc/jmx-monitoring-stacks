@@ -29,6 +29,14 @@ rules:
     name: "ksql_ksql_engine_query_stats_$2"
     labels:
       ksql_cluster: $1
+  # "io.confluent.ksql.metrics:type=ksql-queries,status=_confluent-ksql-<cluser-id>_query_<query>
+  # The below statement parses KSQL query specific status
+  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.+)_query_(.+)><>(.+): (.+)"
+    value: 1
+    name: $1_$3
+    labels:
+      ksql_cluster: $2
+      $4: $5
   # "kafka.consumer:type=app-info,client-id=*"
   # "kafka.producer:type=app-info,client-id=*"
   - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
