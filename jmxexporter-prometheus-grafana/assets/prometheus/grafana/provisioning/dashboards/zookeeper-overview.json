@@ -439,7 +439,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "Prometheus",
       "description": "Number of Watchers",
       "fieldConfig": {
         "defaults": {
@@ -1199,5 +1199,4 @@
   "timezone": "",
   "title": "Zookeeper Overview",
   "uid": "H4xS98vWk",
-  "version": 2
 }
