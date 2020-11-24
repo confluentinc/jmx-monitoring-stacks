@@ -26,15 +26,15 @@ rules:
       id: "$3"
   # "io.confluent.ksql.metrics:type=_confluent-ksql-<cluster-id>ksql-engine-query-stats"
   # The below statement parses KSQL Cluster Name and adds a new label so that per cluster data is searchable.
-  - pattern: io.confluent.ksql.metrics<type=_confluent-ksql-(.+)_ksql-engine-query-stats><>([^:]+)
+  - pattern: io.confluent.ksql.metrics<type=_confluent-ksql-(.+)ksql-engine-query-stats><>([^:]+)
     name: "ksql_ksql_engine_query_stats_$2"
     labels:
       ksql_cluster: $1
   # "io.confluent.ksql.metrics:type=ksql-queries,status=_confluent-ksql-<cluser-id>_query_<query>
   # The below statement parses KSQL query specific status
-  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.+)_query_(.+)><>(.+): (.+)"
+  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.+)query_(.+)><>(.+): (.+)"
     value: 1
-    name: $1_status
+    name: ksql_ksql_metrics_$1_$4
     labels:
       ksql_query: $3
       ksql_cluster: $2

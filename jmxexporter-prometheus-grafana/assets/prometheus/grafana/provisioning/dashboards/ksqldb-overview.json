@@ -1,46 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "7.1.3"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -57,13 +15,13 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1605871517667,
+  "id": 7,
+  "iteration": 1606202906092,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -81,7 +39,7 @@
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Cluster liveness",
       "fieldConfig": {
         "defaults": {
@@ -181,7 +139,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#299c46"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of persisted queries",
       "fieldConfig": {
         "defaults": {
@@ -239,7 +197,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_num_persistent_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_num_persistent_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_num_persistent_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -272,7 +230,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#299c46"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of active queries",
       "fieldConfig": {
         "defaults": {
@@ -330,7 +288,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_num_active_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_num_active_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -363,7 +321,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of idle queries",
       "fieldConfig": {
         "defaults": {
@@ -421,7 +379,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_num_idle_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_num_idle_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_num_idle_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -454,7 +412,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of created queries",
       "fieldConfig": {
         "defaults": {
@@ -512,7 +470,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_created_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_created_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_created_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -545,7 +503,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of created queries",
       "fieldConfig": {
         "defaults": {
@@ -603,10 +561,10 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_created_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_running_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
-          "expr": "ksql_ksql_engine_query_stats_created_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
+          "expr": "ksql_ksql_engine_query_stats_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -615,7 +573,7 @@
       "thresholds": "500,800",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Num of created queries",
+      "title": "Num of running queries",
       "type": "singlestat",
       "valueFontSize": "200%",
       "valueMaps": [
@@ -636,7 +594,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Number of error query",
       "fieldConfig": {
         "defaults": {
@@ -694,7 +652,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_error_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_error_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_error_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -727,7 +685,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of not running queries",
       "fieldConfig": {
         "defaults": {
@@ -785,7 +743,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_not_running_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_not_running_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_not_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -818,7 +776,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of running queries",
       "fieldConfig": {
         "defaults": {
@@ -876,7 +834,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_pending_shutdown_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_pending_shutdown_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_pending_shutdown_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -909,7 +867,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Num of rebalancing queries",
       "fieldConfig": {
         "defaults": {
@@ -967,7 +925,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "ksql_ksql_engine_query_stats_rebalancing_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default\"}",
+      "tableColumn": "ksql_ksql_engine_query_stats_rebalancing_queries{env=\"dev\", instance=\"ksqldb-server:1234\", job=\"ksqldb\", ksql_cluster=\"default_\"}",
       "targets": [
         {
           "expr": "ksql_ksql_engine_query_stats_rebalancing_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
@@ -996,7 +954,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Message produced/sec",
       "fieldConfig": {
         "defaults": {
@@ -1090,7 +1048,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Message consumed/sec",
       "fieldConfig": {
         "defaults": {
@@ -1181,7 +1139,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1194,7 +1152,7 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1232,7 +1190,7 @@
       "pluginVersion": "7.1.3",
       "targets": [
         {
-          "expr": "ksql_queries_status{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
+          "expr": "ksql_ksql_metrics_ksql_queries_query_status{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$clusterid\", instance=~\"$instance\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1273,7 +1231,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1328,6 +1286,7 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:166",
           "alias": "/max/",
           "dashLength": 5,
           "dashes": true,
@@ -1339,18 +1298,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_streams_stream_metrics_poll_latency_avg{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "{{client_id}}_avg",
+          "legendFormat": "{{thread_id}}_avg",
           "refId": "A"
         },
         {
-          "expr": "kafka_streams_stream_metrics_poll_latency_max{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{client_id}}_max",
+          "legendFormat": "{{thread_id}}_max",
           "refId": "B"
         },
         {
@@ -1378,6 +1337,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:177",
           "format": "ms",
           "label": "",
           "logBase": 1,
@@ -1386,6 +1346,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:178",
           "format": "short",
           "label": "",
           "logBase": 1,
@@ -1404,7 +1365,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1459,6 +1420,7 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:227",
           "alias": "/max/",
           "dashLength": 5,
           "dashes": true,
@@ -1470,17 +1432,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_streams_stream_metrics_process_latency_avg{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{client_id}}_avg",
+          "legendFormat": "{{thread_id}}_avg",
           "refId": "A"
         },
         {
-          "expr": "kafka_streams_stream_metrics_process_latency_max{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{client_id}}_max",
+          "legendFormat": "{{thread_id}}_max",
           "refId": "B"
         }
       ],
@@ -1505,6 +1467,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:238",
           "format": "ms",
           "label": "",
           "logBase": 1,
@@ -1513,6 +1476,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:239",
           "format": "short",
           "label": "",
           "logBase": 1,
@@ -1531,7 +1495,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1586,6 +1550,7 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:288",
           "alias": "/max/",
           "dashLength": 5,
           "dashes": true,
@@ -1597,17 +1562,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_streams_stream_metrics_commit_latency_avg{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{client_id}}_avg",
+          "legendFormat": "{{thread_id}}_avg",
           "refId": "A"
         },
         {
-          "expr": "kafka_streams_stream_metrics_commit_latency_max{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{client_id}}_max",
+          "legendFormat": "{{thread_id}}_max",
           "refId": "B"
         }
       ],
@@ -1632,6 +1597,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:299",
           "format": "ms",
           "label": "",
           "logBase": 1,
@@ -1640,6 +1606,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:300",
           "format": "short",
           "label": "",
           "logBase": 1,
@@ -1658,7 +1625,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1713,6 +1680,7 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:349",
           "alias": "/max/",
           "dashLength": 5,
           "dashes": true,
@@ -1724,17 +1692,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_streams_stream_metrics_punctuate_latency_avg{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{client_id}}_avg",
+          "legendFormat": "{{thread_id}}_avg",
           "refId": "A"
         },
         {
-          "expr": "kafka_streams_stream_metrics_punctuate_latency_max{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{client_id}}_max",
+          "legendFormat": "{{thread_id}}_max",
           "refId": "B"
         }
       ],
@@ -1759,6 +1727,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:360",
           "format": "ms",
           "label": "",
           "logBase": 1,
@@ -1767,6 +1736,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:361",
           "format": "short",
           "label": "",
           "logBase": 1,
@@ -1782,7 +1752,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1799,7 +1769,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1893,7 +1863,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1987,7 +1957,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -2085,8 +2055,12 @@
     "list": [
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "current": {
+          "selected": false,
+          "text": "dev",
+          "value": "dev"
+        },
+        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,env)",
         "hide": 0,
         "includeAll": false,
@@ -2107,8 +2081,12 @@
       },
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "current": {
+          "selected": false,
+          "text": "default_",
+          "value": "default_"
+        },
+        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
         "hide": 0,
         "includeAll": false,
@@ -2129,17 +2107,27 @@
       },
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "current": {
+          "selected": false,
+          "text": "ksqldb-server:1234",
+          "value": "ksqldb-server:1234"
+        },
+        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
         "hide": 0,
         "includeAll": false,
         "label": null,
         "multi": true,
         "name": "instance",
-        "options": [],
+        "options": [
+          {
+            "selected": true,
+            "text": "ksqldb-server:1234",
+            "value": "ksqldb-server:1234"
+          }
+        ],
         "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
-        "refresh": 1,
+        "refresh": 0,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -2171,5 +2159,5 @@
   "timezone": "",
   "title": "ksqldb Overview",
   "uid": "pbx34foGk",
-  "version": 46
+  "version": 48
 }
