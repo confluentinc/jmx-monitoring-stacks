@@ -1825,7 +1825,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
