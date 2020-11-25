@@ -415,7 +415,6 @@
           "refId": "A"
         }
       ],
-      "thresholds": "500,800",
       "timeFrom": null,
       "timeShift": null,
       "title": "Number of ZNodes",
