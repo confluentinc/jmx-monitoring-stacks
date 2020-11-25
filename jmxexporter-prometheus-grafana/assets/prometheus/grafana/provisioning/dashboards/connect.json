@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1601517721055,
+  "id": 1,
+  "iteration": 1606138909851,
   "links": [],
   "panels": [
     {
@@ -67,7 +67,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": [
+            "mean"
+          ],
           "fields": "",
           "values": false
         }
@@ -120,7 +122,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": [
+            "mean"
+          ],
           "fields": "",
           "values": false
         }
@@ -177,7 +181,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": [
+            "mean"
+          ],
           "fields": "",
           "values": false
         }
@@ -235,7 +241,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         }
@@ -293,7 +301,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": [
+            "mean"
+          ],
           "fields": "",
           "values": false
         }
@@ -351,7 +361,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": [
+            "mean"
+          ],
           "fields": "",
           "values": false
         }
@@ -1083,7 +1095,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "JVM Memory Used",
+      "title": "Time spent in GC",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1282,13 +1294,17 @@
       "options": {
         "colorMode": "value",
         "fieldOptions": {
-          "calcs": ["lastNotNull"]
+          "calcs": [
+            "lastNotNull"
+          ]
         },
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         }
@@ -1462,13 +1478,19 @@
           "alias": "Nb of Tasks destroyed",
           "align": "auto",
           "colorMode": "cell",
-          "colors": ["rgba(50, 172, 45, 0.97)", "#B877D9", "#B877D9"],
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "#B877D9",
+            "#B877D9"
+          ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 0,
           "link": false,
           "mappingType": 1,
           "pattern": "Value #B",
-          "thresholds": ["1"],
+          "thresholds": [
+            "1"
+          ],
           "type": "number",
           "unit": "short"
         },
@@ -1536,7 +1558,9 @@
           "decimals": 0,
           "mappingType": 1,
           "pattern": "status",
-          "thresholds": ["2"],
+          "thresholds": [
+            "2"
+          ],
           "type": "string",
           "unit": "short",
           "valueMaps": [
@@ -1618,7 +1642,10 @@
           "decimals": 0,
           "mappingType": 1,
           "pattern": "Value #E",
-          "thresholds": ["0", "1"],
+          "thresholds": [
+            "0",
+            "1"
+          ],
           "type": "number",
           "unit": "short"
         },
@@ -1635,7 +1662,10 @@
           "decimals": 0,
           "mappingType": 1,
           "pattern": "Value #F",
-          "thresholds": ["0", "1"],
+          "thresholds": [
+            "0",
+            "1"
+          ],
           "type": "number",
           "unit": "short"
         },
@@ -1643,14 +1673,20 @@
           "alias": "Nb of Tasks failed",
           "align": "auto",
           "colorMode": "cell",
-          "colors": ["rgba(50, 172, 45, 0.97)", "#F2495C", "#F2495C"],
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "#F2495C",
+            "#F2495C"
+          ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 0,
           "link": false,
           "mappingType": 1,
           "pattern": "Value #G",
           "preserveFormat": false,
-          "thresholds": ["1"],
+          "thresholds": [
+            "1"
+          ],
           "type": "number",
           "unit": "short",
           "valueMaps": [
@@ -1664,12 +1700,18 @@
           "alias": "Nb of Tasks paused",
           "align": "auto",
           "colorMode": "cell",
-          "colors": ["rgba(50, 172, 45, 0.97)", "#FF9830", "#FF9830"],
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "#FF9830",
+            "#FF9830"
+          ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 0,
           "mappingType": 1,
           "pattern": "Value #H",
-          "thresholds": ["1"],
+          "thresholds": [
+            "1"
+          ],
           "type": "number",
           "unit": "short",
           "valueMaps": [
@@ -1700,12 +1742,18 @@
           "alias": "Nb of Tasks unassigned",
           "align": "auto",
           "colorMode": "cell",
-          "colors": ["rgba(50, 172, 45, 0.97)", "#FADE2A", "#FADE2A"],
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "#FADE2A",
+            "#FADE2A"
+          ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 0,
           "mappingType": 1,
           "pattern": "Value #J",
-          "thresholds": ["1"],
+          "thresholds": [
+            "1"
+          ],
           "type": "number",
           "unit": "short"
         },
@@ -1866,13 +1914,17 @@
       "options": {
         "colorMode": "value",
         "fieldOptions": {
-          "calcs": ["mean"]
+          "calcs": [
+            "mean"
+          ]
         },
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/^start_time_ms$/",
           "values": false
         }
@@ -5541,7 +5593,9 @@
         "current": {
           "selected": true,
           "text": "All",
-          "value": ["$__all"]
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(cluster)",
@@ -5593,7 +5647,9 @@
         "current": {
           "selected": true,
           "text": "All",
-          "value": ["$__all"]
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(kafka_connect_connector_task_metrics_pause_ratio,connector)",
@@ -5633,10 +5689,20 @@
       "2h",
       "1d"
     ],
-    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
   },
   "timezone": "",
   "title": "Kafka Connect",
   "uid": "AEaSQ97mz",
-  "version": 2
+  "version": 5
 }
