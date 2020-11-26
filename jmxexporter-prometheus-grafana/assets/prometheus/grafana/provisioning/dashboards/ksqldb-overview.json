@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1606202906092,
+  "iteration": 1606352338748,
   "links": [],
   "panels": [
     {
@@ -1174,7 +1174,20 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ksql_query"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 355
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 16,
@@ -1428,17 +1441,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_producer_producer_node_metrics_request_latency_avg{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{thread_id}}_avg",
+          "legendFormat": "{{client_id}}_avg",
           "refId": "A"
         },
         {
-          "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_producer_producer_node_metrics_request_latency_max{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{thread_id}}_max",
+          "legendFormat": "{{client_id}}_max",
           "refId": "B"
         }
       ],
@@ -1682,17 +1695,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_producer_producer_metrics_request_latency_avg{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{thread_id}}_avg",
+          "legendFormat": "{{client_id}}_avg",
           "refId": "A"
         },
         {
-          "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
+          "expr": "kafka_producer_producer_metrics_request_latency_max{job=\"ksqldb\", env=\"$env\", client_id=~\".+$clusterid.+\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{thread_id}}_max",
+          "legendFormat": "{{client_id}}_max",
           "refId": "B"
         }
       ],
@@ -1825,7 +1838,7 @@
       },
       "yaxes": [
         {
-          "format": "percent",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2147,5 +2160,5 @@
   "timezone": "",
   "title": "ksqldb Overview",
   "uid": "pbx34foGk",
-  "version": 48
+  "version": 55
 }
