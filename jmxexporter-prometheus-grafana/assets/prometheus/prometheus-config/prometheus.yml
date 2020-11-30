@@ -66,7 +66,7 @@ scrape_configs:
         labels:
           env: "dev"
 
-  - job_name: "ksql"
+  - job_name: "ksqldb"
     static_configs:
       - targets:
           - "ksqldb-server:1234"

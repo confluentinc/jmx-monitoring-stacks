@@ -8,7 +8,9 @@ whitelistObjectNames:
   # Please note that this increases the scrape duration to about 1 second as it needs to parse a lot of data.
   - "kafka.consumer:*"
   - "kafka.producer:*"
+  - "kafka.streams:*"
 blacklistObjectNames:
+  - kafka.streams:type=kafka-metrics-count
   # This will ignore the admin client metrics from KSQL server and will blacklist certain metrics
   # that do not make sense for ingestion.
   - "kafka.admin.client:*"
@@ -29,6 +31,47 @@ rules:
     name: "ksql_ksql_engine_query_stats_$2"
     labels:
       ksql_cluster: $1
+  # "io.confluent.ksql.metrics:type=ksql-queries,status=_confluent-ksql-<cluser-id>_query_<query>
+  # The below statement parses KSQL query specific status
+  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.+)query_(.+)><>(.+): (.+)"
+    value: 1
+    name: ksql_ksql_metrics_$1_$4
+    labels:
+      ksql_query: $3
+      ksql_cluster: $2
+      $4: $5
+  # kafka.streams:type=stream-processor-node-metrics,processor-node-id=*,task-id=*,thread-id=*
+  # kafka.streams:type=stream-record-cache-metrics,record-cache-id=*,task-id=*,thread-id=*
+  # kafka.streams:type=stream-state-metrics,rocksdb-state-id=*,task-id=*,thread-id=*
+  # kafka.streams:type=stream-state-metrics,rocksdb-state-id=*,task-id=*,thread-id=*
+  - pattern: "kafka.streams<type=(.+), thread-id=(.+), task-id=(.+), (.+)=(.+)><>(.+):"
+    name: kafka_streams_$1_$6
+    type: GAUGE
+    labels:
+      thread_id: "$2"
+      task_id: "$3"
+      $4: "$5"
+  # kafka.streams:type=stream-task-metrics,task-id=*,thread-id=*
+  - pattern: "kafka.streams<type=(.+), thread-id=(.+), task-id=(.+)><>(.+):"
+    name: kafka_streams_$1_$4
+    type: GAUGE
+    labels:
+      thread_id: "$2"
+      task_id: "$3"
+  # kafka.streams:type=stream-metrics,client-id=*
+  - pattern: "kafka.streams<type=stream-metrics, (.+)=(.+)><>(state|alive-stream-threads|commit-id|version|application-id): (.+)"
+    name: kafka_streams_stream_metrics
+    value: 1
+    type: UNTYPED
+    labels:
+      $1: "$2"
+      $3: "$4"
+  # kafka.streams:type=stream-thread-metrics,thread-id=*
+  - pattern: "kafka.streams<type=(.+), (.+)=(.+)><>([^:]+)"
+    name: kafka_streams_$1_$4
+    type: GAUGE
+    labels:
+      $2: "$3"
   # "kafka.consumer:type=app-info,client-id=*"
   # "kafka.producer:type=app-info,client-id=*"
   - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
