@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 721,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1605975099717,
+  "id": 1,
+  "iteration": 1606899967739,
   "links": [],
   "panels": [
     {
@@ -4960,7 +4960,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 41
+            "y": 42
           },
           "hiddenSeries": false,
           "id": 104,
@@ -5054,7 +5054,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 41
+            "y": 42
           },
           "hiddenSeries": false,
           "id": 105,
@@ -5148,7 +5148,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 49
+            "y": 50
           },
           "hiddenSeries": false,
           "id": 106,
@@ -5242,7 +5242,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 49
+            "y": 50
           },
           "hiddenSeries": false,
           "id": 107,
@@ -5336,7 +5336,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 57
+            "y": 58
           },
           "hiddenSeries": false,
           "id": 108,
@@ -5430,7 +5430,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 57
+            "y": 58
           },
           "hiddenSeries": false,
           "id": 110,
@@ -5524,7 +5524,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 65
+            "y": 66
           },
           "hiddenSeries": false,
           "id": 113,
@@ -6489,11 +6489,9 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
-          "text": "0.95",
-          "value": [
-            "0.95"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Prometheus",
         "definition": "label_values(quantile)",
@@ -6533,7 +6531,7 @@
         "options": [],
         "query": "label_values(kafka_log_log_size,topic)",
         "refresh": 1,
-        "regex": "/^[^_]+.*/",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
@@ -6575,5 +6573,5 @@
   "timezone": "browser",
   "title": "Kafka Overview",
   "uid": "qu-QZdfZz",
-  "version": 2
+  "version": 1
 }
