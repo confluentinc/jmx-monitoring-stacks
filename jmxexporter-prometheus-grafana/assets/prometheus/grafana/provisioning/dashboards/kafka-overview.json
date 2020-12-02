@@ -17,7 +17,7 @@
   "gnetId": 721,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1606899967739,
+  "iteration": 1606899967743,
   "links": [],
   "panels": [
     {
@@ -5459,9 +5459,9 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(kafka_server_socketservermetrics_connection_close_rate{job=\"kafka\", env=\"$env\", instance=~\"$broker_id\"}) by (listener)",
+              "expr": "sum(kafka_server_socketservermetrics_connection_close_rate{job=\"kafka\", env=\"$env\", instance=~\"$broker_id\"}) by (instance)",
               "interval": "",
-              "legendFormat": "{{listener}}",
+              "legendFormat": "{{instance}}",
               "refId": "A"
             }
           ],
@@ -5469,7 +5469,7 @@
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Connections close rate per listener",
+          "title": "Connections close rate per instance",
           "tooltip": {
             "shared": true,
             "sort": 2,
@@ -5512,6 +5512,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": null,
+          "description": "Tracks the amount of time Acceptor is blocked from accepting connections. See KIP-402 for more details.",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5524,6 +5525,100 @@
             "h": 8,
             "w": 12,
             "x": 0,
+            "y": 66
+          },
+          "hiddenSeries": false,
+          "id": 124,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "kafka_network_acceptor_acceptorblockedpercent{job=\"kafka\", env=\"$env\", instance=~\"$broker_id\"}",
+              "interval": "",
+              "legendFormat": "{{instance}} - {{listener}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Acceptor Blocked Percentage",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
             "y": 66
           },
           "hiddenSeries": false,
@@ -6462,6 +6557,7 @@
         "allValue": null,
         "current": {
           "selected": true,
+          "tags": [],
           "text": "All",
           "value": [
             "$__all"
@@ -6516,6 +6612,7 @@
         "allValue": null,
         "current": {
           "selected": true,
+          "tags": [],
           "text": "All",
           "value": [
             "$__all"
