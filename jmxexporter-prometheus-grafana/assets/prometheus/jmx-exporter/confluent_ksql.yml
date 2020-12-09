@@ -15,7 +15,12 @@ blacklistObjectNames:
   # that do not make sense for ingestion.
   - "kafka.admin.client:*"
   - "kafka.consumer:type=*,id=*"
+  - "kafka.consumer:type=*,client-id=*"
+  - "kafka.consumer:type=*,client-id=*,node-id=*"
   - "kafka.producer:type=*,id=*"
+  - "kafka.producer:type=*,client-id=*"
+  - "kafka.producer:type=*,client-id=*,node-id=*"
+  - "kafka.streams:type=stream-processor-node-metrics,thread-id=*,task-id=*,processor-node-id=*"
   - "kafka.*:type=kafka-metrics-count,*"
 rules:
   # "io.confluent.ksql.metrics:type=producer-metrics,key=*,id=*"
