@@ -48,13 +48,14 @@ services:
     environment:
       KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
 
-  prometheus:
-    image: prom/prometheus:v2.11.1
-    container_name: prometheus
-    ports:
-      - 9090:9090
+  kafka-lag-exporter:
+    image: lightbend/kafka-lag-exporter:0.5.5
+    container_name: kafka-lag-exporter
+    hostname: kafka-lag-exporter
+    restart: always
     volumes:
-      - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus/
+      - $MONITORING_STACK/../shared-assets/kafka-lag-exporter:/opt/docker/conf
+      - $MONITORING_STACK/assets/security:/etc/kafka/secrets
 
   node-exporter:
     image: prom/node-exporter:v0.18.1
@@ -69,24 +70,18 @@ services:
       - "--collector.filesystem.ignored-mount-points"
       - "^(aufs|proc|nsfs|shm|cgroup|tmpfs|binfmt_misc|debugfs|devpts|fusectl|hugetlbfs|fuse.lxcfs|mqueue|pstore|securityfs|sysfs|autofs|devtmpfs|configfs)"
 
-  kafka-lag-exporter:
-    image: lightbend/kafka-lag-exporter:0.5.5
-    container_name: kafka-lag-exporter
-    hostname: kafka-lag-exporter
+  elasticsearch:
+    cpus: 0.8
+
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat-oss:7.10.0
+    container_name: metricbeat
     restart: always
     volumes:
-      - $MONITORING_STACK/../shared-assets/kafka-lag-exporter:/opt/docker/conf
-      - $MONITORING_STACK/assets/prometheus/security:/etc/kafka/secrets
-
-  grafana:
-    image: grafana/grafana:7.0.6
-    container_name: grafana
+      - $MONITORING_STACK/assets/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+    command: -e
     environment:
-      - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
-      - "GF_SECURITY_ADMIN_USER=admin"
-      - "GF_SECURITY_ADMIN_PASSWORD=password"
-      - "GF_USERS_ALLOW_SIGN_UP=false"
-    ports:
-      - 3000:3000
-    volumes:
-      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+      - "HOST_ELASTICSEARCH=elasticsearch:9200"
+      - "HOST_KIBANA=kibana:5601"
+    depends_on:
+      - elasticsearch
