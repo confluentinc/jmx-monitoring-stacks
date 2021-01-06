@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -88,7 +88,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(zookeeper_quorumsize)",
+          "expr": "count(zookeeper_status_quorumsize)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -244,7 +244,8 @@
       "description": "Number of queued requests in the server. This goes up when the server receives more requests than it can process",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -271,9 +272,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -283,7 +285,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_outstandingrequests",
+          "expr": "zookeeper_connections_outstandingrequests",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -295,8 +297,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 10,
-          "yaxis": "left"
+          "value": 10
         }
       ],
       "timeFrom": null,
@@ -415,6 +416,7 @@
           "refId": "A"
         }
       ],
+      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "Number of ZNodes",
@@ -529,7 +531,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -556,9 +559,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -623,7 +627,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -650,9 +655,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -717,7 +723,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -744,9 +751,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -811,7 +819,8 @@
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -838,9 +847,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -850,7 +860,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_minrequestlatency",
+          "expr": "zookeeper_connections_minlatency",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -940,7 +951,8 @@
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -967,9 +979,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -979,7 +992,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_avgrequestlatency",
+          "expr": "zookeeper_connections_avglatency",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -1077,7 +1091,8 @@
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -1104,9 +1119,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1116,7 +1132,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_maxrequestlatency",
+          "expr": "zookeeper_connections_maxlatency",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -1172,7 +1189,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 25,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1198,5 +1215,5 @@
   "timezone": "",
   "title": "Zookeeper Overview",
   "uid": "H4xS98vWk",
-  "version": 4
+  "version": 1
 }
