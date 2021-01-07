@@ -88,7 +88,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(zookeeper_status_quorumsize)",
+          "expr": "count(zookeeper_status_quorumsize{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -179,7 +179,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(zookeeper_numaliveconnections)",
+          "expr": "sum(zookeeper_numaliveconnections{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -285,7 +285,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_outstandingrequests",
+          "expr": "zookeeper_connections_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -410,7 +410,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount)",
+          "expr": "avg(zookeeper_inmemorydatatree_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -501,7 +501,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount)",
+          "expr": "sum(zookeeper_inmemorydatatree_watchcount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -572,7 +572,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(process_cpu_seconds_total{job=\"zookeeper\"}[5m])*100",
+          "expr": "irate(process_cpu_seconds_total{job=\"zookeeper\",env=\"$env\"}[5m])*100",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -668,7 +669,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\",env=\"$env\"})",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -764,7 +766,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"zookeeper\"}[5m]))",
+          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"zookeeper\",env=\"$env\"}[5m]))",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -860,7 +863,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_minlatency",
+          "expr": "zookeeper_connections_minlatency{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -992,7 +995,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_avglatency",
+          "expr": "zookeeper_connections_avglatency{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -1132,7 +1135,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_maxlatency",
+          "expr": "zookeeper_connections_maxlatency{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -1193,7 +1196,41 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "dev",
+          "value": "dev"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(env)",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Environment",
+        "multi": false,
+        "name": "env",
+        "options": [
+          {
+            "selected": true,
+            "text": "dev",
+            "value": "dev"
+          }
+        ],
+        "query": "label_values(env)",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-15m",
