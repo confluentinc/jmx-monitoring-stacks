@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1610366812138,
+  "iteration": 1610391244680,
   "links": [],
   "panels": [
     {
@@ -1073,7 +1073,7 @@
             "h": 9,
             "w": 8,
             "x": 0,
-            "y": 23
+            "y": 2
           },
           "hiddenSeries": false,
           "id": 12,
@@ -1172,7 +1172,7 @@
             "h": 9,
             "w": 8,
             "x": 8,
-            "y": 23
+            "y": 2
           },
           "hiddenSeries": false,
           "id": 24,
@@ -1277,7 +1277,7 @@
             "h": 9,
             "w": 8,
             "x": 16,
-            "y": 23
+            "y": 2
           },
           "hiddenSeries": false,
           "id": 14,
@@ -1407,7 +1407,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 33
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 26,
@@ -1529,7 +1529,7 @@
             "h": 11,
             "w": 6,
             "x": 6,
-            "y": 33
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 35,
@@ -1644,7 +1644,7 @@
             "h": 11,
             "w": 6,
             "x": 12,
-            "y": 33
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 25,
@@ -1761,7 +1761,7 @@
             "h": 11,
             "w": 6,
             "x": 18,
-            "y": 33
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 34,
@@ -1876,7 +1876,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 44
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 13,
@@ -1993,7 +1993,7 @@
             "h": 11,
             "w": 6,
             "x": 6,
-            "y": 44
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 38,
@@ -2110,7 +2110,7 @@
             "h": 11,
             "w": 6,
             "x": 12,
-            "y": 44
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 27,
@@ -2227,7 +2227,7 @@
             "h": 11,
             "w": 6,
             "x": 18,
-            "y": 44
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 37,
@@ -2364,7 +2364,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 56
+            "y": 4
           },
           "hiddenSeries": false,
           "id": 36,
@@ -2480,7 +2480,7 @@
             "h": 11,
             "w": 9,
             "x": 6,
-            "y": 56
+            "y": 4
           },
           "hiddenSeries": false,
           "id": 42,
@@ -2596,7 +2596,7 @@
             "h": 11,
             "w": 9,
             "x": 15,
-            "y": 56
+            "y": 4
           },
           "hiddenSeries": false,
           "id": 43,
@@ -2712,7 +2712,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 67
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 52,
@@ -2828,7 +2828,7 @@
             "h": 11,
             "w": 9,
             "x": 6,
-            "y": 67
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 53,
@@ -2944,7 +2944,7 @@
             "h": 11,
             "w": 9,
             "x": 15,
-            "y": 67
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 54,
@@ -3060,7 +3060,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 78
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 41,
@@ -3176,7 +3176,7 @@
             "h": 11,
             "w": 9,
             "x": 6,
-            "y": 78
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 44,
@@ -3292,7 +3292,7 @@
             "h": 11,
             "w": 9,
             "x": 15,
-            "y": 78
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 45,
@@ -3408,7 +3408,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 89
+            "y": 37
           },
           "hiddenSeries": false,
           "id": 46,
@@ -3524,7 +3524,7 @@
             "h": 11,
             "w": 9,
             "x": 6,
-            "y": 89
+            "y": 37
           },
           "hiddenSeries": false,
           "id": 47,
@@ -3640,7 +3640,7 @@
             "h": 11,
             "w": 9,
             "x": 15,
-            "y": 89
+            "y": 37
           },
           "hiddenSeries": false,
           "id": 48,
@@ -3756,7 +3756,7 @@
             "h": 11,
             "w": 6,
             "x": 0,
-            "y": 100
+            "y": 48
           },
           "hiddenSeries": false,
           "id": 49,
@@ -3872,7 +3872,7 @@
             "h": 11,
             "w": 9,
             "x": 6,
-            "y": 100
+            "y": 48
           },
           "hiddenSeries": false,
           "id": 50,
@@ -3988,7 +3988,7 @@
             "h": 11,
             "w": 9,
             "x": 15,
-            "y": 100
+            "y": 48
           },
           "hiddenSeries": false,
           "id": 51,
@@ -4109,13 +4109,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": [
-            "default_"
-          ],
-          "value": [
-            "default_"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
@@ -4140,13 +4136,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
@@ -4156,25 +4148,9 @@
         "label": null,
         "multi": true,
         "name": "instance",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "ip-172-30-43-118.eu-west-1.compute.internal:8076",
-            "value": "ip-172-30-43-118.eu-west-1.compute.internal:8076"
-          },
-          {
-            "selected": false,
-            "text": "ip-172-30-16-90.eu-west-1.compute.internal:8076",
-            "value": "ip-172-30-16-90.eu-west-1.compute.internal:8076"
-          }
-        ],
+        "options": [],
         "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
