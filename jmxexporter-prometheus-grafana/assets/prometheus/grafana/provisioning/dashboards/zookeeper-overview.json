@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 5,
+  "iteration": 1610378853273,
   "links": [],
   "panels": [
     {
@@ -185,7 +186,7 @@
           "refId": "A"
         }
       ],
-      "thresholds": "60,120",
+      "thresholds": "100,200",
       "timeFrom": null,
       "timeShift": null,
       "title": "Alive Connections",
@@ -285,9 +286,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
+          "expr": "zookeeper_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -319,11 +320,12 @@
       },
       "yaxes": [
         {
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -507,7 +509,7 @@
           "refId": "A"
         }
       ],
-      "thresholds": "100,200",
+      "thresholds": "500,1000",
       "timeFrom": null,
       "timeShift": null,
       "title": "Number of Watchers",
@@ -547,13 +549,14 @@
       "hiddenSeries": false,
       "id": 12,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -598,7 +601,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -644,13 +647,14 @@
       "hiddenSeries": false,
       "id": 13,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -671,8 +675,14 @@
         {
           "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "Used:{{instance}}",
           "refId": "A"
+        },
+        {
+          "expr": "jvm_memory_bytes_max{job=\"zookeeper\",env=\"$env\",area=\"heap\"}",
+          "interval": "",
+          "legendFormat": "Max:{{instance}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -695,11 +705,11 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "bytes",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -741,13 +751,14 @@
       "hiddenSeries": false,
       "id": 14,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -792,11 +803,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 3,
+          "format": "percentunit",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -863,9 +875,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_minlatency{job=\"zookeeper\",env=\"$env\"}",
+          "expr": "zookeeper_minrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -889,11 +901,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 0,
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -917,7 +930,7 @@
           {
             "evaluator": {
               "params": [
-                10
+                12000
               ],
               "type": "gt"
             },
@@ -995,9 +1008,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_avglatency{job=\"zookeeper\",env=\"$env\"}",
+          "expr": "zookeeper_avgrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -1007,7 +1020,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 10
+          "value": 12000
         }
       ],
       "timeFrom": null,
@@ -1029,11 +1042,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 0,
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1051,41 +1065,6 @@
       }
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                20
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Request Latency - Maximum alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -1135,21 +1114,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_connections_maxlatency{job=\"zookeeper\",env=\"$env\"}",
+          "expr": "zookeeper_maxrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 20
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1169,19 +1140,20 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         }
       ],
@@ -1191,7 +1163,7 @@
       }
     }
   ],
-  "refresh": "10s",
+  "refresh": "30s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -1217,6 +1189,11 @@
             "selected": true,
             "text": "dev",
             "value": "dev"
+          },
+          {
+            "selected": false,
+            "text": "pre",
+            "value": "pre"
           }
         ],
         "query": "label_values(env)",

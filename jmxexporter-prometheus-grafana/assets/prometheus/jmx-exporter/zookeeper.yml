@@ -22,7 +22,7 @@ rules:
       client_address: "$4"
       connection_id: "$5"
       member_type: "$3"
-  - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+)><>(NumAliveConnections|MaxClientCnxnsPerHost|LogDirSize|DataDirSize): (\\d+)"
+  - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+)><>(\\w+): (\\d+)"
     name: zookeeper_$4
     labels:
       server_name: "$1"
