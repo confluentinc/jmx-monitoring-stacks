@@ -1,0 +1,1587 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 6,
+  "iteration": 1610378919119,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.4",
+      "targets": [
+        {
+          "expr": "sum(kafka_controller_kafkacontroller_globaltopiccount)",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total # of Topics",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 20,
+        "x": 4,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[5m]))",
+          "interval": "",
+          "legendFormat": "{{topic}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Messages In",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 5
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.4",
+      "targets": [
+        {
+          "expr": "sum(kafka_controller_kafkacontroller_globalpartitioncount)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total # of Partitions",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[5m]))",
+          "interval": "",
+          "legendFormat": "{{topic}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Bytes In",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "binBps",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[5m]))",
+          "interval": "",
+          "legendFormat": "{{topic}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Bytes Out",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "binBps",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "partition"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 226
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "id": 6,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "partition"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.4",
+      "targets": [
+        {
+          "expr": "kafka_log_log_logstartoffset{job=\"kafka\",env=~\"$env\",topic=~\"$topic\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Start Offset",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "env": true,
+              "instance": false,
+              "job": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 7,
+              "__name__": 1,
+              "env": 2,
+              "instance": 3,
+              "job": 4,
+              "partition": 6,
+              "topic": 5
+            },
+            "renameByName": {
+              "Value": "offset"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "partition"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 226
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
+      "id": 7,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "partition"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.4",
+      "targets": [
+        {
+          "expr": "kafka_log_log_logendoffset{job=\"kafka\",env=~\"$env\",topic=~\"$topic\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "End Offset",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "env": true,
+              "instance": false,
+              "job": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 7,
+              "__name__": 1,
+              "env": 2,
+              "instance": 3,
+              "job": 4,
+              "partition": 6,
+              "topic": 5
+            },
+            "renameByName": {
+              "Value": "offset"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "dev",
+          "value": "dev"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(env)",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Environment",
+        "multi": false,
+        "name": "env",
+        "options": [
+          {
+            "selected": true,
+            "text": "dev",
+            "value": "dev"
+          },
+          {
+            "selected": false,
+            "text": "pre",
+            "value": "pre"
+          }
+        ],
+        "query": "label_values(env)",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(kafka_log_log_size,topic)",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Topic name",
+        "multi": true,
+        "name": "topic",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_DEV-DEVTEST-commitstream",
+            "value": "CONFLUENT_DEV-DEVTEST-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_DEV-TESTDEV-commitstream",
+            "value": "CONFLUENT_DEV-TESTDEV-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_DEV-TESTDEV2-commitstream",
+            "value": "CONFLUENT_DEV-TESTDEV2-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_DEV-TESTDEV3-commitstream",
+            "value": "CONFLUENT_DEV-TESTDEV3-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_DEV-TESTDEV4-commitstream",
+            "value": "CONFLUENT_DEV-TESTDEV4-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_DEV-TESTMOVT-commitstream",
+            "value": "CONFLUENT_DEV-TESTMOVT-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "PAGEVIEWS_FEMALE",
+            "value": "PAGEVIEWS_FEMALE"
+          },
+          {
+            "selected": false,
+            "text": "__consumer_offsets",
+            "value": "__consumer_offsets"
+          },
+          {
+            "selected": false,
+            "text": "__transaction_state",
+            "value": "__transaction_state"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-command",
+            "value": "_confluent-command"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-AlertHistoryStore-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-AlertHistoryStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-Group-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-Group-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-Group-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-Group-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-Group-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-Group-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-Group-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-Group-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTEROTHER-0000000106-store-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTEROTHER-0000000106-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTEROTHER-0000000106-store-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTEROTHER-0000000106-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTERTHIS-0000000105-store-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTERTHIS-0000000105-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTERTHIS-0000000105-store-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-KSTREAM-OUTERTHIS-0000000105-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringStream-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringStream-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringStream-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringStream-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringStream-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringStream-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringTriggerStore-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringTriggerStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringTriggerStore-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringTriggerStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringVerifierStore-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringVerifierStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringVerifierStore-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringVerifierStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-TriggerActionsStore-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-TriggerActionsStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-TriggerActionsStore-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-TriggerActionsStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-TriggerEventsStore-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-TriggerEventsStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-TriggerEventsStore-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-TriggerEventsStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-actual-group-consumption-rekey",
+            "value": "_confluent-controlcenter-6-0-0-1-actual-group-consumption-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-aggregate-topic-partition-store-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-aggregate-topic-partition-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-aggregate-topic-partition-store-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-aggregate-topic-partition-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-expected-group-consumption-rekey",
+            "value": "_confluent-controlcenter-6-0-0-1-expected-group-consumption-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-group-aggregate-store-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-group-stream-extension-rekey",
+            "value": "_confluent-controlcenter-6-0-0-1-group-stream-extension-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-monitoring-aggregate-rekey-store-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-monitoring-aggregate-rekey-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-monitoring-aggregate-rekey-store-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-monitoring-aggregate-rekey-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-monitoring-message-rekey-store",
+            "value": "_confluent-controlcenter-6-0-0-1-monitoring-message-rekey-store"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-AlertHistoryStore-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-AlertHistoryStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-AlertHistoryStore-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-AlertHistoryStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-Group-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-Group-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-Group-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-Group-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-Group-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-Group-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTEROTHER-0000000106-store-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTEROTHER-0000000106-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTEROTHER-0000000106-store-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTEROTHER-0000000106-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTERTHIS-0000000105-store-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTERTHIS-0000000105-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTERTHIS-0000000105-store-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-KSTREAM-OUTERTHIS-0000000105-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MetricsAggregateStore-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MetricsAggregateStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MetricsAggregateStore-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MetricsAggregateStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringStream-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringStream-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringStream-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringStream-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringStream-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringStream-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringStream-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringStream-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringTriggerStore-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringTriggerStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringTriggerStore-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringTriggerStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringVerifierStore-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringVerifierStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringVerifierStore-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringVerifierStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-TriggerActionsStore-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-TriggerActionsStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-TriggerActionsStore-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-TriggerActionsStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-TriggerEventsStore-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-TriggerEventsStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-TriggerEventsStore-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-TriggerEventsStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-aggregate-topic-partition-store-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-aggregate-topic-partition-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-aggregate-topic-partition-store-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-aggregate-topic-partition-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-group-stream-extension-rekey",
+            "value": "_confluent-controlcenter-6-0-1-1-group-stream-extension-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-monitoring-aggregate-rekey-store-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-monitoring-aggregate-rekey-store-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-monitoring-aggregate-rekey-store-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-monitoring-aggregate-rekey-store-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-monitoring-message-rekey-store",
+            "value": "_confluent-controlcenter-6-0-1-1-monitoring-message-rekey-store"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default__command_topic",
+            "value": "_confluent-ksql-default__command_topic"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_197625538450796063_1606992829135-KsqlTopic-Reduce-changelog",
+            "value": "_confluent-ksql-default_transient_197625538450796063_1606992829135-KsqlTopic-Reduce-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_4503472873391188573_1606992796392-KsqlTopic-Reduce-changelog",
+            "value": "_confluent-ksql-default_transient_4503472873391188573_1606992796392-KsqlTopic-Reduce-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-secrets",
+            "value": "_confluent-secrets"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-telemetry-metrics",
+            "value": "_confluent-telemetry-metrics"
+          },
+          {
+            "selected": false,
+            "text": "_schemas",
+            "value": "_schemas"
+          },
+          {
+            "selected": false,
+            "text": "confluent-audit-log-events",
+            "value": "confluent-audit-log-events"
+          },
+          {
+            "selected": false,
+            "text": "confluent-example-ks-java-application-id-Counts-changelog",
+            "value": "confluent-example-ks-java-application-id-Counts-changelog"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.devtest.sourcedb.orn01.contline_gen_cp-json",
+            "value": "confluent_dev.devtest.sourcedb.orn01.contline_gen_cp-json"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.devtest.sourcedb.orn01.prueba_cdc-audit",
+            "value": "confluent_dev.devtest.sourcedb.orn01.prueba_cdc-audit"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testdev2.sourcedb.orn01.prueba_cdc-audit",
+            "value": "confluent_dev.testdev2.sourcedb.orn01.prueba_cdc-audit"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testdev2.sourcedb.orn01.prueba_cdc-json",
+            "value": "confluent_dev.testdev2.sourcedb.orn01.prueba_cdc-json"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testmovt.sourcedb.orn01.ob_movtos_2-audit",
+            "value": "confluent_dev.testmovt.sourcedb.orn01.ob_movtos_2-audit"
+          },
+          {
+            "selected": false,
+            "text": "connect-configs",
+            "value": "connect-configs"
+          },
+          {
+            "selected": false,
+            "text": "dc_SAN.ADN360.CCPP",
+            "value": "dc_SAN.ADN360.CCPP"
+          },
+          {
+            "selected": false,
+            "text": "replicator-offsets",
+            "value": "replicator-offsets"
+          },
+          {
+            "selected": false,
+            "text": "replicator-status",
+            "value": "replicator-status"
+          },
+          {
+            "selected": false,
+            "text": "test-perf-v1",
+            "value": "test-perf-v1"
+          },
+          {
+            "selected": false,
+            "text": "test-single-v1",
+            "value": "test-single-v1"
+          },
+          {
+            "selected": false,
+            "text": "test-single-v2",
+            "value": "test-single-v2"
+          },
+          {
+            "selected": false,
+            "text": "test1",
+            "value": "test1"
+          },
+          {
+            "selected": false,
+            "text": "users",
+            "value": "users"
+          },
+          {
+            "selected": false,
+            "text": "word-count-input",
+            "value": "word-count-input"
+          },
+          {
+            "selected": false,
+            "text": "word-count-output",
+            "value": "word-count-output"
+          },
+          {
+            "selected": false,
+            "text": "wordcount-application-kerberos-Counts-changelog",
+            "value": "wordcount-application-kerberos-Counts-changelog"
+          },
+          {
+            "selected": false,
+            "text": "wordcount-application-ssl-kerberos-Counts-changelog",
+            "value": "wordcount-application-ssl-kerberos-Counts-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-AlertHistoryStore-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-AlertHistoryStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MetricsAggregateStore-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MetricsAggregateStore-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MetricsAggregateStore-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MetricsAggregateStore-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-THREE_HOURS-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringMessageAggregatorWindows-THREE_HOURS-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-MonitoringStream-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-0-1-MonitoringStream-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-0-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-cluster-rekey",
+            "value": "_confluent-controlcenter-6-0-0-1-cluster-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-metrics-trigger-measurement-rekey",
+            "value": "_confluent-controlcenter-6-0-0-1-metrics-trigger-measurement-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-0-1-monitoring-trigger-event-rekey",
+            "value": "_confluent-controlcenter-6-0-0-1-monitoring-trigger-event-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-Group-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-Group-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-MonitoringMessageAggregatorWindows-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-actual-group-consumption-rekey",
+            "value": "_confluent-controlcenter-6-0-1-1-actual-group-consumption-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-changelog",
+            "value": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-ONE_MINUTE-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-aggregatedTopicPartitionTableWindows-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-cluster-rekey",
+            "value": "_confluent-controlcenter-6-0-1-1-cluster-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-expected-group-consumption-rekey",
+            "value": "_confluent-controlcenter-6-0-1-1-expected-group-consumption-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-ONE_MINUTE-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-ONE_MINUTE-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-THREE_HOURS-repartition",
+            "value": "_confluent-controlcenter-6-0-1-1-group-aggregate-store-THREE_HOURS-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-metrics-trigger-measurement-rekey",
+            "value": "_confluent-controlcenter-6-0-1-1-metrics-trigger-measurement-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-controlcenter-6-0-1-1-monitoring-trigger-event-rekey",
+            "value": "_confluent-controlcenter-6-0-1-1-monitoring-trigger-event-rekey"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-metadata-auth",
+            "value": "_confluent-metadata-auth"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-metrics",
+            "value": "_confluent-metrics"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-monitoring",
+            "value": "_confluent-monitoring"
+          },
+          {
+            "selected": false,
+            "text": "connect-offsets",
+            "value": "connect-offsets"
+          },
+          {
+            "selected": false,
+            "text": "connect-status",
+            "value": "connect-status"
+          },
+          {
+            "selected": false,
+            "text": "test-single-avro-v3",
+            "value": "test-single-avro-v3"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_query_CSAS_PAGEVIEWS_FEMALE_11-Join-repartition",
+            "value": "_confluent-ksql-default_query_CSAS_PAGEVIEWS_FEMALE_11-Join-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_query_CSAS_PAGEVIEWS_FEMALE_11-KafkaTopic_Right-Reduce-changelog",
+            "value": "_confluent-ksql-default_query_CSAS_PAGEVIEWS_FEMALE_11-KafkaTopic_Right-Reduce-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_1021505290652869367_1606993710972-KsqlTopic-Reduce-changelog",
+            "value": "_confluent-ksql-default_transient_1021505290652869367_1606993710972-KsqlTopic-Reduce-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-license",
+            "value": "_confluent-license"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testdev.sourcedb.orn01.prueba_cdc-audit",
+            "value": "confluent_dev.testdev.sourcedb.orn01.prueba_cdc-audit"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testdev3.sourcedb.orn01.prueba_cdc-audit",
+            "value": "confluent_dev.testdev3.sourcedb.orn01.prueba_cdc-audit"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testdev3.sourcedb.orn01.prueba_cdc-json",
+            "value": "confluent_dev.testdev3.sourcedb.orn01.prueba_cdc-json"
+          },
+          {
+            "selected": false,
+            "text": "confluent_dev.testdev4.sourcedb.orn01.prueba_cdc-audit",
+            "value": "confluent_dev.testdev4.sourcedb.orn01.prueba_cdc-audit"
+          },
+          {
+            "selected": false,
+            "text": "confluent_pre.pretest.sourcedb.orn01.prueba_cdc-audit",
+            "value": "confluent_pre.pretest.sourcedb.orn01.prueba_cdc-audit"
+          },
+          {
+            "selected": false,
+            "text": "pageviews",
+            "value": "pageviews"
+          },
+          {
+            "selected": false,
+            "text": "replicator-configs",
+            "value": "replicator-configs"
+          },
+          {
+            "selected": false,
+            "text": "t1",
+            "value": "t1"
+          },
+          {
+            "selected": false,
+            "text": "word-count-output-kerberos",
+            "value": "word-count-output-kerberos"
+          },
+          {
+            "selected": false,
+            "text": "wordcount-application-Counts-changelog",
+            "value": "wordcount-application-Counts-changelog"
+          },
+          {
+            "selected": false,
+            "text": "wordcount-application-Counts-repartition",
+            "value": "wordcount-application-Counts-repartition"
+          },
+          {
+            "selected": false,
+            "text": "confluent-example-ks-java-application-id-Counts-repartition",
+            "value": "confluent-example-ks-java-application-id-Counts-repartition"
+          },
+          {
+            "selected": false,
+            "text": "wordcount-application-ssl-kerberos-Counts-repartition",
+            "value": "wordcount-application-ssl-kerberos-Counts-repartition"
+          },
+          {
+            "selected": false,
+            "text": "example-ks-java-application-id-Counts-changelog",
+            "value": "example-ks-java-application-id-Counts-changelog"
+          },
+          {
+            "selected": false,
+            "text": "example-ks-java-application-id-Counts-repartition",
+            "value": "example-ks-java-application-id-Counts-repartition"
+          },
+          {
+            "selected": false,
+            "text": "wordcount-application-kerberos-Counts-repartition",
+            "value": "wordcount-application-kerberos-Counts-repartition"
+          },
+          {
+            "selected": false,
+            "text": "CONFLUENT_PRE-PRETEST-commitstream",
+            "value": "CONFLUENT_PRE-PRETEST-commitstream"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_7923816610383633076_1610015887949-Aggregate-GroupBy-repartition",
+            "value": "_confluent-ksql-default_transient_7923816610383633076_1610015887949-Aggregate-GroupBy-repartition"
+          },
+          {
+            "selected": false,
+            "text": "cloudera_SAN.ADN360.CCPP",
+            "value": "cloudera_SAN.ADN360.CCPP"
+          },
+          {
+            "selected": false,
+            "text": "test-pageviews",
+            "value": "test-pageviews"
+          },
+          {
+            "selected": false,
+            "text": "test-perf-v2",
+            "value": "test-perf-v2"
+          },
+          {
+            "selected": false,
+            "text": "test-single-v3",
+            "value": "test-single-v3"
+          },
+          {
+            "selected": false,
+            "text": "test-perf-v3",
+            "value": "test-perf-v3"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_6323044358686929332_1610014622147-Aggregate-GroupBy-repartition",
+            "value": "_confluent-ksql-default_transient_6323044358686929332_1610014622147-Aggregate-GroupBy-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_7923816610383633076_1610015887949-Aggregate-Aggregate-Materialize-changelog",
+            "value": "_confluent-ksql-default_transient_7923816610383633076_1610015887949-Aggregate-Aggregate-Materialize-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_3552508022579473129_1610014151019-Aggregate-Aggregate-Materialize-changelog",
+            "value": "_confluent-ksql-default_transient_3552508022579473129_1610014151019-Aggregate-Aggregate-Materialize-changelog"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_3552508022579473129_1610014151019-Aggregate-GroupBy-repartition",
+            "value": "_confluent-ksql-default_transient_3552508022579473129_1610014151019-Aggregate-GroupBy-repartition"
+          },
+          {
+            "selected": false,
+            "text": "_confluent-ksql-default_transient_6323044358686929332_1610014622147-Aggregate-Aggregate-Materialize-changelog",
+            "value": "_confluent-ksql-default_transient_6323044358686929332_1610014622147-Aggregate-Aggregate-Materialize-changelog"
+          }
+        ],
+        "query": "label_values(kafka_log_log_size,topic)",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Kafka Topics",
+  "uid": "vQT4b1-Mz",
+  "version": 1
+}
