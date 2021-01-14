@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 4,
-  "iteration": 1610390089567,
+  "iteration": 1610618360567,
   "links": [],
   "panels": [
     {
@@ -5623,7 +5623,7 @@
           "value": "$__all"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(kafka_connect_app_info,instance)",
+        "definition": "label_values(kafka_connect_app_info{env=\"$env\",cluster=~\"$cluster\"},instance)",
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -5631,7 +5631,7 @@
         "multi": false,
         "name": "instance",
         "options": [],
-        "query": "label_values(kafka_connect_app_info,instance)",
+        "query": "label_values(kafka_connect_app_info{env=\"$env\",cluster=~\"$cluster\"},instance)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -5654,7 +5654,7 @@
           ]
         },
         "datasource": "Prometheus",
-        "definition": "label_values(kafka_connect_connector_task_metrics_pause_ratio,connector)",
+        "definition": "label_values(kafka_connect_connector_task_metrics_pause_ratio{env=\"$env\",cluster=~\"$cluster\"},connector)",
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -5662,7 +5662,7 @@
         "multi": true,
         "name": "connector",
         "options": [],
-        "query": "label_values(kafka_connect_connector_task_metrics_pause_ratio,connector)",
+        "query": "label_values(kafka_connect_connector_task_metrics_pause_ratio{env=\"$env\",cluster=~\"$cluster\"},connector)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
