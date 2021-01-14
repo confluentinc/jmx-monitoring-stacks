@@ -15,68 +15,10 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1610389244606,
+  "id": 49,
+  "iteration": 1610617640752,
   "links": [],
   "panels": [
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1000
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 0,
-        "y": 0
-      },
-      "id": 9,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.4",
-      "targets": [
-        {
-          "expr": "sum(kafka_controller_kafkacontroller_globaltopiccount)",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total # of Topics",
-      "type": "stat"
-    },
     {
       "aliasColors": {},
       "bars": false,
@@ -92,9 +34,9 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 10,
-        "w": 20,
-        "x": 4,
+        "h": 9,
+        "w": 24,
+        "x": 0,
         "y": 0
       },
       "hiddenSeries": false,
@@ -129,7 +71,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[5m]))",
+          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[1m]))",
           "interval": "",
           "legendFormat": "{{topic}}",
           "refId": "A"
@@ -177,63 +119,6 @@
       }
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 10000
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 0,
-        "y": 5
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.4",
-      "targets": [
-        {
-          "expr": "sum(kafka_controller_kafkacontroller_globalpartitioncount)",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total # of Partitions",
-      "type": "stat"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -251,7 +136,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 10
+        "y": 9
       },
       "hiddenSeries": false,
       "id": 3,
@@ -284,7 +169,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[5m]))",
+          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[1m]))",
           "interval": "",
           "legendFormat": "{{topic}}",
           "refId": "A"
@@ -349,7 +234,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 9
       },
       "hiddenSeries": false,
       "id": 4,
@@ -383,7 +268,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[5m]))",
+          "expr": "sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka\",topic=~\"$topic\",env=~\"$env\"}[1m]))",
           "interval": "",
           "legendFormat": "{{topic}}",
           "refId": "A"
@@ -485,7 +370,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 18
       },
       "id": 6,
       "options": {
@@ -595,7 +480,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 18
       },
       "id": 7,
       "options": {
@@ -651,7 +536,7 @@
       "type": "table"
     }
   ],
-  "refresh": "30s",
+  "refresh": "1m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -660,9 +545,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
+          "selected": true,
+          "text": "pro",
+          "value": "pro"
         },
         "datasource": "Prometheus",
         "definition": "label_values(env)",
@@ -672,20 +557,9 @@
         "label": "Environment",
         "multi": false,
         "name": "env",
-        "options": [
-          {
-            "selected": true,
-            "text": "dev",
-            "value": "dev"
-          },
-          {
-            "selected": false,
-            "text": "pre",
-            "value": "pre"
-          }
-        ],
+        "options": [],
         "query": "label_values(env)",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -701,20 +575,14 @@
           "selected": true,
           "tags": [],
           "text": [
-            "USERS_VIEWTIME_TOTAL",
-            "PAGEVIEWS_USERS",
-            "users",
-            "pageviews"
+            "All"
           ],
           "value": [
-            "USERS_VIEWTIME_TOTAL",
-            "PAGEVIEWS_USERS",
-            "users",
-            "pageviews"
+            "$__all"
           ]
         },
         "datasource": "Prometheus",
-        "definition": "label_values(kafka_log_log_size,topic)",
+        "definition": "label_values(kafka_log_log_size{env=\"$env\"},topic)",
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -722,7 +590,7 @@
         "multi": true,
         "name": "topic",
         "options": [],
-        "query": "label_values(kafka_log_log_size,topic)",
+        "query": "label_values(kafka_log_log_size{env=\"$env\"},topic)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
