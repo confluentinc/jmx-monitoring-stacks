@@ -16,9 +16,21 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 5,
-  "iteration": 1610378853273,
+  "iteration": 1610617921966,
   "links": [],
   "panels": [
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 22,
+      "title": "Health Check",
+      "type": "row"
+    },
     {
       "cacheTimeout": null,
       "colorBackground": false,
@@ -48,7 +60,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "interval": null,
@@ -139,7 +151,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 0
+        "y": 1
       },
       "id": 4,
       "interval": null,
@@ -256,18 +268,21 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 0
+        "y": 1
       },
       "hiddenSeries": false,
       "id": 7,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -371,7 +386,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "id": 3,
       "interval": null,
@@ -462,7 +477,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 5
       },
       "id": 5,
       "interval": null,
@@ -525,6 +540,18 @@
       "valueName": "current"
     },
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 20,
+      "title": "System",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -544,7 +571,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 12,
@@ -642,7 +669,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 13,
@@ -746,7 +773,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 14,
@@ -826,6 +853,18 @@
       }
     },
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 18,
+      "title": "Request Latency",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -845,7 +884,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 9,
@@ -978,7 +1017,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 10,
@@ -1084,7 +1123,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 11,
@@ -1184,20 +1223,9 @@
         "label": "Environment",
         "multi": false,
         "name": "env",
-        "options": [
-          {
-            "selected": true,
-            "text": "dev",
-            "value": "dev"
-          },
-          {
-            "selected": false,
-            "text": "pre",
-            "value": "pre"
-          }
-        ],
+        "options": [],
         "query": "label_values(env)",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
