@@ -1,5 +1,5 @@
 .DS_Store
 *.idea
-jmxexporter-prometheus-grafana/assets/prometheus/security/
+jmxexporter-prometheus-grafana/assets/security/
 both-enabled/
 .vscode/

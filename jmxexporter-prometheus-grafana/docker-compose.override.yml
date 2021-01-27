@@ -75,7 +75,7 @@ services:
     hostname: kafka-lag-exporter
     restart: always
     volumes:
-      - $MONITORING_STACK/assets/prometheus/kafka-lag-exporter:/opt/docker/conf
+      - $MONITORING_STACK/assets/kafka-lag-exporter:/opt/docker/conf
       - $MONITORING_STACK/assets/prometheus/security:/etc/kafka/secrets
 
   grafana:
@@ -89,4 +89,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+      - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning/
