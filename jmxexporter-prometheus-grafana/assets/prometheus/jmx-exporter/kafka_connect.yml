@@ -84,14 +84,24 @@ rules:
     labels:
       connector: "$1"
       task: "$2"
-  # confluent.replicator:type=confluent-replicator-task-metrics,*
-  - pattern: "confluent.replicator<type=confluent-replicator-task-metrics,(.+)=(.+),(.+)=(.+),(.+)=(.+),(.+)=(.+)><>([^:]+)"
-    name: confluent_replicator_confluent_replicator_task_metrics_$9
+  # confluent.replicator:type=confluent-replicator-task-metrics,* : confluent-replicator-task-topic-partition-*: Number Values
+  - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>confluent-replicator-task-topic-partition-(.*): (.*)"
+    name: confluent_replicator_task_metrics_$9
     labels:
       $1: "$2"
       $3: "$4"
       $5: "$6"
       $7: "$8"
+  # confluent.replicator:type=confluent-replicator-task-metrics,* : Strings
+  - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>(confluent-replicator-destination-cluster|confluent-replicator-source-cluster|confluent-replicator-destination-topic-name): (.*)"
+    name: confluent_replicator_task_metrics_info
+    value: 1
+    labels:
+      $1: "$2"
+      $3: "$4"
+      $5: "$6"
+      $7: "$8"
+      $9: "$10"
   # "kafka.consumer:type=app-info,client-id=*"
   # "kafka.producer:type=app-info,client-id=*"
   - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
