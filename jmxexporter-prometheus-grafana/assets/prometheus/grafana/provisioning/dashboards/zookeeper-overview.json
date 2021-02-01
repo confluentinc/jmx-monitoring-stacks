@@ -15,9 +15,22 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 5,
+  "iteration": 1610617921966,
   "links": [],
   "panels": [
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 22,
+      "title": "Health Check",
+      "type": "row"
+    },
     {
       "cacheTimeout": null,
       "colorBackground": false,
@@ -47,7 +60,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "interval": null,
@@ -88,7 +101,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(zookeeper_quorumsize)",
+          "expr": "count(zookeeper_status_quorumsize{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -138,7 +151,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 0
+        "y": 1
       },
       "id": 4,
       "interval": null,
@@ -179,13 +192,13 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(zookeeper_numaliveconnections)",
+          "expr": "sum(zookeeper_numaliveconnections{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": "60,120",
+      "thresholds": "100,200",
       "timeFrom": null,
       "timeShift": null,
       "title": "Alive Connections",
@@ -244,7 +257,8 @@
       "description": "Number of queued requests in the server. This goes up when the server receives more requests than it can process",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -254,26 +268,30 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 0
+        "y": 1
       },
       "hiddenSeries": false,
       "id": 7,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -283,9 +301,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_outstandingrequests",
+          "expr": "zookeeper_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -295,8 +313,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 10,
-          "yaxis": "left"
+          "value": 10
         }
       ],
       "timeFrom": null,
@@ -318,11 +335,12 @@
       },
       "yaxes": [
         {
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -368,7 +386,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "id": 3,
       "interval": null,
@@ -409,12 +427,13 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount)",
+          "expr": "avg(zookeeper_inmemorydatatree_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
+      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "Number of ZNodes",
@@ -458,7 +477,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 5
       },
       "id": 5,
       "interval": null,
@@ -499,13 +518,13 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount)",
+          "expr": "sum(zookeeper_inmemorydatatree_watchcount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": "100,200",
+      "thresholds": "500,1000",
       "timeFrom": null,
       "timeShift": null,
       "title": "Number of Watchers",
@@ -521,6 +540,18 @@
       "valueName": "current"
     },
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 20,
+      "title": "System",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -529,7 +560,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -539,26 +571,28 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 12,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -568,7 +602,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(process_cpu_seconds_total{job=\"zookeeper\"}[5m])*100",
+          "expr": "irate(process_cpu_seconds_total{job=\"zookeeper\",env=\"$env\"}[5m])*100",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -593,7 +628,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -623,7 +658,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -633,26 +669,28 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 13,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -662,9 +700,16 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\"})",
-          "legendFormat": "{{instance}}",
+          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\",env=\"$env\"})",
+          "interval": "",
+          "legendFormat": "Used:{{instance}}",
           "refId": "A"
+        },
+        {
+          "expr": "jvm_memory_bytes_max{job=\"zookeeper\",env=\"$env\",area=\"heap\"}",
+          "interval": "",
+          "legendFormat": "Max:{{instance}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -687,11 +732,11 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "bytes",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -717,7 +762,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -727,26 +773,28 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 14,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -756,7 +804,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"zookeeper\"}[5m]))",
+          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"zookeeper\",env=\"$env\"}[5m]))",
+          "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -781,11 +830,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 3,
+          "format": "percentunit",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -803,6 +853,18 @@
       }
     },
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 18,
+      "title": "Request Latency",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -811,7 +873,8 @@
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -821,7 +884,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 9,
@@ -838,9 +901,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -850,8 +914,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_minrequestlatency",
-          "legendFormat": "{{instance}}",
+          "expr": "zookeeper_minrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
+          "interval": "",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -875,11 +940,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 0,
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -903,7 +969,7 @@
           {
             "evaluator": {
               "params": [
-                10
+                12000
               ],
               "type": "gt"
             },
@@ -940,7 +1006,8 @@
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -950,7 +1017,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 10,
@@ -967,9 +1034,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -979,8 +1047,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_avgrequestlatency",
-          "legendFormat": "{{instance}}",
+          "expr": "zookeeper_avgrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
+          "interval": "",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -990,7 +1059,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 10
+          "value": 12000
         }
       ],
       "timeFrom": null,
@@ -1012,11 +1081,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 0,
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1034,41 +1104,6 @@
       }
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                20
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Request Latency - Maximum alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -1077,7 +1112,8 @@
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -1087,7 +1123,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 11,
@@ -1104,9 +1140,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1116,20 +1153,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_maxrequestlatency",
-          "legendFormat": "{{instance}}",
+          "expr": "zookeeper_maxrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
+          "interval": "",
+          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 20
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1149,19 +1179,20 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         }
       ],
@@ -1171,12 +1202,40 @@
       }
     }
   ],
-  "refresh": "10s",
-  "schemaVersion": 25,
+  "refresh": "30s",
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "dev",
+          "value": "dev"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(env)",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Environment",
+        "multi": false,
+        "name": "env",
+        "options": [],
+        "query": "label_values(env)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-15m",
@@ -1198,5 +1257,5 @@
   "timezone": "",
   "title": "Zookeeper Overview",
   "uid": "H4xS98vWk",
-  "version": 4
+  "version": 1
 }
