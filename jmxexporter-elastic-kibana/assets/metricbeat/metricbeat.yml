@@ -119,7 +119,7 @@ setup.kibana:
 #----------------------------- Dashboards -----------------------------
 # Control loading the sample dashboards to the Kibana index or not.
 setup.dashboards:
-  enabled: true
+  enabled: false
 
 logging.level: info
 logging.to_files: true
