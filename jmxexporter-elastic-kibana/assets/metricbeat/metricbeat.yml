@@ -122,8 +122,8 @@ setup.dashboards:
   enabled: false
 
 logging.level: info
-logging.to_files: true
-logging.to_syslog: false
+logging.to_files: false
+logging.to_syslog: true
 logging.files:
   keepfiles: 3
   permissions: 0644

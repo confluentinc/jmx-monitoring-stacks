@@ -78,7 +78,7 @@ services:
     container_name: metricbeat
     restart: always
     volumes:
-      - $MONITORING_STACK/assets/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+      - $MONITORING_STACK/assets/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
     command: -e
     environment:
       - "HOST_ELASTICSEARCH=elasticsearch:9200"
