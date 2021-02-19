@@ -42,7 +42,8 @@ echo -e "\nWaiting up to $MAX_WAIT seconds for Kibana to be ready"
 retry $MAX_WAIT host_check_kibana_ready || exit 1
 echo -e "\nConfigure Kibana dashboard:"
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/zookeeper.ndjson
-
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/kafka_overview.ndjson
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/ksqldb_overview.ndjson
 
 echo -e "\nView Kibana dashboards at ->"
 echo -e "http://localhost:5601"
