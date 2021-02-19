@@ -33,7 +33,8 @@ docker-compose exec tools bash -c "confluent iam rolebinding create \
     --kafka-cluster-id $KAFKA_CLUSTER_ID"
 
 echo -e "Launch $MONITORING_STACK"
-docker-compose up -d elasticsearch kibana node-exporter kafka-lag-exporter metricbeat prometheus grafana
+# docker-compose up -d elasticsearch kibana node-exporter kafka-lag-exporter metricbeat prometheus grafana
+docker-compose up -d elasticsearch kibana node-exporter kafka-lag-exporter metricbeat
 
 # Verify Kibana is ready
 MAX_WAIT=120
