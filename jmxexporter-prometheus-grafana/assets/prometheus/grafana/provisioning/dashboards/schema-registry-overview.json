@@ -15,11 +15,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1610617921966,
+  "id": 8,
+  "iteration": 1610529179466,
   "links": [],
   "panels": [
     {
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -27,260 +28,98 @@
         "x": 0,
         "y": 0
       },
-      "id": 22,
-      "title": "Health Check",
+      "id": 19,
+      "panels": [],
+      "title": "Schemas",
       "type": "row"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
       "datasource": "Prometheus",
-      "description": "Quorum Size of Zookeeper ensemble",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 4,
+        "h": 10,
         "w": 4,
         "x": 0,
         "y": 1
       },
       "id": 2,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
         },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false,
-        "ymax": null,
-        "ymin": null
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.3.4",
       "targets": [
         {
-          "expr": "count(zookeeper_status_quorumsize{job=\"zookeeper\",env=\"$env\"})",
+          "expr": "avg(kafka_schema_registry_registered_count{job=\"schemaregistry\",env=\"$env\"})",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": "2,3",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Zookeeper nodes online",
-      "type": "singlestat",
-      "valueFontSize": "200%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "title": "Schemas registered",
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "Prometheus",
-      "description": "Number of Alive Connections",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 1
-      },
-      "id": 4,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false,
-        "ymax": null,
-        "ymin": null
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum(zookeeper_numaliveconnections{job=\"zookeeper\",env=\"$env\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "100,200",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Alive Connections",
-      "type": "singlestat",
-      "valueFontSize": "200%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                10
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Outstanding Requests alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "description": "Number of queued requests in the server. This goes up when the server receives more requests than it can process",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 16,
-        "x": 8,
+        "h": 10,
+        "w": 12,
+        "x": 4,
         "y": 1
       },
       "hiddenSeries": false,
-      "id": 7,
+      "id": 11,
       "legend": {
         "alignAsTable": true,
-        "avg": true,
+        "avg": false,
         "current": true,
-        "max": true,
+        "max": false,
         "min": false,
         "show": true,
-        "sort": "current",
-        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -301,25 +140,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
+          "expr": "avg by(schema_type) (kafka_schema_registry_schemas_created{job=\"schemaregistry\",env=\"$env\"})",
           "interval": "",
-          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
+          "legendFormat": "{{schema_type}}",
           "refId": "A"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 10
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Outstanding Requests",
+      "title": "Schema registered over time",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -335,12 +166,11 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -358,196 +188,120 @@
       }
     },
     {
+      "aliasColors": {},
+      "breakPoint": "50%",
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
       "datasource": "Prometheus",
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {}
         },
         "overrides": []
       },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
+      "fontSize": "80%",
+      "format": "short",
       "gridPos": {
-        "h": 4,
+        "h": 10,
         "w": 4,
-        "x": 0,
-        "y": 5
+        "x": 16,
+        "y": 1
       },
-      "id": 3,
+      "id": 8,
       "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false,
-        "ymax": null,
-        "ymin": null
+      "legend": {
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "values": true
       },
-      "tableColumn": "",
+      "legendType": "Under graph",
+      "links": [],
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.4",
+      "strokeWidth": 1,
       "targets": [
         {
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount{job=\"zookeeper\",env=\"$env\"})",
+          "expr": "avg by(schema_type)(kafka_schema_registry_schemas_created{job=\"schemaregistry\",env=\"$env\"})",
+          "instant": true,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{schema_type}}",
           "refId": "A"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Number of ZNodes",
-      "type": "singlestat",
-      "valueFontSize": "200%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "title": "Schemas created",
+      "type": "grafana-piechart-panel",
       "valueName": "current"
     },
     {
+      "aliasColors": {},
+      "breakPoint": "50%",
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
       "datasource": "Prometheus",
-      "description": "Number of Watchers",
       "fieldConfig": {
         "defaults": {
           "custom": {}
         },
         "overrides": []
       },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
+      "fontSize": "80%",
+      "format": "short",
       "gridPos": {
-        "h": 4,
+        "h": 10,
         "w": 4,
-        "x": 4,
-        "y": 5
+        "x": 20,
+        "y": 1
       },
-      "id": 5,
+      "id": 9,
       "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false,
-        "ymax": null,
-        "ymin": null
+      "legend": {
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "values": true
       },
-      "tableColumn": "",
+      "legendType": "Under graph",
+      "links": [],
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.4",
+      "strokeWidth": 1,
       "targets": [
         {
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount{job=\"zookeeper\",env=\"$env\"})",
+          "expr": "avg by(schema_type)(kafka_schema_registry_schemas_deleted{job=\"schemaregistry\",env=\"$env\"})",
+          "instant": true,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{schema_type}}",
           "refId": "A"
         }
       ],
-      "thresholds": "500,1000",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Number of Watchers",
-      "type": "singlestat",
-      "valueFontSize": "200%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "title": "Schemas deleted",
+      "type": "grafana-piechart-panel",
       "valueName": "current"
     },
     {
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 11
       },
-      "id": 20,
+      "id": 15,
+      "panels": [],
       "title": "System",
       "type": "row"
     },
@@ -571,10 +325,10 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 10
+        "y": 12
       },
       "hiddenSeries": false,
-      "id": 12,
+      "id": 13,
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -602,7 +356,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(process_cpu_seconds_total{job=\"zookeeper\",env=\"$env\"}[5m])*100",
+          "expr": "irate(process_cpu_seconds_total{job=\"schemaregistry\",env=\"$env\"}[5m])*100",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -669,10 +423,10 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 10
+        "y": 12
       },
       "hiddenSeries": false,
-      "id": 13,
+      "id": 21,
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -700,13 +454,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\",env=\"$env\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"schemaregistry\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "Used:{{instance}}",
           "refId": "A"
         },
         {
-          "expr": "jvm_memory_bytes_max{job=\"zookeeper\",env=\"$env\",area=\"heap\"}",
+          "expr": "jvm_memory_bytes_max{job=\"schemaregistry\",env=\"$env\",area=\"heap\"}",
           "interval": "",
           "legendFormat": "Max:{{instance}}",
           "refId": "B"
@@ -773,10 +527,10 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 10
+        "y": 12
       },
       "hiddenSeries": false,
-      "id": 14,
+      "id": 23,
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -804,7 +558,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"zookeeper\",env=\"$env\"}[5m]))",
+          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"schemaregistry\",env=\"$env\"}[5m]))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -858,10 +612,10 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 19
       },
-      "id": 18,
-      "title": "Request Latency",
+      "id": 17,
+      "title": "Connections",
       "type": "row"
     },
     {
@@ -870,32 +624,31 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 8,
         "x": 0,
-        "y": 18
+        "y": 20
       },
       "hiddenSeries": false,
-      "id": 9,
+      "id": 4,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -914,9 +667,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_minrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
+          "expr": "kafka_schema_registry_jetty_metrics_connections_active{job=\"schemaregistry\",env=\"$env\"}",
           "interval": "",
-          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -924,7 +677,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Request Latency - Minimum",
+      "title": "Active Connections",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -940,12 +693,11 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "ms",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -963,72 +715,36 @@
       }
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                12000
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Request Latency - Average alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 8,
         "x": 8,
-        "y": 18
+        "y": 20
       },
       "hiddenSeries": false,
-      "id": 10,
+      "id": 6,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -1047,25 +763,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_avgrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
+          "expr": "kafka_schema_registry_jersey_metrics_request_rate{job=\"schemaregistry\",env=\"$env\"}",
           "interval": "",
-          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 12000
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Request Latency - Average",
+      "title": "Requests Rate",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1081,12 +789,11 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "ms",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -1109,32 +816,31 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 8,
         "x": 16,
-        "y": 18
+        "y": 20
       },
       "hiddenSeries": false,
-      "id": 11,
+      "id": 24,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -1153,9 +859,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zookeeper_maxrequestlatency{job=\"zookeeper\",env=\"$env\"} * zookeeper_ticktime",
+          "expr": "kafka_schema_registry_jersey_metrics_request_latency_99{job=\"schemaregistry\",env=\"$env\"}",
           "interval": "",
-          "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -1163,7 +869,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Request Latency - Maximum",
+      "title": "Requests latency 99p",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1179,20 +885,19 @@
       },
       "yaxes": [
         {
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
           "show": true
         }
       ],
@@ -1202,7 +907,7 @@
       }
     }
   ],
-  "refresh": "30s",
+  "refresh": "1m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -1238,24 +943,12 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": [
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ]
-  },
+  "timepicker": {},
   "timezone": "",
-  "title": "Zookeeper Overview",
-  "uid": "H4xS98vWk",
+  "title": "Schema Registry Overview",
+  "uid": "9ixzve-Mk",
   "version": 1
 }
