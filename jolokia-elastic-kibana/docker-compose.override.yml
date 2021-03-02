@@ -30,7 +30,7 @@ services:
     cpus: 0.8
 
   jmx-data-poller:
-    image: abhiwalia/kafkajmxexporter:1.1
+    image: abhiwalia/kafkajmxexporter:1.2
     container_name: jmx-data-poller
     cpus: 0.2
     restart: always
