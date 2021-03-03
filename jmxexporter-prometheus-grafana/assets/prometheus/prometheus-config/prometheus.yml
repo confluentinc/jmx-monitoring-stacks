@@ -1,7 +1,7 @@
 global:
   # How frequently to scrape targets by default.
   # Default 15s
-  scrape_interval: 60s
+  scrape_interval: 30s
   # How frequently to evaluate rules.
   # Default 15s
   evaluation_interval: 15s
