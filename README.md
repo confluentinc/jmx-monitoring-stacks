@@ -4,12 +4,17 @@ This repo demonstrates examples of JMX monitoring stacks that can monitor Conflu
 While Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
+- [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [jolokia-elastic-kibana](jolokia-elastic-kibana)
 
 # Caution
 
 The examples in this repo may not be complete and are for testing purposes only.
 They serve only to demonstrate how the integration works with Confluent Platform.
+
+The Jolokia JMX Metric sets do not follow the OpenMetrics standard and we do not anticipate any updates to the package anytime soon to support that.
+In purview of that, we are adding a new Prometheus Metricbeat based Elastic & Kibana setup.
+We eventually plan to deprecate the jolokia-elastic-kibana module as OpenMetrics support is (hopefully) the future and metricbeat-elastic-kibana module enables us to leverage that with native code from elasticsearch.
 
 # Run
 
@@ -19,11 +24,12 @@ Verify in the advanced Docker preferences settings that the memory available to 
 
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana) or [jolokia-elastic-kibana](jolokia-elastic-kibana), and set the `STACK` variable accordingly.
+2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana) or [jolokia-elastic-kibana](jolokia-elastic-kibana), and set the `STACK` variable accordingly.
 
 ```bash
 # Set one of these
 STACK=jmxexporter-prometheus-grafana
+STACK=metricbeat-elastic-kibana
 STACK=jolokia-elastic-kibana
 ```
 

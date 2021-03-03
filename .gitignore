@@ -1,5 +1,6 @@
 .DS_Store
 *.idea
 jmxexporter-prometheus-grafana/assets/prometheus/security/
+metricbeat-elastic-kibana/assets/security/
 both-enabled/
 .vscode/
