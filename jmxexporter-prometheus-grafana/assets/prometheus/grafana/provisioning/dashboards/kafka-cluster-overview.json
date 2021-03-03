@@ -12,12 +12,12 @@
       }
     ]
   },
-  "description": "Kafka resource usage and throughput",
+  "description": "Kafka cluster resource usage and throughput",
   "editable": true,
   "gnetId": 721,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1611708919507,
+  "id": 4,
+  "iteration": 1614790738904,
   "links": [],
   "panels": [
     {
@@ -50,7 +50,6 @@
               "value": "null"
             }
           ],
-          "nullValueMode": "connected",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -93,9 +92,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "value_and_name"
       },
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "targets": [
         {
           "expr": "kafka_controller_kafkacontroller_activecontrollercount{job=\"kafka\",env=\"$env\",instance=~\"$broker_id\"} > 0",
@@ -387,6 +387,106 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "hiddenSeries": false,
+      "id": 96,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.4.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "kafka_server_replicamanager_leadercount{job=\"kafka\",instance=~\"$broker_id\"}",
+          "interval": "",
+          "legendFormat": "{{ instance }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Replica Leaders per Instance",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:447",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:448",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "Prometheus",
       "editable": true,
       "error": false,
@@ -402,8 +502,8 @@
       "grid": {},
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 16,
+        "w": 4,
+        "x": 20,
         "y": 1
       },
       "hiddenSeries": false,
@@ -426,7 +526,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -884,7 +984,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Prometheus",
+      "datasource": null,
       "description": "Produce request rate.",
       "fieldConfig": {
         "defaults": {
@@ -1483,7 +1583,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1592,7 +1692,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1706,7 +1806,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1825,7 +1925,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1931,7 +2031,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2038,7 +2138,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2146,7 +2246,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2255,7 +2355,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2360,7 +2460,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2474,7 +2574,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2572,7 +2672,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2684,7 +2784,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2782,7 +2882,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2882,7 +2982,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2981,7 +3081,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3082,7 +3182,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3195,7 +3295,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3295,7 +3395,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3407,7 +3507,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3503,7 +3603,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3613,7 +3713,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3710,7 +3810,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3808,7 +3908,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3906,7 +4006,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4004,7 +4104,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4115,7 +4215,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4212,7 +4312,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4310,7 +4410,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4408,7 +4508,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4506,7 +4606,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4617,7 +4717,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4714,7 +4814,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4812,7 +4912,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4910,7 +5010,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5008,7 +5108,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5120,7 +5220,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5218,7 +5318,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "7.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5278,7 +5378,7 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 26,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -5292,6 +5392,7 @@
         },
         "datasource": "Prometheus",
         "definition": "label_values(env)",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -5299,7 +5400,10 @@
         "multi": false,
         "name": "env",
         "options": [],
-        "query": "label_values(env)",
+        "query": {
+          "query": "label_values(env)",
+          "refId": "Prometheus-env-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -5323,6 +5427,7 @@
         },
         "datasource": "Prometheus",
         "definition": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -5330,7 +5435,10 @@
         "multi": true,
         "name": "broker_id",
         "options": [],
-        "query": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+        "query": {
+          "query": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+          "refId": "Prometheus-broker_id-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -5354,6 +5462,7 @@
         },
         "datasource": "Prometheus",
         "definition": "label_values(quantile)",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -5361,7 +5470,10 @@
         "multi": true,
         "name": "percentile",
         "options": [],
-        "query": "label_values(quantile)",
+        "query": {
+          "query": "label_values(quantile)",
+          "refId": "Prometheus-percentile-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -5404,7 +5516,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Overview",
+  "title": "Kafka Cluster Overview",
   "uid": "qu-QZdfZz",
   "version": 1
 }
