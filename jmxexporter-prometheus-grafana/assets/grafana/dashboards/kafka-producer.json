@@ -1,4 +1,40 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.0.6"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.6.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,11 +51,13 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1567692601083,
+  "id": null,
+  "iteration": 1614855436761,
   "links": [],
   "panels": [
     {
       "collapsed": false,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -36,6 +74,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -44,6 +89,7 @@
         "x": 0,
         "y": 1
       },
+      "hiddenSeries": false,
       "id": 48,
       "legend": {
         "avg": false,
@@ -122,6 +168,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -130,6 +183,7 @@
         "x": 8,
         "y": 1
       },
+      "hiddenSeries": false,
       "id": 49,
       "legend": {
         "avg": false,
@@ -208,6 +262,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -216,6 +277,7 @@
         "x": 16,
         "y": 1
       },
+      "hiddenSeries": false,
       "id": 50,
       "legend": {
         "avg": false,
@@ -291,6 +353,7 @@
     },
     {
       "collapsed": false,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -307,8 +370,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of bytes sent per second to the broker.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -317,6 +386,7 @@
         "x": 0,
         "y": 9
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "avg": false,
@@ -394,8 +464,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of bytes sent per second to the broker per topic.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -404,6 +480,7 @@
         "x": 12,
         "y": 9
       },
+      "hiddenSeries": false,
       "id": 3,
       "legend": {
         "avg": false,
@@ -482,8 +559,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of messages sent per second to the broker.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -492,6 +575,7 @@
         "x": 0,
         "y": 18
       },
+      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "avg": false,
@@ -570,8 +654,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of messages sent per second to the broker per topic.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -580,6 +670,7 @@
         "x": 12,
         "y": 18
       },
+      "hiddenSeries": false,
       "id": 5,
       "legend": {
         "avg": false,
@@ -655,6 +746,7 @@
     },
     {
       "collapsed": true,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -668,7 +760,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average number of bytes sent per partition per-request.",
           "fill": 1,
           "fillGradient": 0,
@@ -756,7 +848,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average compression rate of record batches for a topic.",
           "fill": 1,
           "fillGradient": 0,
@@ -844,7 +936,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average record size",
           "fill": 1,
           "fillGradient": 0,
@@ -932,7 +1024,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The total amount of buffer memory that is not being used (either unallocated or in the free list).",
           "fill": 1,
           "fillGradient": 0,
@@ -1020,7 +1112,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The current number of in-flight requests awaiting a response.",
           "fill": 1,
           "fillGradient": 0,
@@ -1108,7 +1200,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average time in ms record batches spent in the send buffer.",
           "fill": 1,
           "fillGradient": 0,
@@ -1197,6 +1289,7 @@
     },
     {
       "collapsed": true,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1210,7 +1303,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average request latency in ms",
           "fill": 1,
           "fillGradient": 0,
@@ -1298,7 +1391,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average number of records per request.",
           "fill": 1,
           "fillGradient": 0,
@@ -1386,7 +1479,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average number of requests sent per second to the broker.\n",
           "fill": 1,
           "fillGradient": 0,
@@ -1474,7 +1567,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average number of response received per second to the broker.\n",
           "fill": 1,
           "fillGradient": 0,
@@ -1563,6 +1656,7 @@
     },
     {
       "collapsed": true,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2257,6 +2351,7 @@
     },
     {
       "collapsed": true,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2270,7 +2365,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average per-second number of record sends that resulted in errors.\n",
           "fill": 1,
           "fillGradient": 0,
@@ -2358,7 +2453,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2445,7 +2540,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The rate of failed authentication per seconds\n",
           "fill": 1,
           "fillGradient": 0,
@@ -2533,7 +2628,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The rate of failed authentication per seconds\n",
           "fill": 1,
           "fillGradient": 0,
@@ -2622,6 +2717,7 @@
     },
     {
       "collapsed": true,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2635,7 +2731,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The average time in ms a request was throttled by a broker",
           "fill": 1,
           "fillGradient": 0,
@@ -2723,7 +2819,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "The age in seconds of the current producer metadata being used.",
           "fill": 1,
           "fillGradient": 0,
@@ -2859,18 +2955,15 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 19,
+  "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "dev",
-          "value": "dev"
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(env)",
         "hide": 0,
         "includeAll": false,
@@ -2891,27 +2984,15 @@
       },
       {
         "allValue": null,
-        "current": {
-          "tags": [],
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(kafka_producer_app_info, client_id)",
         "hide": 0,
         "includeAll": true,
         "label": null,
         "multi": true,
         "name": "client_id",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          }
-        ],
+        "options": [],
         "query": "label_values(kafka_producer_app_info, client_id)",
         "refresh": 1,
         "regex": "",
@@ -2925,27 +3006,15 @@
       },
       {
         "allValue": null,
-        "current": {
-          "tags": [],
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(kafka_producer_producer_topic_metrics_byte_total{job=\"producer\"}, topic)",
         "hide": 0,
         "includeAll": true,
         "label": null,
         "multi": true,
         "name": "topic",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          }
-        ],
+        "options": [],
         "query": "label_values(kafka_producer_producer_topic_metrics_byte_total{job=\"producer\"}, topic)",
         "refresh": 1,
         "regex": "",
@@ -2978,7 +3047,7 @@
     ]
   },
   "timezone": "",
-  "title": "Producers",
+  "title": "Kafka Producers",
   "uid": "-C-IEldWk",
   "version": 1
 }

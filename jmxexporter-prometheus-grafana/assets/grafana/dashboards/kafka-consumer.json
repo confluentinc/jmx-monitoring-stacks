@@ -1,27 +1,67 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.0.6"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
-    "list": [{
-      "builtIn": 1,
-      "datasource": "-- Grafana --",
-      "enable": true,
-      "hide": true,
-      "iconColor": "rgba(0, 211, 255, 1)",
-      "name": "Annotations & Alerts",
-      "type": "dashboard"
-    }]
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
   },
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1566990465649,
+  "id": null,
+  "iteration": 1614855513756,
   "links": [],
-  "panels": [{
+  "panels": [
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of bytes consumed per second\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -30,6 +70,7 @@
         "x": 0,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 6,
       "legend": {
         "avg": false,
@@ -54,12 +95,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{job=\"consumer\", topic=\"\", client_id=~\"$client_id\"}[1m])",
-        "instant": false,
-        "legendFormat": "{{client_id}} - {{instance}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{job=\"consumer\", topic=\"\", client_id=~\"$client_id\"}[1m])",
+          "instant": false,
+          "legendFormat": "{{client_id}} - {{instance}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -78,7 +121,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "decimals": 1,
           "format": "short",
           "label": null,
@@ -106,8 +150,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of bytes consumed per topic per second.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -116,6 +166,7 @@
         "x": 12,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "avg": false,
@@ -140,12 +191,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "sum(rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{job=\"consumer\", topic!=\"\"}[1m])) by (topic)",
-        "instant": false,
-        "legendFormat": "{{topic}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "sum(rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{job=\"consumer\", topic!=\"\"}[1m])) by (topic)",
+          "instant": false,
+          "legendFormat": "{{topic}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -164,7 +217,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "decimals": 1,
           "format": "short",
           "label": null,
@@ -192,8 +246,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of records consumed per second.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -202,6 +262,7 @@
         "x": 0,
         "y": 9
       },
+      "hiddenSeries": false,
       "id": 9,
       "legend": {
         "avg": false,
@@ -226,12 +287,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{job=\"consumer\", topic=\"\"}[1m])",
-        "instant": false,
-        "legendFormat": "{{client_id}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{job=\"consumer\", topic=\"\"}[1m])",
+          "instant": false,
+          "legendFormat": "{{client_id}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -250,7 +313,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -277,8 +341,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of records consumed per second per topic.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -287,6 +357,7 @@
         "x": 12,
         "y": 9
       },
+      "hiddenSeries": false,
       "id": 8,
       "legend": {
         "avg": false,
@@ -311,12 +382,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "sum by (topic, instance) (rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{job=\"consumer\", topic!=\"\"}[1m]))",
-        "instant": false,
-        "legendFormat": "{{instance}}-{{topic}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "sum by (topic, instance) (rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{job=\"consumer\", topic!=\"\"}[1m]))",
+          "instant": false,
+          "legendFormat": "{{instance}}-{{topic}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -335,7 +408,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -362,8 +436,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average lag in terms of number of records for any partition.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -372,6 +452,7 @@
         "x": 0,
         "y": 18
       },
+      "hiddenSeries": false,
       "id": 7,
       "legend": {
         "avg": false,
@@ -396,12 +477,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_fetch_manager_metrics_records_lag_avg{job=\"consumer\"}",
-        "hide": false,
-        "legendFormat": "{{instance}}-{{topic}}-{{partition}}",
-        "refId": "A"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_fetch_manager_metrics_records_lag_avg{job=\"consumer\"}",
+          "hide": false,
+          "legendFormat": "{{instance}}-{{topic}}-{{partition}}",
+          "refId": "A"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -420,7 +503,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -447,8 +531,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average number of bytes fetched per request\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -457,6 +547,7 @@
         "x": 12,
         "y": 18
       },
+      "hiddenSeries": false,
       "id": 3,
       "legend": {
         "avg": false,
@@ -481,12 +572,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{job=\"consumer\"}",
-        "hide": false,
-        "legendFormat": "{{topic}}",
-        "refId": "A"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{job=\"consumer\"}",
+          "hide": false,
+          "legendFormat": "{{topic}}",
+          "refId": "A"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -505,7 +598,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -532,8 +626,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average time taken for a fetch request.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -542,6 +642,7 @@
         "x": 0,
         "y": 27
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "avg": false,
@@ -566,12 +667,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_avg",
-        "instant": false,
-        "legendFormat": "{{client_id}} - {{instance}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_avg",
+          "instant": false,
+          "legendFormat": "{{client_id}} - {{instance}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -590,7 +693,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -617,8 +721,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The number of fetch requests per second.\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -627,6 +737,7 @@
         "x": 12,
         "y": 27
       },
+      "hiddenSeries": false,
       "id": 5,
       "legend": {
         "avg": false,
@@ -651,12 +762,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_fetch_total{job=\"consumer\"}[1m])",
-        "instant": false,
-        "legendFormat": "{{client_id}} - {{instance}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_fetch_total{job=\"consumer\"}[1m])",
+          "instant": false,
+          "legendFormat": "{{client_id}} - {{instance}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -675,7 +788,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -702,8 +816,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of simultaneous connections\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -736,12 +856,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_metrics_connection_count",
-        "instant": false,
-        "legendFormat": "{{client_id}} - {{instance}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_metrics_connection_count",
+          "instant": false,
+          "legendFormat": "{{client_id}} - {{instance}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -760,7 +882,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -787,8 +910,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average and thee max throttle times in ms",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -821,7 +950,8 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_avg{job=\"consumer\"}",
           "instant": false,
           "legendFormat": "{{client_id}} - {{instance}}-avg",
@@ -852,7 +982,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -879,8 +1010,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Lag between the earliest offset in partition and the consumer offset\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -913,12 +1050,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_fetch_manager_metrics_records_lead{job=\"consumer\"}",
-        "instant": false,
-        "legendFormat": "{{client_id}}-{{instance}}-{{topic}}-{{partition}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_fetch_manager_metrics_records_lead{job=\"consumer\"}",
+          "instant": false,
+          "legendFormat": "{{client_id}}-{{instance}}-{{topic}}-{{partition}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -937,7 +1076,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -964,8 +1104,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "response rate per node\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -998,12 +1144,14 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_node_metrics_response_rate{job=\"consumer\"}",
-        "instant": false,
-        "legendFormat": "",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_node_metrics_response_rate{job=\"consumer\"}",
+          "instant": false,
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1022,7 +1170,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1049,8 +1198,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Rate of failed authentication attempts\n",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1083,12 +1238,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-        "expr": "kafka_consumer_consumer_metrics_failed_authentication_rate",
-        "instant": false,
-        "legendFormat": "{{client_id}}-{{instance}}",
-        "refId": "B"
-      }],
+      "targets": [
+        {
+          "expr": "kafka_consumer_consumer_metrics_failed_authentication_rate",
+          "instant": false,
+          "legendFormat": "{{client_id}}-{{instance}}",
+          "refId": "B"
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1107,7 +1264,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1131,43 +1289,34 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 19,
+  "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [{
-      "allValue": null,
-      "current": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "label_values(client_id)",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "client_id",
+        "options": [],
+        "query": "label_values(client_id)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
         "tags": [],
-        "text": "All",
-        "value": [
-          "$__all"
-        ]
-      },
-      "datasource": "Prometheus",
-      "definition": "label_values(client_id)",
-      "hide": 0,
-      "includeAll": true,
-      "label": null,
-      "multi": true,
-      "name": "client_id",
-      "options": [{
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
-      ],
-      "query": "label_values(client_id)",
-      "refresh": 1,
-      "regex": "",
-      "skipUrlSync": false,
-      "sort": 0,
-      "tagValuesQuery": "",
-      "tags": [],
-      "tagsQuery": "",
-      "type": "query",
-      "useTags": false
-    }]
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-15m",
@@ -1188,7 +1337,7 @@
     ]
   },
   "timezone": "",
-  "title": "Consumers",
+  "title": "Kafka Consumers",
   "uid": "-C-IEldWk2",
-  "version": 2
+  "version": 1
 }

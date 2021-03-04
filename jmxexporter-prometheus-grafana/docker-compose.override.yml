@@ -89,4 +89,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+      - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning/
