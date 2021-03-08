@@ -7,12 +7,6 @@
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
-    },
-    {
-      "name": "JOB_NAME",
-      "label": "Job",
-      "description": "Job name",
-      "type": "string"
     }
   ],
   "__requires": [
@@ -967,7 +961,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(process_cpu_seconds_total{job=\"${JOB_NAME}\",env=~\"$env\",cluster=~\"$cluster\",instance=~\"$instance\"}[5m])",
+          "expr": "rate(process_cpu_seconds_total{job=\"connect\",env=~\"$env\",cluster=~\"$cluster\",instance=~\"$instance\"}[5m])",
           "interval": "",
           "legendFormat": "{{cluster}}-{{instance}}",
           "refId": "A"
@@ -1065,13 +1059,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"${JOB_NAME}\",env=~\"$env\",cluster=~\"$cluster\",instance=~\"$instance\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"connect\",env=~\"$env\",cluster=~\"$cluster\",instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{cluster}}-{{instance}}",
           "refId": "A"
         },
         {
-          "expr": "jvm_memory_bytes_max{job=\"${JOB_NAME}\",env=~\"$env\",cluster=~\"$cluster\",area=\"heap\"}",
+          "expr": "jvm_memory_bytes_max{job=\"connect\",env=~\"$env\",cluster=~\"$cluster\",area=\"heap\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "B"
@@ -1170,7 +1164,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"${JOB_NAME}\",env=~\"$env\",cluster=~\"$cluster\",instance=~\"$instance\"}[5m]))",
+          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"connect\",env=~\"$env\",cluster=~\"$cluster\",instance=~\"$instance\"}[5m]))",
           "interval": "",
           "legendFormat": "{{cluster}}-{{instance}}",
           "refId": "A"
@@ -3326,7 +3320,7 @@
           },
           "targets": [
             {
-              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=~\"$env\",instance=~\"$instance\",job=\"${JOB_NAME}\",cluster=~\"$cluster\"} >= 0",
+              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=~\"$env\",instance=~\"$instance\",job=\"connect\",cluster=~\"$cluster\"} >= 0",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -3410,7 +3404,7 @@
           },
           "targets": [
             {
-              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=~\"$env\",instance=~\"$instance\",job=\"${JOB_NAME}\",cluster=~\"$cluster\"} >= 0",
+              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=~\"$env\",instance=~\"$instance\",job=\"connect\",cluster=~\"$cluster\"} >= 0",
               "format": "time_series",
               "instant": false,
               "interval": "",
