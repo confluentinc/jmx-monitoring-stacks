@@ -16,10 +16,36 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1613096991075,
+  "id": 3,
+  "iteration": 1615391729354,
   "links": [],
   "panels": [
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 58,
+      "options": {
+        "content": "# Disclaimer\n\n⚠️ This dashboard has some sample thresholds, this example is not meant to fit all use cases nor is it meant for production. Think of it as a learning tool to help you become comfortable with the metrics and thresholding.\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "7.3.7",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
     {
       "datasource": "Prometheus",
       "description": "The average per-second number of retried record sends for a topic. An increase could signal connectivity problems from the application to the broker. ",
@@ -48,7 +74,7 @@
         "h": 5,
         "w": 5,
         "x": 0,
-        "y": 0
+        "y": 3
       },
       "id": 9,
       "options": {
@@ -109,7 +135,7 @@
         "h": 5,
         "w": 5,
         "x": 5,
-        "y": 0
+        "y": 3
       },
       "id": 8,
       "options": {
@@ -173,7 +199,7 @@
         "h": 5,
         "w": 4,
         "x": 10,
-        "y": 0
+        "y": 3
       },
       "id": 56,
       "options": {
@@ -233,7 +259,7 @@
         "h": 5,
         "w": 5,
         "x": 14,
-        "y": 0
+        "y": 3
       },
       "id": 18,
       "options": {
@@ -293,7 +319,7 @@
         "h": 5,
         "w": 5,
         "x": 19,
-        "y": 0
+        "y": 3
       },
       "id": 54,
       "options": {
@@ -344,7 +370,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 5
+        "y": 8
       },
       "hiddenSeries": false,
       "id": 10,
@@ -441,7 +467,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 5
+        "y": 8
       },
       "hiddenSeries": false,
       "id": 52,
@@ -538,7 +564,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 5
+        "y": 8
       },
       "hiddenSeries": false,
       "id": 32,
@@ -623,7 +649,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 16
       },
       "id": 46,
       "panels": [
@@ -929,7 +955,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 17
       },
       "id": 25,
       "panels": [],
@@ -956,7 +982,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 2,
@@ -1053,7 +1079,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 3,
@@ -1151,7 +1177,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 5,
@@ -1249,7 +1275,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 22
+        "y": 25
       },
       "hiddenSeries": false,
       "id": 4,
@@ -1334,7 +1360,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 32
       },
       "id": 27,
       "panels": [
@@ -1640,7 +1666,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 33
       },
       "id": 23,
       "panels": [
@@ -1948,7 +1974,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 34
       },
       "id": 35,
       "panels": [
@@ -2725,7 +2751,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 35
       },
       "id": 31,
       "panels": [
