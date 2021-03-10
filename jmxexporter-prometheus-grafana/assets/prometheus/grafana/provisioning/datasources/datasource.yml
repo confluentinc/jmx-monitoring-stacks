@@ -37,6 +37,7 @@ datasources:
   isDefault: true
   # <map> fields that will be converted to json and stored in json_data
   jsonData:
+     # <sting> the typical scrap and evaluation interval configured in Prometheus, used to calculate '$__rate_interval'
      timeInterval: 60s
      tlsAuth: false
      tlsAuthWithCACert: false
