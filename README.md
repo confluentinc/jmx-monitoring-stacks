@@ -58,3 +58,7 @@ ${STACK}/start.sh
 ```bash
 ${STACK}/stop.sh
 ```
+
+# See Also
+
+For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).
