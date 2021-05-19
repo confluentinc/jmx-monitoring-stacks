@@ -53,6 +53,8 @@ services:
     container_name: kafka-lag-exporter
     hostname: kafka-lag-exporter
     restart: always
+    ports:
+      - 9999:9999
     volumes:
       - $MONITORING_STACK/../shared-assets/kafka-lag-exporter:/opt/docker/conf
       - $MONITORING_STACK/assets/security:/etc/kafka/secrets
@@ -86,23 +88,23 @@ services:
     depends_on:
       - elasticsearch
 
-  # prometheus:
-  #   image: prom/prometheus:v2.11.1
-  #   container_name: prometheus
-  #   ports:
-  #     - 9090:9090
-  #   volumes:
-  #     - $MONITORING_STACK/../jmxexporter-prometheus-grafana/assets/prometheus/prometheus-config/:/etc/prometheus/
+  prometheus:
+    image: prom/prometheus:v2.11.1
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - $MONITORING_STACK/../jmxexporter-prometheus-grafana/assets/prometheus/prometheus-config/:/etc/prometheus/
 
-  # grafana:
-  #   image: grafana/grafana:7.0.6
-  #   container_name: grafana
-  #   environment:
-  #     - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
-  #     - "GF_SECURITY_ADMIN_USER=admin"
-  #     - "GF_SECURITY_ADMIN_PASSWORD=password"
-  #     - "GF_USERS_ALLOW_SIGN_UP=false"
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - $MONITORING_STACK/../jmxexporter-prometheus-grafana/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+  grafana:
+    image: grafana/grafana:7.0.6
+    container_name: grafana
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
+      - "GF_SECURITY_ADMIN_USER=admin"
+      - "GF_SECURITY_ADMIN_PASSWORD=password"
+      - "GF_USERS_ALLOW_SIGN_UP=false"
+    ports:
+      - 3000:3000
+    volumes:
+      - $MONITORING_STACK/../jmxexporter-prometheus-grafana/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/

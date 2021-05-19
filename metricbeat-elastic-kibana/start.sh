@@ -36,6 +36,9 @@ echo -e "Launch $MONITORING_STACK"
 # docker-compose up -d elasticsearch kibana node-exporter kafka-lag-exporter metricbeat prometheus grafana
 docker-compose up -d elasticsearch kibana node-exporter kafka-lag-exporter metricbeat
 
+# This can be enabled for testing purposes when you want to run Elastic stack as well as the Prometheus stack together.
+docker-compose up -d prometheus grafana
+
 # Verify Kibana is ready
 MAX_WAIT=120
 echo
