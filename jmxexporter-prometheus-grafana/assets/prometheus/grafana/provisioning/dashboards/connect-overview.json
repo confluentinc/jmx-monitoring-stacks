@@ -1013,7 +1013,7 @@
           "refId": "A"
         },
         {
-          "expr": "jvm_memory_bytes_max{job=\"connect\",env=\"$env\",cluster=~\"$cluster\",area=\"heap\"}",
+          "expr": "jvm_memory_bytes_max{job=\"connect\",env=\"$env\",cluster=~\"$cluster\",instance=~\"$instance\",area=\"heap\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "B"
