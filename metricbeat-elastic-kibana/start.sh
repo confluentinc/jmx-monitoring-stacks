@@ -45,9 +45,21 @@ echo
 echo -e "\nWaiting up to $MAX_WAIT seconds for Kibana to be ready"
 retry $MAX_WAIT host_check_kibana_ready || exit 1
 echo -e "\nConfigure Kibana dashboard:"
+# Add ZK Dashboard
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/zookeeper.ndjson
+# Add Kafka Dashboard
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/kafka_overview.ndjson
+# Add ksqlDB Dashboard
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/ksqldb_overview.ndjson
+# Add Connect Dashboard
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/connect_overview.ndjson
+# Add Schema Registry Dashboard
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/schema_registry_overview.ndjson
+# Add Kafka Lag Exporter Dashboard
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/kafkaLagExporter_overview.ndjson
+# Add Topic Drill Down Dashboard
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/kafkaTopicDrillDown_overview.ndjson
+
 
 echo -e "\nView Kibana dashboards at ->"
 echo -e "http://localhost:5601"
