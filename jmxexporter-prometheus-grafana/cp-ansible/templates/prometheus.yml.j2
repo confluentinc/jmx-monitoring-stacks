@@ -1,0 +1,66 @@
+scrape_configs:
+
+  - job_name: "node_exporter"
+    static_configs:
+      - targets:
+{% for host in groups['all'] %}
+          - "{{host}}:{{prometheus_node_exporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+
+{% if groups['zookeeper'] is defined %}
+  - job_name: "zookeeper"
+    static_configs:
+      - targets:
+{% for host in groups['zookeeper'] %}
+          - "{{host}}:{{zookeeper_jmxexporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+
+{% endif %}
+{% if groups['kafka_broker'] is defined %}
+  - job_name: "kafka"
+    static_configs:
+      - targets:
+{% for host in groups['kafka_broker'] %}
+          - "{{host}}:{{kafka_jmxexporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+
+{% endif %}
+{% if groups['schema_registry'] is defined %}
+  - job_name: "schemaregistry"
+    static_configs:
+      - targets:
+{% for host in groups['schema_registry'] %}
+          - "{{host}}:{{schema_registry_jmxexporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+
+{% endif %}
+{% if groups['kafka_connect'] is defined %}
+  - job_name: "connect"
+    static_configs:
+      - targets:
+{% for host in groups['kafka_connect'] %}
+          - "{{host}}:{{connect_jmxexporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+
+{% endif %}
+{% if groups['ksql'] is defined %}
+  - job_name: "ksqldb"
+    static_configs:
+      - targets:
+{% for host in groups['ksql'] %}
+          - "{{host}}:{{ksqldb_jmxexporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+
+{% endif %}

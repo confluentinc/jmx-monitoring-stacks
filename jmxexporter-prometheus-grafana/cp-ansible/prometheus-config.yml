@@ -1,0 +1,16 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    env: dev
+    
+    prometheus_node_exporter_port: 9100
+    
+    zookeeper_jmxexporter_port: 8079
+    kafka_jmxexporter_port: 8080
+    schema_registry_jmxexporter_port: 8078
+    connect_jmxexporter_port: 8077
+    ksqldb_jmxexporter_port: 8076
+  tasks:
+    - template:
+        src: prometheus.yml.j2
+        dest: out/prometheus.yml
