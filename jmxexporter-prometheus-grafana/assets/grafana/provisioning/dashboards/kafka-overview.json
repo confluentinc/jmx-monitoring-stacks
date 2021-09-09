@@ -3250,7 +3250,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 71
+            "y": 28
           },
           "hiddenSeries": false,
           "id": 55,
@@ -3261,6 +3261,8 @@
             "max": true,
             "min": false,
             "show": true,
+            "sort": "current",
+            "sortDesc": true,
             "total": false,
             "values": true
           },
@@ -3346,7 +3348,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 71
+            "y": 28
           },
           "hiddenSeries": false,
           "id": 56,
@@ -3357,6 +3359,8 @@
             "max": true,
             "min": false,
             "show": true,
+            "sort": "current",
+            "sortDesc": true,
             "total": false,
             "values": true
           },
@@ -6229,7 +6233,7 @@
       "type": "row"
     }
   ],
-  "refresh": "1m",
+  "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -6327,8 +6331,8 @@
     ]
   },
   "time": {
-    "from": "now-6h",
-    "to": "now"
+    "from": "2021-09-09T20:38:36.906Z",
+    "to": "2021-09-09T20:43:47.326Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -6358,5 +6362,5 @@
   "timezone": "browser",
   "title": "Kafka Overview",
   "uid": "qu-QZdfZz",
-  "version": 10
+  "version": 11
 }
