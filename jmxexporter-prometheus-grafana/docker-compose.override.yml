@@ -4,52 +4,52 @@ services:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
 
   kafka1:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   kafka2:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   streams-demo:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      JAVA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_streams.yml
+      JAVA_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/kafka_streams.yml
 
   connect:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/kafka_connect.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/kafka_connect.yml
 
   schemaregistry:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_schemaregistry.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/confluent_schemaregistry.yml
 
   ksqldb-server:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      KSQL_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_ksql.yml
+      KSQL_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/confluent_ksql.yml
 
   restproxy:
     volumes:
       - $MONITORING_STACK/../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
+      KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
 
   prometheus:
-    image: prom/prometheus:v2.11.1
+    image: prom/prometheus:v2.29.2
     container_name: prometheus
     ports:
       - 9090:9090
@@ -57,7 +57,7 @@ services:
       - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus/
 
   node-exporter:
-    image: prom/node-exporter:v0.18.1
+    image: prom/node-exporter:v1.2.2
     container_name: node-exporter
     volumes:
       - /proc:/host/proc:ro
@@ -70,7 +70,7 @@ services:
       - "^(aufs|proc|nsfs|shm|cgroup|tmpfs|binfmt_misc|debugfs|devpts|fusectl|hugetlbfs|fuse.lxcfs|mqueue|pstore|securityfs|sysfs|autofs|devtmpfs|configfs)"
 
   kafka-lag-exporter:
-    image: lightbend/kafka-lag-exporter:0.5.5
+    image: lightbend/kafka-lag-exporter:0.6.7
     container_name: kafka-lag-exporter
     hostname: kafka-lag-exporter
     restart: always
@@ -79,7 +79,7 @@ services:
       - $MONITORING_STACK/assets/prometheus/security:/etc/kafka/secrets
 
   grafana:
-    image: grafana/grafana:7.4.3
+    image: grafana/grafana:8.1.3
     container_name: grafana
     environment:
       - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
@@ -89,4 +89,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+      - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning/
