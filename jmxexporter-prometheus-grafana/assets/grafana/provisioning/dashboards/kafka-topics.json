@@ -554,13 +554,16 @@
       "hiddenSeries": false,
       "id": 13,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -579,7 +582,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{job=\"kafka\", env=\"$env\", topic=~\"$topic\"}[1m])) by (topic)",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{job=\"kafka\", env=\"$env\", topic=~\"$topic\"}[5m])) by (topic)",
           "interval": "",
           "legendFormat": "{{topic}}",
           "refId": "A"
@@ -589,7 +592,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Produce request per sec per topic",
+      "title": "Produce Request per sec",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -651,13 +654,16 @@
       "hiddenSeries": false,
       "id": 15,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
         "min": false,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -676,7 +682,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{job=\"kafka\", env=\"$env\",topic=~\"$topic\"}[1m])) by (topic)",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{job=\"kafka\", env=\"$env\",topic=~\"$topic\"}[5m])) by (topic)",
           "interval": "",
           "legendFormat": "{{topic}}",
           "refId": "A"
@@ -686,7 +692,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Fetch request per sec per topic",
+      "title": "Fetch Request per sec",
       "tooltip": {
         "shared": true,
         "sort": 2,
