@@ -6233,7 +6233,7 @@
       "type": "row"
     }
   ],
-  "refresh": false,
+  "refresh": "1m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -6331,8 +6331,8 @@
     ]
   },
   "time": {
-    "from": "2021-09-09T20:38:36.906Z",
-    "to": "2021-09-09T20:43:47.326Z"
+    "from": "now-12h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
