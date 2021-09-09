@@ -53,6 +53,8 @@ services:
     container_name: kafka-lag-exporter
     hostname: kafka-lag-exporter
     restart: always
+    ports:
+      - 9999:9999
     volumes:
       - $MONITORING_STACK/../shared-assets/kafka-lag-exporter:/opt/docker/conf
       - $MONITORING_STACK/assets/security:/etc/kafka/secrets
