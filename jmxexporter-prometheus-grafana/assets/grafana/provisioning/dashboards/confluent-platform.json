@@ -22,7 +22,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1632150410502,
+  "iteration": 1632256217504,
   "links": [],
   "panels": [
     {
@@ -1134,7 +1134,7 @@
       "id": 37,
       "panels": [],
       "repeat": "cluster",
-      "title": "Kafka Connect ($cluster) ",
+      "title": "Kafka Connect ($kafka_connect_cluster_id) ",
       "type": "row"
     },
     {
@@ -1520,7 +1520,7 @@
       "id": 52,
       "panels": [],
       "repeat": "clusterid",
-      "title": "ksqlDB Cluster ($clusterid) ",
+      "title": "ksqlDB Cluster ($ksqldb_cluster_id) ",
       "type": "row"
     },
     {
@@ -2035,17 +2035,17 @@
           "value": "cluster1"
         },
         "datasource": null,
-        "definition": "label_values(cluster)",
+        "definition": "label_values(kafka_connect_cluster_id)",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "Kafka Connect cluster ID",
+        "label": "Kafka Connect Cluster ID",
         "multi": false,
-        "name": "cluster",
+        "name": "kafka_connect_cluster_id",
         "options": [],
         "query": {
-          "query": "label_values(cluster)",
+          "query": "label_values(kafka_connect_cluster_id)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -2069,7 +2069,7 @@
         "includeAll": false,
         "label": "ksqlDB Cluster ID",
         "multi": false,
-        "name": "clusterid",
+        "name": "ksqldb_cluster_id",
         "options": [],
         "query": {
           "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
