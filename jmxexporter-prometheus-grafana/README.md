@@ -19,6 +19,10 @@
 
 ![Kafka topics](img/kafka-topics.png)
 
+### Kafka quotas
+
+![Kafka quotas](img/kafka-quotas.png)
+
 ### Schema Registry cluster
 
 ![Schema Registry cluster](img/schema-registry-cluster.png)
