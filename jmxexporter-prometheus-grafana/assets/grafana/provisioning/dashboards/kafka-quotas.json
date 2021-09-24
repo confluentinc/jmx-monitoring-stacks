@@ -67,7 +67,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_server_produce_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka\"}",
+          "expr": "kafka_server_produce_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -162,7 +162,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_server_fetch_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka\"}",
+          "expr": "kafka_server_fetch_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -257,7 +257,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_server_request_request_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka\"}",
+          "expr": "kafka_server_request_request_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -352,7 +352,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_server_produce_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka\"}",
+          "expr": "kafka_server_produce_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -447,7 +447,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_server_fetch_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka\"}",
+          "expr": "kafka_server_fetch_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -542,7 +542,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kafka_server_request_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka\"}",
+          "expr": "kafka_server_request_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
