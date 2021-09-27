@@ -20,6 +20,12 @@
 ![Kafka topics](img/kafka-topics.png)
 
 ### Kafka quotas
+For Kafka to output quota metrics, at least one quota configuration is necessary.
+
+A quota can be configured from the cp-demo folder using docker-compose:
+```bash
+docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter --add-config 'producer_byte_rate=10000,consumer_byte_rate=30000,request_percentage=0.2' --entity-type users --entity-name appSA
+```
 
 ![Kafka quotas](img/kafka-quotas.png)
 
