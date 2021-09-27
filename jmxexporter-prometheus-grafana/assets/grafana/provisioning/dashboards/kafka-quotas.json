@@ -100,7 +100,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_produce_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_produce_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -186,7 +186,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_fetch_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_fetch_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -272,7 +272,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_request_request_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_request_request_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -358,7 +358,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_produce_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_produce_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -444,7 +444,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_fetch_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_fetch_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -530,7 +530,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_request_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_request_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -613,7 +613,41 @@
         "useTags": false
       },
       {
-        "allValue": null,
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(user)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "User",
+        "multi": true,
+        "name": "user",
+        "options": [],
+        "query": {
+          "query": "label_values(user)",
+          "refId": "Prometheus-user-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
         "current": {
           "selected": true,
           "text": [
