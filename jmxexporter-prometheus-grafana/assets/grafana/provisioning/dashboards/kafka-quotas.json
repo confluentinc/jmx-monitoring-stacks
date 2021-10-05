@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1632478321520,
+  "id": 10,
+  "iteration": 1633460006472,
   "links": [],
   "panels": [
     {
@@ -81,7 +81,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 8,
         "x": 0,
         "y": 0
@@ -89,8 +89,12 @@
       "id": 6,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -100,9 +104,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_produce_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "exemplar": true,
+          "expr": "kafka_server_produce_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
           "refId": "A"
         }
       ],
@@ -167,7 +172,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 8,
         "x": 8,
         "y": 0
@@ -175,8 +180,12 @@
       "id": 7,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -186,9 +195,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_fetch_byte_rate{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "exemplar": true,
+          "expr": "kafka_server_fetch_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
           "refId": "A"
         }
       ],
@@ -253,7 +263,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 8,
         "x": 16,
         "y": 0
@@ -261,8 +271,12 @@
       "id": 8,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -272,9 +286,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_request_request_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "exemplar": true,
+          "expr": "kafka_server_request_request_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
           "refId": "A"
         }
       ],
@@ -339,16 +354,20 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 8,
         "x": 0,
-        "y": 9
+        "y": 12
       },
       "id": 3,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -358,9 +377,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_produce_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "exemplar": true,
+          "expr": "kafka_server_produce_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
           "refId": "A"
         }
       ],
@@ -425,16 +445,20 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 8,
         "x": 8,
-        "y": 9
+        "y": 12
       },
       "id": 5,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -444,9 +468,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_fetch_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "exemplar": true,
+          "expr": "kafka_server_fetch_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
           "refId": "A"
         }
       ],
@@ -511,16 +536,20 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 8,
         "x": 16,
-        "y": 9
+        "y": 12
       },
       "id": 4,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -530,9 +559,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "kafka_server_request_throttle_time{client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "exemplar": true,
+          "expr": "kafka_server_request_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
           "refId": "A"
         }
       ],
@@ -542,7 +572,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "10s",
+  "refresh": "1m",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -613,7 +643,41 @@
         "useTags": false
       },
       {
-        "allValue": null,
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(user)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "User",
+        "multi": true,
+        "name": "user",
+        "options": [],
+        "query": {
+          "query": "label_values(user)",
+          "refId": "Prometheus-user-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
         "current": {
           "selected": true,
           "text": [
@@ -649,7 +713,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
@@ -668,5 +732,5 @@
   "timezone": "",
   "title": "Kafka Quotas",
   "uid": "cwWEgYqMz",
-  "version": 2
+  "version": 1
 }
