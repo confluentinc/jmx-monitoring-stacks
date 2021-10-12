@@ -1,10 +1,15 @@
 - hosts: localhost
   gather_facts: no
   vars:
+    ## These vars can be moved to the inventory
     env: dev
-    
+    node_exporter_enabled: false
+    relabel_configs_enabled: true
+    ##
+
+    # Prometheus exporter ports
     prometheus_node_exporter_port: 9100
-    
+
     zookeeper_jmxexporter_port: 8079
     kafka_jmxexporter_port: 8080
     schema_registry_jmxexporter_port: 8078
@@ -13,4 +18,4 @@
   tasks:
     - template:
         src: prometheus.yml.j2
-        dest: out/prometheus.yml
+        dest: "prometheus-{{env}}.yml"
