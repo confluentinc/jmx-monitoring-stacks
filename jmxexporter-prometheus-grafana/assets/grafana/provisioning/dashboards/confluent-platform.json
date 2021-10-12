@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 10,
-  "iteration": 1632256217504,
+  "id": 3,
+  "iteration": 1634040033398,
   "links": [],
   "panels": [
     {
@@ -394,7 +394,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 8,
         "x": 16,
         "y": 1
       },
@@ -424,7 +424,7 @@
           "expr": "zookeeper_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}} ({{member_type}})",
           "refId": "A"
         }
       ],
@@ -1501,7 +1501,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -2030,9 +2030,10 @@
       {
         "allValue": null,
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "cluster1",
-          "value": "cluster1"
+          "text": "None",
+          "value": ""
         },
         "datasource": null,
         "definition": "label_values(kafka_connect_cluster_id)",
@@ -2057,9 +2058,10 @@
       {
         "allValue": null,
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "ksql-cluster",
-          "value": "ksql-cluster"
+          "text": "None",
+          "value": ""
         },
         "datasource": null,
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
