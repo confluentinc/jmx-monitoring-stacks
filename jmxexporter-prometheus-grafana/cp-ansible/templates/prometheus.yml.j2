@@ -36,7 +36,7 @@ scrape_configs:
 
 {% endif %}
 {% if groups['kafka_broker'] is defined %}
-  - job_name: "kafka"
+  - job_name: "kafka-broker"
     static_configs:
       - targets:
 {% for host in groups['kafka_broker'] %}
@@ -54,7 +54,7 @@ scrape_configs:
 
 {% endif %}
 {% if groups['schema_registry'] is defined %}
-  - job_name: "schemaregistry"
+  - job_name: "schema-registry"
     static_configs:
       - targets:
 {% for host in groups['schema_registry'] %}
@@ -72,7 +72,7 @@ scrape_configs:
 
 {% endif %}
 {% if groups['kafka_connect'] is defined %}
-  - job_name: "connect"
+  - job_name: "kafka-connect"
     static_configs:
       - targets:
 {% for host in groups['kafka_connect'] %}
