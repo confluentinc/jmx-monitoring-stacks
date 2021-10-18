@@ -1,6 +1,7 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
+cacheRules: true
 whitelistObjectNames:
   - kafka.schema.registry:type=jetty-metrics
   - kafka.schema.registry:type=jersey-metrics
