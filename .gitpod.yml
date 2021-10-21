@@ -1,0 +1,91 @@
+github:
+  prebuilds:
+    # enable for the default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: true
+    # configure whether Gitpod registers itself as a status check to pull requests
+    addCheck: false
+
+tasks:
+  - name: prebuild
+    init: cd .. && git clone https://github.com/confluentinc/cp-demo && cd jmx-monitoring-stacks &&./jmxexporter-prometheus-grafana/start.sh && ./jmxexporter-prometheus-grafana/stop.sh && gp sync-done prebuild
+    command: curl -L --http1.1 https://cnfl.io/ccloud-cli | sudo sh -s -- -b /usr/local/bin; exit
+
+  - name: cp-demo
+    init: gp sync-await prebuild
+    command: if [ -z "$DISABLE_AUTOSTART" ]; then echo "🚀 Starting up cp-demo (you can disable autostart by exporting DISABLE_AUTOSTART environment variable, see https://www.gitpod.io/docs/environment-variables)";./jmxexporter-prometheus-grafana/start.sh; echo "🚀 You can now follow steps in https://docs.confluent.io/platform/current/tutorials/cp-demo/docs/on-prem.html#guided-tutorial"; else echo "ℹ️ DISABLE_AUTOSTART environment variable is set, use ./jmxexporter-prometheus-grafana/start.sh to start cp-demo";fi
+
+vscode:
+  extensions:
+    - ms-azuretools.vscode-docker
+
+ports:
+# zookeeper
+- port: 2181
+  onOpen: ignore
+- port: 2182
+  onOpen: ignore
+# kafka1
+- port: 8091
+  onOpen: ignore
+- port: 9091
+  onOpen: ignore
+- port: 10091
+  onOpen: ignore
+- port: 11091
+  onOpen: ignore
+- port: 12091
+  onOpen: ignore
+# kafka2
+- port: 8092
+  onOpen: ignore
+- port: 9092
+  onOpen: ignore
+- port: 10092
+  onOpen: ignore
+- port: 11092
+  onOpen: ignore
+- port: 12092
+  onOpen: ignore
+# connect
+- port: 8083
+  onOpen: ignore
+# elasticsearch
+- port: 9200
+  onOpen: ignore
+- port: 9300
+  onOpen: ignore
+# kibana
+- port: 5601
+  onOpen: notify
+# control-center
+- port: 9021
+  onOpen: notify
+  visibility: public
+- port: 9022
+  onOpen: ignore
+# schemaregistry
+- port: 8085
+  onOpen: ignore
+# ksqldb-server
+- port: 8088
+  onOpen: ignore
+  visibility: public
+- port: 8089
+  onOpen: ignore
+# restproxy
+- port: 8086
+  onOpen: ignore
+# prometheus
+- port: 9090
+  onOpen: notify
+  visibility: public
+# grafana
+- port: 3000
+  onOpen: notify
+  visibility: public
