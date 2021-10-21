@@ -13,7 +13,7 @@ github:
 
 tasks:
   - name: prebuild
-    init: cd .. && git clone https://github.com/confluentinc/cp-demo && cd jmx-monitoring-stacks && gp sync-done prebuild
+    init: cd .. && git clone https://github.com/confluentinc/cp-demo && cd cp-demo && ./scripts/start.sh && ./scripts/stop.sh && cd jmx-monitoring-stacks && gp sync-done prebuild
     command: curl -L --http1.1 https://cnfl.io/ccloud-cli | sudo sh -s -- -b /usr/local/bin; exit
 
   - name: cp-demo
