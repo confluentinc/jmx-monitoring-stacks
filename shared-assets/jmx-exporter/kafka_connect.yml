@@ -1,6 +1,7 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
+cacheRules: true
 whitelistObjectNames:
   # Engine Application Versioning Info
   - kafka.connect:type=app-info,client-id=*
