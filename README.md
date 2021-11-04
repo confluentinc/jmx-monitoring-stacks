@@ -16,21 +16,23 @@ The Jolokia JMX Metric sets do not follow the OpenMetrics standard and we do not
 In purview of that, we are adding a new Prometheus Metricbeat based Elastic & Kibana setup.
 We eventually plan to deprecate the jolokia-elastic-kibana module as OpenMetrics support is (hopefully) the future and metricbeat-elastic-kibana module enables us to leverage that with native code from elasticsearch.
 
-# Run
+# How to run with cp-demo
 
 This repo is intended to be run specifically with [cp-demo](https://github.com/confluentinc/cp-demo).
 Make sure you have enough system resources on the local host to run this.
 Verify in the advanced Docker preferences settings that the memory available to Docker is at least 8 GB (default is 2 GB).
 
+NOTE: If there is interest to test Kafka Lag Exporter (included on the monitoring stacks) make sure to use JDK 8 when running the demo, as it requires JDK8-generated certificates for the container to work (<https://github.com/lightbend/kafka-lag-exporter/issues/270>).
+
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana) or [jolokia-elastic-kibana](jolokia-elastic-kibana), and set the `STACK` variable accordingly.
+2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana) or [jolokia-elastic-kibana](jolokia-elastic-kibana), and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
 # Set one of these
-STACK=jmxexporter-prometheus-grafana
-STACK=metricbeat-elastic-kibana
-STACK=jolokia-elastic-kibana
+MONITORING_STACK=jmxexporter-prometheus-grafana
+MONITORING_STACK=metricbeat-elastic-kibana
+MONITORING_STACK=jolokia-elastic-kibana
 ```
 
 3. Clone `cp-demo` and checkout 6.1.0-post (this has been validated only with cp-demo in the `6.1.0-post` branch).
@@ -50,13 +52,13 @@ STACK=jolokia-elastic-kibana
 5. Start the monitoring solution with the STACK selected. This command also starts cp-demo, you do not need to start cp-demo separately.
 
 ```bash
-${STACK}/start.sh
+${MONITORING_STACK}/start.sh
 ```
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
 ```bash
-${STACK}/stop.sh
+${MONITORING_STACK}/stop.sh
 ```
 
 # How to use with cp-ansible
