@@ -76,7 +76,7 @@ services:
     restart: always
     volumes:
       - $MONITORING_STACK/../shared-assets/kafka-lag-exporter:/opt/docker/conf
-      - $MONITORING_STACK/assets/prometheus/security:/etc/kafka/secrets
+      - $MONITORING_STACK/assets/security:/etc/kafka/secrets
 
   grafana:
     image: grafana/grafana:8.1.3
