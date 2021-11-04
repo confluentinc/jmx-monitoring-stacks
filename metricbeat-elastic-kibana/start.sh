@@ -22,7 +22,7 @@ KAFKA_LAG_EXPORTER="User:kafkaLagExporter"
 SECURITY_DIR="${MONITORING_STACK}/assets/security"
 mkdir -p $SECURITY_DIR
 (cd $SECURITY_DIR && rm -f *.crt *.csr *_creds *.jks *.srl *.key *.pem *.der *.p12)
-(cd $SECURITY_DIR && $CP_DEMO_HOME/scripts/security/certs-create-per-user.sh kafkaLagExporter)
+(cd $SECURITY_DIR && ../../../shared-assets/kafka-lag-exporter/kafka-lag-exporter-certs.sh $CP_DEMO_HOME/scripts/security kafkaLagExporter)
 
 echo -e "Create role binding for kafkaLagExporter"
 cd $CP_DEMO_HOME
