@@ -31,7 +31,7 @@ scrape_configs:
       - targets: ["node-exporter:9100"]
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -44,7 +44,7 @@ scrape_configs:
           env: "dev"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -58,7 +58,7 @@ scrape_configs:
           env: "dev"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -71,7 +71,7 @@ scrape_configs:
           env: "dev"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -85,7 +85,7 @@ scrape_configs:
           kafka_connect_cluster_id: "cluster1"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -98,7 +98,7 @@ scrape_configs:
           env: "dev"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -111,7 +111,7 @@ scrape_configs:
           env: "dev"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
@@ -123,25 +123,35 @@ scrape_configs:
           env: "dev"
     relabel_configs:
       - source_labels: [__address__]
-        target_label: instance
+        target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
   # No producer for the moment in cp-demo
-  #  - job_name: 'producer'
-  #    static_configs:
-  #      - targets:
-  #          - 'producer:1234'
-  #        labels:
-  #          env: 'dev'
+  # - job_name: 'kafka-producer'
+  #   static_configs:
+  #     - targets:
+  #         - 'kafka1:1235'
+  #       labels:
+  #         env: 'dev'
+  #   relabel_configs:
+  #     - source_labels: [__address__]
+  #       target_label: hostname
+  #       regex: '([^:]+)(:[0-9]+)?'
+  #       replacement: '${1}'
 
   # No consumer for the moment in cp-demo
-  #  - job_name: 'consumer'
-  #    static_configs:
-  #      - targets:
-  #          - "consumer:1234"
-  #        labels:
-  #          env: 'dev'
+  # - job_name: 'kafka-consumer'
+  #   static_configs:
+  #     - targets:
+  #         - "kafka1:1236"
+  #       labels:
+  #         env: 'dev'
+  #   relabel_configs:
+  #     - source_labels: [__address__]
+  #       target_label: hostname
+  #       regex: '([^:]+)(:[0-9]+)?'
+  #       replacement: '${1}'
 
   - job_name: "kafka-lag-exporter"
     static_configs:
