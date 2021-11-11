@@ -54,7 +54,7 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus/
+      - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus
 
   node-exporter:
     image: prom/node-exporter:v0.18.1
@@ -89,4 +89,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+      - $MONITORING_STACK/assets/prometheus/grafana/provisioning/:/etc/grafana/provisioning
