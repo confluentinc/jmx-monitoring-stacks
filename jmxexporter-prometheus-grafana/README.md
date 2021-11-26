@@ -43,6 +43,12 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ![ksqlDB cluster dashboard 0](img/ksqldb-cluster-0.png)
 ![ksqlDB cluster dashboard 1](img/ksqldb-cluster-1.png)
 
+### Kafka Clients
+
+![Kafka Producer](img/kafka-producer.png)
+
+![Kafka Consumer](img/kafka-consumer.png)
+
 ## Integration with `cp-ansible`
 
 When deploying Confluent Platform with `cp-ansible`, Ansible inventories can be used to generate Prometheus configurations for static targets:
