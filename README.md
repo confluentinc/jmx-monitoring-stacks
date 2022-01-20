@@ -16,27 +16,6 @@ The Jolokia JMX Metric sets do not follow the OpenMetrics standard and we do not
 In purview of that, we are adding a new Prometheus Metricbeat based Elastic & Kibana setup.
 We eventually plan to deprecate the jolokia-elastic-kibana module as OpenMetrics support is (hopefully) the future and metricbeat-elastic-kibana module enables us to leverage that with native code from elasticsearch.
 
-# How to run with cCloud "/export" endpoint
-1.  Set the following
-```bash
-# Set the following env variable
-MONITORING_STACK=ccloud-openmetrics-prometheus-grafana
-```
-2.  Spin a cCloud instance with (SR, Kafka Cluster, fully managed connectors, fully managed ksqlDB)
-
-3.  update the file MONITORING_STACK/ccloud-openmetrics-prometheus-grafana/utils/env_variables.env (with clusterIds , api-key, api-secret)
-
-4.  Start the monitoring solution with the STACK selected. This command assumes cCLoud instance is running and the environemnt variable file is updated with the relavant cluster ids.
-
-```bash
-${MONITORING_STACK}/start.sh
-```
-
-5. Stop the monitoring solution.
-
-```bash
-${MONITORING_STACK}/stop.sh
-```
 
 # How to run with cp-demo
 
@@ -82,6 +61,47 @@ ${MONITORING_STACK}/start.sh
 ```bash
 ${MONITORING_STACK}/stop.sh
 ```
+# How to run with cCloud "/export" endpoint (openMetrics endpoint)
+
+For a sample demo of generating grafana/prometheus  connecting to cCloud. Please follow the step below
+### Step 1.  
+    clone git repo
+### Step 2. Set environment variables
+    update the file in ccloud-openmetrics-prometheus-grafana/utils/env_variables.env
+    Details about environment variables are given below
+### Step 3.  Start monitoring solution
+    Run script  ( ${MONITORING_STACK}/start.sh )
+### Step 4.  Stop monitoring solution
+    Run script  ( ${MONITORING_STACK}/stop.sh )
+
+## Additional details for cCloud example:
+
+If you have a cCloud instance running , with a cluster with few topics, a managed connector or a managed ksqlDB applications. Gather the ids of each of the resources  and follow the steps as mentioned above  to integrate grafana & prometheus with cCloud "/export" endpoint. 
+
+*NOTE : This example depends on cCloud cluster & other managed clusters in confluent cloud. This example does not spin up a cCloud instance automatically.*
+
+1. Following env variable to be set
+```bash
+# Mandatory env variables
+export MONITORING_STACK=ccloud-openmetrics-prometheus-grafana
+export CCLOUD_API_KEY=<CCLOUD-API-KEY> # Resource group cloud
+export CCLOUD_API_SECRET=<CCLOUD-API-secret>
+export CCLOUD_KAFKA_LKC_IDS=<Kafka-cluster-ids>  #One or many seperated by ","
+
+#Optional resource ids to set based on scraping requirement
+export CCLOUD_CONNECT_LCC_IDS=<ccloud-connect-cluster-ids>  #One or many seperated by ","
+export CCLOUD_KSQL_LKSQLC_IDS=<ccloud-ksql-cluster-ids>  #One or many seperated by ","
+export CCLOUD_SR_LSRC_IDS=<ccloud-SR-cluster-ids>  #One or many seperated by ","
+```
+2. Spin a cCloud instance with (SR, Kafka Cluster, fully managed connectors, fully managed ksqlDB)
+
+3. Start & stop command
+
+```bash
+${MONITORING_STACK}/start.sh
+${MONITORING_STACK}/stop.sh
+```
+
 
 # How to use with cp-ansible
 

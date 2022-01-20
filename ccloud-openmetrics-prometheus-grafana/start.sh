@@ -11,7 +11,8 @@ export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && 
 ########################################
 echo -e "Generate Prometheus Configuration from Environemnet variables for  $MONITORING_STACK"
 export OUTPUT_FILE=$MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
-[-e $OUTPUT_FILE] rm -f $OUTPUT_FILE
+echo " creating prometheus configuration file $OUTPUT_FILE "
+[[ -e $OUTPUT_FILE ]]; rm -f $OUTPUT_FILE 
 source $MONITORING_STACK/utils/env_variables.env
 envsubst < $MONITORING_STACK/utils/prometheus-template.yaml > $MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
 
