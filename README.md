@@ -6,7 +6,7 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [jolokia-elastic-kibana](jolokia-elastic-kibana)
-
+- [ccloud-openmetrics-prometheus-grafana](ccloud-openmetrics-prometheus-grafana)
 # Caution
 
 The examples in this repo may not be complete and are for testing purposes only.
@@ -15,6 +15,28 @@ They serve only to demonstrate how the integration works with Confluent Platform
 The Jolokia JMX Metric sets do not follow the OpenMetrics standard and we do not anticipate any updates to the package anytime soon to support that.
 In purview of that, we are adding a new Prometheus Metricbeat based Elastic & Kibana setup.
 We eventually plan to deprecate the jolokia-elastic-kibana module as OpenMetrics support is (hopefully) the future and metricbeat-elastic-kibana module enables us to leverage that with native code from elasticsearch.
+
+# How to run with cCloud "/export" endpoint
+1.  Set the following
+```bash
+# Set the following env variable
+MONITORING_STACK=ccloud-openmetrics-prometheus-grafana
+```
+2.  Spin a cCloud instance with (SR, Kafka Cluster, fully managed connectors, fully managed ksqlDB)
+
+3.  update the file MONITORING_STACK/ccloud-openmetrics-prometheus-grafana/utils/env_variables.env (with clusterIds , api-key, api-secret)
+
+4.  Start the monitoring solution with the STACK selected. This command assumes cCLoud instance is running and the environemnt variable file is updated with the relavant cluster ids.
+
+```bash
+${MONITORING_STACK}/start.sh
+```
+
+5. Stop the monitoring solution.
+
+```bash
+${MONITORING_STACK}/stop.sh
+```
 
 # How to run with cp-demo
 
