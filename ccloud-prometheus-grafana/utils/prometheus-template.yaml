@@ -12,8 +12,8 @@ scrape_configs:
       password: $CCLOUD_API_SECRET
     metrics_path: /v2/metrics/cloud/export
     params:
-      resource.kafka.id: [${CCLOUD_KAFKA_LKC_IDS}]       
-      resource.connector.id: [${CCLOUD_CONNECT_LCC_IDS}]    
+      resource.kafka.id: [${CCLOUD_KAFKA_LKC_IDS}]
+      resource.connector.id: [${CCLOUD_CONNECT_LCC_IDS}]
       resource.ksql.id: [${CCLOUD_KSQL_LKSQLC_IDS}]
       resource.schema_registry.id: [${CCLOUD_SR_LSRC_IDS}]
           
