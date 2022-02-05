@@ -21,7 +21,7 @@ envsubst < $MONITORING_STACK/utils/prometheus-template.yaml > $MONITORING_STACK/
 # Start monitoring solution
 ########################################
 echo -e "Launch $MONITORING_STACK"
-docker-compose -f $MONITORING_STACK/docker-compose.yml up -d prometheus  grafana
+docker-compose -f $MONITORING_STACK/docker-compose.yaml up -d prometheus  grafana
 
 echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"

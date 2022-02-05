@@ -16,8 +16,7 @@
 
 ```
 git clone https://github.com/confluentinc/jmx-monitoring-stacks
-cd jmx-monitoring-stacks
-export MONITORING_STACK=ccloud-prometheus-grafana
+cd jmx-monitoring-stacks/ccloud-prometheus-grafana
 ```
 
 ### Step 2 
@@ -47,7 +46,7 @@ Now edit the file `./ccloud-prometheus-grafana/utils/env_variables.env` and add 
 
 * Start the CCloud export demo
 ``` 
-*${MONITORING_STACK}/start.sh*
+./start.sh
 ```
 
 ### Step 4 ( select dashboard )
@@ -60,7 +59,8 @@ Now edit the file `./ccloud-prometheus-grafana/utils/env_variables.env` and add 
 
 ### Step 5
 * Stop the demo
-     *${MONITORING_STACK}/stop.sh*
-
+```
+./stop.sh
+```
 ## Additional Links
 * [ Confluent Cloud - Monitoring/Metrics api](https://docs.confluent.io/cloud/current/monitoring/metrics-api.html)
