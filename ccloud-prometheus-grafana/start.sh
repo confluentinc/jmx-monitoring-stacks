@@ -14,7 +14,7 @@ export OUTPUT_FILE=$MONITORING_STACK/assets/prometheus/prometheus-config/prometh
 echo " creating prometheus configuration file $OUTPUT_FILE "
 [[ -e $OUTPUT_FILE ]]; rm -f $OUTPUT_FILE 
 source $MONITORING_STACK/utils/env_variables.env
-envsubst < $MONITORING_STACK/utils/prometheus-template.yaml > $MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
+envsubst < $MONITORING_STACK/utils/prometheus-template.yml > $MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
 
 
 ########################################
