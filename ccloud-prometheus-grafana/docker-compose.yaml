@@ -1,0 +1,21 @@
+version: "2.3"
+services:
+  prometheus:
+    image: prom/prometheus:v2.29.2
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus
+
+  grafana:
+    image: grafana/grafana:8.1.3
+    container_name: grafana
+    environment:
+      - "GF_SECURITY_ADMIN_USER=admin"
+      - "GF_SECURITY_ADMIN_PASSWORD=password"
+      - "GF_USERS_ALLOW_SIGN_UP=false"
+    ports:
+      - 3000:3000
+    volumes:
+      - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning

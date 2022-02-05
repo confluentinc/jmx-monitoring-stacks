@@ -6,7 +6,7 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [jolokia-elastic-kibana](jolokia-elastic-kibana)
-
+- [ccloud-openmetrics-prometheus-grafana](ccloud-openmetrics-prometheus-grafana)
 # Caution
 
 The examples in this repo may not be complete and are for testing purposes only.
@@ -15,6 +15,7 @@ They serve only to demonstrate how the integration works with Confluent Platform
 The Jolokia JMX Metric sets do not follow the OpenMetrics standard and we do not anticipate any updates to the package anytime soon to support that.
 In purview of that, we are adding a new Prometheus Metricbeat based Elastic & Kibana setup.
 We eventually plan to deprecate the jolokia-elastic-kibana module as OpenMetrics support is (hopefully) the future and metricbeat-elastic-kibana module enables us to leverage that with native code from elasticsearch.
+
 
 # How to run with cp-demo
 
@@ -60,6 +61,9 @@ ${MONITORING_STACK}/start.sh
 ```bash
 ${MONITORING_STACK}/stop.sh
 ```
+# How to run with CCloud "/export" endpoint (openMetrics endpoint)
+
+The demo with CCloud needs a CCloud Instance running and you (as a user) are required to gather some details before spinning up the CCloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a CCloud based sample dashboard.
 
 # How to use with cp-ansible
 
