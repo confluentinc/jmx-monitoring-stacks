@@ -6,7 +6,8 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [jolokia-elastic-kibana](jolokia-elastic-kibana)
-- [ccloud-openmetrics-prometheus-grafana](ccloud-prometheus-grafana)
+- [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
+
 # Caution
 
 The examples in this repo may not be complete and are for testing purposes only.
