@@ -9,7 +9,7 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "target": {
-          "limit": 100,a
+          "limit": 100,
           "matchAny": false,
           "tags": [],
           "type": "dashboard"
@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1644508335471,
+  "id": null,
+  "iteration": 1633460006472,
   "links": [],
   "panels": [
     {
@@ -732,5 +732,5 @@
   "timezone": "",
   "title": "Kafka Quotas",
   "uid": "cwWEgYqMz",
-  "version": 3
+  "version": 1
 }
