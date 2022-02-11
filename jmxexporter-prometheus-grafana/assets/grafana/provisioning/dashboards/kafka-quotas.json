@@ -21,7 +21,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 10,
+  "id": null,
   "iteration": 1633460006472,
   "links": [],
   "panels": [
@@ -258,7 +258,7 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -349,7 +349,7 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -440,7 +440,7 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "ms"
         },
         "overrides": []
       },
