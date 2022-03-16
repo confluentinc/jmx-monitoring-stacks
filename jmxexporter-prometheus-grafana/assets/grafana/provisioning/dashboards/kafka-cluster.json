@@ -23,7 +23,7 @@
   "gnetId": 721,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1637943038134,
+  "iteration": 1647427255896,
   "links": [],
   "panels": [
     {
@@ -1013,6 +1013,91 @@
       "type": "stat"
     },
     {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 122,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(kafka_network_requestmetrics_errorspersec{error!=\"NONE\"}[5m])",
+          "interval": "",
+          "legendFormat": "{{error}} @ {{hostname}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "type": "timeseries"
+    },
+    {
       "cacheTimeout": null,
       "datasource": "Prometheus",
       "description": "Fetch request rate.",
@@ -1045,8 +1130,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
-        "y": 10
+        "x": 0,
+        "y": 14
       },
       "id": 94,
       "interval": null,
@@ -1114,8 +1199,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 16,
-        "y": 10
+        "x": 4,
+        "y": 14
       },
       "id": 38,
       "interval": null,
@@ -1183,8 +1268,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
-        "y": 10
+        "x": 8,
+        "y": 14
       },
       "id": 36,
       "interval": null,
@@ -1226,7 +1311,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 18
       },
       "id": 40,
       "panels": [],
@@ -1307,7 +1392,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "id": 27,
       "links": [],
@@ -1417,7 +1502,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 19
       },
       "id": 2,
       "links": [],
@@ -1532,7 +1617,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 19
       },
       "id": 3,
       "links": [],
@@ -1574,7 +1659,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 27
       },
       "id": 29,
       "panels": [
@@ -2152,7 +2237,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 28
       },
       "id": 44,
       "panels": [
@@ -2348,7 +2433,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 29
       },
       "id": 86,
       "panels": [
@@ -2822,7 +2907,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 30
       },
       "id": 82,
       "panels": [
@@ -3020,7 +3105,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 31
       },
       "id": 53,
       "panels": [
@@ -3211,7 +3296,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 32
       },
       "id": 58,
       "panels": [
@@ -3677,7 +3762,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 33
       },
       "id": 68,
       "panels": [
@@ -4145,7 +4230,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 34
       },
       "id": 66,
       "panels": [
@@ -4613,7 +4698,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 35
       },
       "id": 102,
       "panels": [
@@ -5342,7 +5427,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 36
       },
       "id": 120,
       "panels": [
@@ -5563,7 +5648,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 37
       },
       "id": 46,
       "panels": [
@@ -5894,7 +5979,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "0.95"
           ],
@@ -5959,5 +6044,5 @@
   "timezone": "browser",
   "title": "Kafka cluster",
   "uid": "qu-QZdfZz",
-  "version": 1
+  "version": 2
 }
