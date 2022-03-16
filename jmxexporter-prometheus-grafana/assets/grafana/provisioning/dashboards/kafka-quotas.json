@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1633460006472,
+  "id": 3,
+  "iteration": 1647426501739,
   "links": [],
   "panels": [
     {
@@ -105,9 +105,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kafka_server_produce_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "topk(10, kafka_server_produce_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"})",
           "interval": "",
-          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
+          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
           "refId": "A"
         }
       ],
@@ -196,9 +196,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kafka_server_fetch_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "topk(10, kafka_server_fetch_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"})",
           "interval": "",
-          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
+          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
           "refId": "A"
         }
       ],
@@ -287,9 +287,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kafka_server_request_request_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "topk(10, kafka_server_request_request_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"})",
           "interval": "",
-          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
+          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
           "refId": "A"
         }
       ],
@@ -378,9 +378,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kafka_server_produce_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_produce_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"} > 0",
           "interval": "",
-          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
+          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
           "refId": "A"
         }
       ],
@@ -469,9 +469,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kafka_server_fetch_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_fetch_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"} > 0",
           "interval": "",
-          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
+          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
           "refId": "A"
         }
       ],
@@ -560,9 +560,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kafka_server_request_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"}",
+          "expr": "kafka_server_request_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"} > 0",
           "interval": "",
-          "legendFormat": "{{ user }} - {{ client_id }} (broker: {{ instance }})",
+          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
           "refId": "A"
         }
       ],
@@ -732,5 +732,5 @@
   "timezone": "",
   "title": "Kafka Quotas",
   "uid": "cwWEgYqMz",
-  "version": 1
+  "version": 2
 }
