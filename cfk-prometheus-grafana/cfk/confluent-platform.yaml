@@ -1,0 +1,730 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Zookeeper
+metadata:
+  name: zookeeper
+  namespace: confluent
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-zookeeper:7.0.1
+    init: confluentinc/confluent-init-container:2.2.0-1
+  dataVolumeCapacity: 10Gi
+  logVolumeCapacity: 10Gi
+  metrics:
+    prometheus:
+      rules:
+        - labels:
+            client_address: $4
+            connection_id: $5
+            member_type: $3
+            server_id: $2
+            server_name: $1
+          name: zookeeper_connections_$6
+          pattern: org.apache.ZooKeeperService<name0=(.+), name1=replica.(\d+), name2=(\w+),
+            name3=Connections, name4=(.+), name5=(.+)><>([^:]+)
+          valueFactor: 1
+        - labels:
+            member_type: $3
+            server_id: $2
+            server_name: $1
+          name: zookeeper_$4
+          pattern: 'org.apache.ZooKeeperService<name0=(.+), name1=replica.(\d+), name2=(\w+)><>(\w+):
+              (\d+)'
+          valueFactor: 1
+        - labels:
+            member_type: $3
+            server_id: $2
+            server_name: $1
+          name: zookeeper_inmemorydatatree_$4
+          pattern: 'org.apache.ZooKeeperService<name0=(.+), name1=replica.(\d+), name2=(\w+),
+              name3=InMemoryDataTree><>(WatchCount|NodeCount): (\d+)'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            server_id: $2
+            server_name: $1
+          name: zookeeper_status
+          pattern: 'org.apache.ZooKeeperService<name0=(.+), name1=replica.(\d+)><>(.+):
+              (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            server_id: $1
+          name: zookeeper_status_$2
+          pattern: 'org.apache.ZooKeeperService<name0=ReplicatedServer_id(\d+)><>(QuorumSize):
+              (\d+)'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            server_id: "1"
+            server_name: $1
+          name: zookeeper_inmemorydatatree_$2
+          pattern: 'org.apache.ZooKeeperService<name0=(.+), name1=InMemoryDataTree><>(WatchCount|NodeCount):
+              (\d+)'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            client_address: $2
+            connection_id: $3
+            server_name: $1
+          name: zookeeper_connections_$4
+          pattern: org.apache.ZooKeeperService<name0=(.+), name1=Connections, name2=(.+),
+            name3=(.+)><>([^:]+)
+          valueFactor: 1
+        - labels:
+            $2: $3
+            server_name: $1
+          name: zookeeper_$2
+          pattern: 'org.apache.ZooKeeperService<name0=(.+)><>(StartTime|ClientPort|SecureClientAddress|Version|SecureClientPort):
+              (.+)'
+          value: "1"
+          valueFactor: 1
+        - name: zookeeper_$2
+          pattern: 'org.apache.ZooKeeperService<name0=(.+)><>(.+): (.+)'
+          type: GAUGE
+          valueFactor: 1
+      whitelist:
+        - org.apache.ZooKeeperService:name3=Connections,*
+        - org.apache.ZooKeeperService:name3=InMemoryDataTree,*
+        - org.apache.ZooKeeperService:name0=*,name1=replica*,name2=*
+        - org.apache.ZooKeeperService:name0=*,name1=replica*
+        - org.apache.ZooKeeperService:name0=*
+        - org.apache.ZooKeeperService:name1=InMemoryDataTree,name0=*
+        - org.apache.ZooKeeperService:name0=*,name1=Connections,name2=*,name3=*
+
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: confluent
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-server:7.0.1
+    init: confluentinc/confluent-init-container:2.2.0-1
+  dataVolumeCapacity: 10Gi
+  metricReporter:
+    enabled: true
+  metrics:
+    prometheus:
+      blacklist:
+        - kafka.consumer:type=*,id=*
+        - kafka.consumer:type=*,client-id=*
+        - kafka.consumer:type=*,client-id=*,node-id=*
+        - kafka.producer:type=*,id=*
+        - kafka.producer:type=*,client-id=*
+        - kafka.producer:type=*,client-id=*,node-id=*
+        - kafka.*:type=kafka-metrics-count,*
+        - kafka.admin.client:*
+        - kafka.server:type=*,cipher=*,protocol=*,listener=*,networkProcessor=*
+        - kafka.server:type=*
+      rules:
+        - labels:
+            partition: $5
+            topic: $4
+          name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            clientId: $3
+            partition: $5
+            topic: $4
+          name: kafka_server_$1_$2
+          pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            broker: $4:$5
+            clientId: $3
+          name: kafka_server_$1_$2
+          pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+),
+            brokerPort=(.+)><>Value
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            $4: $5
+            $6: $7
+          name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+          valueFactor: "1"
+        - labels:
+            $4: $5
+            $6: $7
+            quantile: 0.$8
+          name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.*), (.+)=(.+)><>(\d+)thPercentile
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            $3: $4
+            $5: $6
+            $7: $8
+          name: kafka_$1_$2
+          pattern: kafka.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>Value
+          valueFactor: "1"
+        - labels:
+            $4: $5
+          name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+)><>(Count|Value)
+          valueFactor: "1"
+        - labels:
+            $3: $4
+            $5: $6
+          name: kafka_$1_$2
+          pattern: kafka.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+          valueFactor: "1"
+        - name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+)><>(Count|Value)
+          valueFactor: "1"
+        - labels:
+            $3: $4
+          name: kafka_$1_$2
+          pattern: kafka.(\w+)<type=(.+), (.+)=(.+)><>Value
+          valueFactor: "1"
+        - name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total
+          pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            client_software_name: $1
+            client_software_version: $2
+            listener: $3
+            network_processor: $4
+          name: kafka_server_socketservermetrics_connections
+          pattern: kafka.server<type=socket-server-metrics, clientSoftwareName=(.+),
+            clientSoftwareVersion=(.+), listener=(.+), networkProcessor=(.+)><>connections
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            listener: $1
+            network_processor: $2
+          name: kafka_server_socketservermetrics_$3
+          pattern: 'kafka.server<type=socket-server-metrics, listener=(.+), networkProcessor=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: "1"
+        - name: kafka_coordinator_$1_$2_$3
+          pattern: kafka.coordinator.(\w+)<type=(.+), name=(.+)><>(Count|Value)
+          valueFactor: "1"
+        - labels:
+            $4: $5
+            quantile: 0.$6
+          name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.*)><>(\d+)thPercentile
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            quantile: 0.$4
+          name: kafka_$1_$2_$3
+          pattern: kafka.(\w+)<type=(.+), name=(.+)><>(\d+)thPercentile
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            $3: $4
+            $5: $6
+            $7: $8
+          name: confluent_$1_$2
+          pattern: confluent.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>Value
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            $3: $4
+            $5: $6
+          name: confluent_$1_$2
+          pattern: confluent.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>Value
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            $3: $4
+          name: confluent_$1_$2
+          pattern: confluent.(.+)<type=(.+), (.+)=(.+)><>Value
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            client-id: $3
+            user: $2
+          name: kafka_server_$1_$4
+          pattern: 'kafka.server<type=(Produce|Fetch|Request), user=(.+), client-id=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            user: $2
+          name: kafka_server_$1_$3
+          pattern: 'kafka.server<type=(Produce|Fetch|Request), user=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: "1"
+        - labels:
+            client-id: $2
+          name: kafka_server_$1_$3
+          pattern: 'kafka.server<type=(Produce|Fetch|Request), client-id=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: "1"
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: SchemaRegistry
+metadata:
+  name: schemaregistry
+  namespace: confluent
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-schema-registry:7.0.1
+    init: confluentinc/confluent-init-container:2.2.0-1
+  metrics:
+    prometheus:
+      blacklist:
+        - kafka.producer:type=app-info,client-id=*
+        - kafka.consumer:type=app-info,client-id=*
+        - kafka.admin.client:*
+        - kafka.consumer:type=*,id=*
+        - kafka.producer:type=*,id=*
+        - kafka.*:type=kafka-metrics-count,*
+      rules:
+        - name: kafka_schema_registry_jetty_metrics_$1
+          pattern: 'kafka.schema.registry<type=jetty-metrics>([^:]+):'
+          valueFactor: 1
+        - name: kafka_schema_registry_jersey_metrics_$1
+          pattern: 'kafka.schema.registry<type=jersey-metrics>([^:]+):'
+          valueFactor: 1
+        - labels:
+            $2: $3
+            client-id: $1
+          name: kafka_schema_registry_app_info
+          pattern: 'kafka.schema.registry<type=app-info, id=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - name: kafka_schema_registry_registered_count
+          pattern: 'kafka.schema.registry<type=registered-count>([^:]+):'
+          valueFactor: 1
+        - labels:
+            schema_type: $1
+          name: kafka_schema_registry_schemas_$2
+          pattern: 'kafka.schema.registry<type=(\w+)-schemas-(\w+)>([^:]+):'
+          valueFactor: 1
+        - labels:
+            client_id: $2
+          name: kafka_schema_registry_$1_$3
+          pattern: 'kafka.schema.registry<type=(.+), client-id=(.+)><>([^:]+):'
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_id: $2
+            client_type: $1
+          name: kafka_$1_app_info
+          pattern: 'kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            $7: $8
+            client_type: $1
+          name: kafka_$1_$2_$9
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            client_type: $1
+          name: kafka_$1_$2_$7
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_type: $1
+          name: kafka_$1_$2_$5
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            client_type: $1
+          name: kafka_$1_$2_$3
+          pattern: 'kafka.(.+)<type=(.+)><>(.+):'
+          valueFactor: 1
+      whitelist:
+        - kafka.schema.registry:type=jetty-metrics
+        - kafka.schema.registry:type=jersey-metrics
+        - kafka.schema.registry:type=app-info,id=*
+        - kafka.schema.registry:type=registered-count
+        - kafka.schema.registry:type=json-schema*
+        - kafka.schema.registry:type=protobuf-schemas*
+        - kafka.schema.registry:type=avro-schemas*
+        - kafka.schema.registry:type=kafka.schema.registry-metrics,client-id=*
+        - kafka.schema.registry:type=kafka.schema.registry-coordinator-metrics,client-id=*
+        - kafka.consumer:*
+        - kafka.producer:*
+
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server-connect:7.0.1
+    init: confluentinc/confluent-init-container:2.2.0-1
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka:9071
+  metrics:
+    prometheus:
+      blacklist:
+        - kafka.admin.client:*
+        - kafka.consumer:type=*,id=*
+        - kafka.producer:type=*,id=*
+        - kafka.producer:client-id=confluent.monitoring*,*
+        - kafka.*:type=kafka-metrics-count,*
+      rules:
+        - labels:
+            $2: $3
+            client-id: $1
+          name: kafka_connect_app_info
+          pattern: 'kafka.connect<type=app-info, client-id=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - name: kafka_connect_connect_worker_rebalance_metrics_$1
+          pattern: kafka.connect<type=connect-worker-rebalance-metrics><>([^:]+)
+          valueFactor: 1
+        - labels:
+            client_id: $2
+          name: kafka_connect_$1_$3
+          pattern: kafka.connect<type=(.+), client-id=(.+)><>([^:]+)
+          valueFactor: 1
+        - labels:
+            connector: aggregate
+          name: kafka_connect_connect_worker_metrics_$1
+          pattern: kafka.connect<type=connect-worker-metrics><>([^:]+)
+          valueFactor: 1
+        - labels:
+            connector: $1
+          name: kafka_connect_connect_worker_metrics_$2
+          pattern: kafka.connect<type=connect-worker-metrics, connector=(.+)><>([^:]+)
+          valueFactor: 1
+        - labels:
+            $2: $3
+            connector: $1
+          name: kafka_connect_connector_metrics
+          pattern: 'kafka.connect<type=connector-metrics, connector=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            connector: $2
+            task: $3
+          name: kafka_connect_$1_task_metrics_$4
+          pattern: 'kafka.connect<type=(.+)-task-metrics, connector=(.+), task=(\d+)><>(.+):
+              (.+)'
+          valueFactor: 1
+        - labels:
+            connector: $1
+            task: $2
+          name: kafka_connect_task_error_metrics_$3
+          pattern: kafka.connect<type=task-error-metrics, connector=(.+), task=(\d+)><>([^:]+)
+          valueFactor: 1
+        - labels:
+            $1: $2
+            $3: $4
+            $5: $6
+            $7: $8
+          name: confluent_replicator_task_metrics_$9
+          pattern: 'confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+),
+              confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>confluent-replicator-task-topic-partition-(.*):
+              (.*)'
+          valueFactor: 1
+        - labels:
+            $1: $2
+            $3: $4
+            $5: $6
+            $7: $8
+            $9: $10
+          name: confluent_replicator_task_metrics_info
+          pattern: 'confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+),
+              confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>(confluent-replicator-destination-cluster|confluent-replicator-source-cluster|confluent-replicator-destination-topic-name):
+              (.*)'
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_id: $2
+            client_type: $1
+          name: kafka_$1_app_info
+          pattern: 'kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            $7: $8
+            client_type: $1
+          name: kafka_$1_$2_$9
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            client_type: $1
+          name: kafka_$1_$2_$7
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_type: $1
+          name: kafka_$1_$2_$5
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            client_type: $1
+          name: kafka_$1_$2_$3
+          pattern: 'kafka.(.+)<type=(.+)><>(.+):'
+          valueFactor: 1
+      whitelist:
+        - kafka.connect:type=app-info,client-id=*
+        - kafka.connect:type=connect-worker-rebalance-metrics
+        - kafka.connect:type=connect-coordinator-metrics,*
+        - kafka.connect:type=connect-metrics,*
+        - kafka.connect:type=connect-worker-metrics
+        - kafka.connect:type=connect-worker-metrics,*
+        - kafka.connect:type=connector-metrics,*
+        - kafka.connect:type=*-task-metrics,*
+        - kafka.connect:type=task-error-metrics,*
+        - confluent.replicator:type=confluent-replicator-task-metrics,*
+        - kafka.consumer:*
+        - kafka.producer:*
+
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: KsqlDB
+metadata:
+  name: ksqldb
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-ksqldb-server:7.0.1
+    init: confluentinc/confluent-init-container:2.2.0-1
+  dataVolumeCapacity: 10Gi
+  metrics:
+    prometheus:
+      blacklist:
+        - kafka.streams:type=kafka-metrics-count
+        - kafka.admin.client:*
+        - kafka.consumer:type=*,id=*
+        - kafka.consumer:type=*,client-id=*
+        - kafka.consumer:type=*,client-id=*,node-id=*
+        - kafka.producer:type=*,id=*
+        - kafka.producer:type=*,client-id=*
+        - kafka.producer:type=*,client-id=*,node-id=*
+        - kafka.streams:type=stream-processor-node-metrics,thread-id=*,task-id=*,processor-node-id=*
+        - kafka.*:type=kafka-metrics-count,*
+      rules:
+        - labels:
+            id: $3
+            key: $2
+          name: ksql_$1_$4
+          pattern: io.confluent.ksql.metrics<type=(.+), key=(.+), id=(.+)><>([^:]+)
+          valueFactor: 1
+        - labels:
+            ksql_cluster: $1
+          name: ksql_ksql_engine_query_stats_$2
+          pattern: io.confluent.ksql.metrics<type=_confluent-ksql-(.+)ksql-engine-query-stats><>([^:]+)
+          valueFactor: 1
+        - labels:
+            $4: $5
+            ksql_cluster: $2
+            ksql_query: $3
+          name: ksql_ksql_metrics_$1_$4
+          pattern: 'io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.+)query_(.+)><>(.+):
+              (.+)'
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $4: $5
+            task_id: $3
+            thread_id: $2
+          name: kafka_streams_$1_$6
+          pattern: 'kafka.streams<type=(.+), thread-id=(.+), task-id=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            task_id: $3
+            thread_id: $2
+          name: kafka_streams_$1_$4
+          pattern: 'kafka.streams<type=(.+), thread-id=(.+), task-id=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $1: $2
+            $3: $4
+          name: kafka_streams_stream_metrics
+          pattern: 'kafka.streams<type=stream-metrics, (.+)=(.+)><>(state|alive-stream-threads|commit-id|version|application-id):
+              (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $2: $3
+          name: kafka_streams_$1_$4
+          pattern: kafka.streams<type=(.+), (.+)=(.+)><>([^:]+)
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_id: $2
+            client_type: $1
+          name: kafka_$1_app_info
+          pattern: 'kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            $7: $8
+            client_type: $1
+          name: kafka_$1_$2_$9
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            client_type: $1
+          name: kafka_$1_$2_$7
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_type: $1
+          name: kafka_$1_$2_$5
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            client_type: $1e
+          name: kafka_$1_$2_$3
+          pattern: 'kafka.(.+)<type=(.+)><>(.+):'
+          valueFactor: 1
+      whitelist:
+        - io.confluent.ksql.metrics:*
+        - kafka.consumer:*
+        - kafka.producer:*
+        - kafka.streams:*
+
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ControlCenter
+metadata:
+  name: controlcenter
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-enterprise-control-center:7.0.1
+    init: confluentinc/confluent-init-container:2.2.0-1
+  dataVolumeCapacity: 10Gi
+  dependencies:
+    schemaRegistry:
+      url: http://schemaregistry.confluent.svc.cluster.local:8081
+    ksqldb:
+    - name: ksqldb
+      url: http://ksqldb.confluent.svc.cluster.local:8088
+    connect:
+    - name: connect
+      url: http://connect.confluent.svc.cluster.local:8083
+  metrics:
+    prometheus:
+      blacklist:
+        - kafka.streams:type=kafka-metrics-count
+        - kafka.admin.client:*
+        - kafka.consumer:type=*,id=*
+        - kafka.producer:type=*,id=*
+        - kafka.*:type=kafka-metrics-count,*
+      rules:
+        - labels:
+            $4: $5
+            task_id: $3
+            thread_id: $2
+          name: kafka_streams_$1_$6
+          pattern: 'kafka.streams<type=(.+), thread-id=(.+), task-id=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            task_id: $3
+            thread_id: $2
+          name: kafka_streams_$1_$4
+          pattern: 'kafka.streams<type=(.+), thread-id=(.+), task-id=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $1: $2
+            $3: $4
+          name: kafka_streams_stream_metrics
+          pattern: 'kafka.streams<type=stream-metrics, (.+)=(.+)><>(state|alive-stream-threads|commit-id|version|application-id):
+              (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $2: $3
+          name: kafka_streams_$1_$4
+          pattern: kafka.streams<type=(.+), (.+)=(.+)><>([^:]+)
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_id: $2
+            client_type: $1
+          name: kafka_$1_app_info
+          pattern: 'kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)'
+          type: UNTYPED
+          value: "1"
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            $7: $8
+            client_type: $1
+          name: kafka_$1_$2_$9
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            $5: $6
+            client_type: $1
+          name: kafka_$1_$2_$7
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            $3: $4
+            client_type: $1
+          name: kafka_$1_$2_$5
+          pattern: 'kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+          type: GAUGE
+          valueFactor: 1
+        - labels:
+            client_type: $1
+          name: kafka_$1_$2_$3
+          pattern: 'kafka.(.+)<type=(.+)><>(.+):'
+          valueFactor: 1
+      whitelist:
+        - kafka.streams:*
+        - kafka.consumer:*
+        - kafka.producer:*
