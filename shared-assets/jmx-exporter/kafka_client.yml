@@ -1,6 +1,7 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
+cacheRules: true
 whitelistObjectNames:
   - "kafka.consumer:*"
   - "kafka.producer:*"

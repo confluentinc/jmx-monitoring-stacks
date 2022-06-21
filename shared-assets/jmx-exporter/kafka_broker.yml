@@ -2,6 +2,7 @@
 startDelaySeconds: 120
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
+cacheRules: true
 blacklistObjectNames:
   - "kafka.consumer:type=*,id=*"
   - "kafka.consumer:type=*,client-id=*"

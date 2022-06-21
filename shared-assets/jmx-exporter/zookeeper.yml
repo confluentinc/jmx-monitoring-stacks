@@ -1,6 +1,7 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
+cacheRules: true
 whitelistObjectNames:
   - org.apache.ZooKeeperService:name3=Connections,*
   - org.apache.ZooKeeperService:name3=InMemoryDataTree,*
