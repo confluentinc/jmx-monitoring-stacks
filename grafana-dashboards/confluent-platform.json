@@ -493,7 +493,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{pod}} ({{server_id}}:{{member_type}})",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -2420,7 +2420,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "10s",
+  "refresh": "30s",
   "rows": [],
   "schemaVersion": 12,
   "sharedCrosshair": false,
