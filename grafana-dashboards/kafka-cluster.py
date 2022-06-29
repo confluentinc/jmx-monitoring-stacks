@@ -98,7 +98,8 @@ healthcheck_panels = [
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=1)
+        format='reqps',
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=0)
     ),
 
     G.Stat(
@@ -159,6 +160,36 @@ healthcheck_panels = [
             G.Threshold(index=1, value=1.0, color="red"),
         ],
         gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 3, y=1),
+    ),
+    G.Stat(
+        title="Kafka: Bytes In/Sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(rate(kafka_server_brokertopicmetrics_bytesinpersec{namespace="$ns",pod=~"$broker"}[5m]))',
+            ),
+        ],
+        reduceCalc="last",
+        thresholds=[
+            G.Threshold(index=0, value=0.0, color="blue"),
+        ],
+        format='binBps',
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=1)
+    ),
+    G.Stat(
+        title="Kafka: Bytes Out/Sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(rate(kafka_server_brokertopicmetrics_bytesoutpersec{namespace="$ns",pod=~"$broker"}[5m]))',
+            ),
+        ],
+        reduceCalc="last",
+        thresholds=[
+            G.Threshold(index=0, value=0.0, color="blue"),
+        ],
+        format='binBps',
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 5, y=1),
     ),
 ]
 
@@ -256,7 +287,62 @@ request_panels = [
     ),
 ]
 
-panels = healthcheck_panels + system_panels + request_panels
+throughtput_base = request_base + 1;
+throughput = [
+    G.TimeSeries(
+        title="Messages In/Sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum without(topic) (rate(kafka_server_brokertopicmetrics_messagesinpersec{namespace="$ns",pod=~"$broker"}[5m]))',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="cps",
+        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*0, y=throughtput_base),
+    ),
+    G.TimeSeries(
+        title="Bytes In/Sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesinpersec{namespace="$ns",pod=~"$broker"}[5m]))',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="binBps",
+        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*1, y=throughtput_base),
+    ),
+    G.TimeSeries(
+        title="Bytes Out/Sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{namespace="$ns",pod=~"$broker"}[5m]))',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="binBps",
+        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*2, y=throughtput_base),
+    ),
+]
+throughput_panels = [
+    G.RowPanel(
+        title="Throughput",
+        description="Bytes in/out per second",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=throughtput_base),
+        collapsed=True,
+        panels=throughput
+    ),
+]
+
+panels = healthcheck_panels + system_panels + request_panels + throughput_panels
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",
