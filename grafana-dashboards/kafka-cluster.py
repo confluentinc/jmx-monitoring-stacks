@@ -106,7 +106,7 @@ healthcheck_panels = [
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='max(sum(kafka_log_log_size{namespace="$ns",pod=~"$broker"}) by (pod))',
+                expr='sum(kafka_log_log_size{namespace="$ns",pod=~"$broker"}) by (pod)',
                 legendFormat="{{pod}}",
             ),
         ],
@@ -261,50 +261,7 @@ system_panels = [
     ),
 ]
 
-request_base = 3
-request_inner = [
-    G.TimeSeries(
-        title="Requests rates",
-        dataSource="${DS_PROMETHEUS}",
-        targets=[
-            G.Target(
-                expr='sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_requestspersec{namespace="$ns",pod=~"$broker"}[5m]))',
-                legendFormat="{{request}}(v{{version}})",
-            ),
-        ],
-        legendDisplayMode="table",
-        legendCalcs=["max", "mean", "last"],
-        unit="reqps",
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=request_base),
-        stacking={"mode": "normal", "group": "A"},
-    ),
-    G.TimeSeries(
-        title="Error rates",
-        dataSource="${DS_PROMETHEUS}",
-        targets=[
-            G.Target(
-                expr='sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_errorspersec{namespace="$ns",pod=~"$broker",error!="NONE"}[5m]))',
-                legendFormat="{{error}}@{{request}}",
-            ),
-        ],
-        legendDisplayMode="table",
-        legendCalcs=["max", "mean", "last"],
-        unit="reqps",
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=request_base),
-        stacking={"mode": "normal", "group": "A"},
-    ),
-]
-request_panels = [
-    G.RowPanel(
-        title="Request rates",
-        description="Sum of req/sec rates",
-        gridPos=G.GridPos(h=1, w=24, x=0, y=request_base),
-        collapsed=True,
-        panels=request_inner,
-    ),
-]
-
-throughtput_base = request_base + 1
+throughtput_base = system_base + 1
 throughput_inner = [
     G.TimeSeries(
         title="Messages In/Sec",
@@ -390,7 +347,6 @@ thread_inner = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=thread_base),
     ),
 ]
-
 thread_panels = [
     G.RowPanel(
         title="Thread Utilization",
@@ -401,7 +357,143 @@ thread_panels = [
     ),
 ]
 
-panels = healthcheck_panels + system_panels + request_panels + throughput_panels + thread_panels
+request_base = thread_base + 1
+request_inner = [
+    G.TimeSeries(
+        title="Requests rates",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_requestspersec{namespace="$ns",pod=~"$broker"}[5m]))',
+                legendFormat="{{request}}(v{{version}})",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="reqps",
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=request_base),
+        stacking={"mode": "normal", "group": "A"},
+    ),
+    G.TimeSeries(
+        title="Error rates",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_errorspersec{namespace="$ns",pod=~"$broker",error!="NONE"}[5m]))',
+                legendFormat="{{error}}@{{request}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="reqps",
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=request_base),
+        stacking={"mode": "normal", "group": "A"},
+    ),
+]
+request_panels = [
+    G.RowPanel(
+        title="Request rates",
+        description="Sum of req/sec rates",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=request_base),
+        collapsed=True,
+        panels=request_inner,
+    ),
+]
+
+
+connection_base = request_base + 1
+connection_inner = [
+    G.TimeSeries(
+        title="Sum of Connections alive per Broker",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connection_count{namespace="$ns",pod=~"$broker"}) by (pod)',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=connection_base),
+    ),
+    G.TimeSeries(
+        title="Sum of Connections creation rate per Broker",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connection_creation_rate{namespace="$ns",pod=~"$broker"}) by (pod)',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=connection_base),
+    ),
+    G.TimeSeries(
+        title="Sum of Connections close rate per Broker",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connection_close_rate{namespace="$ns",pod=~"$broker"}) by (pod)',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=connection_base),
+    ),
+    # By Listener
+        G.TimeSeries(
+        title="Sum of Connections alive per Listener",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connection_count{namespace="$ns",pod=~"$broker"}) by (listener)',
+                legendFormat="{{listener}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=connection_base + 1),
+    ),
+    G.TimeSeries(
+        title="Sum of Connections creation rate per Listener",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connection_creation_rate{namespace="$ns",pod=~"$broker"}) by (listener)',
+                legendFormat="{{listener}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=connection_base + 1),
+    ),
+    G.TimeSeries(
+        title="Sum of Connections close rate per Listener",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connection_close_rate{namespace="$ns",pod=~"$broker"}) by (listener)',
+                legendFormat="{{listener}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=connection_base + 1),
+    ),
+
+]
+connection_panels = [
+    G.RowPanel(
+        title="Connections",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=connection_base),
+        collapsed=True,
+        panels=connection_inner,
+    ),
+]
+
+panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",
