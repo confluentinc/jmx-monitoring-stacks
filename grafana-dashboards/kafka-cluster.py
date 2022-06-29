@@ -482,7 +482,6 @@ connection_inner = [
         legendCalcs=["max", "mean", "last"],
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=connection_base + 1),
     ),
-
 ]
 connection_panels = [
     G.RowPanel(
@@ -493,7 +492,45 @@ connection_panels = [
     ),
 ]
 
-panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels
+isr_base = connection_base + 2
+isr_inner = [
+    G.TimeSeries(
+        title="Rate of ISR Shrinks/sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='rate(kafka_server_replicamanager_isrshrinkspersec{namespace="$ns",pod=~"$broker"}[5m])',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=isr_base),
+    ),
+    G.TimeSeries(
+        title="Rate of ISR Expands/sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='rate(kafka_server_replicamanager_isrexpandspersec{namespace="$ns",pod=~"$broker"}[5m])',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=isr_base),
+    ),
+]
+isr_panels = [
+    G.RowPanel(
+        title="In-Sync Replicas",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=isr_base),
+        collapsed=True,
+        panels=isr_inner,
+    ),
+]
+
+panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels + isr_panels
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",
