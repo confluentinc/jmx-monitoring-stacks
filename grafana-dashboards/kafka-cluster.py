@@ -20,6 +20,12 @@ templating = G.Templating(
             multi=True,
             includeAll=True,
         ),
+		G.Template(
+            name="quantile",
+            label="Quantile",
+            dataSource="Prometheus",
+            query='label_values(kafka_network_requestmetrics_requestqueuetimems{namespace="$ns"}, quantile)',
+		),
     ]
 )
 
@@ -102,7 +108,7 @@ healthcheck_panels = [
         gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=0),
     ),
     G.Stat(
-        title="Kafka: Max Logs Size",
+        title="Kafka: Logs Size",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -530,7 +536,253 @@ isr_panels = [
     ),
 ]
 
-panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels + isr_panels
+producer_base = isr_base + 1
+producer_inner = [
+    G.TimeSeries(
+		title="Produce: Request Queue Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_requestqueuetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Produce"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=producer_base),
+    ),
+    G.TimeSeries(
+		title="Produce: Local Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_localtimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Produce"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=producer_base),
+    ),
+    G.TimeSeries(
+		title="Produce: Remote Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_remotetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Produce"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=producer_base),
+    ),
+    G.TimeSeries(
+		title="Produce: Response Queue Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_responsequeuetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Produce"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=producer_base + 1),
+    ),
+    G.TimeSeries(
+		title="Produce: Response Send Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_responsesendtimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Produce"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=producer_base + 1),
+    ),
+]
+producer_panels = [
+    G.RowPanel(
+        title="Producer Request latency",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=producer_base),
+        collapsed=True,
+        panels=producer_inner,
+    ),
+]
+
+consumer_base = producer_base + 2
+consumer_inner = [
+    G.TimeSeries(
+		title="Fetch: Request Queue Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_requestqueuetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=consumer_base),
+    ),
+    G.TimeSeries(
+		title="Fetch: Local Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_localtimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=consumer_base),
+    ),
+    G.TimeSeries(
+		title="Fetch: Remote Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_remotetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=consumer_base),
+    ),
+    G.TimeSeries(
+		title="Fetch: Response Queue Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_responsequeuetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=consumer_base + 1),
+    ),
+    G.TimeSeries(
+		title="Fetch: Response Send Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_responsesendtimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=consumer_base + 1),
+    ),
+]
+consumer_panels = [
+    G.RowPanel(
+        title="Consumer Fetch Request latency",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=consumer_base),
+        collapsed=True,
+        panels=consumer_inner,
+    ),
+]
+
+replication_base = consumer_base + 2
+replication_inner = [
+    G.TimeSeries(
+		title="Fetch: Request Queue Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_requestqueuetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=replication_base),
+    ),
+    G.TimeSeries(
+		title="Fetch: Local Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_localtimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=replication_base),
+    ),
+    G.TimeSeries(
+		title="Fetch: Remote Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_remotetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=replication_base),
+    ),
+    G.TimeSeries(
+		title="Fetch: Response Queue Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_responsequeuetimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=replication_base + 1),
+    ),
+    G.TimeSeries(
+		title="Fetch: Response Send Time",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_network_requestmetrics_responsesendtimems{namespace="$ns",pod=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                legendFormat="{{pod}} ({{quantile}}th)",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='ms',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=replication_base + 1),
+    ),
+]
+replication_panels = [
+    G.RowPanel(
+        title="Replica Fetch Request latency",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=replication_base),
+        collapsed=True,
+        panels=replication_inner,
+    ),
+]
+
+panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels + isr_panels + producer_panels + consumer_panels + replication_panels
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",
