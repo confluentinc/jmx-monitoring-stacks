@@ -2,7 +2,7 @@ import grafanalib.core as G
 
 hcHeight = 5
 statWidth = 4
-tsWidth=8
+tsWidth = 8
 
 templating = G.Templating(
     list=[
@@ -111,7 +111,7 @@ system_panels = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="percentunit",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*0, y=1),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=1),
     ),
     G.TimeSeries(
         title="ZK: Memory usage",
@@ -125,7 +125,7 @@ system_panels = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="bytes",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*1, y=1),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=1),
     ),
     G.TimeSeries(
         title="ZK: GC collection",
@@ -139,13 +139,13 @@ system_panels = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="percentunit",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*2, y=1),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=1),
     ),
 ]
 
 # TODO: validate if latency metrics make sense.
 # Values are high-watermark of the metric and multiplied by tick-time to represent milliseconds.
-latency=[
+latency = [
     G.TimeSeries(
         title="ZK: Request Latency (Minimum)",
         dataSource="${DS_PROMETHEUS}",
@@ -158,7 +158,7 @@ latency=[
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="ms",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*0, y=2),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=2),
     ),
     G.TimeSeries(
         title="ZK: Request Latency (Average)",
@@ -172,7 +172,7 @@ latency=[
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="ms",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*1, y=2),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=2),
     ),
     G.TimeSeries(
         title="ZK: Request Latency (Maximum)",
@@ -186,16 +186,15 @@ latency=[
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="ms",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*2, y=2),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=2),
     ),
-
 ]
 latency_panels = [
     G.RowPanel(
         title="Latency",
         gridPos=G.GridPos(h=1, w=24, x=0, y=2),
         collapsed=True,
-        panels=latency
+        panels=latency,
     ),
 ]
 
@@ -216,5 +215,5 @@ dashboard = G.Dashboard(
     templating=templating,
     timezone="browser",
     panels=panels,
-    refresh='30s',
+    refresh="30s",
 ).auto_panel_ids()

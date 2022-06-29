@@ -457,5 +457,5 @@ dashboard = G.Dashboard(
     templating=templating,
     timezone="browser",
     panels=panels,
-    refresh='30s',
+    refresh="30s",
 ).auto_panel_ids()

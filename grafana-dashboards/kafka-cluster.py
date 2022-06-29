@@ -2,7 +2,7 @@ import grafanalib.core as G
 
 hcHeight = 5
 statWidth = 4
-tsWidth=8
+tsWidth = 8
 
 templating = G.Templating(
     list=[
@@ -40,7 +40,7 @@ healthcheck_panels = [
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 0, y=0)
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 0, y=0),
     ),
     G.Stat(
         title="Kafka: Active Controller",
@@ -98,8 +98,25 @@ healthcheck_panels = [
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        format='reqps',
-        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=0)
+        format="reqps",
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=0),
+    ),
+    G.Stat(
+        title="Kafka: Max Logs Size",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='max(sum(kafka_log_log_size{namespace="$ns",pod=~"$broker"}) by (pod))',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        reduceCalc="last",
+        textMode="value_and_name",
+        thresholds=[
+            G.Threshold(index=0, value=0.0, color="blue"),
+        ],
+        format="bytes",
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 5, y=0),
     ),
 
     G.Stat(
@@ -173,8 +190,8 @@ healthcheck_panels = [
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        format='binBps',
-        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=1)
+        format="binBps",
+        gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 4, y=1),
     ),
     G.Stat(
         title="Kafka: Bytes Out/Sec",
@@ -188,12 +205,12 @@ healthcheck_panels = [
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        format='binBps',
+        format="binBps",
         gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 5, y=1),
     ),
 ]
 
-system_base=2
+system_base = 2
 
 system_panels = [
     G.RowPanel(
@@ -212,7 +229,7 @@ system_panels = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="percentunit",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*0, y=system_base),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=system_base),
     ),
     G.TimeSeries(
         title="Kafka: Memory usage",
@@ -226,7 +243,7 @@ system_panels = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="bytes",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*1, y=system_base),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=system_base),
     ),
     G.TimeSeries(
         title="Kafka: GC collection",
@@ -240,12 +257,12 @@ system_panels = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="percentunit",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*2, y=system_base),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=system_base),
     ),
 ]
 
-request_base=3
-request=[
+request_base = 3
+request_inner = [
     G.TimeSeries(
         title="Requests rates",
         dataSource="${DS_PROMETHEUS}",
@@ -258,8 +275,8 @@ request=[
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="reqps",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*0, y=request_base),
-        stacking={'mode': 'normal', 'group': 'A'},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=request_base),
+        stacking={"mode": "normal", "group": "A"},
     ),
     G.TimeSeries(
         title="Error rates",
@@ -273,8 +290,8 @@ request=[
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="reqps",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*1, y=request_base),
-        stacking={'mode': 'normal', 'group': 'A'},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=request_base),
+        stacking={"mode": "normal", "group": "A"},
     ),
 ]
 request_panels = [
@@ -283,12 +300,12 @@ request_panels = [
         description="Sum of req/sec rates",
         gridPos=G.GridPos(h=1, w=24, x=0, y=request_base),
         collapsed=True,
-        panels=request
+        panels=request_inner,
     ),
 ]
 
-throughtput_base = request_base + 1;
-throughput = [
+throughtput_base = request_base + 1
+throughput_inner = [
     G.TimeSeries(
         title="Messages In/Sec",
         dataSource="${DS_PROMETHEUS}",
@@ -301,7 +318,7 @@ throughput = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="cps",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*0, y=throughtput_base),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=throughtput_base),
     ),
     G.TimeSeries(
         title="Bytes In/Sec",
@@ -315,7 +332,7 @@ throughput = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="binBps",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*1, y=throughtput_base),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=throughtput_base),
     ),
     G.TimeSeries(
         title="Bytes Out/Sec",
@@ -329,7 +346,7 @@ throughput = [
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
         unit="binBps",
-        gridPos=G.GridPos(h=hcHeight*2, w=tsWidth, x=tsWidth*2, y=throughtput_base),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=throughtput_base),
     ),
 ]
 throughput_panels = [
@@ -338,11 +355,53 @@ throughput_panels = [
         description="Bytes in/out per second",
         gridPos=G.GridPos(h=1, w=24, x=0, y=throughtput_base),
         collapsed=True,
-        panels=throughput
+        panels=throughput_inner,
     ),
 ]
 
-panels = healthcheck_panels + system_panels + request_panels + throughput_panels
+thread_base = throughtput_base + 1
+thread_inner = [
+    G.TimeSeries(
+        title="Network processor usage",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='1-kafka_network_socketserver_networkprocessoravgidlepercent{namespace="$ns",pod=~"$broker"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="percentunit",
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=thread_base),
+    ),
+    G.TimeSeries(
+        title="Request processor (IO) usage",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='1-kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total{namespace="$ns",pod=~"$broker"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="percentunit",
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=thread_base),
+    ),
+]
+
+thread_panels = [
+    G.RowPanel(
+        title="Thread Utilization",
+        description="Internal thread pools usage",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=thread_base),
+        collapsed=True,
+        panels=thread_inner,
+    ),
+]
+
+panels = healthcheck_panels + system_panels + request_panels + throughput_panels + thread_panels
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",
@@ -359,5 +418,5 @@ dashboard = G.Dashboard(
     templating=templating,
     timezone="browser",
     panels=panels,
-    refresh='30s',
+    refresh="30s",
 ).auto_panel_ids()
