@@ -611,7 +611,7 @@ producer_inner = [
 ]
 producer_panels = [
     G.RowPanel(
-        title="Producer Request latency",
+		title="Request latency: Producer",
         gridPos=G.GridPos(h=1, w=24, x=0, y=producer_base),
         collapsed=True,
         panels=producer_inner,
@@ -693,7 +693,7 @@ consumer_inner = [
 ]
 consumer_panels = [
     G.RowPanel(
-        title="Consumer Fetch Request latency",
+		title="Request latency: Consumer Fetch",
         gridPos=G.GridPos(h=1, w=24, x=0, y=consumer_base),
         collapsed=True,
         panels=consumer_inner,
@@ -775,14 +775,122 @@ replication_inner = [
 ]
 replication_panels = [
     G.RowPanel(
-        title="Replica Fetch Request latency",
+		title="Request latency: Replica Fetch",
         gridPos=G.GridPos(h=1, w=24, x=0, y=replication_base),
         collapsed=True,
         panels=replication_inner,
     ),
 ]
 
-panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels + isr_panels + producer_panels + consumer_panels + replication_panels
+group_base = replication_base + 2
+group_inner = [
+    G.TimeSeries(
+		title="Number of Groups per Broker",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_coordinator_group_groupmetadatamanager_numgroups{namespace="$ns",pod=~"$broker"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=group_base),
+    ),
+    G.TimeSeries(
+		title="Number of Groups per Broker",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_coordinator_group_groupmetadatamanager_numgroupsstable{namespace="$ns",pod=~"$broker"})',
+                legendFormat="stable",
+            ),
+            G.Target(
+                expr='sum(kafka_coordinator_group_groupmetadatamanager_numgroupspreparingrebalance{namespace="$ns",pod=~"$broker"})',
+                legendFormat="preparing_rebalance",
+            ),
+            G.Target(
+                expr='sum(kafka_coordinator_group_groupmetadatamanager_numgroupsdead{namespace="$ns",pod=~"$broker"})',
+                legendFormat="dead",
+            ),
+            G.Target(
+                expr='sum(kafka_coordinator_group_groupmetadatamanager_numgroupscompletingrebalance{namespace="$ns",pod=~"$broker"})',
+                legendFormat="completing_rebalance",
+            ),
+            G.Target(
+                expr='sum(kafka_coordinator_group_groupmetadatamanager_numgroupsempty{namespace="$ns",pod=~"$broker"})',
+                legendFormat="empty",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        stacking={"mode": "normal"},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=group_base),
+    ),
+]
+group_panels = [
+    G.RowPanel(
+		title="Group Coordinator",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=group_base),
+        collapsed=True,
+        panels=group_inner,
+    ),
+]
+
+conversion_base = group_base + 1
+conversion_inner = [
+    G.TimeSeries(
+		title="Sum of Produce conversion rate per sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{namespace="$ns",pod=~"$broker"})',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='opsps',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=conversion_base),
+    ),
+    G.TimeSeries(
+		title="Sum of Fetch conversion rate per sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{namespace="$ns",pod=~"$broker"})',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+		unit='opsps',
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=conversion_base),
+    ),
+    G.TimeSeries(
+		title="Sum of Connections per version",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_server_socketservermetrics_connections{namespace="$ns",pod=~"$broker"}) by (client_software_name,client_software_version)',
+                legendFormat="{{client_software_name}} (v{{client_software_version}})",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=conversion_base),
+    ),
+]
+conversion_panels = [
+    G.RowPanel(
+		title="Message Conversion",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=conversion_base),
+        collapsed=True,
+        panels=conversion_inner,
+    ),
+]
+
+panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels + isr_panels + producer_panels + consumer_panels + replication_panels + group_panels + conversion_panels
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",

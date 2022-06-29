@@ -12,6 +12,12 @@ templating = G.Templating(
             dataSource="Prometheus",
             query="label_values(namespace)",
         ),
+		G.Template(
+            name="quantile",
+            label="Quantile",
+            dataSource="Prometheus",
+            query='label_values(kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{namespace="$ns"}, quantile)',
+		),
     ]
 )
 
@@ -145,7 +151,7 @@ system_panels = [
 
 # TODO: validate if latency metrics make sense.
 # Values are high-watermark of the metric and multiplied by tick-time to represent milliseconds.
-latency = [
+latency_inner = [
     G.TimeSeries(
         title="ZK: Request Latency (Minimum)",
         dataSource="${DS_PROMETHEUS}",
@@ -191,14 +197,100 @@ latency = [
 ]
 latency_panels = [
     G.RowPanel(
-        title="Latency",
+        title="Server Latency",
         gridPos=G.GridPos(h=1, w=24, x=0, y=2),
         collapsed=True,
-        panels=latency,
+        panels=latency_inner,
     ),
 ]
 
-panels = healthcheck_panels + system_panels + latency_panels
+kafka_base = 2 + 1;
+kafka_inner = [
+    G.TimeSeries(
+        title="Kafka: Request Latency",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{namespace="$ns",quantile=~"$quantile"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="ms",
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=kafka_base),
+    ),
+    G.TimeSeries(
+        title="Kafka: Sync Connections/sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_server_sessionexpirelistener_zookeepersyncconnectspersec{namespace="$ns"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="ms",
+        stacking={"mode": "normal"},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=kafka_base),
+    ),
+    G.TimeSeries(
+        title="Kafka: Expired Connections/sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_server_sessionexpirelistener_zookeeperexpirespersec{namespace="$ns"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="ms",
+        stacking={"mode": "normal"},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=kafka_base),
+    ),
+    G.TimeSeries(
+        title="Kafka: Disconnected Connections/sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_server_sessionexpirelistener_zookeeperdisconnectspersec{namespace="$ns"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="ms",
+        stacking={"mode": "normal"},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=kafka_base+1),
+    ),
+    G.TimeSeries(
+        title="Kafka: Auth Failures on Connections/sec",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='kafka_server_sessionexpirelistener_zookeeperauthfailurespersec{namespace="$ns"}',
+                legendFormat="{{pod}}",
+            ),
+        ],
+        legendDisplayMode="table",
+        legendCalcs=["max", "mean", "last"],
+        unit="ms",
+        stacking={"mode": "normal"},
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=kafka_base+1),
+    ),
+]
+kafka_panels = [
+    G.RowPanel(
+        title="Client Latency (Kafka)",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=kafka_base),
+        collapsed=True,
+        panels=kafka_inner,
+    ),
+]
+
+panels = healthcheck_panels + system_panels + latency_panels + kafka_panels
 
 dashboard = G.Dashboard(
     title="Zookeeper cluster - v2",

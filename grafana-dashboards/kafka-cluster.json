@@ -3674,7 +3674,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Producer Request latency",
+      "title": "Request latency: Producer",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -4216,7 +4216,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Consumer Fetch Request latency",
+      "title": "Request latency: Consumer Fetch",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -4758,7 +4758,649 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Replica Fetch Request latency",
+      "title": "Request latency: Replica Fetch",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 56,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 15
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 57,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_coordinator_group_groupmetadatamanager_numgroups{namespace=\"$ns\",pod=~\"$broker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Number of Groups per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 15
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 58,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupsstable{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "stable",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupspreparingrebalance{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "preparing_rebalance",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupsdead{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "dead",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupscompletingrebalance{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "completing_rebalance",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupsempty{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "empty",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Number of Groups per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Group Coordinator",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 59,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "opsps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 16
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 60,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Produce conversion rate per sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "opsps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 16
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 61,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{namespace=\"$ns\",pod=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Fetch conversion rate per sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 16
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 62,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connections{namespace=\"$ns\",pod=~\"$broker\"}) by (client_software_name,client_software_version)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{client_software_name}} (v{{client_software_version}})",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections per version",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Message Conversion",
       "transformations": [],
       "transparent": false,
       "type": "row"
