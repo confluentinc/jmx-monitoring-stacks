@@ -225,11 +225,11 @@ sr_panels = [
         gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 0, y=2),
     ),
     G.Stat(
-        title="SR: Sum of Registered Schemas",
+        title="SR: Registered Schemas",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='sum(kafka_schema_registry_registered_count{namespace="$ns"})',
+                expr='avg without(schema_type) (kafka_schema_registry_registered_count{namespace="$ns"})',
             ),
         ],
         reduceCalc="last",
@@ -239,11 +239,11 @@ sr_panels = [
         gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 1, y=2),
     ),
     G.Stat(
-        title="SR: Sum of Deleted Schemas",
+        title="SR: Deleted Schemas",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='sum(kafka_schema_registry_schemas_deleted{namespace="$ns"})',
+                expr='avg without(schema_type) (kafka_schema_registry_schemas_deleted{namespace="$ns"})',
             ),
         ],
         reduceCalc="last",

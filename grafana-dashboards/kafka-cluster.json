@@ -1216,7 +1216,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: CPU usage",
+      "title": "CPU usage",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
@@ -1316,7 +1316,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Memory usage",
+      "title": "Memory usage",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
@@ -1416,7 +1416,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: GC collection",
+      "title": "GC collection",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"

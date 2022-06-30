@@ -1273,7 +1273,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_schema_registry_registered_count{namespace=\"$ns\"})",
+          "expr": "avg without(schema_type) (kafka_schema_registry_registered_count{namespace=\"$ns\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1288,7 +1288,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SR: Sum of Registered Schemas",
+      "title": "SR: Registered Schemas",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -1356,7 +1356,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_schema_registry_schemas_deleted{namespace=\"$ns\"})",
+          "expr": "avg without(schema_type) (kafka_schema_registry_schemas_deleted{namespace=\"$ns\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1371,7 +1371,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SR: Sum of Deleted Schemas",
+      "title": "SR: Deleted Schemas",
       "transformations": [],
       "transparent": false,
       "type": "stat"

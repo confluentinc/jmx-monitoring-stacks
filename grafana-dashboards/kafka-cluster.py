@@ -223,7 +223,7 @@ system_panels = [
         gridPos=G.GridPos(h=1, w=24, x=0, y=system_base),
     ),
     G.TimeSeries(
-        title="Kafka: CPU usage",
+        title="CPU usage",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -237,7 +237,7 @@ system_panels = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=system_base),
     ),
     G.TimeSeries(
-        title="Kafka: Memory usage",
+        title="Memory usage",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -251,7 +251,7 @@ system_panels = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=system_base),
     ),
     G.TimeSeries(
-        title="Kafka: GC collection",
+        title="GC collection",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(

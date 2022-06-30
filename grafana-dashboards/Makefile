@@ -3,3 +3,4 @@ all:
 	generate-dashboard -o zookeeper-cluster.json zookeeper-cluster.py
 	generate-dashboard -o kafka-cluster.json kafka-cluster.py
 	generate-dashboard -o kafka-topics.json kafka-topics.py
+	generate-dashboard -o schema-registry-cluster.json schema-registry-cluster.py

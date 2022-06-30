@@ -106,7 +106,7 @@ system_panels = [
         gridPos=G.GridPos(h=1, w=24, x=0, y=1),
     ),
     G.TimeSeries(
-        title="ZK: CPU usage",
+        title="CPU usage",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -120,7 +120,7 @@ system_panels = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=1),
     ),
     G.TimeSeries(
-        title="ZK: Memory usage",
+        title="Memory usage",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -134,7 +134,7 @@ system_panels = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=1),
     ),
     G.TimeSeries(
-        title="ZK: GC collection",
+        title="GC collection",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(

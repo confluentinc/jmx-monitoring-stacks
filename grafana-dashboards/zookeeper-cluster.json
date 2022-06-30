@@ -643,7 +643,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ZK: CPU usage",
+      "title": "CPU usage",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
@@ -743,7 +743,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ZK: Memory usage",
+      "title": "Memory usage",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
@@ -843,7 +843,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ZK: GC collection",
+      "title": "GC collection",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
