@@ -372,7 +372,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelectionspersec{namespace=\"$ns\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_globaltopiccount{namespace=\"$ns\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -387,7 +387,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Unclean leader elections",
+      "title": "Kafka: Sum of Topics",
       "transformations": [],
       "transparent": false,
       "type": "stat"

@@ -20,12 +20,12 @@ templating = G.Templating(
             multi=True,
             includeAll=True,
         ),
-		G.Template(
+        G.Template(
             name="quantile",
             label="Quantile",
             dataSource="Prometheus",
             query='label_values(kafka_network_requestmetrics_requestqueuetimems{namespace="$ns"}, quantile)',
-		),
+        ),
     ]
 )
 
@@ -79,11 +79,11 @@ healthcheck_panels = [
         gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 2, y=0),
     ),
     G.Stat(
-        title="Kafka: Sum of Unclean leader elections",
+        title="Kafka: Sum of Topics",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='sum(kafka_controller_controllerstats_uncleanleaderelectionspersec{namespace="$ns"})',
+                expr='sum(kafka_controller_kafkacontroller_globaltopiccount{namespace="$ns"})',
             ),
         ],
         reduceCalc="last",
@@ -124,7 +124,6 @@ healthcheck_panels = [
         format="bytes",
         gridPos=G.GridPos(h=hcHeight, w=statWidth, x=statWidth * 5, y=0),
     ),
-
     G.Stat(
         title="Kafka: Sum of Partitions",
         dataSource="${DS_PROMETHEUS}",
@@ -449,7 +448,7 @@ connection_inner = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=connection_base),
     ),
     # By Listener
-        G.TimeSeries(
+    G.TimeSeries(
         title="Sum of Connections alive per Listener",
         dataSource="${DS_PROMETHEUS}",
         targets=[
@@ -460,7 +459,9 @@ connection_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=connection_base + 1),
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=connection_base + 1
+        ),
     ),
     G.TimeSeries(
         title="Sum of Connections creation rate per Listener",
@@ -473,7 +474,9 @@ connection_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=connection_base + 1),
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=connection_base + 1
+        ),
     ),
     G.TimeSeries(
         title="Sum of Connections close rate per Listener",
@@ -486,7 +489,9 @@ connection_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=connection_base + 1),
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=connection_base + 1
+        ),
     ),
 ]
 connection_panels = [
@@ -539,7 +544,7 @@ isr_panels = [
 producer_base = isr_base + 1
 producer_inner = [
     G.TimeSeries(
-		title="Produce: Request Queue Time",
+        title="Produce: Request Queue Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -549,11 +554,11 @@ producer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=producer_base),
     ),
     G.TimeSeries(
-		title="Produce: Local Time",
+        title="Produce: Local Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -563,11 +568,11 @@ producer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=producer_base),
     ),
     G.TimeSeries(
-		title="Produce: Remote Time",
+        title="Produce: Remote Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -577,11 +582,11 @@ producer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=producer_base),
     ),
     G.TimeSeries(
-		title="Produce: Response Queue Time",
+        title="Produce: Response Queue Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -591,11 +596,13 @@ producer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=producer_base + 1),
+        unit="ms",
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=producer_base + 1
+        ),
     ),
     G.TimeSeries(
-		title="Produce: Response Send Time",
+        title="Produce: Response Send Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -605,13 +612,15 @@ producer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=producer_base + 1),
+        unit="ms",
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=producer_base + 1
+        ),
     ),
 ]
 producer_panels = [
     G.RowPanel(
-		title="Request latency: Producer",
+        title="Request latency: Producer",
         gridPos=G.GridPos(h=1, w=24, x=0, y=producer_base),
         collapsed=True,
         panels=producer_inner,
@@ -621,7 +630,7 @@ producer_panels = [
 consumer_base = producer_base + 2
 consumer_inner = [
     G.TimeSeries(
-		title="Fetch: Request Queue Time",
+        title="Fetch: Request Queue Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -631,11 +640,11 @@ consumer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=consumer_base),
     ),
     G.TimeSeries(
-		title="Fetch: Local Time",
+        title="Fetch: Local Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -645,11 +654,11 @@ consumer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=consumer_base),
     ),
     G.TimeSeries(
-		title="Fetch: Remote Time",
+        title="Fetch: Remote Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -659,11 +668,11 @@ consumer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=consumer_base),
     ),
     G.TimeSeries(
-		title="Fetch: Response Queue Time",
+        title="Fetch: Response Queue Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -673,11 +682,13 @@ consumer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=consumer_base + 1),
+        unit="ms",
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=consumer_base + 1
+        ),
     ),
     G.TimeSeries(
-		title="Fetch: Response Send Time",
+        title="Fetch: Response Send Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -687,13 +698,15 @@ consumer_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=consumer_base + 1),
+        unit="ms",
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=consumer_base + 1
+        ),
     ),
 ]
 consumer_panels = [
     G.RowPanel(
-		title="Request latency: Consumer Fetch",
+        title="Request latency: Consumer Fetch",
         gridPos=G.GridPos(h=1, w=24, x=0, y=consumer_base),
         collapsed=True,
         panels=consumer_inner,
@@ -703,7 +716,7 @@ consumer_panels = [
 replication_base = consumer_base + 2
 replication_inner = [
     G.TimeSeries(
-		title="Fetch: Request Queue Time",
+        title="Fetch: Request Queue Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -713,11 +726,11 @@ replication_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=replication_base),
     ),
     G.TimeSeries(
-		title="Fetch: Local Time",
+        title="Fetch: Local Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -727,11 +740,11 @@ replication_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=replication_base),
     ),
     G.TimeSeries(
-		title="Fetch: Remote Time",
+        title="Fetch: Remote Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -741,11 +754,11 @@ replication_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
+        unit="ms",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 2, y=replication_base),
     ),
     G.TimeSeries(
-		title="Fetch: Response Queue Time",
+        title="Fetch: Response Queue Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -755,11 +768,13 @@ replication_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=replication_base + 1),
+        unit="ms",
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=replication_base + 1
+        ),
     ),
     G.TimeSeries(
-		title="Fetch: Response Send Time",
+        title="Fetch: Response Send Time",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -769,13 +784,15 @@ replication_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='ms',
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=replication_base + 1),
+        unit="ms",
+        gridPos=G.GridPos(
+            h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=replication_base + 1
+        ),
     ),
 ]
 replication_panels = [
     G.RowPanel(
-		title="Request latency: Replica Fetch",
+        title="Request latency: Replica Fetch",
         gridPos=G.GridPos(h=1, w=24, x=0, y=replication_base),
         collapsed=True,
         panels=replication_inner,
@@ -785,7 +802,7 @@ replication_panels = [
 group_base = replication_base + 2
 group_inner = [
     G.TimeSeries(
-		title="Number of Groups per Broker",
+        title="Number of Groups per Broker",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -798,7 +815,7 @@ group_inner = [
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=group_base),
     ),
     G.TimeSeries(
-		title="Number of Groups per Broker",
+        title="Number of Groups per Broker",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -830,7 +847,7 @@ group_inner = [
 ]
 group_panels = [
     G.RowPanel(
-		title="Group Coordinator",
+        title="Group Coordinator",
         gridPos=G.GridPos(h=1, w=24, x=0, y=group_base),
         collapsed=True,
         panels=group_inner,
@@ -840,7 +857,7 @@ group_panels = [
 conversion_base = group_base + 1
 conversion_inner = [
     G.TimeSeries(
-		title="Sum of Produce conversion rate per sec",
+        title="Sum of Produce conversion rate per sec",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -850,11 +867,11 @@ conversion_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='opsps',
+        unit="opsps",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=conversion_base),
     ),
     G.TimeSeries(
-		title="Sum of Fetch conversion rate per sec",
+        title="Sum of Fetch conversion rate per sec",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -864,11 +881,11 @@ conversion_inner = [
         ],
         legendDisplayMode="table",
         legendCalcs=["max", "mean", "last"],
-		unit='opsps',
+        unit="opsps",
         gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=conversion_base),
     ),
     G.TimeSeries(
-		title="Sum of Connections per version",
+        title="Sum of Connections per version",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -883,14 +900,27 @@ conversion_inner = [
 ]
 conversion_panels = [
     G.RowPanel(
-		title="Message Conversion",
+        title="Message Conversion",
         gridPos=G.GridPos(h=1, w=24, x=0, y=conversion_base),
         collapsed=True,
         panels=conversion_inner,
     ),
 ]
 
-panels = healthcheck_panels + system_panels + throughput_panels + thread_panels + request_panels + connection_panels + isr_panels + producer_panels + consumer_panels + replication_panels + group_panels + conversion_panels
+panels = (
+    healthcheck_panels
+    + system_panels
+    + throughput_panels
+    + thread_panels
+    + request_panels
+    + connection_panels
+    + isr_panels
+    + producer_panels
+    + consumer_panels
+    + replication_panels
+    + group_panels
+    + conversion_panels
+)
 
 dashboard = G.Dashboard(
     title="Kafka cluster - v2",

@@ -12,12 +12,12 @@ templating = G.Templating(
             dataSource="Prometheus",
             query="label_values(namespace)",
         ),
-		G.Template(
+        G.Template(
             name="quantile",
             label="Quantile",
             dataSource="Prometheus",
             query='label_values(kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{namespace="$ns"}, quantile)',
-		),
+        ),
     ]
 )
 
@@ -204,7 +204,7 @@ latency_panels = [
     ),
 ]
 
-kafka_base = 2 + 1;
+kafka_base = 2 + 1
 kafka_inner = [
     G.TimeSeries(
         title="Kafka: Request Latency",
@@ -263,7 +263,7 @@ kafka_inner = [
         legendCalcs=["max", "mean", "last"],
         unit="ms",
         stacking={"mode": "normal"},
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=kafka_base+1),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 0, y=kafka_base + 1),
     ),
     G.TimeSeries(
         title="Kafka: Auth Failures on Connections/sec",
@@ -278,7 +278,7 @@ kafka_inner = [
         legendCalcs=["max", "mean", "last"],
         unit="ms",
         stacking={"mode": "normal"},
-        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=kafka_base+1),
+        gridPos=G.GridPos(h=hcHeight * 2, w=tsWidth, x=tsWidth * 1, y=kafka_base + 1),
     ),
 ]
 kafka_panels = [
