@@ -12,7 +12,7 @@
   "annotations": {
     "list": []
   },
-  "description": "Overview of ksqlDB clusters.",
+  "description": "Overview of the Kafka Connect cluster",
   "editable": true,
   "gnetId": null,
   "hideControls": false,
@@ -123,7 +123,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+          "expr": "count(kafka_connect_app_info{namespace=\"$env\",app=\"$connect_cluster\",version!=\"\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -138,7 +138,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ksqlDB: Online Servers",
+      "title": "Connect: Online Workers",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -206,7 +206,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -221,7 +221,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ksqlDB: Sum of Active Queries",
+      "title": "Connect: Sum of Total Tasks",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -297,7 +297,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(ksql_ksql_engine_query_stats_running_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -312,7 +312,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ksqlDB: Sum of Running Queries",
+      "title": "Connect: Sum of Running Tasks",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -388,7 +388,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -403,7 +403,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ksqlDB: Sum of Rebalancing Queries",
+      "title": "Connect: Sum of Paused Tasks",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -479,7 +479,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(ksql_ksql_engine_query_stats_error_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -494,7 +494,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Sum of Failed Queries",
+      "title": "Connect: Sum of Failed Tasks",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -507,49 +507,32 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {},
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
+          "custom": {},
+          "decimals": null,
           "mappings": [],
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
-            "steps": []
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
           },
-          "unit": ""
+          "unit": "clockms"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 0,
-        "y": 1
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 0
       },
       "height": null,
       "hideTimeOverride": false,
@@ -560,18 +543,18 @@
       "maxPerRow": null,
       "minSpan": null,
       "options": {
-        "legend": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "max",
-            "mean",
             "last"
           ],
-          "displayMode": "table",
-          "placement": "bottom"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
       "repeat": null,
       "repeatDirection": null,
@@ -579,7 +562,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "ksql_ksql_engine_query_stats_liveness_indicator{namespace=\"$ns\",app=\"$ksqldb_app\"}",
+          "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{namespace=\"$env\",app=\"$connect_cluster\"} >= 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -594,61 +577,40 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Cluster Liveness",
+      "title": "Connect: Time since last rebalance",
       "transformations": [],
       "transparent": false,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
+      "color": {
+        "mode": "thresholds"
+      },
+      "columns": [],
       "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
           "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {},
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": []
-          },
-          "unit": "cps"
+          }
         },
         "overrides": []
       },
+      "fontSize": "100%",
       "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 8,
+        "h": 5,
+        "w": 24,
+        "x": 0,
         "y": 1
       },
       "height": null,
@@ -656,6 +618,405 @@
       "id": 8,
       "interval": null,
       "links": [],
+      "mappings": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "showHeader": true
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": 6,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "kafka_connect_app_info{namespace=\"$env\",app=\"$connect_cluster\",start_time_ms!=\"\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "kafka_connect_app_info{namespace=\"$env\",app=\"$connect_cluster\",version!=\"\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_count{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_startup_success_total{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_startup_failure_total{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_startup_success_total{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_startup_failure_total{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Connect Workers",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "pod"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "pod",
+                "app 1",
+                "start_time_ms",
+                "version",
+                "Value #C",
+                "Value #D",
+                "Value #E",
+                "Value #F",
+                "Value #G",
+                "Value #H",
+                "namespace 1"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "app 1": 1,
+              "namespace 1": 0,
+              "pod": 2,
+              "start_time_ms": 3,
+              "version": 4
+            },
+            "renameByName": {
+              "Value #C": "connectors",
+              "Value #D": "conn. success",
+              "Value #E": "conn. failure",
+              "Value #F": "tasks",
+              "Value #G": "tasks success",
+              "Value #H": "tasks failure",
+              "app 1": "cluster",
+              "namespace 1": "environment",
+              "pod": "worker",
+              "start_time_ms": "start time",
+              "version": "version"
+            }
+          }
+        }
+      ],
+      "transparent": false,
+      "type": "table"
+    },
+    {
+      "cacheTimeout": null,
+      "color": {
+        "mode": "thresholds"
+      },
+      "columns": [],
+      "datasource": "${DS_PROMETHEUS}",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 9,
+      "interval": null,
+      "links": [],
+      "mappings": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "showHeader": true
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": 6,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "kafka_connect_connector_info{namespace=\"$env\",app=\"$connect_cluster\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": null,
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Connectors",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "connector"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "connector",
+                "Value #B",
+                "Value #C",
+                "Value #D",
+                "Value #E"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "renameByName": {
+              "Value #B": "tasks",
+              "Value #C": "running",
+              "Value #D": "failed",
+              "Value #E": "paused"
+            }
+          }
+        }
+      ],
+      "transparent": false,
+      "type": "table"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS}",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 10,
+      "interval": null,
+      "links": [],
       "maxDataPoints": 100,
       "maxPerRow": null,
       "minSpan": null,
@@ -679,13 +1040,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "ksql_ksql_engine_query_stats_messages_consumed_per_sec{namespace=\"$ns\",app=\"$ksqldb_app\"}",
+          "expr": "kafka_connect_connector_task_metrics_running_ratio{namespace=\"$env\",app=\"$connect_cluster\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{connector}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -694,7 +1055,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Messages consumed/sec",
+      "title": "Tasks Running Ratio",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
@@ -741,19 +1102,19 @@
             "mode": "absolute",
             "steps": []
           },
-          "unit": "cps"
+          "unit": "ms"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 10,
-        "w": 8,
-        "x": 16,
-        "y": 1
+        "w": 12,
+        "x": 12,
+        "y": 3
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 9,
+      "id": 11,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -779,7 +1140,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "ksql_ksql_engine_query_stats_messages_produced_per_sec{namespace=\"$ns\",app=\"$ksqldb_app\"}",
+          "expr": "kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -794,7 +1155,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Messages produced/sec",
+      "title": "Rebalance Latency",
       "transformations": [],
       "transparent": false,
       "type": "timeseries"
@@ -818,11 +1179,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 4
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 10,
+      "id": 12,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -890,11 +1251,11 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 2
+        "y": 4
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 11,
+      "id": 13,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -920,7 +1281,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "irate(process_cpu_seconds_total{namespace=\"$ns\",app=\"$ksqldb_app\",type=\"ksqldb\"}[5m])",
+          "expr": "irate(process_cpu_seconds_total{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}[5m])",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -990,11 +1351,11 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 2
+        "y": 4
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 12,
+      "id": 14,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1020,7 +1381,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$ns\",app=\"$ksqldb_app\",type=\"ksqldb\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1090,11 +1451,11 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 2
+        "y": 4
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 13,
+      "id": 15,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1120,7 +1481,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$ns\",app=\"$ksqldb_app\",type=\"ksqldb\"}[5m]))",
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1159,11 +1520,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 6
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 14,
+      "id": 16,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1212,7 +1573,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -1220,207 +1581,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 3
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 15,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Poll Latency (Avg.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 3
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 16,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Poll Latency (Max.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 4
+            "y": 6
           },
           "height": null,
           "hideTimeOverride": false,
@@ -1450,13 +1611,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_connector_task_metrics_batch_size_avg{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1465,7 +1626,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Process Latency (Avg.)",
+          "title": "Batch Size (Avg.)",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1512,7 +1673,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -1520,7 +1681,7 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 4
+            "y": 6
           },
           "height": null,
           "hideTimeOverride": false,
@@ -1550,13 +1711,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_connector_task_metrics_batch_size_max{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1565,7 +1726,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Process Latency (Max.)",
+          "title": "Batch Size (Max.)",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1612,7 +1773,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": "percentunit"
             },
             "overrides": []
           },
@@ -1620,7 +1781,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 5
+            "y": 7
           },
           "height": null,
           "hideTimeOverride": false,
@@ -1650,13 +1811,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_connector_task_metrics_offset_commit_success_percentage{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1665,7 +1826,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Commit Latency (Avg.)",
+          "title": "Offset commit success %",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1720,7 +1881,7 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 5
+            "y": 7
           },
           "height": null,
           "hideTimeOverride": false,
@@ -1750,13 +1911,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1765,207 +1926,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Commit Latency (Max.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 6
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 21,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Punctuate Latency (Avg.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 6
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 22,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Punctuate Latency (Max.)",
+          "title": "Offset commit avg. latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1977,7 +1938,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Queries Performance",
+      "title": "Tasks",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -2001,11 +1962,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 8
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 23,
+      "id": 21,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -2054,7 +2015,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "iops"
+              "unit": ""
             },
             "overrides": []
           },
@@ -2062,7 +2023,207 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 7
+            "y": 8
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 22,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_task_error_metrics_total_record_failures{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{connector}}[{{task}}]",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Record Failures",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 8
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 23,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_task_error_metrics_total_record_errors{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{connector}}[{{task}}]",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Record Error",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 8
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2092,13 +2253,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_rate{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_task_error_metrics_total_records_skipped{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2107,7 +2268,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put Rate",
+          "title": "Total Records Skipped",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2154,15 +2315,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": ""
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 8,
-            "y": 7
+            "x": 0,
+            "y": 9
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2192,13 +2353,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_task_error_metrics_total_errors_logged{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2207,7 +2368,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put Latency (Avg.)",
+          "title": "Total Errors Logged",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2254,15 +2415,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": ""
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 16,
-            "y": 7
+            "x": 8,
+            "y": 9
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2292,13 +2453,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_task_error_metrics_total_retries{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2307,7 +2468,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put Latency (Max.)",
+          "title": "Total Retries",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2354,15 +2515,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "iops"
+              "unit": ""
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 0,
-            "y": 8
+            "x": 16,
+            "y": 9
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2392,13 +2553,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2407,11 +2568,53 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put if absent Rate",
+          "title": "Dead Letter Topic Requests",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
-        },
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Task Errors",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 28,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
         {
           "cacheTimeout": null,
           "datasource": "${DS_PROMETHEUS}",
@@ -2461,108 +2664,8 @@
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 8,
-            "y": 8
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 28,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Put if absent Latency (Avg.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 16,
-            "y": 8
+            "x": 0,
+            "y": 10
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2592,13 +2695,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_source_task_metrics_poll_batch_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2607,7 +2710,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put if absent Latency (Max.)",
+          "title": "Poll Batch Avg. Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2654,15 +2757,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "iops"
+              "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 0,
-            "y": 9
+            "x": 8,
+            "y": 10
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2692,13 +2795,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_fetch_rate{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_source_task_metrics_poll_batch_max_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2707,7 +2810,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Fetch Rate",
+          "title": "Poll Batch Max. Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2754,15 +2857,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": "ops"
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 8,
-            "y": 9
+            "x": 0,
+            "y": 11
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2792,13 +2895,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_source_task_metrics_source_record_poll_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2807,7 +2910,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Fetch Latency (Avg.)",
+          "title": "Source Record Poll Rate",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2854,15 +2957,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": "ops"
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 16,
-            "y": 9
+            "x": 8,
+            "y": 11
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2892,13 +2995,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_fetch_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_source_task_metrics_source_record_write_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2907,111 +3010,53 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Fetch Latency (Max.)",
+          "title": "Source Record Write Rate",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "iops"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 10
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 33,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_delete_rate{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Delete Rate",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Source Tasks",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 33,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
         {
           "cacheTimeout": null,
           "datasource": "${DS_PROMETHEUS}",
@@ -3061,8 +3106,8 @@
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 8,
-            "y": 10
+            "x": 0,
+            "y": 12
           },
           "height": null,
           "hideTimeOverride": false,
@@ -3092,13 +3137,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_delete_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_sink_task_metrics_put_batch_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3107,207 +3152,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delete Latency (Avg.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 16,
-            "y": 10
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 35,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_delete_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Delete Latency (Max.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "iops"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 11
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 36,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_restore_rate{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Restore Rate",
+          "title": "Put Batch Avg. Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -3362,11 +3207,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 11
+            "y": 12
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 37,
+          "id": 35,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3392,13 +3237,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_restore_latency_avg{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_sink_task_metrics_put_batch_max_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{connector}}[{{task}}]",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3407,7 +3252,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Restore Latency (Avg.)",
+          "title": "Put Batch Max. Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -3454,15 +3299,157 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": ""
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 16,
-            "y": 11
+            "x": 0,
+            "y": 13
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 36,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_sink_task_metrics_partition_count{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{connector}}[{{task}}]",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Partition Count",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Sink Tasks",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 37,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "binBps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 5
           },
           "height": null,
           "hideTimeOverride": false,
@@ -3492,13 +3479,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_restore_latency_max{namespace=\"$ns\",app=\"$ksqldb_app\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_connect_connect_metrics_incoming_byte_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3507,7 +3494,521 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Restore Latency (Max.)",
+          "title": "Incoming Byte Rate",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "binBps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 5
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 39,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_connect_metrics_outgoing_byte_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Outgoing Byte Rate",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 6
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 40,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_connect_metrics_io_ratio{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "IO Ratio",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "binBps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 6
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 41,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_connect_metrics_network_io_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Network IO Rate",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 7
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 42,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_connect_metrics_connection_count{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Active Connections",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 7
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 43,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_connect_connect_metrics_successful_authentication_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}} (success)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_connect_connect_metrics_failed_authentication_total{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod}} (failed)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Authentications",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -3519,7 +4020,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "State Stores",
+      "title": "Connect Workers",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -3532,7 +4033,7 @@
   "style": "dark",
   "tags": [
     "confluent",
-    "ksqldb"
+    "kafka-connect"
   ],
   "templating": {
     "list": [
@@ -3550,9 +4051,9 @@
         "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
-        "label": "Namespace",
+        "label": "Environment",
         "multi": false,
-        "name": "ns",
+        "name": "env",
         "options": [],
         "query": "label_values(namespace)",
         "refresh": 1,
@@ -3577,38 +4078,11 @@
         "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
-        "label": "ksqlDB cluster",
+        "label": "Connect cluster",
         "multi": false,
-        "name": "ksqldb_app",
+        "name": "connect_cluster",
         "options": [],
-        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\"},app)",
-        "refresh": 1,
-        "regex": null,
-        "sort": 1,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "auto": false,
-        "auto_count": 30,
-        "auto_min": "10s",
-        "current": {
-          "selected": false,
-          "tags": [],
-          "text": null,
-          "value": null
-        },
-        "datasource": "Prometheus",
-        "hide": true,
-        "includeAll": false,
-        "label": "ksqlDB cluster ID",
-        "multi": false,
-        "name": "ksqldb_cluster_id",
-        "options": [],
-        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\"},ksql_cluster)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\"}, app)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -3631,11 +4105,38 @@
         "datasource": "Prometheus",
         "hide": 0,
         "includeAll": true,
-        "label": "ksqlDB server",
+        "label": "Connect worker",
         "multi": true,
-        "name": "ksqldb_server",
+        "name": "connect_worker",
         "options": [],
-        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\",app=\"$ksqldb_app\"}, pod)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"}, pod)",
+        "refresh": 1,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
+        },
+        "datasource": "Prometheus",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Connector",
+        "multi": true,
+        "name": "connector",
+        "options": [],
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"}, connector)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -3677,7 +4178,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "ksqlDB cluster - v2",
+  "title": "Kafka Connect cluster - v2",
   "uid": null,
   "version": 0
 }

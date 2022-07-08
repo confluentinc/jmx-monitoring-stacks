@@ -12,7 +12,7 @@
   "annotations": {
     "list": []
   },
-  "description": "Overview of the Kafka Connect cluster",
+  "description": "Overview of the Kafka cluster",
   "editable": true,
   "gnetId": null,
   "hideControls": false,
@@ -55,7 +55,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Health-check",
+      "title": "Overview",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -115,7 +115,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "textMode": "auto"
       },
       "repeat": null,
       "repeatDirection": null,
@@ -123,13 +123,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_connect_app_info{namespace=\"$ns\",app=\"$connect_app\",version!=\"\"})",
+          "expr": "count(kafka_server_replicamanager_leadercount{env=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{version}}",
+          "legendFormat": "",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -138,7 +138,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Online Workers",
+      "title": "Kafka: Online Brokers",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -198,7 +198,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "value_and_name"
       },
       "repeat": null,
       "repeatDirection": null,
@@ -206,13 +206,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
+          "expr": "kafka_controller_kafkacontroller_activecontrollercount{env=\"$env\"} > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "",
+          "legendFormat": "{{hostname}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -221,7 +221,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Sum of Total Tasks",
+      "title": "Kafka: Active Controller",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -247,14 +247,6 @@
                 "line": true,
                 "op": "gt",
                 "value": "null",
-                "yaxis": "left"
-              },
-              {
-                "color": "green",
-                "index": 1,
-                "line": true,
-                "op": "gt",
-                "value": 1.0,
                 "yaxis": "left"
               }
             ]
@@ -297,7 +289,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_preferredreplicaimbalancecount{env=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -312,7 +304,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Sum of Running Tasks",
+      "title": "Kafka: Sum of Replica Imbalance",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -339,14 +331,6 @@
                 "op": "gt",
                 "value": "null",
                 "yaxis": "left"
-              },
-              {
-                "color": "yellow",
-                "index": 1,
-                "line": true,
-                "op": "gt",
-                "value": 1.0,
-                "yaxis": "left"
               }
             ]
           },
@@ -358,7 +342,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 0
+        "y": 1
       },
       "height": null,
       "hideTimeOverride": false,
@@ -388,7 +372,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_globaltopiccount{env=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -403,7 +387,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Sum of Paused Tasks",
+      "title": "Kafka: Sum of Topics",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -430,18 +414,10 @@
                 "op": "gt",
                 "value": "null",
                 "yaxis": "left"
-              },
-              {
-                "color": "red",
-                "index": 1,
-                "line": true,
-                "op": "gt",
-                "value": 1.0,
-                "yaxis": "left"
               }
             ]
           },
-          "unit": "none"
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -479,7 +455,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
+          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -494,7 +470,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Sum of Failed Tasks",
+      "title": "Kafka: Rate of Requests/Sec",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -524,7 +500,7 @@
               }
             ]
           },
-          "unit": "clockms"
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -544,7 +520,90 @@
       "minSpan": null,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum(kafka_log_log_size{env=\"$env\",hostname=~\"$broker\"}) by (hostname)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Kafka: Logs Size",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS}",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -562,13 +621,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{namespace=\"$ns\",app=\"$connect_app\"} >= 0",
+          "expr": "sum(kafka_server_replicamanager_partitioncount{env=\"$env\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -577,352 +636,86 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect: Time since last rebalance",
+      "title": "Kafka: Sum of Partitions",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "color": {
-        "mode": "thresholds"
-      },
-      "columns": [],
       "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "filterable": false
-          },
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
-            "steps": []
-          }
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 5,
-        "w": 24,
-        "x": 0,
-        "y": 1
-      },
-      "height": null,
-      "hideTimeOverride": false,
-      "id": 8,
-      "interval": null,
-      "links": [],
-      "mappings": [],
-      "maxDataPoints": 100,
-      "maxPerRow": null,
-      "minSpan": null,
-      "options": {
-        "showHeader": true
-      },
-      "repeat": null,
-      "repeatDirection": null,
-      "span": 6,
-      "targets": [
-        {
-          "datasource": null,
-          "expr": "kafka_connect_app_info{namespace=\"$ns\",app=\"$connect_app\",start_time_ms!=\"\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "kafka_connect_app_info{namespace=\"$ns\",app=\"$connect_app\",version!=\"\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_count{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_startup_success_total{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_startup_failure_total{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_startup_success_total{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_startup_failure_total{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Connect Workers",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "pod"
-          }
-        },
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "pod",
-                "app 1",
-                "start_time_ms",
-                "version",
-                "Value #C",
-                "Value #D",
-                "Value #E",
-                "Value #F",
-                "Value #G",
-                "Value #H",
-                "namespace 1"
-              ]
-            }
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "app 1": 1,
-              "namespace 1": 0,
-              "pod": 2,
-              "start_time_ms": 3,
-              "version": 4
-            },
-            "renameByName": {
-              "Value #C": "connectors",
-              "Value #D": "conn. success",
-              "Value #E": "conn. failure",
-              "Value #F": "tasks",
-              "Value #G": "tasks success",
-              "Value #H": "tasks failure",
-              "app 1": "cluster",
-              "namespace 1": "namespace",
-              "pod": "worker",
-              "start_time_ms": "start time",
-              "version": "version"
-            }
-          }
-        },
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
+            "steps": [
               {
-                "destinationType": "number",
-                "targetField": "start_time_ms"
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
               }
-            ],
-            "fields": {}
-          }
-        }
-      ],
-      "transparent": false,
-      "type": "table"
-    },
-    {
-      "cacheTimeout": null,
-      "color": {
-        "mode": "thresholds"
-      },
-      "columns": [],
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "filterable": false
+            ]
           },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": []
-          }
+          "unit": "none"
         },
         "overrides": []
       },
-      "fontSize": "100%",
       "gridPos": {
         "h": 5,
-        "w": 24,
-        "x": 0,
-        "y": 2
+        "w": 4,
+        "x": 4,
+        "y": 1
       },
       "height": null,
       "hideTimeOverride": false,
       "id": 9,
       "interval": null,
       "links": [],
-      "mappings": [],
       "maxDataPoints": 100,
       "maxPerRow": null,
       "minSpan": null,
       "options": {
-        "showHeader": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
       "repeat": null,
       "repeatDirection": null,
-      "span": 6,
+      "span": null,
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connector_info{namespace=\"$ns\",app=\"$connect_app\"}",
-          "format": "table",
+          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{env=\"$env\",hostname=~\"$broker\"})",
+          "format": "time_series",
           "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "",
-          "step": 10,
-          "target": ""
-        },
-        {
-          "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$ns\",app=\"$connect_app\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
+          "instant": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -934,43 +727,10 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connectors",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "connector"
-          }
-        },
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "connector",
-                "Value #B",
-                "Value #C",
-                "Value #D",
-                "Value #E"
-              ]
-            }
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "renameByName": {
-              "Value #B": "tasks",
-              "Value #C": "running",
-              "Value #D": "failed",
-              "Value #E": "paused"
-            }
-          }
-        }
-      ],
+      "title": "Kafka: Sum of Partitions Under-Replicated (URP)",
+      "transformations": [],
       "transparent": false,
-      "type": "table"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
@@ -980,49 +740,40 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {},
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
+          "custom": {},
+          "decimals": null,
           "mappings": [],
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
-            "steps": []
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
+              }
+            ]
           },
-          "unit": "percentunit"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 3
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 1
       },
       "height": null,
       "hideTimeOverride": false,
@@ -1033,18 +784,18 @@
       "maxPerRow": null,
       "minSpan": null,
       "options": {
-        "legend": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "max",
-            "mean",
             "last"
           ],
-          "displayMode": "table",
-          "placement": "bottom"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
       "repeat": null,
       "repeatDirection": null,
@@ -1052,13 +803,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connector_task_metrics_running_ratio{namespace=\"$ns\",app=\"$connect_app\"}",
+          "expr": "sum(kafka_cluster_partition_underminisr{env=\"$env\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{connector}}",
+          "legendFormat": "",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1067,10 +818,10 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Tasks Running Ratio",
+      "title": "Kafka: Sum of Partitions Under-MinISR",
       "transformations": [],
       "transparent": false,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
@@ -1080,49 +831,40 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {},
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
+          "custom": {},
+          "decimals": null,
           "mappings": [],
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
-            "steps": []
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
+              }
+            ]
           },
-          "unit": "ms"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 12,
+        "h": 5,
+        "w": 4,
         "x": 12,
-        "y": 3
+        "y": 1
       },
       "height": null,
       "hideTimeOverride": false,
@@ -1133,18 +875,18 @@
       "maxPerRow": null,
       "minSpan": null,
       "options": {
-        "legend": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "max",
-            "mean",
             "last"
           ],
-          "displayMode": "table",
-          "placement": "bottom"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
       "repeat": null,
       "repeatDirection": null,
@@ -1152,13 +894,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{namespace=\"$ns\",app=\"$connect_app\"}",
+          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{env=\"$env\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1167,10 +909,176 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Rebalance Latency",
+      "title": "Kafka: Sum of Partitions Offline",
       "transformations": [],
       "transparent": false,
-      "type": "timeseries"
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS}",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 12,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesinpersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Kafka: Bytes In/Sec",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS}",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 13,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesoutpersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Kafka: Bytes Out/Sec",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
@@ -1191,11 +1099,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 2
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 12,
+      "id": 14,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1263,11 +1171,11 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 4
+        "y": 2
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 13,
+      "id": 15,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1293,13 +1201,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "irate(process_cpu_seconds_total{namespace=\"$ns\",app=\"$connect_app\",type=\"connect\"}[5m])",
+          "expr": "irate(process_cpu_seconds_total{env=\"$env\",hostname=~\"$broker\"}[5m])",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{hostname}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1363,11 +1271,11 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 4
+        "y": 2
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 14,
+      "id": 16,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1393,13 +1301,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$ns\",app=\"$connect_app\",type=\"connect\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{hostname}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1463,11 +1371,11 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 4
+        "y": 2
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 15,
+      "id": 17,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1493,13 +1401,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$ns\",app=\"$connect_app\",type=\"connect\"}[5m]))",
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=~\"$broker\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{hostname}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1517,7 +1425,7 @@
       "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
-      "description": null,
+      "description": "Bytes in/out per second",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1532,11 +1440,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 3
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 16,
+      "id": 18,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -1585,7 +1493,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "bytes"
+              "unit": "cps"
             },
             "overrides": []
           },
@@ -1593,11 +1501,11 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 6
+            "y": 3
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 17,
+          "id": 19,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -1623,13 +1531,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_batch_size_avg{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "sum without(topic) (rate(kafka_server_brokertopicmetrics_messagesinpersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
+              "legendFormat": "{{hostname}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1638,7 +1546,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Batch Size (Avg.)",
+          "title": "Messages In/Sec",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1685,7 +1593,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "bytes"
+              "unit": "binBps"
             },
             "overrides": []
           },
@@ -1693,11 +1601,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 6
+            "y": 3
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 18,
+          "id": 20,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -1723,13 +1631,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_batch_size_max{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesinpersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
+              "legendFormat": "{{hostname}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1738,7 +1646,249 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Batch Size (Max.)",
+          "title": "Bytes In/Sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "binBps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 3
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 21,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Bytes Out/Sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Throughput",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": "Internal thread pools usage",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 22,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 4
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 23,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "1-kafka_network_socketserver_networkprocessoravgidlepercent{env=\"$env\",hostname=~\"$broker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Network processor usage",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1792,112 +1942,12 @@
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 0,
-            "y": 7
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 19,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_offset_commit_success_percentage{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Offset commit success %",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
             "x": 8,
-            "y": 7
+            "y": 4
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 20,
+          "id": 24,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -1923,13 +1973,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "1-kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total{env=\"$env\",hostname=~\"$broker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
+              "legendFormat": "{{hostname}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1938,7 +1988,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Offset commit avg. latency",
+          "title": "Request processor (IO) usage",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1950,7 +2000,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Tasks",
+      "title": "Thread Utilization",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -1959,7 +2009,7 @@
       "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
-      "description": null,
+      "description": "Sum of req/sec rates",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1974,11 +2024,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 5
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 21,
+      "id": 25,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -2017,7 +2067,10 @@
                 },
                 "showPoints": "auto",
                 "spanNulls": false,
-                "stacking": {},
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
@@ -2027,7 +2080,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": ""
+              "unit": "reqps"
             },
             "overrides": []
           },
@@ -2035,407 +2088,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 8
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 22,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_record_failures{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Total Record Failures",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 8
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 23,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_record_errors{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Total Record Error",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 16,
-            "y": 8
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 24,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_records_skipped{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Total Records Skipped",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 9
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 25,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_errors_logged{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Total Errors Logged",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 9
+            "y": 5
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2465,13 +2118,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_retries{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_requestspersec{env=\"$env\",hostname=~\"$broker\"}[5m]))",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
+              "legendFormat": "{{request}}(v{{version}})",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2480,7 +2133,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Total Retries",
+          "title": "Requests rates",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2517,7 +2170,10 @@
                 },
                 "showPoints": "auto",
                 "spanNulls": false,
-                "stacking": {},
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
@@ -2527,15 +2183,15 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": ""
+              "unit": "reqps"
             },
             "overrides": []
           },
           "gridPos": {
             "h": 10,
             "w": 8,
-            "x": 16,
-            "y": 9
+            "x": 8,
+            "y": 5
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2565,13 +2221,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_errorspersec{env=\"$env\",hostname=~\"$broker\",error!=\"NONE\"}[5m]))",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
+              "legendFormat": "{{error}}@{{request}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2580,7 +2236,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Dead Letter Topic Requests",
+          "title": "Error rates",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2592,7 +2248,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Task Errors",
+      "title": "Request rates",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -2616,7 +2272,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 6
       },
       "height": null,
       "hideTimeOverride": false,
@@ -2669,7 +2325,7 @@
                 "mode": "absolute",
                 "steps": []
               },
-              "unit": "ms"
+              "unit": ""
             },
             "overrides": []
           },
@@ -2677,7 +2333,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 10
+            "y": 6
           },
           "height": null,
           "hideTimeOverride": false,
@@ -2707,13 +2363,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_poll_batch_avg_time_ms{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "sum(kafka_server_socketservermetrics_connection_count{env=\"$env\",hostname=~\"$broker\"}) by (hostname)",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
+              "legendFormat": "{{hostname}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -2722,7 +2378,1191 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Poll Batch Avg. Latency",
+          "title": "Sum of Connections alive per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 6
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 30,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connection_creation_rate{env=\"$env\",hostname=~\"$broker\"}) by (hostname)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections creation rate per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 6
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 31,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connection_close_rate{env=\"$env\",hostname=~\"$broker\"}) by (hostname)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections close rate per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 7
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 32,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connection_count{env=\"$env\",hostname=~\"$broker\"}) by (listener)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{listener}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections alive per Listener",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 7
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 33,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connection_creation_rate{env=\"$env\",hostname=~\"$broker\"}) by (listener)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{listener}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections creation rate per Listener",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 7
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 34,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connection_close_rate{env=\"$env\",hostname=~\"$broker\"}) by (listener)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{listener}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections close rate per Listener",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Connections",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 35,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 8
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 36,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "rate(kafka_server_replicamanager_isrshrinkspersec{env=\"$env\",hostname=~\"$broker\"}[5m])",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Rate of ISR Shrinks/sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 8
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 37,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "rate(kafka_server_replicamanager_isrexpandspersec{env=\"$env\",hostname=~\"$broker\"}[5m])",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Rate of ISR Expands/sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "In-Sync Replicas",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 38,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 9
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 39,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_requestqueuetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Produce\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Produce: Request Queue Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 9
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 40,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_localtimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Produce\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Produce: Local Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 9
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 41,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_remotetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Produce\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Produce: Remote Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 10
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 42,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_responsequeuetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Produce\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Produce: Response Queue Time",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2781,1190 +3621,6 @@
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 30,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_poll_batch_max_time_ms{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Poll Batch Max. Latency",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ops"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 11
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 31,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_source_record_poll_rate{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Source Record Poll Rate",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ops"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 11
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 32,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_source_record_write_rate{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Source Record Write Rate",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": null,
-      "span": null,
-      "targets": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Source Tasks",
-      "transformations": [],
-      "transparent": false,
-      "type": "row"
-    },
-    {
-      "cacheTimeout": null,
-      "collapsed": true,
-      "datasource": null,
-      "description": null,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "thresholds": {
-            "mode": "absolute",
-            "steps": []
-          }
-        }
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 12
-      },
-      "height": null,
-      "hideTimeOverride": false,
-      "id": 33,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "maxPerRow": null,
-      "minSpan": null,
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 12
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 34,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_put_batch_avg_time_ms{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Put Batch Avg. Latency",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 12
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 35,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_put_batch_max_time_ms{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Put Batch Max. Latency",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 13
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 36,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_partition_count{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{connector}}[{{task}}]",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Partition Count",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": null,
-      "span": null,
-      "targets": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Sink Tasks",
-      "transformations": [],
-      "transparent": false,
-      "type": "row"
-    },
-    {
-      "cacheTimeout": null,
-      "collapsed": true,
-      "datasource": null,
-      "description": null,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "thresholds": {
-            "mode": "absolute",
-            "steps": []
-          }
-        }
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 5
-      },
-      "height": null,
-      "hideTimeOverride": false,
-      "id": 37,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "maxPerRow": null,
-      "minSpan": null,
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "binBps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 5
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 38,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connect_metrics_incoming_byte_rate{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Incoming Byte Rate",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "binBps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 5
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 39,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connect_metrics_outgoing_byte_rate{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Outgoing Byte Rate",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 6
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 40,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connect_metrics_io_ratio{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "IO Ratio",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "binBps"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 6
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 41,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connect_metrics_network_io_rate{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Network IO Rate",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 7
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 42,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connect_metrics_connection_count{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Active Connections",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": ""
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 7
-          },
-          "height": null,
-          "hideTimeOverride": false,
           "id": 43,
           "interval": null,
           "links": [],
@@ -3991,27 +3647,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_successful_authentication_rate{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
+              "expr": "kafka_network_requestmetrics_responsesendtimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Produce\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{pod}} (success)",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            },
-            {
-              "datasource": null,
-              "expr": "kafka_connect_connect_metrics_failed_authentication_total{namespace=\"$ns\",app=\"$connect_app\",pod=~\"$connect_worker\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{pod}} (failed)",
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -4020,7 +3662,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Authentications",
+          "title": "Produce: Response Send Time",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -4032,7 +3674,1733 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connect Workers",
+      "title": "Request latency: Producer",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 44,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 11
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 45,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_requestqueuetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Fetch\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Request Queue Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 11
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 46,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_localtimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Fetch\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Local Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 11
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 47,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_remotetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Fetch\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Remote Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 12
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 48,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_responsequeuetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Fetch\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Response Queue Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 12
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 49,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_responsesendtimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"Fetch\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Response Send Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Request latency: Consumer Fetch",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 50,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 13
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 51,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_requestqueuetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"FetchFollower\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Request Queue Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 13
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 52,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_localtimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"FetchFollower\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Local Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 13
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 53,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_remotetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"FetchFollower\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Remote Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 14
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 54,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_responsequeuetimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"FetchFollower\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Response Queue Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 14
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 55,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_network_requestmetrics_responsesendtimems{env=\"$env\",hostname=~\"$broker\",quantile=~\"$quantile\",request=\"FetchFollower\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}} ({{quantile}}th)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Fetch: Response Send Time",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Request latency: Replica Fetch",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 56,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 15
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 57,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_coordinator_group_groupmetadatamanager_numgroups{env=\"$env\",hostname=~\"$broker\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Number of Groups per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 15
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 58,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupsstable{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "stable",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupspreparingrebalance{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "preparing_rebalance",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupsdead{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "dead",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupscompletingrebalance{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "completing_rebalance",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "sum(kafka_coordinator_group_groupmetadatamanager_numgroupsempty{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "empty",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Number of Groups per Broker",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Group Coordinator",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 59,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "opsps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 16
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 60,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Produce conversion rate per sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "opsps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 16
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 61,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{env=\"$env\",hostname=~\"$broker\"})",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{hostname}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Fetch conversion rate per sec",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": ""
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 16
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 62,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "sum(kafka_server_socketservermetrics_connections{env=\"$env\",hostname=~\"$broker\"}) by (client_software_name,client_software_version)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{client_software_name}} (v{{client_software_version}})",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sum of Connections per version",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Message Conversion",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -4045,7 +5413,7 @@
   "style": "dark",
   "tags": [
     "confluent",
-    "kafka-connect"
+    "kafka"
   ],
   "templating": {
     "list": [
@@ -4063,11 +5431,38 @@
         "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
-        "label": "Namespace",
+        "label": "Environment",
         "multi": false,
-        "name": "ns",
+        "name": "env",
         "options": [],
-        "query": "label_values(namespace)",
+        "query": "label_values(env)",
+        "refresh": 1,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
+        },
+        "datasource": "Prometheus",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Broker",
+        "multi": true,
+        "name": "broker",
+        "options": [],
+        "query": "label_values(kafka_server_replicamanager_leadercount{env=\"$env\"}, hostname)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -4090,65 +5485,11 @@
         "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
-        "label": "Connect cluster",
+        "label": "Quantile",
         "multi": false,
-        "name": "connect_app",
+        "name": "quantile",
         "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$ns\"}, app)",
-        "refresh": 1,
-        "regex": null,
-        "sort": 1,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "auto": false,
-        "auto_count": 30,
-        "auto_min": "10s",
-        "current": {
-          "selected": false,
-          "tags": [],
-          "text": null,
-          "value": null
-        },
-        "datasource": "Prometheus",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Connect worker",
-        "multi": true,
-        "name": "connect_worker",
-        "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$ns\",app=\"$connect_app\"}, pod)",
-        "refresh": 1,
-        "regex": null,
-        "sort": 1,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "auto": false,
-        "auto_count": 30,
-        "auto_min": "10s",
-        "current": {
-          "selected": false,
-          "tags": [],
-          "text": null,
-          "value": null
-        },
-        "datasource": "Prometheus",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Connector",
-        "multi": true,
-        "name": "connector",
-        "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$ns\",app=\"$connect_app\"}, connector)",
+        "query": "label_values(kafka_network_requestmetrics_requestqueuetimems{env=\"$env\"}, quantile)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -4190,7 +5531,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Connect cluster - v2",
+  "title": "Kafka cluster - v2",
   "uid": null,
   "version": 0
 }

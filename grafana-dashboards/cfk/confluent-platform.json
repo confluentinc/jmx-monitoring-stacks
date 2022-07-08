@@ -139,7 +139,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(zookeeper_status_quorumsize{namespace=\"$ns\"})",
+          "expr": "count(zookeeper_status_quorumsize{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -222,7 +222,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount{namespace=\"$ns\"})",
+          "expr": "avg(zookeeper_inmemorydatatree_nodecount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -305,7 +305,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(zookeeper_numaliveconnections{namespace=\"$ns\"})",
+          "expr": "sum(zookeeper_numaliveconnections{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -388,7 +388,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount{namespace=\"$ns\"})",
+          "expr": "sum(zookeeper_inmemorydatatree_watchcount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -487,7 +487,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "zookeeper_outstandingrequests{namespace=\"$ns\"}",
+          "expr": "zookeeper_outstandingrequests{namespace=\"$env\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -611,7 +611,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_server_replicamanager_leadercount{namespace=\"$ns\"})",
+          "expr": "count(kafka_server_replicamanager_leadercount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -694,7 +694,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_controller_kafkacontroller_activecontrollercount{namespace=\"$ns\"} > 0",
+          "expr": "kafka_controller_kafkacontroller_activecontrollercount{namespace=\"$env\"} > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -777,7 +777,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_server_replicamanager_partitioncount{namespace=\"$ns\"})",
+          "expr": "sum(kafka_server_replicamanager_partitioncount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -792,7 +792,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Partitions",
+      "title": "Kafka: Sum of Partitioenv",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -868,7 +868,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{namespace=\"$ns\"})",
+          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -959,7 +959,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_cluster_partition_underminisr{namespace=\"$ns\"})",
+          "expr": "sum(kafka_cluster_partition_underminisr{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -974,7 +974,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Partitions Under-MinISR",
+      "title": "Kafka: Sum of Partitioenv Under-MinISR",
       "transformations": [],
       "transparent": false,
       "type": "stat"
@@ -1050,7 +1050,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{namespace=\"$ns\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1190,7 +1190,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_schema_registry_registered_count{namespace=\"$ns\"})",
+          "expr": "count(kafka_schema_registry_registered_count{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1273,7 +1273,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(kafka_schema_registry_registered_count{namespace=\"$ns\"})",
+          "expr": "avg(kafka_schema_registry_registered_count{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -1356,7 +1356,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(kafka_schema_registry_schemas_created{namespace=\"$ns\"}) by (schema_type)",
+          "expr": "avg(kafka_schema_registry_schemas_created{namespace=\"$env\"}) by (schema_type)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1439,7 +1439,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_schema_registry_schemas_deleted{namespace=\"$ns\"}) by (schema_type)",
+          "expr": "sum(kafka_schema_registry_schemas_deleted{namespace=\"$env\"}) by (schema_type)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1552,7 +1552,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "count(kafka_connect_connect_worker_metrics_connector_count{namespace=\"$ns\",app=~\"$connect_app\"})",
+              "expr": "count(kafka_connect_connect_worker_metrics_connector_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1635,7 +1635,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$ns\",app=~\"$connect_app\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1726,7 +1726,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$ns\",app=~\"$connect_app\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1817,7 +1817,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$ns\",app=~\"$connect_app\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1908,7 +1908,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$ns\",app=~\"$connect_app\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1991,7 +1991,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{namespace=\"$ns\",app=~\"$connect_app\"} >= 0",
+              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{namespace=\"$env\",app=~\"$connect_cluster\"} >= 0",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2012,13 +2012,13 @@
           "type": "stat"
         }
       ],
-      "repeat": "connect_app",
+      "repeat": "connect_cluster",
       "repeatDirection": null,
       "span": null,
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka Connect cluster: $connect_app",
+      "title": "Kafka Connect cluster: $connect_cluster",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -2116,7 +2116,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+              "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2199,7 +2199,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+              "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2290,7 +2290,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(ksql_ksql_engine_query_stats_running_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+              "expr": "sum(ksql_ksql_engine_query_stats_running_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2381,7 +2381,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+              "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2472,7 +2472,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "avg(ksql_ksql_engine_query_stats_error_queries{namespace=\"$ns\", app=\"$ksqldb_app\"})",
+              "expr": "avg(ksql_ksql_engine_query_stats_error_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2493,13 +2493,13 @@
           "type": "stat"
         }
       ],
-      "repeat": "ksqldb_app",
+      "repeat": "ksqldb_cluster",
       "repeatDirection": null,
       "span": null,
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ksqlDB cluster: $ksqldb_app",
+      "title": "ksqlDB cluster: $ksqldb_cluster",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -2534,9 +2534,9 @@
         "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
-        "label": "Namespace",
+        "label": "Environment",
         "multi": false,
-        "name": "ns",
+        "name": "env",
         "options": [],
         "query": "label_values(namespace)",
         "refresh": 1,
@@ -2559,13 +2559,13 @@
           "value": null
         },
         "datasource": "Prometheus",
-        "hide": 2,
+        "hide": true,
         "includeAll": false,
         "label": "Kafka Connect cluster",
         "multi": false,
-        "name": "connect_app",
+        "name": "connect_cluster",
         "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_count{namespace=\"$ns\"}, app)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_count{namespace=\"$env\"}, app)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -2586,13 +2586,13 @@
           "value": null
         },
         "datasource": "Prometheus",
-        "hide": 2,
+        "hide": true,
         "includeAll": false,
         "label": "ksqlDB cluster",
         "multi": false,
-        "name": "ksqldb_app",
+        "name": "ksqldb_cluster",
         "options": [],
-        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$ns\"},app)",
+        "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator{namespace=\"$env\"}, app)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
