@@ -15,8 +15,8 @@ templating = G.Templating(
     ]
 )
 
-healthcheck_base=0
-healthcheck_panels=[
+healthcheck_base = 0
+healthcheck_panels = [
     G.RowPanel(
         title="Health-check",
         gridPos=G.GridPos(h=1, w=24, x=0, y=0),
@@ -35,14 +35,16 @@ healthcheck_panels=[
             G.Threshold(index=1, value=1.0, color="yellow"),
             G.Threshold(index=2, value=2.0, color="green"),
         ],
-        gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 0, y=healthcheck_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=statWidth, x=statWidth * 0, y=healthcheck_base
+        ),
     ),
     G.Stat(
-        title="SR: Sum of Registered Schemas by Type",
+        title="SR: Sum of Registered Schemas",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='avg(kafka_schema_registry_registered_count{namespace="$ns"}) by (schema_type)',
+                expr='avg(kafka_schema_registry_registered_count{namespace="$ns"})',
                 instant=True,
             ),
         ],
@@ -50,10 +52,12 @@ healthcheck_panels=[
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 1, y=healthcheck_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=statWidth, x=statWidth * 1, y=healthcheck_base
+        ),
     ),
     G.Stat(
-        title="SR: Sum of Created Schemas",
+        title="SR: Sum of Created Schemas by Type",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -65,10 +69,12 @@ healthcheck_panels=[
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 2, y=healthcheck_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=statWidth, x=statWidth * 2, y=healthcheck_base
+        ),
     ),
     G.Stat(
-        title="SR: Sum of Deleted Schemas",
+        title="SR: Sum of Deleted Schemas by Type",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
@@ -80,26 +86,29 @@ healthcheck_panels=[
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 3, y=healthcheck_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=statWidth, x=statWidth * 3, y=healthcheck_base
+        ),
     ),
     G.Stat(
         title="SR: Sum of Active Connections",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count)',
+                expr="sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count)",
             ),
         ],
         reduceCalc="last",
         thresholds=[
             G.Threshold(index=0, value=0.0, color="blue"),
         ],
-        gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 4, y=healthcheck_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=statWidth, x=statWidth * 4, y=healthcheck_base
+        ),
     ),
-
 ]
 
-system_panels=[
+system_panels = [
     G.RowPanel(
         title="System",
         gridPos=G.GridPos(h=1, w=24, x=0, y=1),

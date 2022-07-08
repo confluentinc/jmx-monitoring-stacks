@@ -202,7 +202,9 @@ offsets_inner = [
         ],
         filterable=True,
         transformations=offsets_txs,
-        gridPos=G.GridPos(h=defaultHeight, w=tableWidth, x=tableWidth * 0, y=offsets_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=tableWidth, x=tableWidth * 0, y=offsets_base
+        ),
     ),
     G.Table(
         title="End Offsets",
@@ -217,7 +219,9 @@ offsets_inner = [
         ],
         filterable=True,
         transformations=offsets_txs,
-        gridPos=G.GridPos(h=defaultHeight, w=tableWidth, x=tableWidth * 1, y=offsets_base),
+        gridPos=G.GridPos(
+            h=defaultHeight, w=tableWidth, x=tableWidth * 1, y=offsets_base
+        ),
     ),
 ]
 offsets_panels = [

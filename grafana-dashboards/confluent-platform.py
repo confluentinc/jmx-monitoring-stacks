@@ -225,11 +225,12 @@ sr_panels = [
         gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 0, y=2),
     ),
     G.Stat(
-        title="SR: Registered Schemas",
+        title="SR: Sum of Registered Schemas",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='avg without(schema_type) (kafka_schema_registry_registered_count{namespace="$ns"})',
+                expr='avg(kafka_schema_registry_registered_count{namespace="$ns"})',
+                instant=True,
             ),
         ],
         reduceCalc="last",
@@ -239,11 +240,12 @@ sr_panels = [
         gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 1, y=2),
     ),
     G.Stat(
-        title="SR: Deleted Schemas",
+        title="SR: Sum of Created Schemas by Type",
         dataSource="${DS_PROMETHEUS}",
         targets=[
             G.Target(
-                expr='avg without(schema_type) (kafka_schema_registry_schemas_deleted{namespace="$ns"})',
+                expr='avg(kafka_schema_registry_schemas_created{namespace="$ns"}) by (schema_type)',
+                legendFormat="{{schema_type}}",
             ),
         ],
         reduceCalc="last",
@@ -252,14 +254,24 @@ sr_panels = [
         ],
         gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 2, y=2),
     ),
+    G.Stat(
+        title="SR: Sum of Deleted Schemas by Type",
+        dataSource="${DS_PROMETHEUS}",
+        targets=[
+            G.Target(
+                expr='sum(kafka_schema_registry_schemas_deleted{namespace="$ns"}) by (schema_type)',
+                legendFormat="{{schema_type}}",
+            ),
+        ],
+        reduceCalc="last",
+        thresholds=[
+            G.Threshold(index=0, value=0.0, color="blue"),
+        ],
+        gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 3, y=2),
+    ),
 ]
 
-connect_panels = [
-    G.RowPanel(
-        title="Kafka Connect cluster: $connect_app",
-        gridPos=G.GridPos(h=1, w=24, x=0, y=3),
-        repeat=G.Repeat(variable="connect_app"),
-    ),
+connect_inner = [
     G.Stat(
         title="Connect: Online Workers",
         dataSource="${DS_PROMETHEUS}",
@@ -352,12 +364,17 @@ connect_panels = [
     ),
 ]
 
-ksqldb_panels = [
+connect_panels = [
     G.RowPanel(
-        title="ksqlDB cluster: $ksqldb_app",
-        gridPos=G.GridPos(h=1, w=24, x=0, y=4),
-        repeat=G.Repeat(variable="ksqldb_app"),
+        title="Kafka Connect cluster: $connect_app",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=3),
+        repeat=G.Repeat(variable="connect_app"),
+        collapsed=True,
+        panels=connect_inner,
     ),
+]
+
+ksqldb_inner = [
     G.Stat(
         title="ksqlDB: Online Servers",
         dataSource="${DS_PROMETHEUS}",
@@ -430,6 +447,16 @@ ksqldb_panels = [
             G.Threshold(index=1, value=1.0, color="red"),
         ],
         gridPos=G.GridPos(h=defaultHeight, w=statWidth, x=statWidth * 4, y=4),
+    ),
+]
+
+ksqldb_panels = [
+    G.RowPanel(
+        title="ksqlDB cluster: $ksqldb_app",
+        gridPos=G.GridPos(h=1, w=24, x=0, y=4),
+        repeat=G.Repeat(variable="ksqldb_app"),
+        collapsed=True,
+        panels=ksqldb_inner,
     ),
 ]
 
