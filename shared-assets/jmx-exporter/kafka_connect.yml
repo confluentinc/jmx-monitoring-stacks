@@ -25,6 +25,7 @@ whitelistObjectNames:
   # Please note that this increases the scrape duration by about 1-2 seconds as it needs to parse a lot of data.
   - "kafka.consumer:*"
   - "kafka.producer:*"
+  - "kafka.secret.registry:*"
 blacklistObjectNames:
   # This will ignore the admin client metrics from KSQL server and will blacklist certain metrics
   # that do not make sense for ingestion.
@@ -33,6 +34,7 @@ blacklistObjectNames:
   - "kafka.producer:type=*,id=*"
   - "kafka.producer:client-id=confluent.monitoring*,*"
   - "kafka.*:type=kafka-metrics-count,*"
+  - "kafka.*:type=app-info,*"
 rules:
   # "kafka.schema.registry:type=app-info,id=*"
   - pattern: "kafka.connect<type=app-info, client-id=(.+)><>(.+): (.+)"
