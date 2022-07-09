@@ -18,4 +18,8 @@ CP_DEMO_HOME=${CP_DEMO_HOME:-$DEFAULT_CP_DEMO_HOME}
 }
 CP_DEMO_VERSION=$(grep "CONFLUENT_DOCKER_TAG" "${CP_DEMO_HOME}/env_files/config.env")
 
-export COMPOSE_FILE="$CP_DEMO_HOME/docker-compose.yml:$MONITORING_STACK/docker-compose.override.yml"
+if [[ -z "${OVERRIDE_PATH}" ]]; then
+  OVERRIDE_PATH="${MONITORING_STACK}/docker-compose.override.yaml"
+fi 
+
+export COMPOSE_FILE="${CP_DEMO_HOME}/docker-compose.yml:${OVERRIDE_PATH}"

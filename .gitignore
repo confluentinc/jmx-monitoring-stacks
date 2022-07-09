@@ -4,3 +4,5 @@ jmxexporter-prometheus-grafana/assets/security/
 metricbeat-elastic-kibana/assets/security/
 both-enabled/
 .vscode/
+utils/testing/output/*
+utils/testing/code/*.ipynb

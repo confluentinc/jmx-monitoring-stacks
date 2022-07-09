@@ -5,13 +5,22 @@
 ########################################
 
 export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+export OVERRIDE_PATH="${MONITORING_STACK}/docker-compose.override.yaml"
+
+while test $# != 0 
+do
+    case "$1" in
+    --test) echo "Detected test Flag. Last detected flag will be honoured." ; export OVERRIDE_PATH="${OVERRIDE_PATH}:${MONITORING_STACK}/docker-compose.testing.yaml" ;;
+    --local) echo "Detected local Flag. Last detected flag will be honoured." ; export OVERRIDE_PATH="${OVERRIDE_PATH}:${MONITORING_STACK}/docker-compose.local.yaml" ;;
+    esac
+    shift
+done
+echo "Using ${OVERRIDE_PATH} for docker-compose override"
 
 . $MONITORING_STACK/../utils/setup_cp_demo.sh
 
 echo -e "Launch cp-demo in $CP_DEMO_HOME (version $CP_DEMO_VERSION) and monitoring stack in $MONITORING_STACK"
 (cd $CP_DEMO_HOME && ./scripts/start.sh)
-
-
 
 ########################################
 # Start monitoring solution
