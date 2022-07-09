@@ -19,6 +19,14 @@ blacklistObjectNames:
   - "kafka.admin.client:*"
   - "kafka.server:type=*,cipher=*,protocol=*,listener=*,networkProcessor=*"
   - "kafka.server:type=*"
+  - "kafka.server:type=app-info,id=*"
+  - "kafka.rest:*"
+  - "rest.utils:*"
+  - "io.confluent.common.security.jetty:*"
+  - "io.confluent.rest:*"
+  - "confluent.metadata.service:type=app-info,id=*"
+  - "confluent.metadata.service:type=app-info,client-id=*"
+  - "confluent.metadata:type=kafkaauthstore,*"
 rules:
   # This is by far the biggest contributor to the number of sheer metrics being produced.
   # Always keep it on the top for the case of probability when so many metrics will hit the first condition and exit.
@@ -92,6 +100,12 @@ rules:
     labels:
       "$3": "$4"
       "$5": "$6"
+  - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
+    name: kafka_$1_$2
+    labels:
+      "$3": "$4"
+      "$5": "$6"
+      attribute_name: "$7"
   # "kafka.network:type=*, name=*"
   # "kafka.server:type=*, name=*"
   # "kafka.controller:type=*, name=*"
@@ -111,7 +125,11 @@ rules:
     name: kafka_$1_$2
     labels:
       "$3": "$4"
-
+  - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
+    name: kafka_$1_$2
+    labels:
+      "$3": "$4"
+      attribute_name: "$5"
   - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
     name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total
     type: GAUGE
@@ -125,11 +143,18 @@ rules:
       listener: "$3"
       network_processor: "$4"
   - pattern: "kafka.server<type=socket-server-metrics, listener=(.+), networkProcessor=(.+)><>(.+):"
-    name: kafka_server_socketservermetrics_$3
+    name: kafka_server_socketservermetrics
     type: GAUGE
     labels:
       listener: "$1"
       network_processor: "$2"
+      attribute_name: "$3"
+  - pattern: "kafka.server<type=socket-server-metrics, listener=(.+)><>(.+):"
+    name: kafka_server_socketservermetrics
+    type: GAUGE
+    labels:
+      listener: "$1"
+      attribute_name: "$2"
   # "kafka.coordinator.group:type=*, name=*"
   # "kafka.coordinator.transaction:type=*, name=*"
   - pattern: kafka.coordinator.(\w+)<type=(.+), name=(.+)><>(Count|Value)
@@ -148,7 +173,7 @@ rules:
       quantile: "0.$4"
   # Additional Rules for Confluent Server Metrics
   # 'confluent.metadata:type=*, name=*, topic=*, partition=*'
-  - pattern: confluent.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>Value
+  - pattern: confluent.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Value|Count)
     name: confluent_$1_$2
     type: GAUGE
     labels:
@@ -162,6 +187,14 @@ rules:
     labels:
       "$3": "$4"
       "$5": "$6"
+  # 'confluent.metadata.service:type=*, node-id=*, client-id=*'
+  - pattern: 'confluent.metadata.service<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+    name: $1
+    type: GAUGE
+    labels:
+      "$2": "$3"
+      "$4": "$5"
+      attribute_name: "$6"
   # 'confluent.metadata.service:type=*, client-id=*'
   # 'confluent.metadata.service:type=*, id=*'
   # 'confluent.metadata:type=*, name=*'
@@ -171,7 +204,12 @@ rules:
     type: GAUGE
     labels:
       "$3": "$4"
-
+  - pattern: 'confluent.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+    name: confluent_$1_$2
+    type: GAUGE
+    labels:
+      "$3": "$4"
+      attribute_name: "$5"
   # Quotas
   - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+), client-id=(.+)><>(.+):'
     name: kafka_server_$1_$4
