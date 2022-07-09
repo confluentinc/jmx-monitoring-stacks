@@ -1,7 +1,7 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
-cacheRules: true
+cacheRules: false
 whitelistObjectNames:
   - "io.confluent.ksql.metrics:*"
   # The two lines below are used to pull the Kafka Client Producer & consumer metrics from KSQL Client.
@@ -11,6 +11,7 @@ whitelistObjectNames:
   - "kafka.producer:*"
   - "kafka.streams:*"
 blacklistObjectNames:
+  - "io.confluent.ksql.metrics:name=*"
   - kafka.streams:type=kafka-metrics-count
   # This will ignore the admin client metrics from KSQL server and will blacklist certain metrics
   # that do not make sense for ingestion.
@@ -23,6 +24,7 @@ blacklistObjectNames:
   - "kafka.producer:type=*,client-id=*,node-id=*"
   - "kafka.streams:type=stream-processor-node-metrics,thread-id=*,task-id=*,processor-node-id=*"
   - "kafka.*:type=kafka-metrics-count,*"
+  - "io.confluent.ksql.metrics:type=_confluent-ksql-rest-app-command-runner,*"
 rules:
   # "io.confluent.ksql.metrics:type=producer-metrics,key=*,id=*"
   # "io.confluent.ksql.metrics:type=consumer-metrics,key=*,id=*"
@@ -46,6 +48,26 @@ rules:
       ksql_query: $3
       ksql_cluster: $2
       $4: $5
+  # io.confluent.ksql.metrics:type=_confluent-ksql-pull-query, ksql_service_id=value, query_plan_type=value, query_routing_type=value, query_source=value
+  - pattern: 'io.confluent.ksql.metrics<type=_confluent-ksql-(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+)-detailed-distribution-(\d+):'
+    name: ksql_ksql_metrics_$1
+    type: GAUGE
+    labels:
+      $2: $3
+      $4: $5
+      $6: $7
+      $8: $9
+      attribute_name: $10
+      quantile: "0.$11"
+  - pattern: 'io.confluent.ksql.metrics<type=_confluent-ksql-(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+)-detailed-([\w-]+):'
+    name: ksql_ksql_metrics_$1
+    labels:
+      $2: $3
+      $4: $5
+      $6: $7
+      $8: $9
+      attribute_name: $10
+      value_type: $11
   # kafka.streams:type=stream-processor-node-metrics,processor-node-id=*,task-id=*,thread-id=*
   # kafka.streams:type=stream-record-cache-metrics,record-cache-id=*,task-id=*,thread-id=*
   # kafka.streams:type=stream-state-metrics,rocksdb-state-id=*,task-id=*,thread-id=*
