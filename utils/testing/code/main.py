@@ -1,12 +1,15 @@
 # from distutils.log import WARN, debug
-from datetime import datetime
-from logging import info, debug
+import argparse
+import csv
 import logging
 import re
+import sys
+from datetime import datetime
+from logging import debug, error, info
 from typing import Dict, List, OrderedDict, Tuple
+
 import requests
 import yaml
-import csv
 
 BASE_CONFIGS = {
     "BASE_EXPORTER_YAML_PATH": "/Users/abhishek.walia/Documents/Codes/github/jmx-monitoring-stacks/shared-assets/jmx-exporter",
@@ -273,11 +276,34 @@ def add_bean_to_result(bean_to_add_to: dict, bean_name: str):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Command line arguments for controlling the application",
+        add_help=True,
+    )
+
+    parser.add_argument(
+        "--jmx-monitoring-stacks-base-fullpath",
+        type=str,
+
+        default=None,
+        metavar="/Users/.../codebase/jmx-monitoring-stacks",
+        help="Provide the full path of the jmx-monitoring-stacks repo here.",
+    )
+
+    args = parser.parse_args()
+
+    if args.jmx_monitoring_stacks_base_fullpath is None:
+        error("Cannot proceed forward if jmx-monitoring-stacks full path is not provided.")
+        sys.exit(1)
+
+    BASE_CONFIGS["BASE_EXPORTER_YAML_PATH"] = f"{args.jmx_monitoring_stacks_base_fullpath}/shared-assets/jmx-exporter"
+    BASE_CONFIGS["OUTPUT_CSV_PATH"] = f"{args.jmx_monitoring_stacks_base_fullpath}/utils/testing/output"
+
     logging.basicConfig(format="%(levelname)s:\t\t%(message)s")
     report = dict()
     for instance_name, instance_config in CALL_MAPPINGS.items():
-        if instance_name not in ["KSQLDB"]:
-            continue
+        # if instance_name not in ["KSQLDB"]:
+        #     continue
         jmx_exporter_url = instance_config["EXPORTER"]
         jolokia_url = instance_config["JOLOKIA"]
         exporter_path = "/".join([BASE_CONFIGS["BASE_EXPORTER_YAML_PATH"], BASE_CONFIGS[instance_config["CONFIG"]]])
