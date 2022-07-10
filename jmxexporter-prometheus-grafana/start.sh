@@ -46,3 +46,13 @@ docker-compose up -d prometheus node-exporter kafka-lag-exporter grafana
 
 echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"
+
+
+while test $# != 0 
+do
+    case "$1" in
+    --test) echo "Auto testing is not implemented yet. Please use the --local flag to invoke the test script manually." ;;
+    --local) echo "Detected local Flag. Will wait for about 150 seconds before executing the testing script." ; sleep 150 ; base_stacks_dir="$(dirname "${MONITORING_STACK}")" ; ${MONITORING_STACK}/../utils/testing/code/main.py --jmx-monitoring-stacks-base-fullpath ${base_stacks_dir} ;;
+    esac
+    shift
+done
