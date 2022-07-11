@@ -371,6 +371,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         refresh="30s",
     ).auto_panel_ids()
 
+
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
 dashboard = dashboard(env_label, server_label)

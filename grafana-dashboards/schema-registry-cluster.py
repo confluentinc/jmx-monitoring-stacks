@@ -1,18 +1,19 @@
 import os
 import grafanalib.core as G
 
-def dashboard(env_label='namespace',server_label='pod'):
+
+def dashboard(env_label="namespace", server_label="pod"):
     default_height = 5
     stat_width = 4
     ts_width = 8
-    
+
     templating = G.Templating(
         list=[
             G.Template(
                 name="env",
                 label="Environment",
                 dataSource="Prometheus",
-                query="label_values("+env_label+")",
+                query="label_values(" + env_label + ")",
             ),
             G.Template(
                 name="sr_server",
@@ -28,7 +29,7 @@ def dashboard(env_label='namespace',server_label='pod'):
             ),
         ]
     )
-    
+
     healthcheck_base = 0
     healthcheck_panels = [
         G.RowPanel(
@@ -40,7 +41,9 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='count(kafka_schema_registry_registered_count{' + env_label + '="$env"})',
+                    expr="count(kafka_schema_registry_registered_count{"
+                    + env_label
+                    + '="$env"})',
                 ),
             ],
             reduceCalc="last",
@@ -58,7 +61,9 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='avg(kafka_schema_registry_registered_count{' + env_label + '="$env"})',
+                    expr="avg(kafka_schema_registry_registered_count{"
+                    + env_label
+                    + '="$env"})',
                     instant=True,
                 ),
             ],
@@ -75,7 +80,9 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='avg(kafka_schema_registry_schemas_created{' + env_label + '="$env"}) by (schema_type)',
+                    expr="avg(kafka_schema_registry_schemas_created{"
+                    + env_label
+                    + '="$env"}) by (schema_type)',
                     legendFormat="{{schema_type}}",
                 ),
             ],
@@ -92,7 +99,9 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='sum(kafka_schema_registry_schemas_deleted{' + env_label + '="$env"}) by (schema_type)',
+                    expr="sum(kafka_schema_registry_schemas_deleted{"
+                    + env_label
+                    + '="$env"}) by (schema_type)',
                     legendFormat="{{schema_type}}",
                 ),
             ],
@@ -121,7 +130,7 @@ def dashboard(env_label='namespace',server_label='pod'):
             ),
         ),
     ]
-    
+
     system_panels = [
         G.RowPanel(
             title="System",
@@ -132,8 +141,12 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='irate(process_cpu_seconds_total{' + env_label + '="$env",'+server_label+'=~"$sr_server"}[5m])',
-                    legendFormat="{{"+server_label+"}}",
+                    expr="irate(process_cpu_seconds_total{"
+                    + env_label
+                    + '="$env",'
+                    + server_label
+                    + '=~"$sr_server"}[5m])',
+                    legendFormat="{{" + server_label + "}}",
                 ),
             ],
             legendDisplayMode="table",
@@ -146,8 +159,12 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='sum without(area)(jvm_memory_bytes_used{' + env_label + '="$env",'+server_label+'=~"$sr_server"})',
-                    legendFormat="{{"+server_label+"}}",
+                    expr="sum without(area)(jvm_memory_bytes_used{"
+                    + env_label
+                    + '="$env",'
+                    + server_label
+                    + '=~"$sr_server"})',
+                    legendFormat="{{" + server_label + "}}",
                 ),
             ],
             legendDisplayMode="table",
@@ -160,8 +177,12 @@ def dashboard(env_label='namespace',server_label='pod'):
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
-                    expr='sum without(gc)(irate(jvm_gc_collection_seconds_sum{' + env_label + '="$env",'+server_label+'=~"$sr_server"}[5m]))',
-                    legendFormat="{{"+server_label+"}}",
+                    expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
+                    + env_label
+                    + '="$env",'
+                    + server_label
+                    + '=~"$sr_server"}[5m]))',
+                    legendFormat="{{" + server_label + "}}",
                 ),
             ],
             legendDisplayMode="table",
@@ -170,9 +191,9 @@ def dashboard(env_label='namespace',server_label='pod'):
             gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 2, y=1),
         ),
     ]
-    
+
     panels = healthcheck_panels + system_panels
-    
+
     return G.Dashboard(
         title="Schema Registry cluster - v2",
         description="Overview of the Schema Registry cluster",
@@ -190,6 +211,7 @@ def dashboard(env_label='namespace',server_label='pod'):
         panels=panels,
         refresh="30s",
     ).auto_panel_ids()
+
 
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
