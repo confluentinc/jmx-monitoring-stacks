@@ -91,13 +91,13 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 1, y=0),
         ),
         G.Stat(
-            title="Last Rebalance Seconds Ago",
+            title="Rebalance Rate per hour",
             dataSource="${DS_PROMETHEUS}",
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
-                    + ", kafka_consumer_consumer_coordinator_metrics_last_rebalance_seconds_ago{"
+                    + ", kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{"
                     + env_label
                     + '="$env", client_type="producer", client_id=~"$client_id", '
                     + server_label
@@ -106,13 +106,34 @@ def dashboard(env_label="namespace", server_label="pod"):
                 ),
             ],
             reduceCalc="last",
-            format="s",
             thresholds=[
                 G.Threshold(index=0, value=0.0, color="green"),
                 G.Threshold(index=1, value=1.0, color="yellow"),
                 G.Threshold(index=2, value=10.0, color="red"),
             ],
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 2, y=0),
+        ),
+        G.Stat(
+            title="Failed Rebalance Rate per hour",
+            dataSource="${DS_PROMETHEUS}",
+            targets=[
+                G.Target(
+                    expr="topk("
+                    + topk
+                    + ", kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{"
+                    + env_label
+                    + '="$env", client_type="producer", client_id=~"$client_id", '
+                    + server_label
+                    + '=~"$server"} > 0)',
+                    legendFormat="{{client_id}}@{{" + server_label + "}}",
+                ),
+            ],
+            reduceCalc="last",
+            thresholds=[
+                G.Threshold(index=0, value=0.0, color="green"),
+                G.Threshold(index=1, value=1.0, color="red"),
+            ],
+            gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 3, y=0),
         ),
         G.Stat(
             title="Versions",
@@ -131,7 +152,7 @@ def dashboard(env_label="namespace", server_label="pod"):
             thresholds=[
                 G.Threshold(index=0, value=0.0, color="blue"),
             ],
-            gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 3, y=0),
+            gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 4, y=0),
         ),
     ]
 
@@ -316,27 +337,6 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendCalcs=["max", "mean", "last"],
             gridPos=G.GridPos(
                 h=default_height * 2, w=ts_width, x=ts_width * 0, y=performance_base + 2
-            ),
-        ),
-        G.TimeSeries(
-            title="Records per Request Avg.",
-            dataSource="${DS_PROMETHEUS}",
-            targets=[
-                G.Target(
-                    expr="topk("
-                    + topk
-                    + ",kafka_consumer_consumer_fetch_manager_metrics_fetch_records_per_request_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
-                    legendFormat="{{client_id}}@{{" + server_label + "}}",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base + 2
             ),
         ),
     ]
@@ -579,6 +579,68 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
 
         G.TimeSeries(
+            title="Rebalance Rate Per Hour",
+            dataSource="${DS_PROMETHEUS}",
+            targets=[
+                G.Target(
+                    expr="topk("
+                    + topk
+                    + ",kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{"
+                    + env_label
+                    + '="$env",client_id=~"$client_id", '
+                    + server_label
+                    + '=~"$server"})',
+                    legendFormat="{{client_id}}@{{" + server_label + "}}",
+                ),
+                G.Target(
+                    expr="topk("
+                    + topk
+                    + ",kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{"
+                    + env_label
+                    + '="$env",client_id=~"$client_id", '
+                    + server_label
+                    + '=~"$server"})',
+                    legendFormat="{{client_id}}@{{" + server_label + "}} (failed)",
+                ),
+            ],
+            legendDisplayMode="table",
+            legendCalcs=["max", "mean", "last"],
+            gridPos=G.GridPos(
+                h=default_height * 2, w=ts_width, x=ts_width * 0, y=performance_base + 3
+            ),
+        ),
+        G.TimeSeries(
+            title="Rebalance Latency",
+            dataSource="${DS_PROMETHEUS}",
+            targets=[
+                G.Target(
+                    expr="topk("
+                    + topk
+                    + ",kafka_consumer_consumer_coordinator_metrics_rebalance_latency_avg{"
+                    + env_label
+                    + '="$env",client_id=~"$client_id", '
+                    + server_label
+                    + '=~"$server"})',
+                    legendFormat="{{client_id}}@{{" + server_label + "}} (avg.)",
+                ),
+                G.Target(
+                    expr="topk("
+                    + topk
+                    + ",kafka_consumer_consumer_coordinator_metrics_rebalance_latency_max{"
+                    + env_label
+                    + '="$env",client_id=~"$client_id", '
+                    + server_label
+                    + '=~"$server"})',
+                    legendFormat="{{client_id}}@{{" + server_label + "}} (max.)",
+                ),
+            ],
+            legendDisplayMode="table",
+            legendCalcs=["max", "mean", "last"],
+            gridPos=G.GridPos(
+                h=default_height * 2, w=ts_width, x=ts_width * 1, y=performance_base + 3
+            ),
+        ),
+        G.TimeSeries(
             title="Assigned Partitions",
             dataSource="${DS_PROMETHEUS}",
             targets=[
@@ -596,7 +658,7 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=performance_base + 3
+                h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base + 3
             ),
         ),
     ]

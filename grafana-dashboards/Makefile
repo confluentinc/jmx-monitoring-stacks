@@ -22,6 +22,7 @@ dashboards:
 	@generate-dashboard ksqldb-cluster.py	-o $(OUTPUT_DIR)/ksqldb-cluster.json
 	@generate-dashboard kafka-producer.py	-o $(OUTPUT_DIR)/kafka-producer.json
 	@generate-dashboard kafka-consumer.py	-o $(OUTPUT_DIR)/kafka-consumer.json
+	@generate-dashboard kafka-quotas.py	-o $(OUTPUT_DIR)/kafka-quotas.json
 
 cfk: OUTPUT_DIR=cfk
 cfk: export ENV_LABEL=namespace
