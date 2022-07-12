@@ -832,8 +832,7 @@
                 "indexByName": {
                   "Value #A": 3,
                   "Value #B": 4,
-                  "hostname 1": 0,
-                  "id": 5,
+                  "hostname 1": 5,
                   "partition 1": 2,
                   "topic 1": 1
                 },

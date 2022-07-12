@@ -832,16 +832,15 @@
                 "indexByName": {
                   "Value #A": 3,
                   "Value #B": 4,
-                  "hostname 1": 0,
-                  "id": 5,
                   "partition 1": 2,
+                  "pod 1": 5,
                   "topic 1": 1
                 },
                 "renameByName": {
                   "Value #A": "start offset",
                   "Value #B": "end offset",
-                  "hostname 1": "broker",
                   "partition 1": "",
+                  "pod 1": "broker",
                   "topic": "",
                   "topic 1": ""
                 }

@@ -194,70 +194,46 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
 
     offsets_txs = [
         {
-          "id": "concatenate",
-          "options": {
-            "frameNameLabel": "id",
-            "frameNameMode": "label"
-          }
+            "id": "concatenate",
+            "options": {"frameNameLabel": "id", "frameNameMode": "label"},
         },
         {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                server_label+" 1",
-                "topic 1",
-                "Value #A",
-                "Value #B",
-                "partition 1"
-              ]
-            }
-          }
-        },
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "field": "partition 1"
-              }
-            ]
-          }
-        },
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "field": "topic 1"
-              }
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Value #A": 3,
-              "Value #B": 4,
-              "hostname 1": 0,
-              "id": 5,
-              "partition 1": 2,
-              "topic 1": 1
+            "id": "filterFieldsByName",
+            "options": {
+                "include": {
+                    "names": [
+                        server_label + " 1",
+                        "topic 1",
+                        "Value #A",
+                        "Value #B",
+                        "partition 1",
+                    ]
+                }
             },
-            "renameByName": {
-              "Value #A": "start offset",
-              "Value #B": "end offset",
-              "hostname 1": "broker",
-              "partition 1": "",
-              "topic": "",
-              "topic 1": ""
-            }
-          }
-        }
+        },
+        {"id": "sortBy", "options": {"fields": {}, "sort": [{"field": "partition 1"}]}},
+        {"id": "sortBy", "options": {"fields": {}, "sort": [{"field": "topic 1"}]}},
+        {
+            "id": "organize",
+            "options": {
+                "excludeByName": {},
+                "indexByName": {
+                    "Value #A": 3,
+                    "Value #B": 4,
+                    server_label + " 1": 5,
+                    "partition 1": 2,
+                    "topic 1": 1,
+                },
+                "renameByName": {
+                    "Value #A": "start offset",
+                    "Value #B": "end offset",
+                    server_label + " 1": "broker",
+                    "partition 1": "",
+                    "topic": "",
+                    "topic 1": "",
+                },
+            },
+        },
     ]
 
     ## Offsets
