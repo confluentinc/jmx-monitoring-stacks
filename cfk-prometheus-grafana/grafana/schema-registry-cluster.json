@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Schema Registry online instances returning metrics.\n            ",
       "editable": true,
       "error": false,
@@ -161,7 +161,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average number of registered schemas across the cluster.\n            ",
       "editable": true,
       "error": false,
@@ -244,7 +244,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average number of schemas created, by type.\n            ",
       "editable": true,
       "error": false,
@@ -327,7 +327,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -410,8 +410,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": null,
+      "datasource": "${DS_PROMETHEUS}",
+      "description": "Number of active connections",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -471,7 +471,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count)",
+          "expr": "sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -534,7 +534,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -612,7 +612,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "irate(process_cpu_seconds_total{namespace=\"$env\",pod=~\"$sr_server\"}[5m])",
+          "expr": "irate(process_cpu_seconds_total{namespace=\"$env\",pod=\"$sr_server\"}[5m])",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -634,7 +634,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -712,7 +712,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$env\",pod=~\"$sr_server\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$env\",pod=\"$sr_server\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -734,7 +734,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -812,7 +812,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$env\",pod=~\"$sr_server\"}[5m]))",
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$env\",pod=\"$sr_server\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -855,7 +855,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -882,7 +882,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Server",

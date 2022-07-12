@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "ksqlDB online instances returning metrics.\n            ",
       "editable": true,
       "error": false,
@@ -123,7 +123,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
+          "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -145,7 +145,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of active queries deployed in the cluster.\n            ",
       "editable": true,
       "error": false,
@@ -206,7 +206,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
+          "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -228,7 +228,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of running queries deployed in the cluster.\n            Ideally, this number should be equal to the number of active queries as queries should be running.\n            ",
       "editable": true,
       "error": false,
@@ -297,7 +297,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(ksql_ksql_engine_query_stats_running_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
+          "expr": "sum(ksql_ksql_engine_query_stats_running_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -319,7 +319,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of queries rebalancing in the cluster.\n            Ideally, this number should be equal zero, or return to zero in a short period (e.g. 1 minute).\n            It's recommended to alert if the number of rebalancing queries stay higher than 0 for a longer period of time.\n            ",
       "editable": true,
       "error": false,
@@ -388,7 +388,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
+          "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -410,7 +410,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of queries failed in the cluster.\n            Ideally, this number should be equal zero.\n            It's recommended to alert if the number of queries failed is higher than 0.\n            ",
       "editable": true,
       "error": false,
@@ -479,7 +479,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(ksql_ksql_engine_query_stats_error_queries{namespace=\"$env\", app=\"$ksqldb_cluster\"})",
+          "expr": "avg(ksql_ksql_engine_query_stats_error_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -501,7 +501,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -601,7 +601,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -701,7 +701,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -842,7 +842,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Rate of CPU seconds used by the Java process.\n            100% usage represents one core. \n            If there are multiple cores, the total capacity should be 100% * number_cores.",
       "editable": true,
       "error": false,
@@ -942,7 +942,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of JVM memory used, without including areas (e.g. heap size).",
       "editable": true,
       "error": false,
@@ -1042,7 +1042,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of seconds used by Garbage Collection.",
       "editable": true,
       "error": false,
@@ -1172,7 +1172,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1250,7 +1250,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1272,7 +1272,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1350,7 +1350,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1372,7 +1372,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1450,7 +1450,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1472,7 +1472,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1550,7 +1550,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1572,7 +1572,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1650,7 +1650,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1672,7 +1672,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1750,7 +1750,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1772,7 +1772,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1850,7 +1850,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1872,7 +1872,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1950,7 +1950,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2014,7 +2014,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2092,7 +2092,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2114,7 +2114,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2192,7 +2192,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2214,7 +2214,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2292,7 +2292,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2314,7 +2314,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2392,7 +2392,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2414,7 +2414,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2492,7 +2492,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2514,7 +2514,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2592,7 +2592,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2614,7 +2614,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2692,7 +2692,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_fetch_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_fetch_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2714,7 +2714,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2792,7 +2792,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2814,7 +2814,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2892,7 +2892,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_fetch_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_fetch_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2914,7 +2914,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2992,7 +2992,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_delete_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_delete_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3014,7 +3014,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3092,7 +3092,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_delete_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_delete_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3114,7 +3114,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3192,7 +3192,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_delete_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_delete_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3214,7 +3214,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3292,7 +3292,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_restore_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_restore_rate{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3314,7 +3314,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3392,7 +3392,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_restore_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_restore_latency_avg{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3414,7 +3414,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3492,7 +3492,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_state_metrics_restore_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\",thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_restore_latency_max{namespace=\"$env\",app=\"$ksqldb_cluster\",pod=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3547,7 +3547,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -3574,7 +3574,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "ksqlDB cluster",
@@ -3601,7 +3601,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 2,
         "includeAll": false,
         "label": "ksqlDB cluster ID",
@@ -3628,7 +3628,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "ksqlDB server",

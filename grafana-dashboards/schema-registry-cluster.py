@@ -2,26 +2,52 @@ import os
 import grafanalib.core as G
 
 
-def dashboard(env_label="namespace", server_label="pod"):
+def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
+    """
+    Schema Registry cluster dashboard
+    It includes:
+    - Cluster overview
+    - System resources
+
+    Structure:
+    - Default sizes
+    - Queries
+    - Templating (variables)
+    - Panel groups
+    - Dashboard definition
+
+    Dashboard is defined by a name, it includes the variables to template panels, and then adds the panels.
+    Panels are grouped in Row to load only needed panels and load others on demand.
+
+    Invariants:
+    - Max width: 24
+    """
+
+    # Default sizes
     default_height = 5
     stat_width = 4
     ts_width = 8
 
+    # Queries
+    by_env = env_label + '="$env"'
+    by_server = by_env + "," + server_label + '="$sr_server"'
+
+    # Templating (variables)
     templating = G.Templating(
         list=[
             G.Template(
                 name="env",
                 label="Environment",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(" + env_label + ")",
             ),
             G.Template(
                 name="sr_server",
                 label="Server",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_schema_registry_registered_count{"
-                + env_label
-                + '="$env"}, '
+                + by_env
+                + "}, "
                 + server_label
                 + ")",
                 multi=True,
@@ -30,6 +56,9 @@ def dashboard(env_label="namespace", server_label="pod"):
         ]
     )
 
+    # Panel groups
+    ## Cluster overview:
+    ### When updating descriptions on these panels, also update descriptions in confluent-platform.py
     healthcheck_base = 0
     healthcheck_panels = [
         G.RowPanel(
@@ -40,12 +69,12 @@ def dashboard(env_label="namespace", server_label="pod"):
             title="SR: Online instances",
             description="""Schema Registry online instances returning metrics.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="count(kafka_schema_registry_registered_count{"
-                    + env_label
-                    + '="$env"})',
+                    + by_env
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -62,12 +91,10 @@ def dashboard(env_label="namespace", server_label="pod"):
             title="SR: Registered Schemas (avg.)",
             description="""Average number of registered schemas across the cluster.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="avg(kafka_schema_registry_registered_count{"
-                    + env_label
-                    + '="$env"})',
+                    expr="avg(kafka_schema_registry_registered_count{" + by_env + "})",
                 ),
             ],
             reduceCalc="last",
@@ -82,12 +109,12 @@ def dashboard(env_label="namespace", server_label="pod"):
             title="SR: Created Schemas by Type (avg.)",
             description="""Average number of schemas created, by type.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="avg(kafka_schema_registry_schemas_created{"
-                    + env_label
-                    + '="$env"}) by (schema_type)',
+                    + by_env
+                    + "}) by (schema_type)",
                     legendFormat="{{schema_type}}",
                 ),
             ],
@@ -101,12 +128,12 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="SR: Sum of Deleted Schemas by Type",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_schema_registry_schemas_deleted{"
-                    + env_label
-                    + '="$env"}) by (schema_type)',
+                    + by_env
+                    + "}) by (schema_type)",
                     legendFormat="{{schema_type}}",
                 ),
             ],
@@ -120,10 +147,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="SR: Sum of Active Connections",
-            dataSource="Prometheus",
+            description="Number of active connections",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count)",
+                    expr="sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count{"
+                    + by_env
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -136,6 +166,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## System resources:
     system_panels = [
         G.RowPanel(
             title="System",
@@ -143,14 +174,10 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="CPU usage",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="irate(process_cpu_seconds_total{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$sr_server"}[5m])',
+                    expr="irate(process_cpu_seconds_total{" + by_server + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -161,14 +188,10 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Memory usage",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum without(area)(jvm_memory_bytes_used{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$sr_server"})',
+                    expr="sum without(area)(jvm_memory_bytes_used{" + by_server + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -179,14 +202,12 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="GC collection",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$sr_server"}[5m]))',
+                    + by_server
+                    + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -197,8 +218,10 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    # group all panels
     panels = healthcheck_panels + system_panels
 
+    # build dashboard
     return G.Dashboard(
         title="Schema Registry cluster - v2",
         description="Overview of the Schema Registry cluster",
@@ -218,6 +241,10 @@ def dashboard(env_label="namespace", server_label="pod"):
     ).auto_panel_ids()
 
 
+# main labels to customize dashboard
+ds = os.environ.get("DATASOURCE", "Prometheus")
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
-dashboard = dashboard(env_label, server_label)
+
+# dashboard required by grafanalib
+dashboard = dashboard(ds, env_label, server_label)

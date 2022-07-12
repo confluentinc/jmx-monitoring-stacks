@@ -3,41 +3,73 @@ import grafanalib.core as G
 
 
 def dashboard(
+    ds="Prometheus",
     env_label="namespace",
     server_label="' + server_label + '",
     connect_cluster_label="app",
 ):
+    """
+    Kafka Connect cluster dashboard
+    It includes:
+    - Cluster overview
+    - System resources
+    - Connect workers
+    - Tasks
+    - Task Errors
+    - Source Tasks
+    - Sink Tasks
+
+    Structure:
+    - Default sizes
+    - Queries
+    - Templating (variables)
+    - Panel groups
+    - Dashboard definition
+
+    Dashboard is defined by a name, it includes the variables to template panels, and then adds the panels.
+    Panels are grouped in Row to load only needed panels and load others on demand.
+
+    Invariants:
+    - Max width: 24
+    """
+
+    # Default sizes
     default_height = 5
     stat_width = 4
     ts_width = 8
 
+    # Queries
+    by_env = env_label + '="$env"'
+    by_cluster = by_env + "," + connect_cluster_label + '="$connect_cluster"'
+    by_server = by_cluster + "," + server_label + '=~"$connect_worker"'
+    by_connector = by_server + ',connector=~"$connector"'
+
+    # Templating (variables)
     templating = G.Templating(
         list=[
             G.Template(
                 name="env",
                 label="Environment",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(" + env_label + ")",
             ),
             G.Template(
                 name="connect_cluster",
                 label="Connect cluster",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{"
-                + env_label
-                + '="$env"}, '
+                + by_env
+                + "}, "
                 + connect_cluster_label
                 + ")",
             ),
             G.Template(
                 name="connect_worker",
                 label="Connect worker",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{"
-                + env_label
-                + '="$env",'
-                + connect_cluster_label
-                + '="$connect_cluster"}, '
+                + by_cluster
+                + "}, "
                 + server_label
                 + ")",
                 multi=True,
@@ -46,36 +78,36 @@ def dashboard(
             G.Template(
                 name="connector",
                 label="Connector",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{"
-                + env_label
-                + '="$env",'
-                + connect_cluster_label
-                + '="$connect_cluster"}, connector)',
+                + by_cluster
+                + "}, connector)",
                 multi=True,
                 includeAll=True,
             ),
         ]
     )
 
-    hc_base = 0
-    hc_panels = [
+    # Panel groups
+    ## Cluster overview:
+    ### When updating descriptions on these panels, also update descriptions in confluent-platform.py
+    overview_base = 0
+    overview_panels = [
         G.RowPanel(
-            title="Overview",
-            gridPos=G.GridPos(h=1, w=24, x=0, y=hc_base),
+            title="Cluster Overview",
+            gridPos=G.GridPos(h=1, w=24, x=0, y=overview_base),
         ),
+        # First level
         G.Stat(
             title="Connect: Online Workers",
             description="""Kafka Connect online workers returning metrics.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="count(kafka_connect_app_info{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",version!=""})',
+                    + by_cluster
+                    + ',version!=""})',
                 ),
             ],
             reduceCalc="last",
@@ -83,21 +115,19 @@ def dashboard(
                 G.Threshold(index=0, value=0.0, color="blue"),
             ],
             gridPos=G.GridPos(
-                h=default_height, w=stat_width, x=stat_width * 0, y=hc_base
+                h=default_height, w=stat_width, x=stat_width * 0, y=overview_base
             ),
         ),
         G.Stat(
             title="Connect: Sum of Total Tasks",
             description="""Number of tasks deployed on Kafka Connect cluster.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_total_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -105,7 +135,7 @@ def dashboard(
                 G.Threshold(index=0, value=0.0, color="blue"),
             ],
             gridPos=G.GridPos(
-                h=default_height, w=stat_width, x=stat_width * 1, y=hc_base
+                h=default_height, w=stat_width, x=stat_width * 1, y=overview_base
             ),
         ),
         G.Stat(
@@ -113,14 +143,12 @@ def dashboard(
             description="""Number of Running Tasks on the Kafka Connect cluster.
             Ideally, this number should be equal to the total number of tasks deployed.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_running_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -129,7 +157,7 @@ def dashboard(
                 G.Threshold(index=1, value=1.0, color="green"),
             ],
             gridPos=G.GridPos(
-                h=default_height, w=stat_width, x=stat_width * 2, y=hc_base
+                h=default_height, w=stat_width, x=stat_width * 2, y=overview_base
             ),
         ),
         G.Stat(
@@ -137,14 +165,12 @@ def dashboard(
             description="""Number of Paused Tasks on the Kafka Connect cluster.
             Ideally, this number should be zero, as tasks should be running.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -153,7 +179,7 @@ def dashboard(
                 G.Threshold(index=1, value=1.0, color="yellow"),
             ],
             gridPos=G.GridPos(
-                h=default_height, w=stat_width, x=stat_width * 3, y=hc_base
+                h=default_height, w=stat_width, x=stat_width * 3, y=overview_base
             ),
         ),
         G.Stat(
@@ -162,14 +188,12 @@ def dashboard(
             Ideally, this number should be zero, as tasks should be running.
             It's recommended alerting when this value is higher than 0.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -178,7 +202,7 @@ def dashboard(
                 G.Threshold(index=1, value=1.0, color="red"),
             ],
             gridPos=G.GridPos(
-                h=default_height, w=stat_width, x=stat_width * 4, y=hc_base
+                h=default_height, w=stat_width, x=stat_width * 4, y=overview_base
             ),
         ),
         G.Stat(
@@ -186,14 +210,12 @@ def dashboard(
             description="""Informative value. Time since last rebalance.
             When this value is continuously and repeatedly low means some connectors are failing and rebalancing is triggered constantly.
             """,
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"} >= 0',
+                    + by_cluster
+                    + "} >= 0",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -204,28 +226,23 @@ def dashboard(
                 G.Threshold(index=0, value=0.0, color="blue"),
             ],
             gridPos=G.GridPos(
-                h=default_height, w=stat_width, x=stat_width * 5, y=hc_base
+                h=default_height, w=stat_width, x=stat_width * 5, y=overview_base
             ),
         ),
+        # Second level
         G.Table(
             title="Connect Workers",
-            dataSource="Prometheus",
+            description="""Connect workers metadata and stats.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_connect_app_info{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",start_time_ms!=""}',
+                    expr="kafka_connect_app_info{" + by_cluster + ',start_time_ms!=""}',
                     format="table",
                     instant=True,
                 ),
                 G.Target(
-                    expr="kafka_connect_app_info{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",version!=""}',
+                    expr="kafka_connect_app_info{" + by_cluster + ',version!=""}',
                     format="table",
                     instant=True,
                 ),
@@ -233,10 +250,8 @@ def dashboard(
                     expr="sum by ("
                     + server_label
                     + ") (kafka_connect_connect_worker_metrics_connector_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -244,10 +259,8 @@ def dashboard(
                     expr="sum by ("
                     + server_label
                     + ") (kafka_connect_connect_worker_metrics_connector_startup_success_total{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -255,10 +268,8 @@ def dashboard(
                     expr="sum by ("
                     + server_label
                     + ") (kafka_connect_connect_worker_metrics_connector_startup_failure_total{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -266,10 +277,8 @@ def dashboard(
                     expr="sum by ("
                     + server_label
                     + ") (kafka_connect_connect_worker_metrics_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -277,10 +286,8 @@ def dashboard(
                     expr="sum by ("
                     + server_label
                     + ") (kafka_connect_connect_worker_metrics_task_startup_success_total{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -288,10 +295,8 @@ def dashboard(
                     expr="sum by ("
                     + server_label
                     + ") (kafka_connect_connect_worker_metrics_task_startup_failure_total{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -345,54 +350,45 @@ def dashboard(
                     },
                 },
             ],
-            gridPos=G.GridPos(h=default_height, w=24, x=0, y=hc_base + 1),
+            gridPos=G.GridPos(h=default_height, w=24, x=0, y=overview_base + 1),
         ),
+        # Third level
         G.Table(
             title="Connectors",
-            dataSource="Prometheus",
+            description="""Connectors deployed and task stats.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_connect_connector_info{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"}',
+                    expr="kafka_connect_connector_info{" + by_cluster + "}",
                     format="table",
                     instant=True,
                 ),
                 G.Target(
                     expr="sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
                 G.Target(
                     expr="sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
                 G.Target(
                     expr="sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
                 G.Target(
                     expr="sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"})',
+                    + by_cluster
+                    + "})",
                     format="table",
                     instant=True,
                 ),
@@ -426,49 +422,50 @@ def dashboard(
                     },
                 },
             ],
-            gridPos=G.GridPos(h=default_height, w=24, x=0, y=hc_base + 2),
+            gridPos=G.GridPos(h=default_height, w=24, x=0, y=overview_base + 2),
         ),
+        # Forth level
         G.TimeSeries(
             title="Tasks Running Ratio",
-            dataSource="Prometheus",
+            description="""How much time the connector tasks are in running state.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_running_ratio{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"}',
+                    + by_cluster
+                    + "}",
                     legendFormat="{{connector}}",
                 ),
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="percentunit",
-            gridPos=G.GridPos(h=default_height * 2, w=12, x=0, y=hc_base + 3),
+            gridPos=G.GridPos(h=default_height * 2, w=12, x=0, y=overview_base + 3),
         ),
         G.TimeSeries(
-            title="Rebalance Latency",
-            dataSource="Prometheus",
+            title="Rebalance Latency (avg.)",
+            description="""Average ime spent on rebalance state.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster"}',
+                    + by_cluster
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="ms",
-            gridPos=G.GridPos(h=default_height * 2, w=12, x=12, y=hc_base + 3),
+            gridPos=G.GridPos(h=default_height * 2, w=12, x=12, y=overview_base + 3),
         ),
     ]
 
     ## System resources:
     ### When updating descriptions on these panels, also update descriptions in other cluster dashboards
-    system_base = hc_base + 4
+    system_base = overview_base + 4
     system_panels = [
         G.RowPanel(
             title="System",
@@ -479,16 +476,10 @@ def dashboard(
             description="""Rate of CPU seconds used by the Java process.
             100% usage represents one core. 
             If there are multiple cores, the total capacity should be 100% * number_cores.""",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="irate(process_cpu_seconds_total{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}[5m])',
+                    expr="irate(process_cpu_seconds_total{" + by_server + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -502,16 +493,10 @@ def dashboard(
         G.TimeSeries(
             title="Memory usage",
             description="""Sum of JVM memory used, without including areas (e.g. heap size).""",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum without(area)(jvm_memory_bytes_used{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"})',
+                    expr="sum without(area)(jvm_memory_bytes_used{" + by_server + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -525,16 +510,12 @@ def dashboard(
         G.TimeSeries(
             title="GC collection",
             description="""Sum of seconds used by Garbage Collection.""",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}[5m]))',
+                    + by_server
+                    + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -547,20 +528,18 @@ def dashboard(
         ),
     ]
 
+    ## Workers:
     worker_base = system_base + 1
     worker_inner = [
         G.TimeSeries(
             title="Incoming Byte Rate",
-            dataSource="Prometheus",
+            description="Incoming byte rate per second per worker.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_incoming_byte_rate{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    + by_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -573,16 +552,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Outgoing Byte Rate",
-            dataSource="Prometheus",
+            description="Outgoing byte rate per second per worker.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_outgoing_byte_rate{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    + by_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -595,16 +571,11 @@ def dashboard(
         ),
         G.TimeSeries(
             title="IO Ratio",
-            dataSource="Prometheus",
+            description="Fraction of time the I/O thread spent doing I/O",
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_connect_connect_metrics_io_ratio{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    expr="kafka_connect_connect_metrics_io_ratio{" + by_server + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -617,16 +588,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Network IO Rate",
-            dataSource="Prometheus",
+            description="Average number of network operations (reads or writes) on all connections per second",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_network_io_rate{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    + by_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -639,16 +607,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Active Connections",
-            dataSource="Prometheus",
+            description="Number of active connections",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_connection_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    + by_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -659,27 +624,20 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Authentications",
-            dataSource="Prometheus",
+            title="Rate of Authentication",
+            description="Successful and failed authentications per second.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_successful_authentication_rate{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    + by_server
+                    + "}",
                     legendFormat="{{" + server_label + "}} (success)",
                 ),
                 G.Target(
                     expr="kafka_connect_connect_metrics_failed_authentication_total{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker"}',
+                    + by_server
+                    + "}",
                     legendFormat="{{" + server_label + "}} (failed)",
                 ),
             ],
@@ -699,21 +657,25 @@ def dashboard(
         ),
     ]
 
+    ## Tasks:
     tasks_base = worker_base + 1
     tasks_inner = [
         G.TimeSeries(
-            title="Batch Size (Avg.)",
-            dataSource="Prometheus",
+            title="Batch Size",
+            description="Maximum and average size of the batches processed by the connector task.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_batch_size_avg{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_connect_connector_task_metrics_batch_size_max{"
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -724,69 +686,53 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Batch Size (Max.)",
-            dataSource="Prometheus",
-            targets=[
-                G.Target(
-                    expr="kafka_connect_connector_task_metrics_batch_size_max{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            unit="bytes",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=tasks_base
-            ),
-        ),
-        G.TimeSeries(
-            title="Offset commit success %",
-            dataSource="Prometheus",
+            title="Offset commit",
+            description="Percentage of offset commit successful and failed.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_offset_commit_success_percentage{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (success)",
+                ),
+                G.Target(
+                    expr="kafka_connect_connector_task_metrics_offset_commit_failure_percentage{"
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (failure)",
                 ),
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="percentunit",
             gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=tasks_base + 1
+                h=default_height * 2, w=ts_width, x=ts_width * 0, y=tasks_base
             ),
         ),
         G.TimeSeries(
-            title="Offset commit avg. latency",
-            dataSource="Prometheus",
+            title="Offset commit latency",
+            description="Average and Maximum time in milliseconds taken by the task to commit offsets",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_connect_connector_task_metrics_offset_commit_max_time_ms{"
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (max.)",
                 ),
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="ms",
             gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=tasks_base + 1
+                h=default_height * 2, w=ts_width, x=ts_width * 2, y=tasks_base
             ),
         ),
     ]
@@ -799,20 +745,19 @@ def dashboard(
         ),
     ]
 
-    task_errors_base = tasks_base + 2
+    ## Task Errors:
+    task_errors_base = tasks_base + 1
     task_errors_inner = [
+        # First layer
         G.TimeSeries(
             title="Total Record Failures",
-            dataSource="Prometheus",
+            description="Total number of failures seen by task.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_record_failures{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -824,16 +769,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Record Error",
-            dataSource="Prometheus",
+            description="Total number of errors seen by task.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_record_errors{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -845,16 +787,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Records Skipped",
-            dataSource="Prometheus",
+            description="Total number of records skipped seen by task.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_records_skipped{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -864,18 +803,16 @@ def dashboard(
                 h=default_height * 2, w=ts_width, x=ts_width * 2, y=task_errors_base
             ),
         ),
+        # Second layer
         G.TimeSeries(
             title="Total Errors Logged",
-            dataSource="Prometheus",
+            description="Total number of records logged seen by task.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_errors_logged{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -887,16 +824,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Retries",
-            dataSource="Prometheus",
+            description="Total number of retries seen by task.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_retries{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -908,16 +842,13 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Dead Letter Topic Requests",
-            dataSource="Prometheus",
+            description="Number of produce requests to dead letter topics.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_deadletterqueue_produce_requests{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -937,21 +868,25 @@ def dashboard(
         ),
     ]
 
+    ## Source tasks:
     source_base = task_errors_base + 2
     source_inner = [
         G.TimeSeries(
-            title="Poll Batch Avg. Latency",
-            dataSource="Prometheus",
+            title="Poll Batch Latency",
+            description="Average and Maximum time in milliseconds taken by this task to poll for a batch of source records",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_source_task_metrics_poll_batch_avg_time_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_connect_source_task_metrics_poll_batch_max_time_ms{"
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -962,61 +897,40 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Poll Batch Max. Latency",
-            dataSource="Prometheus",
+            title="Source Record Poll Rate",
+            description="""Before transformations are applied, 
+            this is the average per-second number of records produced or 
+            polled by the task belonging to the named source connector in the worker
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_connect_source_task_metrics_poll_batch_max_time_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    expr="kafka_connect_source_task_metrics_source_record_poll_rate{"
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
-            unit="ms",
+            unit="ops",
             gridPos=G.GridPos(
                 h=default_height * 2, w=ts_width, x=ts_width * 1, y=source_base
             ),
         ),
         G.TimeSeries(
-            title="Source Record Poll Rate",
-            dataSource="Prometheus",
-            targets=[
-                G.Target(
-                    expr="kafka_connect_source_task_metrics_source_record_poll_rate{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            unit="ops",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=source_base + 1
-            ),
-        ),
-        G.TimeSeries(
             title="Source Record Write Rate",
-            dataSource="Prometheus",
+            description="""After transformations are applied, 
+            this is the average per-second number of records output from the transformations and 
+            written to Kafka for the task belonging to the named source connector in the worker 
+            (excludes any records filtered out by the transformations)
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_source_task_metrics_source_record_write_rate{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -1024,7 +938,7 @@ def dashboard(
             legendCalcs=["max", "mean", "last"],
             unit="ops",
             gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=source_base + 1
+                h=default_height * 2, w=ts_width, x=ts_width * 2, y=source_base
             ),
         ),
     ]
@@ -1037,21 +951,24 @@ def dashboard(
         ),
     ]
 
-    sink_base = source_base + 2
+    ## Sink tasks:
+    sink_base = source_base + 1
     sink_inner = [
         G.TimeSeries(
-            title="Put Batch Avg. Latency",
-            dataSource="Prometheus",
+            title="Put Batch Latency",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_sink_task_metrics_put_batch_avg_time_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
-                    legendFormat="{{connector}}[{{task}}]",
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_connect_sink_task_metrics_put_batch_max_time_ms{"
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}] (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -1062,39 +979,61 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Put Batch Max. Latency",
-            dataSource="Prometheus",
+            title="Sink Record Read Rate",
+            description="""Before transformations are applied, 
+            this is the average per-second number of records read from Kafka 
+            for the task belonging to the named sink connector in the worker
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_connect_sink_task_metrics_put_batch_max_time_ms{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    expr="kafka_connect_sink_task_metrics_sink_record_read_rate{"
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
-            unit="ms",
+            unit="ops",
             gridPos=G.GridPos(
                 h=default_height * 2, w=ts_width, x=ts_width * 1, y=sink_base
             ),
         ),
         G.TimeSeries(
+            title="Sink Record Send Rate",
+            description="""After transformations are applied, 
+            this is the average per-second number of records output from the transformations and 
+            sent to the task belonging to the named sink connector in the worker 
+            (excludes any records filtered out by the transformations)
+            """,
+            dataSource=ds,
+            targets=[
+                G.Target(
+                    expr="kafka_connect_sink_task_metrics_sink_record_send_rate{"
+                    + by_connector
+                    + "}",
+                    legendFormat="{{connector}}[{{task}}]",
+                ),
+            ],
+            legendDisplayMode="table",
+            legendCalcs=["max", "mean", "last"],
+            unit="ops",
+            gridPos=G.GridPos(
+                h=default_height * 2, w=ts_width, x=ts_width * 2, y=sink_base
+            ),
+        ),
+        G.TimeSeries(
             title="Partition Count",
-            dataSource="Prometheus",
+            description="""Number of topic partitions assigned to the task and 
+            which belong to the named sink connector in the worker
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_connect_sink_task_metrics_partition_count{"
-                    + env_label
-                    + '="$env",'
-                    + connect_cluster_label
-                    + '="$connect_cluster",'
-                    + server_label
-                    + '=~"$connect_worker",connector=~"$connector"}',
+                    + by_connector
+                    + "}",
                     legendFormat="{{connector}}[{{task}}]",
                 ),
             ],
@@ -1114,8 +1053,9 @@ def dashboard(
         ),
     ]
 
+    # group all panels
     panels = (
-        hc_panels
+        overview_panels
         + system_panels
         + tasks_panels
         + task_errors_panels
@@ -1124,6 +1064,7 @@ def dashboard(
         + worker_panels
     )
 
+    # build dashboard
     return G.Dashboard(
         title="Kafka Connect cluster - v2",
         description="Overview of the Kafka Connect cluster",
@@ -1143,9 +1084,13 @@ def dashboard(
     ).auto_panel_ids()
 
 
+# main labels to customize dashboard
+ds = os.environ.get("DATASOURCE", "Prometheus")
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
 connect_cluster_label = os.environ.get(
     "CONNECT_CLUSTER_LABEL", "kafka_connect_cluster_id"
 )
-dashboard = dashboard(env_label, server_label, connect_cluster_label)
+
+# dashboard required by grafanalib
+dashboard = dashboard(ds, env_label, server_label, connect_cluster_label)

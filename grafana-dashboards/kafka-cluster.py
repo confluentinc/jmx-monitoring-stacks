@@ -40,7 +40,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
 
     # Queries
     by_env = env_label + '="$env"'
-    by_env_and_server = env_label + '="$env",' + server_label + '=~"$broker"'
+    by_server = by_env + "," + server_label + '=~"$broker"'
 
     # Templating (variables)
     templating = G.Templating(
@@ -168,7 +168,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(rate(kafka_network_requestmetrics_requestspersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                 ),
             ],
@@ -187,7 +187,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_log_log_size{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by ("
                     + server_label
                     + ")",
@@ -211,7 +211,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_replicamanager_partitioncount{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                 ),
             ],
@@ -230,7 +230,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_replicamanager_underreplicatedpartitions{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                 ),
             ],
@@ -250,9 +250,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum(kafka_cluster_partition_underminisr{"
-                    + by_env_and_server
-                    + "})",
+                    expr="sum(kafka_cluster_partition_underminisr{" + by_server + "})",
                 ),
             ],
             reduceCalc="last",
@@ -272,7 +270,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_controller_kafkacontroller_offlinepartitionscount{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                 ),
             ],
@@ -292,7 +290,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(rate(kafka_server_brokertopicmetrics_bytesinpersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                 ),
             ],
@@ -312,7 +310,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(rate(kafka_server_brokertopicmetrics_bytesoutpersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                 ),
             ],
@@ -341,9 +339,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             dataSource=ds,
             targets=[
                 G.Target(
-                    expr="irate(process_cpu_seconds_total{"
-                    + by_env_and_server
-                    + "}[5m])",
+                    expr="irate(process_cpu_seconds_total{" + by_server + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -360,9 +356,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum without(area)(jvm_memory_bytes_used{"
-                    + by_env_and_server
-                    + "})",
+                    expr="sum without(area)(jvm_memory_bytes_used{" + by_server + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -380,7 +374,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -404,7 +398,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum without(topic) (rate(kafka_server_brokertopicmetrics_messagesinpersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -423,7 +417,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesinpersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -442,7 +436,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -476,7 +470,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="1-kafka_network_socketserver_networkprocessoravgidlepercent{"
-                    + by_env_and_server
+                    + by_server
                     + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -497,7 +491,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="1-kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total{"
-                    + by_env_and_server
+                    + by_server
                     + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -537,7 +531,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
                     expr="sum without("
                     + known_labels
                     + ")(rate(kafka_network_requestmetrics_requestspersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m]))",
                     legendFormat="{{request}}(v{{version}})",
                 ),
@@ -561,7 +555,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
                     expr="sum without("
                     + known_labels
                     + ")(rate(kafka_network_requestmetrics_errorspersec{"
-                    + by_env_and_server
+                    + by_server
                     + ',error!="NONE"}[5m]))',
                     legendFormat="{{error}}@{{request}}",
                 ),
@@ -594,7 +588,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_count{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by ("
                     + server_label
                     + ")",
@@ -614,7 +608,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_creation_rate{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by ("
                     + server_label
                     + ")",
@@ -634,7 +628,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_close_rate{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by ("
                     + server_label
                     + ")",
@@ -655,7 +649,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_count{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by (listener)",
                     legendFormat="{{listener}}",
                 ),
@@ -673,7 +667,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_creation_rate{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by (listener)",
                     legendFormat="{{listener}}",
                 ),
@@ -691,7 +685,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_close_rate{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by (listener)",
                     legendFormat="{{listener}}",
                 ),
@@ -724,7 +718,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="rate(kafka_server_replicamanager_isrshrinkspersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -744,7 +738,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="rate(kafka_server_replicamanager_isrexpandspersec{"
-                    + by_env_and_server
+                    + by_server
                     + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -778,7 +772,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_requestqueuetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -799,7 +793,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_localtimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -820,7 +814,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_remotetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -841,7 +835,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsequeuetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -862,7 +856,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsesendtimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -897,7 +891,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_requestqueuetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -918,7 +912,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_localtimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -939,7 +933,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_remotetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -960,7 +954,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsequeuetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -981,7 +975,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsesendtimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -1016,7 +1010,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_requestqueuetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -1037,7 +1031,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_localtimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -1058,7 +1052,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_remotetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -1079,7 +1073,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsequeuetimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -1100,7 +1094,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsesendtimems{"
-                    + by_env_and_server
+                    + by_server
                     + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
@@ -1132,7 +1126,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="kafka_coordinator_group_groupmetadatamanager_numgroups{"
-                    + by_env_and_server
+                    + by_server
                     + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -1150,31 +1144,31 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupsstable{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="stable",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupspreparingrebalance{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="preparing_rebalance",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupsdead{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="dead",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupscompletingrebalance{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="completing_rebalance",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupsempty{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="empty",
                 ),
@@ -1208,7 +1202,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -1229,7 +1223,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{"
-                    + by_env_and_server
+                    + by_server
                     + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
@@ -1249,7 +1243,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connections{"
-                    + by_env_and_server
+                    + by_server
                     + "}) by (client_software_name,client_software_version)",
                     legendFormat="{{client_software_name}} (v{{client_software_version}})",
                 ),

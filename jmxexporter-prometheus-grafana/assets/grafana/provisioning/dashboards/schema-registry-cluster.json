@@ -411,7 +411,7 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": null,
+      "description": "Number of active connections",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -471,7 +471,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count)",
+          "expr": "sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count{env=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -612,7 +612,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "irate(process_cpu_seconds_total{env=\"$env\",hostname=~\"$sr_server\"}[5m])",
+          "expr": "irate(process_cpu_seconds_total{env=\"$env\",hostname=\"$sr_server\"}[5m])",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -712,7 +712,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=~\"$sr_server\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=\"$sr_server\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -812,7 +812,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=~\"$sr_server\"}[5m]))",
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=\"$sr_server\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
