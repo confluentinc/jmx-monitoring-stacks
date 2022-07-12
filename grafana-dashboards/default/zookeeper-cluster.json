@@ -62,8 +62,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Quorum Size of Zookeeper ensemble.\n            Count Zookeeper servers with quorum size metric.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -161,8 +161,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Average size of ZNodes in the cluster.\n            Getting the node count per server, and averaging the node count.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -237,15 +237,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ZK: Avg. number of ZNodes",
+      "title": "ZK: ZNodes (avg.)",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of the number of alive connections per servers divided by the maximum number of client connections allowed per host.\n            If the percentage is higher than 60%, then Zookeeper should be scaled and/or the Zookeeper clients should be investigated to find the reason for high number of connections opened.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -258,16 +258,32 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "green",
                 "index": 0,
                 "line": true,
                 "op": "gt",
                 "value": "null",
                 "yaxis": "left"
+              },
+              {
+                "color": "yellow",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 0.6,
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 2,
+                "line": true,
+                "op": "gt",
+                "value": 0.8,
+                "yaxis": "left"
               }
             ]
           },
-          "unit": "none"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -305,7 +321,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(zookeeper_numaliveconnections{env=\"$env\"})",
+          "expr": "zookeeper_numaliveconnections{env=\"$env\"} / zookeeper_maxclientcnxnsperhost{env=\"$env\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -320,15 +336,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ZK: Sum of number of Alive Connections",
+      "title": "ZK: Connections used",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of client watchers subscribed to changes on the ZNodes.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -410,8 +426,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of requests waiting for processing (queued).\n            If the number of outstanding requests grows higher than 10, then the Zookeeper hosts should be checked.\n            It could mean that there is not enough resources to cope with the number of requests.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -448,7 +464,32 @@
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": []
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "yellow",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 2,
+                "line": true,
+                "op": "gt",
+                "value": 10.0,
+                "yaxis": "left"
+              }
+            ]
           },
           "unit": ""
         },
@@ -550,7 +591,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -650,7 +691,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -750,7 +791,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -880,7 +921,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -980,7 +1021,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1080,7 +1121,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1222,7 +1263,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1322,7 +1363,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1424,7 +1465,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1526,7 +1567,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1628,7 +1669,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,

@@ -39,7 +39,7 @@ def dashboard(env_label="namespace"):
         ),
         G.TimeSeries(
             title="Messages In/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -60,7 +60,7 @@ def dashboard(env_label="namespace"):
         ),
         G.TimeSeries(
             title="Log size",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -81,7 +81,7 @@ def dashboard(env_label="namespace"):
         ),
         G.TimeSeries(
             title="Bytes In/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -102,7 +102,7 @@ def dashboard(env_label="namespace"):
         ),
         G.TimeSeries(
             title="Bytes Out/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -123,7 +123,7 @@ def dashboard(env_label="namespace"):
         ),
         G.TimeSeries(
             title="Produce Requests/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -144,7 +144,7 @@ def dashboard(env_label="namespace"):
         ),
         G.TimeSeries(
             title="Consumer Fetch Requests/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -213,7 +213,7 @@ def dashboard(env_label="namespace"):
     offsets_inner = [
         G.Table(
             title="Start Offsets",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_log_log_logstartoffset{"
@@ -232,7 +232,7 @@ def dashboard(env_label="namespace"):
         ),
         G.Table(
             title="End Offsets",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_log_log_logendoffset{"

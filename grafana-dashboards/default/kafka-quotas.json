@@ -21,7 +21,7 @@
   "panels": [
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -121,7 +121,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -221,7 +221,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -321,7 +321,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -421,7 +421,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -521,7 +521,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,

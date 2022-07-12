@@ -50,7 +50,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Record Consumed Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -71,7 +71,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Records Lag",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -92,7 +92,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Rebalance Rate per hour",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -115,7 +115,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Failed Rebalance Rate per hour",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -137,7 +137,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Versions",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="count(kafka_consumer_app_info{"
@@ -160,7 +160,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     performance_inner = [
         G.TimeSeries(
             title="Bytes Consumed Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -182,7 +182,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Records Consumed Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -204,7 +204,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Records Lag Max",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -223,10 +223,9 @@ def dashboard(env_label="namespace", server_label="pod"):
                 h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base
             ),
         ),
-
         G.TimeSeries(
             title="Fetch Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -247,7 +246,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -278,7 +277,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch Size",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -307,10 +306,9 @@ def dashboard(env_label="namespace", server_label="pod"):
                 h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base + 1
             ),
         ),
-
         G.TimeSeries(
             title="Fetch Throttle Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -353,7 +351,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     group_inner = [
         G.TimeSeries(
             title="Commit Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -374,7 +372,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Join Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -395,7 +393,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sync Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -414,10 +412,9 @@ def dashboard(env_label="namespace", server_label="pod"):
                 h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base + 0
             ),
         ),
-
         G.TimeSeries(
             title="Commit Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -449,7 +446,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Join Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -481,7 +478,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sync Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -511,10 +508,9 @@ def dashboard(env_label="namespace", server_label="pod"):
                 h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base + 1
             ),
         ),
-
         G.TimeSeries(
             title="Heartbeat Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -535,7 +531,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Heartbeat Response Time (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -557,7 +553,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Last Heartbeat Seconds Ago",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -577,10 +573,9 @@ def dashboard(env_label="namespace", server_label="pod"):
                 h=default_height * 2, w=ts_width, x=ts_width * 2, y=performance_base + 2
             ),
         ),
-
         G.TimeSeries(
             title="Rebalance Rate Per Hour",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -611,7 +606,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Rebalance Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -642,7 +637,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Assigned Partitions",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -675,7 +670,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     connection_inner = [
         G.TimeSeries(
             title="Connection Count",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -696,7 +691,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Connection Creation Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -718,7 +713,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Connection Close Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -740,7 +735,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO ratio",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -762,7 +757,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO wait ratio",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -784,7 +779,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Select Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -806,7 +801,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO time avg.",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -828,7 +823,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO wait time avg.",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -862,7 +857,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     per_broker_inner = [
         G.TimeSeries(
             title="Incoming Byte Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -886,7 +881,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Outgoing Byte Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -910,7 +905,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -946,7 +941,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -970,7 +965,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Response Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -1006,7 +1001,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     per_topic_inner = [
         G.TimeSeries(
             title="Bytes Consumed Rate per Topic",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -1016,9 +1011,7 @@ def dashboard(env_label="namespace", server_label="pod"):
                     + '="$env",client_id=~"$client_id", '
                     + server_label
                     + '=~"$server"})',
-                    legendFormat="{{client_id}}@{{"
-                    + server_label
-                    + "}} <- {{topic}}",
+                    legendFormat="{{client_id}}@{{" + server_label + "}} <- {{topic}}",
                 ),
             ],
             legendDisplayMode="table",
@@ -1030,7 +1023,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Records Consumed Rate per Topic",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -1040,9 +1033,7 @@ def dashboard(env_label="namespace", server_label="pod"):
                     + '="$env",client_id=~"$client_id", '
                     + server_label
                     + '=~"$server"})',
-                    legendFormat="{{client_id}}@{{"
-                    + server_label
-                    + "}} <- {{topic}}",
+                    legendFormat="{{client_id}}@{{" + server_label + "}} <- {{topic}}",
                 ),
             ],
             legendDisplayMode="table",
@@ -1052,10 +1043,9 @@ def dashboard(env_label="namespace", server_label="pod"):
                 h=default_height * 2, w=ts_width, x=ts_width * 1, y=per_broker_base + 0
             ),
         ),
-
         G.TimeSeries(
             title="Fetch Size per Topic",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -1091,7 +1081,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Records per Request Avg. per Topic",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -1101,9 +1091,7 @@ def dashboard(env_label="namespace", server_label="pod"):
                     + '="$env",client_id=~"$client_id", '
                     + server_label
                     + '=~"$server"})',
-                    legendFormat="{{client_id}}@{{"
-                    + server_label
-                    + "}} <- {{topic}}",
+                    legendFormat="{{client_id}}@{{" + server_label + "}} <- {{topic}}",
                 ),
             ],
             legendDisplayMode="table",

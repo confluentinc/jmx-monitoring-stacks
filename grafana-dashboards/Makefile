@@ -3,6 +3,7 @@ all:
 	$(MAKE) cfk
 
 def: OUTPUT_DIR=default
+def: export DATASOURCE=Prometheus
 def: export ENV_LABEL=env
 def: export SERVER_LABEL=hostname
 def: export KSQLDB_CLUSTER_LABEL=ksqldb_cluster_id
@@ -25,6 +26,7 @@ dashboards:
 	@generate-dashboard kafka-quotas.py	-o $(OUTPUT_DIR)/kafka-quotas.json
 
 cfk: OUTPUT_DIR=cfk
+cfk: export DATASOURCE=$${DS_PROMETHEUS}
 cfk: export ENV_LABEL=namespace
 cfk: export SERVER_LABEL=pod
 cfk: export KSQLDB_CLUSTER_LABEL=app

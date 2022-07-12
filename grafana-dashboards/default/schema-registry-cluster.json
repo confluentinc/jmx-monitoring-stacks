@@ -62,8 +62,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Schema Registry online instances returning metrics.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -161,8 +161,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Average number of registered schemas across the cluster.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -225,7 +225,7 @@
           "expr": "avg(kafka_schema_registry_registered_count{env=\"$env\"})",
           "format": "time_series",
           "hide": false,
-          "instant": true,
+          "instant": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -237,15 +237,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SR: Sum of Registered Schemas",
+      "title": "SR: Registered Schemas (avg.)",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Average number of schemas created, by type.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -320,14 +320,14 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SR: Sum of Created Schemas by Type",
+      "title": "SR: Created Schemas by Type (avg.)",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -410,7 +410,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -534,7 +534,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -634,7 +634,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -734,7 +734,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,

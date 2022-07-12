@@ -50,7 +50,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     panels = [
         G.TimeSeries(
             title="Produce Byte Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -68,13 +68,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="binBps",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=0
-            ),
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 0, y=0),
         ),
         G.TimeSeries(
             title="Fetch Byte Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -92,13 +90,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="binBps",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=0
-            ),
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 1, y=0),
         ),
         G.TimeSeries(
             title="Request Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -116,15 +112,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="percent",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 2, y=0
-            ),
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 2, y=0),
         ),
-
-
         G.TimeSeries(
             title="Produce Throttle Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -142,13 +134,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=1
-            ),
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 0, y=1),
         ),
         G.TimeSeries(
             title="Fetch Throttle Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -166,13 +156,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=1
-            ),
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 1, y=1),
         ),
         G.TimeSeries(
             title="Request Throttle Time",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="topk("
@@ -190,9 +178,7 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
             unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 2, y=1
-            ),
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 2, y=1),
         ),
     ]
 

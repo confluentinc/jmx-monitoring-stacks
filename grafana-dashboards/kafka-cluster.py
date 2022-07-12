@@ -2,26 +2,62 @@ import os
 import grafanalib.core as G
 
 
-def dashboard(env_label="namespace", server_label="pod"):
+def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
+    """
+    Kafka cluster dashboard
+    It includes:
+    - Cluster overview
+    - System resources
+    - Throughput
+    - Thread utilization
+    - Request rates
+    - Connections
+    - In-Sync Replicas
+    - Request latency: Producer
+    - Request latency: Consumer Fetch
+    - Request latency: Follower Fetch
+    - Group Coordinator
+    - Message Conversion
+
+    Structure:
+    - Default sizes
+    - Queries
+    - Templating (variables)
+    - Panel groups
+    - Dashboard definition
+
+    Dashboard is defined by a name, it includes the variables to template panels, and then adds the panels.
+    Panels are grouped in Row to load only needed panels and load others on demand.
+
+    Invariants:
+    - Max width: 24
+    """
+
+    # Default sizes
     default_height = 5
     stat_width = 4
     ts_width = 8
 
+    # Queries
+    by_env = env_label + '="$env"'
+    by_env_and_server = env_label + '="$env",' + server_label + '=~"$broker"'
+
+    # Templating (variables)
     templating = G.Templating(
         list=[
             G.Template(
                 name="env",
                 label="Environment",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(" + env_label + ")",
             ),
             G.Template(
                 name="broker",
                 label="Broker",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_server_replicamanager_leadercount{"
-                + env_label
-                + '="$env"}, '
+                + by_env
+                + "}, "
                 + server_label
                 + ")",
                 multi=True,
@@ -30,27 +66,33 @@ def dashboard(env_label="namespace", server_label="pod"):
             G.Template(
                 name="quantile",
                 label="Quantile",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_network_requestmetrics_requestqueuetimems{"
-                + env_label
-                + '="$env"}, quantile)',
+                + by_env
+                + "}, quantile)",
             ),
         ]
     )
 
-    healthcheck_panels = [
+    # Panel groups
+    ## Cluster overview:
+    ### When updating descriptions on these panels, also update descriptions in confluent-platform.py
+    overview_panels = [
         G.RowPanel(
-            title="Overview",
+            title="Cluster Overview",
             gridPos=G.GridPos(h=1, w=24, x=0, y=0),
         ),
+        # First group of stats
         G.Stat(
             title="Kafka: Online Brokers",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Count of brokers available (online).
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="count(kafka_server_replicamanager_leadercount{"
-                    + env_label
-                    + '="$env"})',
+                    + by_env
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -61,12 +103,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Kafka: Active Controller",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Active Controller broker.
+            It should always be 1. If the value is different than 1, then it must be alerted for troubleshooting.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_controller_kafkacontroller_activecontrollercount{"
-                    + env_label
-                    + '="$env"} > 0',
+                    + by_env
+                    + "} > 0",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -78,13 +123,18 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 1, y=0),
         ),
         G.Stat(
-            title="Kafka: Sum of Replica Imbalance",
-            dataSource="${DS_PROMETHEUS}",
+            title="Kafka: Sum of Preferred Replica Imbalance",
+            description="""
+            Number of partitions where the preferred replica is not the leader.
+            Usually, this number is 0.
+            Restarting nodes could cause this values to change, but when reassigning happens the value stabilize.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_controller_kafkacontroller_preferredreplicaimbalancecount{"
-                    + env_label
-                    + '="$env"})',
+                    + by_env
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -95,12 +145,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Kafka: Sum of Topics",
-            dataSource="${DS_PROMETHEUS}",
+            description="Number of topics in the cluster.",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_controller_kafkacontroller_globaltopiccount{"
-                    + env_label
-                    + '="$env"})',
+                    + by_env
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -111,14 +162,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Kafka: Rate of Requests/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of requests per second rated over a 5 min. period.
+            Gives an idea of the processing load in the cluster.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(rate(kafka_network_requestmetrics_requestspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                 ),
             ],
             reduceCalc="last",
@@ -129,15 +180,15 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 4, y=0),
         ),
         G.Stat(
-            title="Kafka: Logs Size",
-            dataSource="${DS_PROMETHEUS}",
+            title="Kafka: Log Size",
+            description="""Sum of log sizes per broker.
+            This must be compared with the total storage space available in the brokers.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_log_log_size{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by ('
+                    + by_env_and_server
+                    + "}) by ("
                     + server_label
                     + ")",
                     legendFormat="{{" + server_label + "}}",
@@ -151,16 +202,17 @@ def dashboard(env_label="namespace", server_label="pod"):
             format="bytes",
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 5, y=0),
         ),
+        # Second group of stats
         G.Stat(
             title="Kafka: Sum of Partitions",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of Topic partitions across the cluster.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_replicamanager_partitioncount{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -170,15 +222,16 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 0, y=1),
         ),
         G.Stat(
-            title="Kafka: Sum of Partitions Under-Replicated (URP)",
-            dataSource="${DS_PROMETHEUS}",
+            title="Kafka: Sum of Under-Replicated Partitions (URP)",
+            description="""Sum of Under-Replicated Partitions. This is caused by broker or volumes unavailable, impacting replicas to be offline, and reducing the ISR set for those partitions.
+            There are transient scenarios that could lead to this number growing (e.g. broker restart), but if the number doesn't shrink in a short period of time (e.g. 1 minute), then it's recommended to alert.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_replicamanager_underreplicatedpartitions{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -189,15 +242,17 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 1, y=1),
         ),
         G.Stat(
-            title="Kafka: Sum of Partitions Under-MinISR",
-            dataSource="${DS_PROMETHEUS}",
+            title="Kafka: Sum of Under-MinISR Partitions",
+            description="""Number of partitions where the number of replicas offline is higher than the minimum ISR configuration.
+            This means partitions are not available for Producers with acks=all.
+            We recommend alerting when this values is higher than 0.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_cluster_partition_underminisr{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -208,15 +263,17 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 2, y=1),
         ),
         G.Stat(
-            title="Kafka: Sum of Partitions Offline",
-            dataSource="${DS_PROMETHEUS}",
+            title="Kafka: Sum of Offline Partitions",
+            description="""Number of partitions where all replicas are offline.
+            Producers and Consumers are affected by this condition.
+            We recommend alerting when this values is higher than 0.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_controller_kafkacontroller_offlinepartitionscount{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                 ),
             ],
             reduceCalc="last",
@@ -228,14 +285,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Kafka: Bytes In/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of bytes in per second rated over a 5 min. period.
+            Gives an idea of the incoming throughput handle by the cluster.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(rate(kafka_server_brokertopicmetrics_bytesinpersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                 ),
             ],
             reduceCalc="last",
@@ -247,14 +305,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Kafka: Bytes Out/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of bytes out per second rated over a 5 min. period.
+            Gives an idea of the outgoing throughput handle by the cluster.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(rate(kafka_server_brokertopicmetrics_bytesoutpersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                 ),
             ],
             reduceCalc="last",
@@ -266,23 +325,25 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## System resources:
+    ### When updating descriptions on these panels, also update descriptions in other cluster dashboards
     system_base = 2
-
     system_panels = [
         G.RowPanel(
-            title="System",
+            title="System resources",
             gridPos=G.GridPos(h=1, w=24, x=0, y=system_base),
         ),
         G.TimeSeries(
             title="CPU usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Rate of CPU seconds used by the Java process.
+            100% usage represents one core. 
+            If there are multiple cores, the total capacity should be 100% * number_cores.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="irate(process_cpu_seconds_total{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m])',
+                    + by_env_and_server
+                    + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -295,14 +356,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Memory usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of JVM memory used, without including areas (e.g. heap size).""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(area)(jvm_memory_bytes_used{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -315,14 +375,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="GC collection",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of seconds used by Garbage Collection.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -335,18 +394,18 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Throughput:
     throughtput_base = system_base + 1
     throughput_inner = [
         G.TimeSeries(
             title="Messages In/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of messages into topics per second, aggregated by sum without topic.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(topic) (rate(kafka_server_brokertopicmetrics_messagesinpersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -359,14 +418,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Bytes In/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of bytes into topics per second, aggregated by sum without topic.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesinpersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -379,14 +437,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Bytes Out/Sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of bytes out of topics per second, aggregated by sum without topic.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum without(topic) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    + by_env_and_server
+                    + "}[5m]))",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -401,25 +458,26 @@ def dashboard(env_label="namespace", server_label="pod"):
     throughput_panels = [
         G.RowPanel(
             title="Throughput",
-            description="Bytes in/out per second",
             gridPos=G.GridPos(h=1, w=24, x=0, y=throughtput_base),
             collapsed=True,
             panels=throughput_inner,
         ),
     ]
 
+    ## Thread utilization:
     thread_base = throughtput_base + 1
     thread_inner = [
         G.TimeSeries(
             title="Network processor usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Percent of time the network thread pool is used.
+            It should be below 60% or the capacity of threads should be tuned or 
+            the cluster scaled to cope with the load.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="1-kafka_network_socketserver_networkprocessoravgidlepercent{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}',
+                    + by_env_and_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -432,14 +490,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request processor (IO) usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Percent of time the IO thread pool is used.
+            It should be below 60% or the capacity of threads should be tuned or 
+            the cluster scaled to cope with the load.""",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="1-kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}',
+                    + by_env_and_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -453,26 +512,33 @@ def dashboard(env_label="namespace", server_label="pod"):
     ]
     thread_panels = [
         G.RowPanel(
-            title="Thread Utilization",
-            description="Internal thread pools usage",
+            title="Thread utilization",
             gridPos=G.GridPos(h=1, w=24, x=0, y=thread_base),
             collapsed=True,
             panels=thread_inner,
         ),
     ]
 
+    ## Request rates:
     request_base = thread_base + 1
+    ### It has the special case of aggregating across the cluster.
+    ### As the number of labels is unknown and could be extended depending on the platform.
+    ### At the moment includes known labels: instance, pod, and stateful_kubernetes_io_pod_name
+    known_labels = "pod,instance,statefulset_kubernetes_io_pod_name"
     request_inner = [
         G.TimeSeries(
             title="Requests rates",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Requests per second rated over a 5 minutes period.
+            Includes API call and version.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_requestspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m]))',
+                    expr="sum without("
+                    + known_labels
+                    + ")(rate(kafka_network_requestmetrics_requestspersec{"
+                    + by_env_and_server
+                    + "}[5m]))",
                     legendFormat="{{request}}(v{{version}})",
                 ),
             ],
@@ -486,14 +552,17 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Error rates",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Request Errors per second rated over a 5 minutes period.
+            Includes API call and version.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
-                    expr="sum without(pod,instance,statefulset_kubernetes_io_pod_name)(rate(kafka_network_requestmetrics_errorspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",error!="NONE"}[5m]))',
+                    expr="sum without("
+                    + known_labels
+                    + ")(rate(kafka_network_requestmetrics_errorspersec{"
+                    + by_env_and_server
+                    + ',error!="NONE"}[5m]))',
                     legendFormat="{{error}}@{{request}}",
                 ),
             ],
@@ -509,25 +578,24 @@ def dashboard(env_label="namespace", server_label="pod"):
     request_panels = [
         G.RowPanel(
             title="Request rates",
-            description="Sum of req/sec rates",
             gridPos=G.GridPos(h=1, w=24, x=0, y=request_base),
             collapsed=True,
             panels=request_inner,
         ),
     ]
 
+    ## Connections:
     connection_base = request_base + 1
     connection_inner = [
         G.TimeSeries(
             title="Sum of Connections alive per Broker",
-            dataSource="${DS_PROMETHEUS}",
+            description="Sum of connections count across cluster by brokers",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_count{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by ('
+                    + by_env_and_server
+                    + "}) by ("
                     + server_label
                     + ")",
                     legendFormat="{{" + server_label + "}}",
@@ -541,14 +609,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sum of Connections creation rate per Broker",
-            dataSource="${DS_PROMETHEUS}",
+            description="Sum of rate of connections created across cluster by brokers",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_creation_rate{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by ('
+                    + by_env_and_server
+                    + "}) by ("
                     + server_label
                     + ")",
                     legendFormat="{{" + server_label + "}}",
@@ -562,14 +629,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sum of Connections close rate per Broker",
-            dataSource="${DS_PROMETHEUS}",
+            description="Sum of rate of connections closed across cluster by brokers",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_close_rate{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by ('
+                    + by_env_and_server
+                    + "}) by ("
                     + server_label
                     + ")",
                     legendFormat="{{" + server_label + "}}",
@@ -584,14 +650,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         # By Listener
         G.TimeSeries(
             title="Sum of Connections alive per Listener",
-            dataSource="${DS_PROMETHEUS}",
+            description="Sum of connections count across cluster by listeners",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_count{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by (listener)',
+                    + by_env_and_server
+                    + "}) by (listener)",
                     legendFormat="{{listener}}",
                 ),
             ],
@@ -603,14 +668,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sum of Connections creation rate per Listener",
-            dataSource="${DS_PROMETHEUS}",
+            description="Sum of rate of connections created across cluster by listener",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_creation_rate{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by (listener)',
+                    + by_env_and_server
+                    + "}) by (listener)",
                     legendFormat="{{listener}}",
                 ),
             ],
@@ -622,14 +686,13 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sum of Connections close rate per Listener",
-            dataSource="${DS_PROMETHEUS}",
+            description="Sum of rate of connections closed across cluster by listener",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connection_close_rate{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by (listener)',
+                    + by_env_and_server
+                    + "}) by (listener)",
                     legendFormat="{{listener}}",
                 ),
             ],
@@ -649,18 +712,20 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## In-Sync Replicas:
     isr_base = connection_base + 2
     isr_inner = [
         G.TimeSeries(
             title="Rate of ISR Shrinks/sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Rate of ISR shrinks per second.
+            If this value is continuously higher than 0, then troubleshoot cause of ISR changing constantly.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="rate(kafka_server_replicamanager_isrshrinkspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m])',
+                    + by_env_and_server
+                    + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -672,14 +737,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Rate of ISR Expands/sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Rate of ISR expands per second.
+            If this value is continuously higher than 0, then troubleshoot cause of ISR changing constantly.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="rate(kafka_server_replicamanager_isrexpandspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}[5m])',
+                    + by_env_and_server
+                    + "}[5m])",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -699,18 +765,21 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Request latency for Produce:
+    ### When changing these panels, also modify Consumer Fetch and Follower Fetch.
     producer_base = isr_base + 1
     producer_inner = [
         G.TimeSeries(
             title="Produce: Request Queue Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend on the request queue.
+            Moved from network socket to request queue by Network threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_requestqueuetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Produce"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -723,14 +792,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Produce: Local Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend doing local IO.
+            Moved from request queue to storage device operations by IO threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_localtimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Produce"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -743,14 +813,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Produce: Remote Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend waiting for coordination with other brokers/internal condition.
+            At purgatory.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_remotetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Produce"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -763,14 +834,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Produce: Response Queue Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend waiting in response queue.
+            Moved from purgatory to response queue by IO threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsequeuetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Produce"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -783,14 +855,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Produce: Response Send Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend delivering response.
+            Moved from response queue to client by Networkc threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsesendtimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Produce"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Produce"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -811,18 +884,21 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Request latency for Consumer Fetch:
+    ### When changing these panels, also modify Produce and Follower Fetch.
     consumer_base = producer_base + 2
     consumer_inner = [
         G.TimeSeries(
             title="Fetch: Request Queue Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend on the request queue.
+            Moved from network socket to request queue by Network threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_requestqueuetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -835,14 +911,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Local Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend doing local IO.
+            Moved from request queue to storage device operations by IO threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_localtimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -855,14 +932,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Remote Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend waiting for coordination with other brokers/internal condition.
+            At purgatory.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_remotetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -875,14 +953,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Response Queue Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend waiting in response queue.
+            Moved from purgatory to response queue by IO threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsequeuetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -895,14 +974,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Response Send Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend delivering response.
+            Moved from response queue to client by Networkc threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsesendtimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="Fetch"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="Fetch"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -923,18 +1003,21 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Request latency for Follower Fetch:
+    ### When changing these panels, also modify Produce and Consumer Fetch.
     replication_base = consumer_base + 2
     replication_inner = [
         G.TimeSeries(
             title="Fetch: Request Queue Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend on the request queue.
+            Moved from network socket to request queue by Network threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_requestqueuetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -947,14 +1030,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Local Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend doing local IO.
+            Moved from request queue to storage device operations by IO threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_localtimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -967,14 +1051,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Remote Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend waiting for coordination with other brokers/internal condition.
+            At purgatory.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_remotetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -987,14 +1072,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Response Queue Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend waiting in response queue.
+            Moved from purgatory to response queue by IO threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsequeuetimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -1007,14 +1093,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch: Response Send Time",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Time expend delivering response.
+            Moved from response queue to client by Networkc threads.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_network_requestmetrics_responsesendtimems{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker",quantile=~"$quantile",request="FetchFollower"}',
+                    + by_env_and_server
+                    + ',quantile=~"$quantile",request="FetchFollower"}',
                     legendFormat="{{" + server_label + "}} ({{quantile}}th)",
                 ),
             ],
@@ -1035,18 +1122,18 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Group Coordination:
     group_base = replication_base + 2
     group_inner = [
         G.TimeSeries(
             title="Number of Groups per Broker",
-            dataSource="${DS_PROMETHEUS}",
+            description="Number of groups managed by Broker",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_coordinator_group_groupmetadatamanager_numgroups{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}',
+                    + by_env_and_server
+                    + "}",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -1057,47 +1144,38 @@ def dashboard(env_label="namespace", server_label="pod"):
             ),
         ),
         G.TimeSeries(
-            title="Number of Groups per Broker",
-            dataSource="${DS_PROMETHEUS}",
+            title="Number of Groups per Broker per Status",
+            description="Number of stable groups managed by Broker",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupsstable{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="stable",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupspreparingrebalance{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="preparing_rebalance",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupsdead{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="dead",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupscompletingrebalance{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="completing_rebalance",
                 ),
                 G.Target(
                     expr="sum(kafka_coordinator_group_groupmetadatamanager_numgroupsempty{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="empty",
                 ),
             ],
@@ -1118,18 +1196,20 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Conversion:
     conversion_base = group_base + 1
     conversion_inner = [
         G.TimeSeries(
             title="Sum of Produce conversion rate per sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of produce message conversions per second.
+            This value increases when the broker receives produce messages from clients using older versions.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -1142,14 +1222,15 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sum of Fetch conversion rate per sec",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of fetch message conversions per second.
+            This value increases when the broker receives fetch messages from clients using older versions.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_env_and_server
+                    + "})",
                     legendFormat="{{" + server_label + "}}",
                 ),
             ],
@@ -1162,14 +1243,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Sum of Connections per version",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of connections aggregated by client version and name.
+            """,
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="sum(kafka_server_socketservermetrics_connections{"
-                    + env_label
-                    + '="$env",'
-                    + server_label
-                    + '=~"$broker"}) by (client_software_name,client_software_version)',
+                    + by_env_and_server
+                    + "}) by (client_software_name,client_software_version)",
                     legendFormat="{{client_software_name}} (v{{client_software_version}})",
                 ),
             ],
@@ -1189,8 +1270,9 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    # group all panels
     panels = (
-        healthcheck_panels
+        overview_panels
         + system_panels
         + throughput_panels
         + thread_panels
@@ -1204,6 +1286,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         + conversion_panels
     )
 
+    # build dashboard
     return G.Dashboard(
         title="Kafka cluster - v2",
         description="Overview of the Kafka cluster",
@@ -1223,6 +1306,10 @@ def dashboard(env_label="namespace", server_label="pod"):
     ).auto_panel_ids()
 
 
+# main labels to customize dashboard
+ds = os.environ.get("DATASOURCE", "Prometheus")
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
-dashboard = dashboard(env_label, server_label)
+
+# dashboard required by grafanalib
+dashboard = dashboard(ds, env_label, server_label)

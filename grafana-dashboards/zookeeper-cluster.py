@@ -45,7 +45,10 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="ZK: Quorum Size",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Quorum Size of Zookeeper ensemble.
+            Count Zookeeper servers with quorum size metric.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="count(zookeeper_status_quorumsize{" + env_label + '="$env"})',
@@ -60,8 +63,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 0, y=0),
         ),
         G.Stat(
-            title="ZK: Avg. number of ZNodes",
-            dataSource="${DS_PROMETHEUS}",
+            title="ZK: ZNodes (avg.)",
+            description="""Average size of ZNodes in the cluster.
+            Getting the node count per server, and averaging the node count.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="avg(zookeeper_inmemorydatatree_nodecount{"
@@ -76,22 +82,34 @@ def dashboard(env_label="namespace", server_label="pod"):
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 1, y=0),
         ),
         G.Stat(
-            title="ZK: Sum of number of Alive Connections",
-            dataSource="${DS_PROMETHEUS}",
+            title="ZK: Connections used",
+            description="""Sum of the number of alive connections per servers divided by the maximum number of client connections allowed per host.
+            If the percentage is higher than 60%, then Zookeeper should be scaled and/or the Zookeeper clients should be investigated to find the reason for high number of connections opened.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
-                    expr="sum(zookeeper_numaliveconnections{" + env_label + '="$env"})',
+                    expr="zookeeper_numaliveconnections{"
+                    + env_label
+                    + '="$env"} / zookeeper_maxclientcnxnsperhost{'
+                    + env_label
+                    + '="$env"}',
                 ),
             ],
             reduceCalc="last",
             thresholds=[
-                G.Threshold(index=0, value=0.0, color="blue"),
+                G.Threshold(index=0, value=0.0, color="green"),
+                G.Threshold(index=1, value=0.6, color="yellow"),
+                G.Threshold(index=2, value=0.8, color="red"),
             ],
+            format="percentunit",
             gridPos=G.GridPos(h=default_height, w=stat_width, x=stat_width * 2, y=0),
         ),
         G.Stat(
             title="ZK: Sum of watchers",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of client watchers subscribed to changes on the ZNodes.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(zookeeper_inmemorydatatree_watchcount{"
@@ -107,7 +125,11 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="ZK: Outstanding Requests",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of requests waiting for processing (queued).
+            If the number of outstanding requests grows higher than 10, then the Zookeeper hosts should be checked.
+            It could mean that there is not enough resources to cope with the number of requests.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="zookeeper_outstandingrequests{" + env_label + '="$env"}',
@@ -120,6 +142,11 @@ def dashboard(env_label="namespace", server_label="pod"):
             legendCalcs=["max", "last"],
             legendPlacement="right",
             gridPos=G.GridPos(h=default_height, w=ts_width, x=stat_width * 4, y=0),
+            thresholds=[
+                G.Threshold(index=0, value=0.0, color="green"),
+                G.Threshold(index=1, value=1.0, color="yellow"),
+                G.Threshold(index=2, value=10.0, color="red"),
+            ],
         ),
     ]
 
@@ -130,7 +157,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="CPU usage",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="irate(process_cpu_seconds_total{"
@@ -148,7 +175,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Memory usage",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(area)(jvm_memory_bytes_used{"
@@ -166,7 +193,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="GC collection",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
@@ -189,7 +216,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     latency_inner = [
         G.TimeSeries(
             title="ZK: Request Latency (Minimum)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="zookeeper_minrequestlatency{"
@@ -205,7 +232,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="ZK: Request Latency (Average)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="zookeeper_avgrequestlatency{"
@@ -221,7 +248,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="ZK: Request Latency (Maximum)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="zookeeper_maxrequestlatency{"
@@ -249,7 +276,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     kafka_inner = [
         G.TimeSeries(
             title="Kafka: Request Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{"
@@ -267,7 +294,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Kafka: Sync Connections/sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_server_sessionexpirelistener_zookeepersyncconnectspersec{"
@@ -286,7 +313,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Kafka: Expired Connections/sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_server_sessionexpirelistener_zookeeperexpirespersec{"
@@ -305,7 +332,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Kafka: Disconnected Connections/sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_server_sessionexpirelistener_zookeeperdisconnectspersec{"
@@ -324,7 +351,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Kafka: Auth Failures on Connections/sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_server_sessionexpirelistener_zookeeperauthfailurespersec{"

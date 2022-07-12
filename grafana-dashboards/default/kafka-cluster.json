@@ -55,15 +55,15 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Overview",
+      "title": "Cluster Overview",
       "transformations": [],
       "transparent": false,
       "type": "row"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Count of brokers available (online).\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -145,8 +145,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Active Controller broker.\n            It should always be 1. If the value is different than 1, then it must be alerted for troubleshooting.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -228,8 +228,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "\n            Number of partitions where the preferred replica is not the leader.\n            Usually, this number is 0.\n            Restarting nodes could cause this values to change, but when reassigning happens the value stabilize.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -304,15 +304,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Replica Imbalance",
+      "title": "Kafka: Sum of Preferred Replica Imbalance",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of topics in the cluster.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -394,8 +394,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of requests per second rated over a 5 min. period.\n            Gives an idea of the processing load in the cluster.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -477,8 +477,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of log sizes per broker.\n            This must be compared with the total storage space available in the brokers.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -553,15 +553,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Logs Size",
+      "title": "Kafka: Log Size",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of Topic partitions across the cluster.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -643,8 +643,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of Under-Replicated Partitions. This is caused by broker or volumes unavailable, impacting replicas to be offline, and reducing the ISR set for those partitions.\n            There are transient scenarios that could lead to this number growing (e.g. broker restart), but if the number doesn't shrink in a short period of time (e.g. 1 minute), then it's recommended to alert.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -727,15 +727,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Partitions Under-Replicated (URP)",
+      "title": "Kafka: Sum of Under-Replicated Partitions (URP)",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of partitions where the number of replicas offline is higher than the minimum ISR configuration.\n            This means partitions are not available for Producers with acks=all.\n            We recommend alerting when this values is higher than 0.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -818,15 +818,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Partitions Under-MinISR",
+      "title": "Kafka: Sum of Under-MinISR Partitions",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of partitions where all replicas are offline.\n            Producers and Consumers are affected by this condition.\n            We recommend alerting when this values is higher than 0.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -909,15 +909,15 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Kafka: Sum of Partitions Offline",
+      "title": "Kafka: Sum of Offline Partitions",
       "transformations": [],
       "transparent": false,
       "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of bytes in per second rated over a 5 min. period.\n            Gives an idea of the incoming throughput handle by the cluster.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -999,8 +999,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of bytes out per second rated over a 5 min. period.\n            Gives an idea of the outgoing throughput handle by the cluster.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1116,15 +1116,15 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "System",
+      "title": "System resources",
       "transformations": [],
       "transparent": false,
       "type": "row"
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Rate of CPU seconds used by the Java process.\n            100% usage represents one core. \n            If there are multiple cores, the total capacity should be 100% * number_cores.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1223,8 +1223,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of JVM memory used, without including areas (e.g. heap size).",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1323,8 +1323,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of seconds used by Garbage Collection.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1425,7 +1425,7 @@
       "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
-      "description": "Bytes in/out per second",
+      "description": null,
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1453,8 +1453,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Number of messages into topics per second, aggregated by sum without topic.",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -1553,8 +1553,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Number of bytes into topics per second, aggregated by sum without topic.",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -1653,8 +1653,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Number of bytes out of topics per second, aggregated by sum without topic.",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -1767,7 +1767,7 @@
       "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
-      "description": "Internal thread pools usage",
+      "description": null,
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1795,8 +1795,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Percent of time the network thread pool is used.\n            It should be below 60% or the capacity of threads should be tuned or \n            the cluster scaled to cope with the load.",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -1895,8 +1895,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Percent of time the IO thread pool is used.\n            It should be below 60% or the capacity of threads should be tuned or \n            the cluster scaled to cope with the load.",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2000,7 +2000,7 @@
       "targets": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Thread Utilization",
+      "title": "Thread utilization",
       "transformations": [],
       "transparent": false,
       "type": "row"
@@ -2009,7 +2009,7 @@
       "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
-      "description": "Sum of req/sec rates",
+      "description": null,
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -2037,8 +2037,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Requests per second rated over a 5 minutes period.\n            Includes API call and version.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2140,8 +2140,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Request Errors per second rated over a 5 minutes period.\n            Includes API call and version.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2285,8 +2285,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of connections count across cluster by brokers",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2385,8 +2385,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of rate of connections created across cluster by brokers",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2485,8 +2485,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of rate of connections closed across cluster by brokers",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2585,8 +2585,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of connections count across cluster by listeners",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2685,8 +2685,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of rate of connections created across cluster by listener",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2785,8 +2785,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of rate of connections closed across cluster by listener",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2927,8 +2927,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Rate of ISR shrinks per second.\n            If this value is continuously higher than 0, then troubleshoot cause of ISR changing constantly.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3027,8 +3027,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Rate of ISR expands per second.\n            If this value is continuously higher than 0, then troubleshoot cause of ISR changing constantly.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3169,8 +3169,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend on the request queue.\n            Moved from network socket to request queue by Network threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3269,8 +3269,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend doing local IO.\n            Moved from request queue to storage device operations by IO threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3369,8 +3369,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend waiting for coordination with other brokers/internal condition.\n            At purgatory.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3469,8 +3469,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend waiting in response queue.\n            Moved from purgatory to response queue by IO threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3569,8 +3569,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend delivering response.\n            Moved from response queue to client by Networkc threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3711,8 +3711,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend on the request queue.\n            Moved from network socket to request queue by Network threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3811,8 +3811,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend doing local IO.\n            Moved from request queue to storage device operations by IO threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3911,8 +3911,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend waiting for coordination with other brokers/internal condition.\n            At purgatory.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4011,8 +4011,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend waiting in response queue.\n            Moved from purgatory to response queue by IO threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4111,8 +4111,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend delivering response.\n            Moved from response queue to client by Networkc threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4253,8 +4253,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend on the request queue.\n            Moved from network socket to request queue by Network threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4353,8 +4353,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend doing local IO.\n            Moved from request queue to storage device operations by IO threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4453,8 +4453,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend waiting for coordination with other brokers/internal condition.\n            At purgatory.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4553,8 +4553,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend waiting in response queue.\n            Moved from purgatory to response queue by IO threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4653,8 +4653,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Time expend delivering response.\n            Moved from response queue to client by Networkc threads.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4795,8 +4795,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Number of groups managed by Broker",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -4895,8 +4895,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Number of stable groups managed by Broker",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -5046,7 +5046,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Number of Groups per Broker",
+          "title": "Number of Groups per Broker per Status",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -5095,8 +5095,8 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of produce message conversions per second.\n            This value increases when the broker receives produce messages from clients using older versions.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -5195,8 +5195,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of fetch message conversions per second.\n            This value increases when the broker receives fetch messages from clients using older versions.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -5295,8 +5295,8 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
-          "description": null,
+          "datasource": "Prometheus",
+          "description": "Sum of connections aggregated by client version and name.\n            ",
           "editable": true,
           "error": false,
           "fieldConfig": {

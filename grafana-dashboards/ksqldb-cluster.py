@@ -59,7 +59,9 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.Stat(
             title="ksqlDB: Online Servers",
-            dataSource="${DS_PROMETHEUS}",
+            description="""ksqlDB online instances returning metrics.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="count(ksql_ksql_engine_query_stats_num_active_queries{"
@@ -79,7 +81,9 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.Stat(
             title="ksqlDB: Sum of Active Queries",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of active queries deployed in the cluster.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(ksql_ksql_engine_query_stats_num_active_queries{"
@@ -99,7 +103,10 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.Stat(
             title="ksqlDB: Sum of Running Queries",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of running queries deployed in the cluster.
+            Ideally, this number should be equal to the number of active queries as queries should be running.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(ksql_ksql_engine_query_stats_running_queries{"
@@ -120,7 +127,11 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.Stat(
             title="ksqlDB: Sum of Rebalancing Queries",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of queries rebalancing in the cluster.
+            Ideally, this number should be equal zero, or return to zero in a short period (e.g. 1 minute).
+            It's recommended to alert if the number of rebalancing queries stay higher than 0 for a longer period of time.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(ksql_ksql_engine_query_stats_rebalancing_queries{"
@@ -140,8 +151,12 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
             ),
         ),
         G.Stat(
-            title="Connect: Sum of Failed Queries",
-            dataSource="${DS_PROMETHEUS}",
+            title="Connect: Sum of Queries Failed",
+            description="""Number of queries failed in the cluster.
+            Ideally, this number should be equal zero.
+            It's recommended to alert if the number of queries failed is higher than 0.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="avg(ksql_ksql_engine_query_stats_error_queries{"
@@ -162,7 +177,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Cluster Liveness",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="ksql_ksql_engine_query_stats_liveness_indicator{"
@@ -179,7 +194,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Messages consumed/sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="ksql_ksql_engine_query_stats_messages_consumed_per_sec{"
@@ -199,7 +214,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Messages produced/sec",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="ksql_ksql_engine_query_stats_messages_produced_per_sec{"
@@ -219,6 +234,8 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
     ]
 
+    ## System resources:
+    ### When updating descriptions on these panels, also update descriptions in other cluster dashboards
     system_base = hc_base + 2
     system_panels = [
         G.RowPanel(
@@ -227,7 +244,10 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="CPU usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Rate of CPU seconds used by the Java process.
+            100% usage represents one core. 
+            If there are multiple cores, the total capacity should be 100% * number_cores.""",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="irate(process_cpu_seconds_total{"
@@ -249,7 +269,8 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Memory usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of JVM memory used, without including areas (e.g. heap size).""",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(area)(jvm_memory_bytes_used{"
@@ -271,7 +292,8 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="GC collection",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of seconds used by Garbage Collection.""",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
@@ -297,7 +319,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
     queries_inner = [
         G.TimeSeries(
             title="Poll Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_poll_latency_avg{"
@@ -319,7 +341,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Poll Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_poll_latency_max{"
@@ -341,7 +363,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Process Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_process_latency_avg{"
@@ -363,7 +385,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Process Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_process_latency_max{"
@@ -385,7 +407,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Commit Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_commit_latency_avg{"
@@ -407,7 +429,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Commit Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_commit_latency_max{"
@@ -429,7 +451,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Punctuate Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_punctuate_latency_avg{"
@@ -451,7 +473,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Punctuate Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_punctuate_latency_max{"
@@ -485,7 +507,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
     stores_inner = [
         G.TimeSeries(
             title="Put Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_put_rate{"
@@ -507,7 +529,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Put Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_put_latency_avg{"
@@ -529,7 +551,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Put Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_put_latency_max{"
@@ -551,7 +573,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Put if absent Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_put_if_absent_rate{"
@@ -573,7 +595,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Put if absent Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_put_if_absent_latency_avg{"
@@ -595,7 +617,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Put if absent Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_put_if_absent_latency_max{"
@@ -617,7 +639,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Fetch Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_fetch_rate{"
@@ -639,7 +661,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Fetch Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_fetch_latency_avg{"
@@ -661,7 +683,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Fetch Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_fetch_latency_max{"
@@ -683,7 +705,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Delete Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_delete_rate{"
@@ -705,7 +727,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Delete Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_delete_latency_avg{"
@@ -727,7 +749,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Delete Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_delete_latency_max{"
@@ -749,7 +771,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Restore Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_restore_rate{"
@@ -771,7 +793,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Restore Latency (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_restore_latency_avg{"
@@ -793,7 +815,7 @@ def dashboard(env_label="namespace", server_label="pod", ksqldb_cluster_label="a
         ),
         G.TimeSeries(
             title="Restore Latency (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_state_metrics_restore_latency_max{"

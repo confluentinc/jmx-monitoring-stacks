@@ -62,8 +62,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Kafka Connect online workers returning metrics.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -145,8 +145,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of tasks deployed on Kafka Connect cluster.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -228,8 +228,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of Running Tasks on the Kafka Connect cluster.\n            Ideally, this number should be equal to the total number of tasks deployed.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -319,8 +319,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of Paused Tasks on the Kafka Connect cluster.\n            Ideally, this number should be zero, as tasks should be running.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -410,8 +410,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Number of Paused Tasks on the Kafka Connect cluster.\n            Ideally, this number should be zero, as tasks should be running.\n            It's recommended alerting when this value is higher than 0.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -424,7 +424,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "green",
                 "index": 0,
                 "line": true,
                 "op": "gt",
@@ -501,8 +501,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Informative value. Time since last rebalance.\n            When this value is continuously and repeatedly low means some connectors are failing and rebalancing is triggered constantly.\n            ",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -588,7 +588,7 @@
         "mode": "thresholds"
       },
       "columns": [],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -808,7 +808,7 @@
         "mode": "thresholds"
       },
       "columns": [],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -962,7 +962,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -1062,7 +1062,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": null,
       "editable": true,
       "error": false,
@@ -1203,8 +1203,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Rate of CPU seconds used by the Java process.\n            100% usage represents one core. \n            If there are multiple cores, the total capacity should be 100% * number_cores.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1303,8 +1303,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of JVM memory used, without including areas (e.g. heap size).",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1403,8 +1403,8 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
-      "description": null,
+      "datasource": "Prometheus",
+      "description": "Sum of seconds used by Garbage Collection.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1533,7 +1533,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1633,7 +1633,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1733,7 +1733,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1833,7 +1833,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -1975,7 +1975,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2075,7 +2075,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2175,7 +2175,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2275,7 +2275,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2375,7 +2375,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2475,7 +2475,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2617,7 +2617,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2717,7 +2717,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2817,7 +2817,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -2917,7 +2917,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3059,7 +3059,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3159,7 +3159,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3259,7 +3259,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3401,7 +3401,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3501,7 +3501,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3601,7 +3601,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3701,7 +3701,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3801,7 +3801,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,
@@ -3901,7 +3901,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "description": null,
           "editable": true,
           "error": false,

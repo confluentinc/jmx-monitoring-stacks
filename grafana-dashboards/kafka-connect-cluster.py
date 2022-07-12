@@ -66,7 +66,9 @@ def dashboard(
         ),
         G.Stat(
             title="Connect: Online Workers",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Kafka Connect online workers returning metrics.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="count(kafka_connect_app_info{"
@@ -86,7 +88,9 @@ def dashboard(
         ),
         G.Stat(
             title="Connect: Sum of Total Tasks",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of tasks deployed on Kafka Connect cluster.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_total_task_count{"
@@ -106,7 +110,10 @@ def dashboard(
         ),
         G.Stat(
             title="Connect: Sum of Running Tasks",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of Running Tasks on the Kafka Connect cluster.
+            Ideally, this number should be equal to the total number of tasks deployed.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_running_task_count{"
@@ -127,7 +134,10 @@ def dashboard(
         ),
         G.Stat(
             title="Connect: Sum of Paused Tasks",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of Paused Tasks on the Kafka Connect cluster.
+            Ideally, this number should be zero, as tasks should be running.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{"
@@ -148,7 +158,11 @@ def dashboard(
         ),
         G.Stat(
             title="Connect: Sum of Failed Tasks",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Number of Paused Tasks on the Kafka Connect cluster.
+            Ideally, this number should be zero, as tasks should be running.
+            It's recommended alerting when this value is higher than 0.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{"
@@ -160,7 +174,7 @@ def dashboard(
             ],
             reduceCalc="last",
             thresholds=[
-                G.Threshold(index=0, value=0.0, color="blue"),
+                G.Threshold(index=0, value=0.0, color="green"),
                 G.Threshold(index=1, value=1.0, color="red"),
             ],
             gridPos=G.GridPos(
@@ -169,7 +183,10 @@ def dashboard(
         ),
         G.Stat(
             title="Connect: Time since last rebalance",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Informative value. Time since last rebalance.
+            When this value is continuously and repeatedly low means some connectors are failing and rebalancing is triggered constantly.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{"
@@ -192,7 +209,7 @@ def dashboard(
         ),
         G.Table(
             title="Connect Workers",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_app_info{"
@@ -332,7 +349,7 @@ def dashboard(
         ),
         G.Table(
             title="Connectors",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_info{"
@@ -413,7 +430,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Tasks Running Ratio",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_running_ratio{"
@@ -431,7 +448,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Rebalance Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{"
@@ -449,6 +466,8 @@ def dashboard(
         ),
     ]
 
+    ## System resources:
+    ### When updating descriptions on these panels, also update descriptions in other cluster dashboards
     system_base = hc_base + 4
     system_panels = [
         G.RowPanel(
@@ -457,7 +476,10 @@ def dashboard(
         ),
         G.TimeSeries(
             title="CPU usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Rate of CPU seconds used by the Java process.
+            100% usage represents one core. 
+            If there are multiple cores, the total capacity should be 100% * number_cores.""",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="irate(process_cpu_seconds_total{"
@@ -479,7 +501,8 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Memory usage",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of JVM memory used, without including areas (e.g. heap size).""",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(area)(jvm_memory_bytes_used{"
@@ -501,7 +524,8 @@ def dashboard(
         ),
         G.TimeSeries(
             title="GC collection",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Sum of seconds used by Garbage Collection.""",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
@@ -527,7 +551,7 @@ def dashboard(
     worker_inner = [
         G.TimeSeries(
             title="Incoming Byte Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_incoming_byte_rate{"
@@ -549,7 +573,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Outgoing Byte Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_outgoing_byte_rate{"
@@ -571,7 +595,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="IO Ratio",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_io_ratio{"
@@ -593,7 +617,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Network IO Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_network_io_rate{"
@@ -615,7 +639,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Active Connections",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_connection_count{"
@@ -636,7 +660,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Authentications",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connect_metrics_successful_authentication_rate{"
@@ -679,7 +703,7 @@ def dashboard(
     tasks_inner = [
         G.TimeSeries(
             title="Batch Size (Avg.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_batch_size_avg{"
@@ -701,7 +725,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Batch Size (Max.)",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_batch_size_max{"
@@ -723,7 +747,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Offset commit success %",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_offset_commit_success_percentage{"
@@ -745,7 +769,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Offset commit avg. latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{"
@@ -779,7 +803,7 @@ def dashboard(
     task_errors_inner = [
         G.TimeSeries(
             title="Total Record Failures",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_record_failures{"
@@ -800,7 +824,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Record Error",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_record_errors{"
@@ -821,7 +845,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Records Skipped",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_records_skipped{"
@@ -842,7 +866,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Errors Logged",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_errors_logged{"
@@ -863,7 +887,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Total Retries",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_total_retries{"
@@ -884,7 +908,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Dead Letter Topic Requests",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_task_error_metrics_deadletterqueue_produce_requests{"
@@ -917,7 +941,7 @@ def dashboard(
     source_inner = [
         G.TimeSeries(
             title="Poll Batch Avg. Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_source_task_metrics_poll_batch_avg_time_ms{"
@@ -939,7 +963,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Poll Batch Max. Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_source_task_metrics_poll_batch_max_time_ms{"
@@ -961,7 +985,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Source Record Poll Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_source_task_metrics_source_record_poll_rate{"
@@ -983,7 +1007,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Source Record Write Rate",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_source_task_metrics_source_record_write_rate{"
@@ -1017,7 +1041,7 @@ def dashboard(
     sink_inner = [
         G.TimeSeries(
             title="Put Batch Avg. Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_sink_task_metrics_put_batch_avg_time_ms{"
@@ -1039,7 +1063,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Put Batch Max. Latency",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_sink_task_metrics_put_batch_max_time_ms{"
@@ -1061,7 +1085,7 @@ def dashboard(
         ),
         G.TimeSeries(
             title="Partition Count",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="kafka_connect_sink_task_metrics_partition_count{"

@@ -38,7 +38,9 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="SR: Online instances",
-            dataSource="${DS_PROMETHEUS}",
+            description="""Schema Registry online instances returning metrics.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="count(kafka_schema_registry_registered_count{"
@@ -57,14 +59,15 @@ def dashboard(env_label="namespace", server_label="pod"):
             ),
         ),
         G.Stat(
-            title="SR: Sum of Registered Schemas",
-            dataSource="${DS_PROMETHEUS}",
+            title="SR: Registered Schemas (avg.)",
+            description="""Average number of registered schemas across the cluster.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="avg(kafka_schema_registry_registered_count{"
                     + env_label
                     + '="$env"})',
-                    instant=True,
                 ),
             ],
             reduceCalc="last",
@@ -76,8 +79,10 @@ def dashboard(env_label="namespace", server_label="pod"):
             ),
         ),
         G.Stat(
-            title="SR: Sum of Created Schemas by Type",
-            dataSource="${DS_PROMETHEUS}",
+            title="SR: Created Schemas by Type (avg.)",
+            description="""Average number of schemas created, by type.
+            """,
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="avg(kafka_schema_registry_schemas_created{"
@@ -96,7 +101,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="SR: Sum of Deleted Schemas by Type",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(kafka_schema_registry_schemas_deleted{"
@@ -115,7 +120,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="SR: Sum of Active Connections",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count)",
@@ -138,7 +143,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="CPU usage",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="irate(process_cpu_seconds_total{"
@@ -156,7 +161,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Memory usage",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(area)(jvm_memory_bytes_used{"
@@ -174,7 +179,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="GC collection",
-            dataSource="${DS_PROMETHEUS}",
+            dataSource="Prometheus",
             targets=[
                 G.Target(
                     expr="sum without(gc)(irate(jvm_gc_collection_seconds_sum{"
