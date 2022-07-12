@@ -381,7 +381,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     panels = healthcheck_panels + system_panels + latency_panels + kafka_panels
 
     return G.Dashboard(
-        title="Zookeeper cluster - v2",
+        title="Zookeeper cluster",
         description="Overview of the Zookeeper cluster",
         tags=["confluent", "kafka", "zookeeper"],
         inputs=[

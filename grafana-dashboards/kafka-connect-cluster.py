@@ -1066,7 +1066,7 @@ def dashboard(
 
     # build dashboard
     return G.Dashboard(
-        title="Kafka Connect cluster - v2",
+        title="Kafka Connect cluster",
         description="Overview of the Kafka Connect cluster",
         tags=["confluent", "kafka-connect"],
         inputs=[

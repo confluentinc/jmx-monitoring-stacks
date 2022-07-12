@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -123,7 +123,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_producer_producer_metrics_record_send_rate{namespace=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", pod=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_producer_producer_metrics_record_send_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -145,7 +145,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -214,7 +214,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_producer_producer_metrics_record_error_rate{namespace=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", pod=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_producer_producer_metrics_record_error_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -236,7 +236,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -313,7 +313,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_producer_producer_metrics_record_retry_rate{namespace=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", pod=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_producer_producer_metrics_record_retry_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -335,7 +335,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -396,7 +396,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_producer_app_info{namespace=\"$env\", client_id=~\"$client_id\", version!=\"\", pod=~\"$server\"}) by (version)",
+          "expr": "count(kafka_producer_app_info{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\",version!=\"\"}) by (version)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -448,7 +448,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -526,7 +526,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_incoming_byte_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_incoming_byte_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -548,7 +548,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -626,7 +626,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_outgoing_byte_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_outgoing_byte_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -648,7 +648,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -726,7 +726,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_metadata_age{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_metadata_age{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -748,7 +748,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -826,7 +826,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_request_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_request_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -848,7 +848,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -926,7 +926,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_requests_in_flight{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_requests_in_flight{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -948,7 +948,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1026,7 +1026,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_records_per_request_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_records_per_request_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1048,7 +1048,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1126,7 +1126,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_send_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_send_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1148,7 +1148,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1226,7 +1226,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_retry_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_retry_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1248,7 +1248,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1326,7 +1326,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_error_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_error_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1348,7 +1348,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1426,7 +1426,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_size_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_size_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1440,7 +1440,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_size_max{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_size_max{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1462,7 +1462,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1540,7 +1540,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1554,7 +1554,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_max{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_max{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1576,7 +1576,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1654,7 +1654,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1668,7 +1668,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_max{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_max{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1690,7 +1690,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1768,7 +1768,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1782,7 +1782,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_max{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_max{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1804,7 +1804,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1882,7 +1882,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_batch_split_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_batch_split_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1904,7 +1904,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -1982,7 +1982,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_compression_rate_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_compression_rate_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2046,7 +2046,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2124,7 +2124,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_connection_count{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_connection_count{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2146,7 +2146,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2224,7 +2224,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_connection_creation_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_connection_creation_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2246,7 +2246,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2324,7 +2324,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_connection_close_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_connection_close_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2346,7 +2346,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2424,7 +2424,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_ratio{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_ratio{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2446,7 +2446,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2524,7 +2524,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_ratio{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_ratio{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2546,7 +2546,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2624,7 +2624,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_select_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_select_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2646,7 +2646,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2724,7 +2724,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_time_ns_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_time_ns_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2746,7 +2746,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2824,7 +2824,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_time_ns_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_time_ns_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2888,7 +2888,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2966,7 +2966,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_incoming_byte_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_incoming_byte_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2988,7 +2988,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3066,7 +3066,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_outgoing_byte_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_outgoing_byte_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3088,7 +3088,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3166,7 +3166,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_avg{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_avg{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3180,7 +3180,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_max{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_max{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3202,7 +3202,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3280,7 +3280,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_request_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_request_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3302,7 +3302,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3380,7 +3380,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_response_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_response_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3444,7 +3444,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3522,7 +3522,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_byte_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_byte_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3544,7 +3544,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3622,7 +3622,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_compression_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_compression_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3644,7 +3644,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3722,7 +3722,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_send_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_send_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3744,7 +3744,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3822,7 +3822,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_retry_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_retry_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3844,7 +3844,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -3922,7 +3922,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_error_rate{namespace=\"$env\",client_id=~\"$client_id\", pod=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_error_rate{namespace=\"$env\", client_type=\"producer\",pod=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3978,7 +3978,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -4005,7 +4005,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Server",
@@ -4032,7 +4032,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Client ID",
@@ -4081,7 +4081,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Producer - v2",
+  "title": "Kafka Producer",
   "uid": null,
   "version": 0
 }

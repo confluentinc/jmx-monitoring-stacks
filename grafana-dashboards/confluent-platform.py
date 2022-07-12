@@ -666,7 +666,7 @@ def dashboard(
 
     # build dashboard
     return G.Dashboard(
-        title="Confluent Platform overview - v2",
+        title="Confluent Platform overview",
         description="Overview of the main health-check metrics from Confluent Platform components.",
         tags=[
             "confluent",

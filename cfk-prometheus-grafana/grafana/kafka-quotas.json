@@ -21,7 +21,7 @@
   "panels": [
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -99,7 +99,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_produce_byte_rate{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\", pod=~\"$broker\"})",
+          "expr": "topk(10,kafka_server_produce_byte_rate{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\",pod=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -121,7 +121,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -199,7 +199,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_fetch_byte_rate{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\", pod=~\"$broker\"})",
+          "expr": "topk(10,kafka_server_fetch_byte_rate{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\",pod=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -221,7 +221,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -299,7 +299,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_request_request_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\", pod=~\"$broker\"})",
+          "expr": "topk(10,kafka_server_request_request_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\",pod=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -321,7 +321,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -399,7 +399,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_produce_throttle_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\", pod=~\"$broker\"} > 0)",
+          "expr": "topk(10,kafka_server_produce_throttle_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\",pod=~\"$broker\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -421,7 +421,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -499,7 +499,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_fetch_throttle_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\", pod=~\"$broker\"} > 0)",
+          "expr": "topk(10,kafka_server_fetch_throttle_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\",pod=~\"$broker\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -521,7 +521,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -599,7 +599,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_request_throttle_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\", pod=~\"$broker\"} > 0)",
+          "expr": "topk(10,kafka_server_request_throttle_time{namespace=\"$env\",user=~\"$user\",client_id=~\"$client_id\",pod=~\"$broker\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -643,7 +643,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -670,7 +670,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Broker",
@@ -697,7 +697,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "User",
@@ -724,7 +724,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Client ID",
@@ -773,7 +773,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Quotas - v2",
+  "title": "Kafka Quotas",
   "uid": null,
   "version": 0
 }

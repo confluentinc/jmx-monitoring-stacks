@@ -99,7 +99,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_produce_byte_rate{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\", hostname=~\"$broker\"})",
+          "expr": "topk(10,kafka_server_produce_byte_rate{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -199,7 +199,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_fetch_byte_rate{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\", hostname=~\"$broker\"})",
+          "expr": "topk(10,kafka_server_fetch_byte_rate{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -299,7 +299,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_request_request_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\", hostname=~\"$broker\"})",
+          "expr": "topk(10,kafka_server_request_request_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -399,7 +399,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_produce_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\", hostname=~\"$broker\"} > 0)",
+          "expr": "topk(10,kafka_server_produce_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -499,7 +499,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_fetch_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\", hostname=~\"$broker\"} > 0)",
+          "expr": "topk(10,kafka_server_fetch_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -599,7 +599,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10,kafka_server_request_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\", hostname=~\"$broker\"} > 0)",
+          "expr": "topk(10,kafka_server_request_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -773,7 +773,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Quotas - v2",
+  "title": "Kafka Quotas",
   "uid": null,
   "version": 0
 }

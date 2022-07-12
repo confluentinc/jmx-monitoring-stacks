@@ -93,7 +93,6 @@ def dashboard(
             title="Overview",
             gridPos=G.GridPos(h=1, w=24, x=0, y=overview_base),
         ),
-
         # First layer
         G.Stat(
             title="ksqlDB: Online Servers",
@@ -203,7 +202,6 @@ def dashboard(
                 h=default_height, w=stat_width, x=stat_width * 4, y=overview_base
             ),
         ),
-
         # Second layer
         G.TimeSeries(
             title="Cluster Liveness",
@@ -219,7 +217,9 @@ def dashboard(
             ],
             legendDisplayMode="table",
             legendCalcs=["max", "mean", "last"],
-            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=0, y=overview_base + 1),
+            gridPos=G.GridPos(
+                h=default_height * 2, w=ts_width, x=0, y=overview_base + 1
+            ),
         ),
         G.TimeSeries(
             title="Messages consumed/sec",
@@ -330,14 +330,20 @@ def dashboard(
     queries_base = system_base + 1
     queries_inner = [
         G.TimeSeries(
-            title="Poll Latency (Avg.)",
+            title="Poll Latency",
             dataSource=ds,
             targets=[
                 G.Target(
                     expr="kafka_streams_stream_thread_metrics_poll_latency_avg{"
                     + by_thread
                     + "}",
-                    legendFormat="{{thread_id}}",
+                    legendFormat="{{thread_id}} (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_streams_stream_thread_metrics_poll_latency_max{"
+                    + by_thread
+                    + "}",
+                    legendFormat="{{thread_id}} (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -348,14 +354,20 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Poll Latency (Max.)",
+            title="Process Latency",
             dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_streams_stream_thread_metrics_poll_latency_max{"
+                    expr="kafka_streams_stream_thread_metrics_process_latency_avg{"
                     + by_thread
                     + "}",
-                    legendFormat="{{thread_id}}",
+                    legendFormat="{{thread_id}} (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_streams_stream_thread_metrics_process_latency_max{"
+                    + by_thread
+                    + "}",
+                    legendFormat="{{thread_id}} (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -366,14 +378,20 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Process Latency (Avg.)",
+            title="Commit Latency",
             dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_streams_stream_thread_metrics_process_latency_avg{"
+                    expr="kafka_streams_stream_thread_metrics_commit_latency_avg{"
                     + by_thread
                     + "}",
-                    legendFormat="{{thread_id}}",
+                    legendFormat="{{thread_id}} (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_streams_stream_thread_metrics_commit_latency_max{"
+                    + by_thread
+                    + "}",
+                    legendFormat="{{thread_id}} (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -384,14 +402,20 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Process Latency (Max.)",
+            title="Punctuate Latency",
             dataSource=ds,
             targets=[
                 G.Target(
-                    expr="kafka_streams_stream_thread_metrics_process_latency_max{"
+                    expr="kafka_streams_stream_thread_metrics_punctuate_latency_avg{"
                     + by_thread
                     + "}",
-                    legendFormat="{{thread_id}}",
+                    legendFormat="{{thread_id}} (avg.)",
+                ),
+                G.Target(
+                    expr="kafka_streams_stream_thread_metrics_punctuate_latency_max{"
+                    + by_thread
+                    + "}",
+                    legendFormat="{{thread_id}} (max.)",
                 ),
             ],
             legendDisplayMode="table",
@@ -399,78 +423,6 @@ def dashboard(
             unit="ms",
             gridPos=G.GridPos(
                 h=default_height * 2, w=ts_width, x=ts_width * 1, y=queries_base + 1
-            ),
-        ),
-        G.TimeSeries(
-            title="Commit Latency (Avg.)",
-            dataSource=ds,
-            targets=[
-                G.Target(
-                    expr="kafka_streams_stream_thread_metrics_commit_latency_avg{"
-                    + by_thread
-                    + "}",
-                    legendFormat="{{thread_id}}",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=queries_base + 2
-            ),
-        ),
-        G.TimeSeries(
-            title="Commit Latency (Max.)",
-            dataSource=ds,
-            targets=[
-                G.Target(
-                    expr="kafka_streams_stream_thread_metrics_commit_latency_max{"
-                    + by_thread
-                    + "}",
-                    legendFormat="{{thread_id}}",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=queries_base + 2
-            ),
-        ),
-        G.TimeSeries(
-            title="Punctuate Latency (Avg.)",
-            dataSource=ds,
-            targets=[
-                G.Target(
-                    expr="kafka_streams_stream_thread_metrics_punctuate_latency_avg{"
-                    + by_thread
-                    + "}",
-                    legendFormat="{{thread_id}}",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=queries_base + 3
-            ),
-        ),
-        G.TimeSeries(
-            title="Punctuate Latency (Max.)",
-            dataSource=ds,
-            targets=[
-                G.Target(
-                    expr="kafka_streams_stream_thread_metrics_punctuate_latency_max{"
-                    + by_thread
-                    + "}",
-                    legendFormat="{{thread_id}}",
-                ),
-            ],
-            legendDisplayMode="table",
-            legendCalcs=["max", "mean", "last"],
-            unit="ms",
-            gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 1, y=queries_base + 3
             ),
         ),
     ]
@@ -484,7 +436,7 @@ def dashboard(
     ]
 
     ## State stores:
-    stores_base = queries_base + 4
+    stores_base = queries_base + 2
     stores_inner = [
         G.TimeSeries(
             title="Put Rate",
@@ -771,7 +723,7 @@ def dashboard(
 
     # build dashboard
     return G.Dashboard(
-        title="ksqlDB cluster - v2",
+        title="ksqlDB cluster",
         description="Overview of ksqlDB clusters.",
         tags=[
             "confluent",

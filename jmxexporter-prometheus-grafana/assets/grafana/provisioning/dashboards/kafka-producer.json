@@ -123,7 +123,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_producer_producer_metrics_record_send_rate{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_producer_producer_metrics_record_send_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -214,7 +214,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_producer_producer_metrics_record_error_rate{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_producer_producer_metrics_record_error_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -313,7 +313,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_producer_producer_metrics_record_retry_rate{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_producer_producer_metrics_record_retry_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -396,7 +396,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_producer_app_info{env=\"$env\", client_id=~\"$client_id\", version!=\"\", hostname=~\"$server\"}) by (version)",
+          "expr": "count(kafka_producer_app_info{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\",version!=\"\"}) by (version)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -526,7 +526,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_incoming_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_incoming_byte_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -626,7 +626,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_outgoing_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_outgoing_byte_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -726,7 +726,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_metadata_age{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_metadata_age{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -826,7 +826,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_request_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_request_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -926,7 +926,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_requests_in_flight{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_requests_in_flight{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1026,7 +1026,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_records_per_request_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_records_per_request_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1126,7 +1126,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_send_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_send_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1226,7 +1226,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_retry_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_retry_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1326,7 +1326,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_error_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_error_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1426,7 +1426,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_size_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_size_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1440,7 +1440,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_size_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_size_max{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1540,7 +1540,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1554,7 +1554,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_record_queue_time_max{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1654,7 +1654,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1668,7 +1668,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_produce_throttle_time_max{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1768,7 +1768,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1782,7 +1782,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_batch_size_max{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1882,7 +1882,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_batch_split_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_batch_split_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1982,7 +1982,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_compression_rate_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_compression_rate_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2124,7 +2124,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_connection_count{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_connection_count{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2224,7 +2224,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_connection_creation_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_connection_creation_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2324,7 +2324,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_connection_close_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_connection_close_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2424,7 +2424,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_ratio{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_ratio{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2524,7 +2524,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_ratio{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_ratio{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2624,7 +2624,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_select_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_select_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2724,7 +2724,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_time_ns_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_time_ns_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2824,7 +2824,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_time_ns_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_metrics_io_wait_time_ns_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2966,7 +2966,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_incoming_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_incoming_byte_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3066,7 +3066,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_outgoing_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_outgoing_byte_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3166,7 +3166,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_avg{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3180,7 +3180,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_request_latency_max{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3280,7 +3280,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_request_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_request_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3380,7 +3380,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_node_metrics_response_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_node_metrics_response_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3522,7 +3522,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_byte_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3622,7 +3622,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_compression_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_compression_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3722,7 +3722,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_send_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_send_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3822,7 +3822,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_retry_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_retry_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3922,7 +3922,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_error_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_producer_producer_topic_metrics_record_error_rate{env=\"$env\", client_type=\"producer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4081,7 +4081,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Producer - v2",
+  "title": "Kafka Producer",
   "uid": null,
   "version": 0
 }

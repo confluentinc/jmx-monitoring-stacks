@@ -223,7 +223,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
 
     # build dashboard
     return G.Dashboard(
-        title="Schema Registry cluster - v2",
+        title="Schema Registry cluster",
         description="Overview of the Schema Registry cluster",
         tags=["confluent", "schema-registry"],
         inputs=[

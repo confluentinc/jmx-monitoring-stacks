@@ -4148,7 +4148,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Connect cluster - v2",
+  "title": "Kafka Connect cluster",
   "uid": null,
   "version": 0
 }

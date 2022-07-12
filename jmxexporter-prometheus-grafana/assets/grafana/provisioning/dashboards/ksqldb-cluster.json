@@ -502,7 +502,7 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": null,
+      "description": "A metric with constant value 1 indicating the server is up and emitting metrics.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -602,7 +602,7 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": null,
+      "description": "The number of messages consumed per second across all queries.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -702,7 +702,7 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": null,
+      "description": "The number of messages produced per second across all queries.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1256,7 +1256,21 @@
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1265,7 +1279,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Poll Latency (Avg.)",
+          "title": "Poll Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1350,13 +1364,27 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1365,7 +1393,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Poll Latency (Max.)",
+          "title": "Process Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1450,13 +1478,27 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1465,7 +1507,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Process Latency (Avg.)",
+          "title": "Commit Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -1550,404 +1592,18 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Process Latency (Max.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "Prometheus",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 5
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 19,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Commit Latency (Avg.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "Prometheus",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 5
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 20,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
-              "metric": "",
-              "refId": "",
-              "step": 10,
-              "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Commit Latency (Max.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "Prometheus",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 6
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 21,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
-            {
-              "datasource": null,
               "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{thread_id}} (avg.)",
               "metric": "",
               "refId": "",
               "step": 10,
               "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Punctuate Latency (Avg.)",
-          "transformations": [],
-          "transparent": false,
-          "type": "timeseries"
-        },
-        {
-          "cacheTimeout": null,
-          "datasource": "Prometheus",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "log": 2,
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {},
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              },
-              "unit": "ms"
             },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 6
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 22,
-          "interval": null,
-          "links": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean",
-                "last"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": null,
-          "targets": [
             {
               "datasource": null,
               "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
@@ -1956,7 +1612,7 @@
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{thread_id}}",
+              "legendFormat": "{{thread_id}} (max.)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1965,7 +1621,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Punctuate Latency (Max.)",
+          "title": "Punctuate Latency",
           "transformations": [],
           "transparent": false,
           "type": "timeseries"
@@ -2001,11 +1657,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 5
       },
       "height": null,
       "hideTimeOverride": false,
-      "id": 23,
+      "id": 19,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -2062,11 +1718,11 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 7
+            "y": 5
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 24,
+          "id": 20,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2162,11 +1818,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 7
+            "y": 5
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 25,
+          "id": 21,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2262,11 +1918,11 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 7
+            "y": 5
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 26,
+          "id": 22,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2362,11 +2018,11 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 8
+            "y": 6
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 27,
+          "id": 23,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2462,11 +2118,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 8
+            "y": 6
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 28,
+          "id": 24,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2562,11 +2218,11 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 8
+            "y": 6
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 29,
+          "id": 25,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2662,11 +2318,11 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 9
+            "y": 7
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 30,
+          "id": 26,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2762,11 +2418,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 9
+            "y": 7
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 31,
+          "id": 27,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2862,11 +2518,11 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 9
+            "y": 7
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 32,
+          "id": 28,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -2962,11 +2618,11 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 10
+            "y": 8
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 33,
+          "id": 29,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3062,11 +2718,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 10
+            "y": 8
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 34,
+          "id": 30,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3162,11 +2818,11 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 10
+            "y": 8
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 35,
+          "id": 31,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3262,11 +2918,11 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 11
+            "y": 9
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 36,
+          "id": 32,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3362,11 +3018,11 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 11
+            "y": 9
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 37,
+          "id": 33,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3462,11 +3118,11 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 11
+            "y": 9
           },
           "height": null,
           "hideTimeOverride": false,
-          "id": 38,
+          "id": 34,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -3677,7 +3333,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "ksqlDB cluster - v2",
+  "title": "ksqlDB cluster",
   "uid": null,
   "version": 0
 }

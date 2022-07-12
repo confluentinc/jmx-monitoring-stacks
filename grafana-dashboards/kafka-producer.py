@@ -2,26 +2,57 @@ import os
 import grafanalib.core as G
 
 
-def dashboard(env_label="namespace", server_label="pod"):
+def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
+    """
+    Kafka Producer dashboard
+    It includes:
+    - Clients overview
+    - Performance
+    - Connections
+    - Per Broker
+    - Per Topic
+
+    Structure:
+    - Default sizes
+    - Queries
+    - Templating (variables)
+    - Panel groups
+    - Dashboard definition
+
+    Dashboard is defined by a name, it includes the variables to template panels, and then adds the panels.
+    Panels are grouped in Row to load only needed panels and load others on demand.
+
+    Invariants:
+    - Max width: 24
+    """
+    # Default sizes
     default_height = 5
     stat_width = 4
     ts_width = 8
+    topk = "10"
 
+    # Queries
+    by_env = env_label + '="$env"'
+    by_producer = by_env + ', client_type="producer"'
+    by_server = by_producer + "," + server_label + '=~"$server"'
+    by_client = by_server + ', client_id=~"$client_id"'
+
+    # Templating (variables)
     templating = G.Templating(
         list=[
             G.Template(
                 name="env",
                 label="Environment",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(" + env_label + ")",
             ),
             G.Template(
                 name="server",
                 label="Server",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_producer_producer_metrics_record_retry_rate{"
-                + env_label
-                + '="$env", client_type="producer"},'
+                + by_producer
+                + "},"
                 + server_label
                 + ")",
                 multi=True,
@@ -30,18 +61,18 @@ def dashboard(env_label="namespace", server_label="pod"):
             G.Template(
                 name="client_id",
                 label="Client ID",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_producer_producer_metrics_record_retry_rate{"
-                + env_label
-                + '="$env", client_type="producer"},client_id)',
+                + by_producer
+                + "},client_id)",
                 multi=True,
                 includeAll=True,
             ),
         ]
     )
 
-    topk = "10"
-
+    # Panel groups
+    ## Clients overview:
     overview_panels = [
         G.RowPanel(
             title="Overview",
@@ -49,16 +80,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Record Send Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ", kafka_producer_producer_metrics_record_send_rate{"
-                    + env_label
-                    + '="$env", client_type="producer", client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"} > 0)',
+                    + by_client
+                    + "} > 0)",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -70,16 +99,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Error Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ", kafka_producer_producer_metrics_record_error_rate{"
-                    + env_label
-                    + '="$env", client_type="producer", client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"} > 0)',
+                    + by_client
+                    + "} > 0)",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -92,16 +119,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Retry Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ", kafka_producer_producer_metrics_record_retry_rate{"
-                    + env_label
-                    + '="$env", client_type="producer", client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"} > 0)',
+                    + by_client
+                    + "} > 0)",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -115,14 +140,12 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.Stat(
             title="Versions",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="count(kafka_producer_app_info{"
-                    + env_label
-                    + '="$env", client_id=~"$client_id", version!="", '
-                    + server_label
-                    + '=~"$server"}) by (version)',
+                    + by_client
+                    + ',version!=""}) by (version)',
                     legendFormat="{{version}}",
                 ),
             ],
@@ -134,20 +157,19 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Performance:
     performance_base = 1
     performance_inner = [
         G.TimeSeries(
             title="Incoming Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_incoming_byte_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -160,16 +182,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Outgoing Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_outgoing_byte_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -182,16 +202,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Metadata Age",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_metadata_age{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -204,16 +222,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_request_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -226,16 +242,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request in-flight",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_requests_in_flight{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -248,16 +262,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Records per Request (avg.)",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_records_per_request_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -269,16 +281,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Send Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_send_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -291,16 +301,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Retry Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_retry_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -313,16 +321,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Error Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_error_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -335,26 +341,22 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Size",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_size_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (avg.)",
                 ),
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_size_max{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (max.)",
                 ),
             ],
@@ -367,26 +369,22 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Queue Time",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_queue_time_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (avg.)",
                 ),
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_record_queue_time_max{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (max.)",
                 ),
             ],
@@ -399,26 +397,22 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Produce Throttle Time",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_produce_throttle_time_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (avg.)",
                 ),
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_produce_throttle_time_max{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (max.)",
                 ),
             ],
@@ -431,26 +425,22 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Batch Size",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_batch_size_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (avg.)",
                 ),
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_batch_size_max{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} (max.)",
                 ),
             ],
@@ -463,16 +453,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Batch Split Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_batch_split_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -485,16 +473,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Compression Rate (avg.)",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_compression_rate_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -515,20 +501,19 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Connections:
     connection_base = performance_base + 5
     connection_inner = [
         G.TimeSeries(
             title="Connection Count",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_connection_count{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -540,16 +525,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Connection Creation Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_connection_creation_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -562,16 +545,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Connection Close Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_connection_close_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -584,16 +565,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO ratio",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_io_ratio{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -606,16 +585,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO wait ratio",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_io_wait_ratio{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -628,16 +605,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Select Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_select_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -650,16 +625,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO time avg.",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_io_time_ns_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -672,16 +645,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="IO wait time avg.",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_metrics_io_wait_time_ns_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}}",
                 ),
             ],
@@ -702,20 +673,19 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Per Broker:
     per_broker_base = connection_base + 2
     per_broker_inner = [
         G.TimeSeries(
             title="Incoming Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_node_metrics_incoming_byte_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{"
                     + server_label
                     + "}} <- {{node_id}}",
@@ -730,16 +700,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Outgoing Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_node_metrics_outgoing_byte_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{"
                     + server_label
                     + "}} -> {{node_id}}",
@@ -754,16 +722,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Latency",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_node_metrics_request_latency_avg{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{"
                     + server_label
                     + "}} -> {{node_id}} (avg.)",
@@ -772,10 +738,8 @@ def dashboard(env_label="namespace", server_label="pod"):
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_node_metrics_request_latency_max{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{"
                     + server_label
                     + "}} -> {{node_id}} (max.)",
@@ -790,16 +754,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_node_metrics_request_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{"
                     + server_label
                     + "}} -> {{node_id}}",
@@ -814,16 +776,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Response Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_node_metrics_response_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{"
                     + server_label
                     + "}} <- {{node_id}}",
@@ -846,20 +806,19 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    ## Per Topic:
     per_topic_base = per_broker_base + 2
     per_topic_inner = [
         G.TimeSeries(
             title="Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_topic_metrics_byte_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} -> {{topic}}",
                 ),
             ],
@@ -872,16 +831,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Compression Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_topic_metrics_compression_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} -> {{topic}}",
                 ),
             ],
@@ -894,16 +851,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Send Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_topic_metrics_record_send_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} -> {{topic}}",
                 ),
             ],
@@ -916,16 +871,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Retry Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_topic_metrics_record_retry_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} -> {{topic}}",
                 ),
             ],
@@ -938,16 +891,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Record Error Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_producer_producer_topic_metrics_record_error_rate{"
-                    + env_label
-                    + '="$env",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$server"})',
+                    + by_client
+                    + "})",
                     legendFormat="{{client_id}}@{{" + server_label + "}} -> {{topic}}",
                 ),
             ],
@@ -968,6 +919,7 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
     ]
 
+    # group all panels
     panels = (
         overview_panels
         + performance_panels
@@ -976,8 +928,9 @@ def dashboard(env_label="namespace", server_label="pod"):
         + per_topic_panels
     )
 
+    # build dashboard
     return G.Dashboard(
-        title="Kafka Producer - v2",
+        title="Kafka Producer",
         description="Overview of the Kafka producers",
         tags=["confluent", "kafka-client", "kafka-producer"],
         inputs=[
@@ -995,6 +948,10 @@ def dashboard(env_label="namespace", server_label="pod"):
     ).auto_panel_ids()
 
 
+# main labels to customize dashboard
+ds = os.environ.get("DATASOURCE", "Prometheus")
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
-dashboard = dashboard(env_label, server_label)
+
+# dashboard required by grafanalib
+dashboard = dashboard(ds, env_label, server_label)

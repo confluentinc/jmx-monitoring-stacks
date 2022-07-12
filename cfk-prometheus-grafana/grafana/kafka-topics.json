@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -142,7 +142,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_messagesinpersec{topic=~\"$topic\",namespace=\"$env\"}[5m])))",
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_messagesinpersec{namespace=\"$env\",topic=~\"$topic\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -164,7 +164,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -266,7 +266,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -346,7 +346,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesinpersec{topic=~\"$topic\",namespace=\"$env\"}[5m])))",
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesinpersec{namespace=\"$env\",topic=~\"$topic\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -368,7 +368,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -448,7 +448,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{topic=~\"$topic\",namespace=\"$env\"}[5m])))",
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{namespace=\"$env\",topic=~\"$topic\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -470,7 +470,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -550,7 +550,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{ namespace=\"$env\", topic=~\"$topic\"}[5m])) by (topic))",
+          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{ namespace=\"$env\",topic=~\"$topic\"}[5m])) by (topic))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -572,7 +572,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -652,7 +652,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{ namespace=\"$env\", topic=~\"$topic\"}[5m])) by (topic))",
+          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{ namespace=\"$env\",topic=~\"$topic\"}[5m])) by (topic))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -708,7 +708,7 @@
             "mode": "thresholds"
           },
           "columns": [],
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -729,7 +729,7 @@
           "fontSize": "100%",
           "gridPos": {
             "h": 10,
-            "w": 12,
+            "w": 24,
             "x": 0,
             "y": 3
           },
@@ -762,126 +762,7 @@
               "refId": "",
               "step": 10,
               "target": ""
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Start Offsets",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "__name__": true,
-                  "app": true,
-                  "clusterId": true,
-                  "confluentPlatform": true,
-                  "confluent_platform": true,
-                  "controller_revision_hash": true,
-                  "instance": true,
-                  "job": true,
-                  "namespace": true,
-                  "platform_confluent_io_type": true,
-                  "statefulset_kubernetes_io_pod_name": true,
-                  "type": true
-                },
-                "indexByName": {
-                  "Value": 4,
-                  "partition": 3,
-                  "pod": 1,
-                  "topic": 2
-                },
-                "renameByName": {
-                  "Value": "offset"
-                }
-              }
             },
-            {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "number",
-                    "targetField": "partition"
-                  }
-                ],
-                "fields": {}
-              }
-            },
-            {
-              "id": "sortBy",
-              "options": {
-                "fields": {},
-                "sort": [
-                  {
-                    "field": "topic"
-                  }
-                ]
-              }
-            },
-            {
-              "id": "sortBy",
-              "options": {
-                "fields": {},
-                "sort": [
-                  {
-                    "field": "partition"
-                  }
-                ]
-              }
-            }
-          ],
-          "transparent": false,
-          "type": "table"
-        },
-        {
-          "cacheTimeout": null,
-          "color": {
-            "mode": "thresholds"
-          },
-          "columns": [],
-          "datasource": "Prometheus",
-          "description": null,
-          "editable": true,
-          "error": false,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto",
-                "filterable": true
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": []
-              }
-            },
-            "overrides": []
-          },
-          "fontSize": "100%",
-          "gridPos": {
-            "h": 10,
-            "w": 12,
-            "x": 12,
-            "y": 3
-          },
-          "height": null,
-          "hideTimeOverride": false,
-          "id": 10,
-          "interval": null,
-          "links": [],
-          "mappings": [],
-          "maxDataPoints": 100,
-          "maxPerRow": null,
-          "minSpan": null,
-          "options": {
-            "showHeader": true
-          },
-          "repeat": null,
-          "repeatDirection": null,
-          "span": 6,
-          "targets": [
             {
               "datasource": null,
               "expr": "kafka_log_log_logendoffset{namespace=\"$env\",topic=~\"$topic\"}",
@@ -899,56 +780,36 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "End Offsets",
+          "title": "Offsets",
           "transformations": [
             {
-              "id": "organize",
+              "id": "concatenate",
               "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "__name__": true,
-                  "app": true,
-                  "clusterId": true,
-                  "confluentPlatform": true,
-                  "confluent_platform": true,
-                  "controller_revision_hash": true,
-                  "instance": true,
-                  "job": true,
-                  "namespace": true,
-                  "platform_confluent_io_type": true,
-                  "statefulset_kubernetes_io_pod_name": true,
-                  "type": true
-                },
-                "indexByName": {
-                  "Value": 4,
-                  "partition": 3,
-                  "pod": 1,
-                  "topic": 2
-                },
-                "renameByName": {
-                  "Value": "offset"
+                "frameNameLabel": "id",
+                "frameNameMode": "label"
+              }
+            },
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "pod 1",
+                    "topic 1",
+                    "Value #A",
+                    "Value #B",
+                    "partition 1"
+                  ]
                 }
               }
             },
             {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "number",
-                    "targetField": "partition"
-                  }
-                ],
-                "fields": {}
-              }
-            },
-            {
               "id": "sortBy",
               "options": {
                 "fields": {},
                 "sort": [
                   {
-                    "field": "topic"
+                    "field": "partition 1"
                   }
                 ]
               }
@@ -959,9 +820,31 @@
                 "fields": {},
                 "sort": [
                   {
-                    "field": "partition"
+                    "field": "topic 1"
                   }
                 ]
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {
+                  "Value #A": 3,
+                  "Value #B": 4,
+                  "hostname 1": 0,
+                  "id": 5,
+                  "partition 1": 2,
+                  "topic 1": 1
+                },
+                "renameByName": {
+                  "Value #A": "start offset",
+                  "Value #B": "end offset",
+                  "hostname 1": "broker",
+                  "partition 1": "",
+                  "topic": "",
+                  "topic 1": ""
+                }
               }
             }
           ],
@@ -1003,7 +886,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -1030,7 +913,7 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Topic",
@@ -1079,7 +962,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka topics - v2",
+  "title": "Kafka topics",
   "uid": null,
   "version": 0
 }

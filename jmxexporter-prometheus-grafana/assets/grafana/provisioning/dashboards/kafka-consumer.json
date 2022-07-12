@@ -123,7 +123,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -206,7 +206,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -305,7 +305,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -396,7 +396,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{env=\"$env\", client_type=\"producer\", client_id=~\"$client_id\", hostname=~\"$server\"} > 0)",
+          "expr": "topk(10, kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"} > 0)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -479,7 +479,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_consumer_app_info{env=\"$env\", client_id=~\"$client_id\", version!=\"\", hostname=~\"$server\"}) by (version)",
+          "expr": "count(kafka_consumer_app_info{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\", version!=\"\"}) by (version)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -609,7 +609,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -709,7 +709,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -809,7 +809,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_lag_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_lag_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -909,7 +909,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1009,7 +1009,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1023,7 +1023,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1123,7 +1123,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1137,7 +1137,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1237,7 +1237,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1251,7 +1251,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1393,7 +1393,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_commit_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_commit_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1493,7 +1493,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_join_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_join_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1593,7 +1593,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_sync_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_sync_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1693,7 +1693,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_commit_latency_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_commit_latency_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1707,7 +1707,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_commit_latency_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_commit_latency_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1807,7 +1807,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_join_time_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_join_time_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1821,7 +1821,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_join_time_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_join_time_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1921,7 +1921,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_sync_time_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_sync_time_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1935,7 +1935,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_sync_time_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_sync_time_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2035,7 +2035,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_heartbeat_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_heartbeat_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2135,7 +2135,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_heartbeat_response_time_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_heartbeat_response_time_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2235,7 +2235,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_last_heartbeat_seconds_ago{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_last_heartbeat_seconds_ago{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2335,7 +2335,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2349,7 +2349,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2449,7 +2449,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_rebalance_latency_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_rebalance_latency_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2463,7 +2463,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_rebalance_latency_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_rebalance_latency_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2563,7 +2563,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_assigned_partitions{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_coordinator_metrics_assigned_partitions{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2705,7 +2705,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_connection_count{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_connection_count{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2805,7 +2805,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_connection_creation_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_connection_creation_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2905,7 +2905,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_connection_close_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_connection_close_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3005,7 +3005,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_io_ratio{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_io_ratio{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3105,7 +3105,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_io_wait_ratio{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_io_wait_ratio{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3205,7 +3205,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_select_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_select_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3305,7 +3305,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_io_time_ns_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_io_time_ns_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3405,7 +3405,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_metrics_io_wait_time_ns_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_metrics_io_wait_time_ns_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3547,7 +3547,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_node_metrics_incoming_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_node_metrics_incoming_byte_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3647,7 +3647,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_node_metrics_outgoing_byte_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_node_metrics_outgoing_byte_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3747,7 +3747,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_node_metrics_request_latency_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_node_metrics_request_latency_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3761,7 +3761,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_node_metrics_request_latency_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_node_metrics_request_latency_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3861,7 +3861,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_node_metrics_request_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_node_metrics_request_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3961,7 +3961,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_node_metrics_response_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_node_metrics_response_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4103,7 +4103,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4203,7 +4203,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_consumed_rate{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4303,7 +4303,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4317,7 +4317,7 @@
             },
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_max{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_fetch_size_max{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4417,7 +4417,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_per_request_avg{env=\"$env\",client_id=~\"$client_id\", hostname=~\"$server\"})",
+              "expr": "topk(10,kafka_consumer_consumer_fetch_manager_metrics_records_per_request_avg{env=\"$env\", client_type=\"consumer\",hostname=~\"$server\", client_id=~\"$client_id\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -4576,7 +4576,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kafka Consumer - v2",
+  "title": "Kafka Consumer",
   "uid": null,
   "version": 0
 }

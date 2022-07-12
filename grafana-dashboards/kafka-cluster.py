@@ -1282,7 +1282,7 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
 
     # build dashboard
     return G.Dashboard(
-        title="Kafka cluster - v2",
+        title="Kafka cluster",
         description="Overview of the Kafka cluster",
         tags=["confluent", "kafka"],
         inputs=[

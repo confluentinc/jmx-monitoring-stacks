@@ -2,25 +2,57 @@ import os
 import grafanalib.core as G
 
 
-def dashboard(env_label="namespace", server_label="pod"):
+def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
+    """
+    Kafka Quotas dashboard
+    It includes:
+    - Quotas overview
+    - Throttling
+
+    Structure:
+    - Default sizes
+    - Queries
+    - Templating (variables)
+    - Panel groups
+    - Dashboard definition
+
+    Dashboard is defined by a name, it includes the variables to template panels, and then adds the panels.
+    Panels are grouped in Row to load only needed panels and load others on demand.
+
+    Invariants:
+    - Max width: 24
+    """
+
+    # Default sizes
     default_height = 6
     ts_width = 8
+    topk = "10"
 
+    # Queries
+    by_env = env_label + '="$env"'
+    by_client = (
+        by_env
+        + ',user=~"$user",client_id=~"$client_id",'
+        + server_label
+        + '=~"$broker"'
+    )
+
+    # Templating (variables)
     templating = G.Templating(
         list=[
             G.Template(
                 name="env",
                 label="Environment",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(" + env_label + ")",
             ),
             G.Template(
                 name="broker",
                 label="Broker",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(kafka_server_produce_byte_rate{"
-                + env_label
-                + '="$env"},'
+                + by_env
+                + "},"
                 + server_label
                 + ")",
                 multi=True,
@@ -29,7 +61,7 @@ def dashboard(env_label="namespace", server_label="pod"):
             G.Template(
                 name="user",
                 label="User",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(user)",
                 multi=True,
                 includeAll=True,
@@ -37,7 +69,7 @@ def dashboard(env_label="namespace", server_label="pod"):
             G.Template(
                 name="client_id",
                 label="Client ID",
-                dataSource="Prometheus",
+                dataSource=ds,
                 query="label_values(client_id)",
                 multi=True,
                 includeAll=True,
@@ -45,21 +77,18 @@ def dashboard(env_label="namespace", server_label="pod"):
         ]
     )
 
-    topk = "10"
-
+    # Panels:
     panels = [
         G.TimeSeries(
             title="Produce Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_server_produce_byte_rate{"
-                    + env_label
-                    + '="$env",user=~"$user",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_client
+                    + "})",
                     legendFormat="User:{{user}} | Client ID:{{client_id}} @ Broker:{{"
                     + server_label
                     + "}}",
@@ -72,16 +101,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch Byte Rate",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_server_fetch_byte_rate{"
-                    + env_label
-                    + '="$env",user=~"$user",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_client
+                    + "})",
                     legendFormat="User:{{user}} | Client ID:{{client_id}} @ Broker:{{"
                     + server_label
                     + "}}",
@@ -94,16 +121,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Time",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_server_request_request_time{"
-                    + env_label
-                    + '="$env",user=~"$user",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$broker"})',
+                    + by_client
+                    + "})",
                     legendFormat="User:{{user}} | Client ID:{{client_id}} @ Broker:{{"
                     + server_label
                     + "}}",
@@ -116,16 +141,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Produce Throttle Time",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_server_produce_throttle_time{"
-                    + env_label
-                    + '="$env",user=~"$user",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$broker"} > 0)',
+                    + by_client
+                    + "} > 0)",
                     legendFormat="User:{{user}} | Client ID:{{client_id}} @ Broker:{{"
                     + server_label
                     + "}}",
@@ -138,16 +161,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Fetch Throttle Time",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_server_fetch_throttle_time{"
-                    + env_label
-                    + '="$env",user=~"$user",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$broker"} > 0)',
+                    + by_client
+                    + "} > 0)",
                     legendFormat="User:{{user}} | Client ID:{{client_id}} @ Broker:{{"
                     + server_label
                     + "}}",
@@ -160,16 +181,14 @@ def dashboard(env_label="namespace", server_label="pod"):
         ),
         G.TimeSeries(
             title="Request Throttle Time",
-            dataSource="Prometheus",
+            dataSource=ds,
             targets=[
                 G.Target(
                     expr="topk("
                     + topk
                     + ",kafka_server_request_throttle_time{"
-                    + env_label
-                    + '="$env",user=~"$user",client_id=~"$client_id", '
-                    + server_label
-                    + '=~"$broker"} > 0)',
+                    + by_client
+                    + "} > 0)",
                     legendFormat="User:{{user}} | Client ID:{{client_id}} @ Broker:{{"
                     + server_label
                     + "}}",
@@ -183,7 +202,7 @@ def dashboard(env_label="namespace", server_label="pod"):
     ]
 
     return G.Dashboard(
-        title="Kafka Quotas - v2",
+        title="Kafka Quotas",
         description="Overview of the Kafka quotass",
         tags=["confluent", "kafka-client", "kafka-quota"],
         inputs=[
@@ -201,6 +220,10 @@ def dashboard(env_label="namespace", server_label="pod"):
     ).auto_panel_ids()
 
 
+# main labels to customize dashboard
+ds = os.environ.get("DATASOURCE", "Prometheus")
 env_label = os.environ.get("ENV_LABEL", "env")
 server_label = os.environ.get("SERVER_LABEL", "hostname")
-dashboard = dashboard(env_label, server_label)
+
+# dashboard required by grafanalib
+dashboard = dashboard(ds, env_label, server_label)
