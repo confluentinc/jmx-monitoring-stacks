@@ -100,12 +100,12 @@ rules:
     labels:
       "$3": "$4"
       "$5": "$6"
-  - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
-    name: kafka_$1_$2
-    labels:
-      "$3": "$4"
-      "$5": "$6"
-      attribute_name: "$7"
+  # - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
+  #   name: kafka_$1_$2
+  #   labels:
+  #     "$3": "$4"
+  #     "$5": "$6"
+  #     attribute_name: "$7"
   # "kafka.network:type=*, name=*"
   # "kafka.server:type=*, name=*"
   # "kafka.controller:type=*, name=*"
@@ -125,11 +125,11 @@ rules:
     name: kafka_$1_$2
     labels:
       "$3": "$4"
-  - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
-    name: kafka_$1_$2
-    labels:
-      "$3": "$4"
-      attribute_name: "$5"
+  # - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
+  #   name: kafka_$1_$2
+  #   labels:
+  #     "$3": "$4"
+  #     attribute_name: "$5"
   - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
     name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total
     type: GAUGE
@@ -143,18 +143,17 @@ rules:
       listener: "$3"
       network_processor: "$4"
   - pattern: "kafka.server<type=socket-server-metrics, listener=(.+), networkProcessor=(.+)><>(.+):"
-    name: kafka_server_socketservermetrics
+    name: kafka_server_socketservermetrics_$3
     type: GAUGE
     labels:
       listener: "$1"
       network_processor: "$2"
-      attribute_name: "$3"
-  - pattern: "kafka.server<type=socket-server-metrics, listener=(.+)><>(.+):"
-    name: kafka_server_socketservermetrics
-    type: GAUGE
-    labels:
-      listener: "$1"
-      attribute_name: "$2"
+  # - pattern: "kafka.server<type=socket-server-metrics, listener=(.+)><>(.+):"
+  #   name: kafka_server_socketservermetrics
+  #   type: GAUGE
+  #   labels:
+  #     listener: "$1"
+  #     attribute_name: "$2"
   # "kafka.coordinator.group:type=*, name=*"
   # "kafka.coordinator.transaction:type=*, name=*"
   - pattern: kafka.coordinator.(\w+)<type=(.+), name=(.+)><>(Count|Value)

@@ -34,7 +34,7 @@ blacklistObjectNames:
   - "kafka.producer:type=*,id=*"
   - "kafka.producer:client-id=confluent.monitoring*,*"
   - "kafka.*:type=kafka-metrics-count,*"
-  - "kafka.*:type=app-info,*"
+  # - "kafka.*:type=app-info,*"
 rules:
   # "kafka.schema.registry:type=app-info,id=*"
   - pattern: "kafka.connect<type=app-info, client-id=(.+)><>(.+): (.+)"
