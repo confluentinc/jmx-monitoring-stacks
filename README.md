@@ -6,6 +6,7 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
+- [jmxexporter-newrelic](jmxexporter-newrelic)
 
 # Caution
 
@@ -22,12 +23,13 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana) or [metricbeat-elastic-kibana](metricbeat-elastic-kibana) and set the `MONITORING_STACK` variable accordingly.
+2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
 # Set one of these
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
+MONITORING_STACK=jmxexporter-newrelic
 ```
 
 3. Clone `cp-demo` and checkout 7.2.0-post (this has been validated only with cp-demo in the `7.2.0-post` branch).
@@ -49,6 +51,8 @@ MONITORING_STACK=metricbeat-elastic-kibana
 ```bash
 ${MONITORING_STACK}/start.sh
 ```
+
+> **_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) in the command - ${MONITORING_STACK}/start.sh e4d7b76e0ff30730bb
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
