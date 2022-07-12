@@ -5,18 +5,12 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
-- [jolokia-elastic-kibana](jolokia-elastic-kibana)
 - [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
 
 # Caution
 
 The examples in this repo may not be complete and are for testing purposes only.
 They serve only to demonstrate how the integration works with Confluent Platform.
-
-The Jolokia JMX Metric sets do not follow the OpenMetrics standard and we do not anticipate any updates to the package anytime soon to support that.
-In purview of that, we are adding a new Prometheus Metricbeat based Elastic & Kibana setup.
-We eventually plan to deprecate the jolokia-elastic-kibana module as OpenMetrics support is (hopefully) the future and metricbeat-elastic-kibana module enables us to leverage that with native code from elasticsearch.
-
 
 # How to run with cp-demo
 
@@ -28,27 +22,26 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana) or [jolokia-elastic-kibana](jolokia-elastic-kibana), and set the `MONITORING_STACK` variable accordingly.
+2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana) or [metricbeat-elastic-kibana](metricbeat-elastic-kibana) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
 # Set one of these
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
-MONITORING_STACK=jolokia-elastic-kibana
 ```
 
-3. Clone `cp-demo` and checkout 6.1.0-post (this has been validated only with cp-demo in the `6.1.0-post` branch).
+3. Clone `cp-demo` and checkout 7.2.0-post (this has been validated only with cp-demo in the `7.2.0-post` branch).
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
-(cd cp-demo && git fetch && git checkout 6.1.0-post && git pull)
+(cd cp-demo && git fetch && git checkout 7.2.0-post && git pull)
 ```
 
 4. Clone `jmx-monitoring-stacks` and checkout a compatible release.
 
 ```bash
 [[ -d "jmx-monitoring-stacks" ]] || git clone https://github.com/confluentinc/jmx-monitoring-stacks.git
-(cd jmx-monitoring-stacks && git fetch && git checkout 6.1.0-post && git pull)
+(cd jmx-monitoring-stacks && git fetch && git checkout 7.2-post && git pull)
 ```
 
 5. Start the monitoring solution with the STACK selected. This command also starts cp-demo, you do not need to start cp-demo separately.
