@@ -2,7 +2,7 @@ all:
 	$(MAKE) def
 	$(MAKE) cfk
 
-def: OUTPUT_DIR=default
+def: OUTPUT_DIR=../jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards
 def: export DATASOURCE=Prometheus
 def: export ENV_LABEL=env
 def: export SERVER_LABEL=hostname
@@ -25,7 +25,7 @@ dashboards:
 	@generate-dashboard kafka-consumer.py	-o $(OUTPUT_DIR)/kafka-consumer.json
 	@generate-dashboard kafka-quotas.py	-o $(OUTPUT_DIR)/kafka-quotas.json
 
-cfk: OUTPUT_DIR=cfk
+cfk: OUTPUT_DIR=../cfk-prometheus-grafana/grafana
 cfk: export DATASOURCE=$${DS_PROMETHEUS}
 cfk: export ENV_LABEL=namespace
 cfk: export SERVER_LABEL=pod

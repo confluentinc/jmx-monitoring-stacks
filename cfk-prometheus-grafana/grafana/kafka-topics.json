@@ -1,109 +1,71 @@
 {
+  "__inputs": [
+    {
+      "description": "",
+      "label": "Prometheus",
+      "name": "DS_PROMETHEUS",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus",
+      "type": "datasource"
+    }
+  ],
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
+  "description": "Overview of the Kafka topics",
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1647426704713,
+  "hideControls": false,
+  "id": null,
   "links": [],
   "panels": [
     {
+      "cacheTimeout": null,
       "collapsed": false,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 19,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 1,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [],
-      "title": "Overview",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Throughput",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 1000
-              },
-              {
-                "color": "red",
-                "value": 10000
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 0,
-        "y": 1
-      },
-      "id": 9,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(kafka_controller_kafkacontroller_globaltopiccount{namespace=\"$ns\"})",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total # of Topics",
-      "type": "stat"
-    },
-    {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -114,7 +76,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -125,50 +87,47 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
+            "showPoints": "auto",
+            "spanNulls": false,
             "stacking": {
-              "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "short"
+          "unit": "cps"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 10,
-        "w": 13,
-        "x": 4,
-        "y": 1
+        "w": 12,
+        "x": 0,
+        "y": 0
       },
+      "height": null,
+      "hideTimeOverride": false,
       "id": 2,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -177,23 +136,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, sum without(instance) (rate(kafka_server_brokertopicmetrics_messagesinpersec{topic=~\"$topic\",namespace=\"$ns\"}[5m])))",
+          "datasource": null,
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_messagesinpersec{topic=~\"$topic\",namespace=\"$env\"}[5m])))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "{{topic}}",
-          "refId": "A"
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Messages In",
+      "title": "Messages In/Sec",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -204,7 +178,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -215,32 +189,22 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
+            "showPoints": "auto",
+            "spanNulls": false,
             "stacking": {
-              "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "bytes"
         },
@@ -248,17 +212,24 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 7,
-        "x": 17,
-        "y": 1
+        "w": 12,
+        "x": 12,
+        "y": 0
       },
-      "id": 17,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 3,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -267,82 +238,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, sum(kafka_log_log_size{namespace=\"$ns\",topic=~\"$topic\"}) by (topic))",
+          "datasource": null,
+          "expr": "topk(10, sum(kafka_log_log_size{namespace=\"$env\",topic=~\"$topic\"}) by (topic))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "{{topic}}",
-          "refId": "A"
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Log size",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 10000
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 0,
-        "y": 6
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(kafka_controller_kafkacontroller_globalpartitioncount{namespace=\"$ns\"})",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total # of Partitions",
-      "type": "stat"
-    },
-    {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -353,7 +280,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -364,13 +291,13 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
+            "showPoints": "auto",
+            "spanNulls": false,
             "stacking": {
-              "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -379,123 +306,32 @@
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "binBps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 10,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 1
       },
-      "id": 3,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "topk(10, sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesinpersec{topic=~\"$topic\",namespace=\"$ns\"}[5m])))",
-          "interval": "",
-          "legendFormat": "{{topic}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Bytes In",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 11
-      },
+      "height": null,
+      "hideTimeOverride": false,
       "id": 4,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -504,24 +340,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, sum without(instance) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{topic=~\"$topic\",namespace=\"$ns\"}[5m])))",
+          "datasource": null,
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesinpersec{topic=~\"$topic\",namespace=\"$env\"}[5m])))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "{{topic}}",
-          "refId": "A"
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Bytes Out",
+      "title": "Bytes In/Sec",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -532,7 +382,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -543,141 +393,47 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
+            "showPoints": "auto",
+            "spanNulls": false,
             "stacking": {
-              "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "short"
+          "unit": "binBps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 20
-      },
-      "id": 13,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{ namespace=\"$ns\", topic=~\"$topic\"}[5m])) by (topic))",
-          "interval": "",
-          "legendFormat": "{{topic}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Produce Request per sec",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 1
       },
-      "id": 15,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 5,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -686,139 +442,331 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{ namespace=\"$ns\",topic=~\"$topic\"}[5m])) by (topic))",
+          "datasource": null,
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{topic=~\"$topic\",namespace=\"$env\"}[5m])))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "{{topic}}",
-          "refId": "A"
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Fetch Request per sec",
+      "title": "Bytes Out/Sec",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 6,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{ namespace=\"$env\", topic=~\"$topic\"}[5m])) by (topic))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{topic}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Produce Requests/Sec",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 7,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{ namespace=\"$env\", topic=~\"$topic\"}[5m])) by (topic))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{topic}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Consumer Fetch Requests/Sec",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 3
       },
-      "id": 21,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [
         {
+          "cacheTimeout": null,
+          "color": {
+            "mode": "thresholds"
+          },
+          "columns": [],
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "custom": {
-                "align": null,
+                "align": "auto",
                 "displayMode": "auto",
-                "filterable": false
+                "filterable": true
               },
-              "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               }
             },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "partition"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 103
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 137
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "instance"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 155
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "topic"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 294
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
+          "fontSize": "100%",
           "gridPos": {
-            "h": 8,
+            "h": 10,
             "w": 12,
             "x": 0,
-            "y": 29
+            "y": 3
           },
-          "id": 6,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 9,
+          "interval": null,
+          "links": [],
+          "mappings": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "partition"
-              }
-            ]
+            "showHeader": true
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": 6,
           "targets": [
             {
-              "exemplar": true,
-              "expr": "kafka_log_log_logstartoffset{namespace=\"$ns\",topic=\"$topic\"}",
+              "datasource": null,
+              "expr": "kafka_log_log_logstartoffset{namespace=\"$env\",topic=~\"$topic\"}",
               "format": "table",
+              "hide": false,
               "instant": true,
               "interval": "",
-              "legendFormat": "",
-              "refId": "A"
+              "intervalFactor": 2,
+              "legendFormat": "{{topic}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Start Offset",
+          "title": "Start Offsets",
           "transformations": [
             {
               "id": "organize",
@@ -826,123 +774,132 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "env": true,
-                  "instance": false,
-                  "job": true
+                  "app": true,
+                  "clusterId": true,
+                  "confluentPlatform": true,
+                  "confluent_platform": true,
+                  "controller_revision_hash": true,
+                  "instance": true,
+                  "job": true,
+                  "namespace": true,
+                  "platform_confluent_io_type": true,
+                  "statefulset_kubernetes_io_pod_name": true,
+                  "type": true
                 },
                 "indexByName": {
-                  "Time": 0,
-                  "Value": 7,
-                  "__name__": 1,
-                  "env": 2,
-                  "instance": 3,
-                  "job": 4,
-                  "partition": 6,
-                  "topic": 5
+                  "Value": 4,
+                  "partition": 3,
+                  "pod": 1,
+                  "topic": 2
                 },
                 "renameByName": {
                   "Value": "offset"
                 }
               }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "partition"
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "sortBy",
+              "options": {
+                "fields": {},
+                "sort": [
+                  {
+                    "field": "topic"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "sortBy",
+              "options": {
+                "fields": {},
+                "sort": [
+                  {
+                    "field": "partition"
+                  }
+                ]
+              }
             }
           ],
+          "transparent": false,
           "type": "table"
         },
         {
+          "cacheTimeout": null,
+          "color": {
+            "mode": "thresholds"
+          },
+          "columns": [],
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "custom": {
-                "align": null,
+                "align": "auto",
                 "displayMode": "auto",
-                "filterable": false
+                "filterable": true
               },
-              "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               }
             },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "partition"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 103
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 105
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "topic"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 289
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
+          "fontSize": "100%",
           "gridPos": {
-            "h": 8,
+            "h": 10,
             "w": 12,
             "x": 12,
-            "y": 29
+            "y": 3
           },
-          "id": 7,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 10,
+          "interval": null,
+          "links": [],
+          "mappings": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "partition"
-              }
-            ]
+            "showHeader": true
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": 6,
           "targets": [
             {
-              "exemplar": true,
-              "expr": "kafka_log_log_logendoffset{namespace=\"$ns\",topic=\"$topic\"}",
+              "datasource": null,
+              "expr": "kafka_log_log_logendoffset{namespace=\"$env\",topic=~\"$topic\"}",
               "format": "table",
+              "hide": false,
               "instant": true,
               "interval": "",
-              "legendFormat": "",
-              "refId": "A"
+              "intervalFactor": 2,
+              "legendFormat": "{{topic}}",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "End Offset",
+          "title": "End Offsets",
           "transformations": [
             {
               "id": "organize",
@@ -950,112 +907,179 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "env": true,
-                  "instance": false,
-                  "job": true
+                  "app": true,
+                  "clusterId": true,
+                  "confluentPlatform": true,
+                  "confluent_platform": true,
+                  "controller_revision_hash": true,
+                  "instance": true,
+                  "job": true,
+                  "namespace": true,
+                  "platform_confluent_io_type": true,
+                  "statefulset_kubernetes_io_pod_name": true,
+                  "type": true
                 },
                 "indexByName": {
-                  "Time": 0,
-                  "Value": 7,
-                  "__name__": 1,
-                  "env": 2,
-                  "instance": 3,
-                  "job": 4,
-                  "partition": 6,
-                  "topic": 5
+                  "Value": 4,
+                  "partition": 3,
+                  "pod": 1,
+                  "topic": 2
                 },
                 "renameByName": {
                   "Value": "offset"
                 }
               }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "number",
+                    "targetField": "partition"
+                  }
+                ],
+                "fields": {}
+              }
+            },
+            {
+              "id": "sortBy",
+              "options": {
+                "fields": {},
+                "sort": [
+                  {
+                    "field": "topic"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "sortBy",
+              "options": {
+                "fields": {},
+                "sort": [
+                  {
+                    "field": "partition"
+                  }
+                ]
+              }
             }
           ],
+          "transparent": false,
           "type": "table"
         }
       ],
-      "title": "Topic offsets",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Offsets",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 30,
+  "refresh": "30s",
+  "rows": [],
+  "schemaVersion": 12,
+  "sharedCrosshair": false,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "confluent",
+    "kafka"
+  ],
   "templating": {
     "list": [
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "dev",
-          "value": "dev"
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(namespace)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "Namespace",
+        "label": "Environment",
         "multi": false,
-        "name": "ns",
+        "name": "env",
         "options": [],
-        "query": {
-          "query": "label_values(namespace)",
-          "refId": "Prometheus-namespace-Variable-Query"
-        },
+        "query": "label_values(namespace)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(kafka_log_log_size{namespace=\"$ns\"},topic)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
-        "label": "Topic name",
+        "label": "Topic",
         "multi": true,
         "name": "topic",
         "options": [],
-        "query": {
-          "query": "label_values(kafka_log_log_size,topic)",
-          "refId": "Prometheus-topic-Variable-Query"
-        },
+        "query": "label_values(kafka_log_log_size{namespace=\"$env\"}, topic)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-1h",
     "to": "now"
   },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Kafka Topics",
-  "uid": "vQT4b1-Mz",
-  "version": 1
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Kafka topics - v2",
+  "uid": null,
+  "version": 0
 }
