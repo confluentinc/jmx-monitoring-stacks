@@ -13,6 +13,7 @@ echo -e "Generate Prometheus Configuration from Environemnet variables for  $MON
 export OUTPUT_FILE=$MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
 echo " creating prometheus configuration file $OUTPUT_FILE "
 [[ -e $OUTPUT_FILE ]]; rm -f $OUTPUT_FILE 
+mkdir -p "$MONITORING_STACK/assets/prometheus/prometheus-config"
 source $MONITORING_STACK/utils/env_variables.env
 envsubst < $MONITORING_STACK/utils/prometheus-template.yml > $MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
 
