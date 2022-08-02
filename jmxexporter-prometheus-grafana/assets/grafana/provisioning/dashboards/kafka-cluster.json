@@ -440,23 +440,23 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesin_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Bytes in",
-          "metric": "kafka_server_brokertopicmetrics_bytesinpersec",
+          "metric": "kafka_server_brokertopicmetrics_bytesin_total",
           "refId": "A",
           "step": 4
         },
         {
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesout_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Bytes out",
-          "metric": "kafka_server_brokertopicmetrics_bytesinpersec",
+          "metric": "kafka_server_brokertopicmetrics_bytesin_total",
           "refId": "B",
           "step": 4
         }
@@ -779,7 +779,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelectionspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelections_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -863,7 +863,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(kafka_network_requestmetrics_requests_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -932,7 +932,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}[5m]))",
+          "expr": "sum(rate(kafka_network_requestmetrics_requests_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1001,7 +1001,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"FetchConsumer\"}[5m]))",
+          "expr": "sum(rate(kafka_network_requestmetrics_requests_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"FetchConsumer\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1088,7 +1088,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(kafka_network_requestmetrics_errorspersec{error!=\"NONE\"}[5m])",
+          "expr": "rate(kafka_network_requestmetrics_errors_total{error!=\"NONE\"}[5m])",
           "interval": "",
           "legendFormat": "{{error}} @ {{hostname}}",
           "refId": "A"
@@ -1155,7 +1155,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"Fetch\"}[5m]))",
+          "expr": "sum(rate(kafka_network_requestmetrics_requests_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"Fetch\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1224,7 +1224,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"OffsetCommit\"}[5m]))",
+          "expr": "sum(rate(kafka_network_requestmetrics_requests_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"OffsetCommit\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1293,7 +1293,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}[5m]))",
+          "expr": "sum(rate(kafka_network_requestmetrics_requests_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}[5m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1418,7 +1418,7 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{instance}}",
-          "metric": "process_cpu_secondspersec",
+          "metric": "process_cpu_seconds_total",
           "refId": "A",
           "step": 4
         }
@@ -1740,11 +1740,11 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka-broker\",env=\"$env\",topic!=\"\"}[5m]))",
+              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_messagesin_total{job=\"kafka-broker\",env=\"$env\",topic!=\"\"}[5m]))",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "bytes/sec",
-              "metric": "kafka_server_brokertopicmetrics_messagesinpersec",
+              "metric": "kafka_server_brokertopicmetrics_messagesin_total",
               "refId": "A",
               "step": 4
             }
@@ -1835,12 +1835,12 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka-broker\",env=\"$env\",topic!=\"\"}[5m]))",
+              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_bytesin_total{job=\"kafka-broker\",env=\"$env\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "bytes/sec",
-              "metric": "kafka_server_brokertopicmetrics_bytesinpersec",
+              "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 4
             }
@@ -1931,11 +1931,11 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka-broker\",env=\"$env\",topic!=\"\"}[5m]))",
+              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_bytesout_total{job=\"kafka-broker\",env=\"$env\",topic!=\"\"}[5m]))",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "bytes/sec",
-              "metric": "kafka_server_brokertopicmetrics_bytesinpersec",
+              "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 4
             }
@@ -2024,12 +2024,12 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
+              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_messagesin_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
-              "metric": "kafka_server_brokertopicmetrics_messagesinpersec",
+              "metric": "kafka_server_brokertopicmetrics_messagesin_total",
               "refId": "A",
               "step": 4
             }
@@ -2118,12 +2118,12 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
+              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_bytesin_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
-              "metric": "kafka_server_brokertopicmetrics_bytesinpersec",
+              "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 4
             }
@@ -2213,7 +2213,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
+              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_bytesout_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -2607,7 +2607,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "kafka_server_sessionexpirelistener_zookeepersyncconnectspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeepersyncconnects_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
               "hide": false,
               "instant": false,
               "interval": "",
@@ -2700,7 +2700,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "kafka_server_sessionexpirelistener_zookeeperexpirespersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeeperexpires_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}",
@@ -2792,7 +2792,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "kafka_server_sessionexpirelistener_zookeeperdisconnectspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeeperdisconnects_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}",
@@ -2884,7 +2884,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "kafka_server_sessionexpirelistener_zookeeperauthfailurespersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeeperauthfailures_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}",
@@ -2913,7 +2913,7 @@
       "panels": [
         {
           "datasource": "Prometheus",
-          "description": ": The number of in-sync replicas (ISRs) for a particular partition should remain fairly static, the only exceptions are when you are expanding your broker cluster or removing partitions. In order to maintain high availability, a healthy Kafka cluster requires a minimum number of ISRs for failover. A replica could be removed from the ISR pool for a couple of reasons: it is too far behind the leaders offset (user-configurable by setting the replica.lag.max.messages configuration parameter), or it has not contacted the leader for some time (configurable with the replica.socket.timeout.ms parameter). No matter the reason, an increase in IsrShrinksPerSec without a corresponding increase in IsrExpandsPerSec shortly thereafter is cause for concern and requires user intervention.The Kafka documentation provides a wealth of information on the user-configurable parameters for brokers.",
+          "description": ": The number of in-sync replicas (ISRs) for a particular partition should remain fairly static, the only exceptions are when you are expanding your broker cluster or removing partitions. In order to maintain high availability, a healthy Kafka cluster requires a minimum number of ISRs for failover. A replica could be removed from the ISR pool for a couple of reasons: it is too far behind the leaders offset (user-configurable by setting the replica.lag.max.messages configuration parameter), or it has not contacted the leader for some time (configurable with the replica.socket.timeout.ms parameter). No matter the reason, an increase in IsrShrinks_total without a corresponding increase in IsrExpands_total shortly thereafter is cause for concern and requires user intervention.The Kafka documentation provides a wealth of information on the user-configurable parameters for brokers.",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2991,7 +2991,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "rate(kafka_server_replicamanager_isrshrinkspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
+              "expr": "rate(kafka_server_replicamanager_isrshrinks_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
               "interval": "",
               "legendFormat": "{{instance}}",
               "refId": "A"
@@ -3004,7 +3004,7 @@
         },
         {
           "datasource": "Prometheus",
-          "description": ": The number of in-sync replicas (ISRs) for a particular partition should remain fairly static, the only exceptions are when you are expanding your broker cluster or removing partitions. In order to maintain high availability, a healthy Kafka cluster requires a minimum number of ISRs for failover. A replica could be removed from the ISR pool for a couple of reasons: it is too far behind the leaders offset (user-configurable by setting the replica.lag.max.messages configuration parameter), or it has not contacted the leader for some time (configurable with the replica.socket.timeout.ms parameter). No matter the reason, an increase in IsrShrinksPerSec without a corresponding increase in IsrExpandsPerSec shortly thereafter is cause for concern and requires user intervention.The Kafka documentation provides a wealth of information on the user-configurable parameters for brokers.",
+          "description": ": The number of in-sync replicas (ISRs) for a particular partition should remain fairly static, the only exceptions are when you are expanding your broker cluster or removing partitions. In order to maintain high availability, a healthy Kafka cluster requires a minimum number of ISRs for failover. A replica could be removed from the ISR pool for a couple of reasons: it is too far behind the leaders offset (user-configurable by setting the replica.lag.max.messages configuration parameter), or it has not contacted the leader for some time (configurable with the replica.socket.timeout.ms parameter). No matter the reason, an increase in IsrShrinks_total without a corresponding increase in IsrExpands_total shortly thereafter is cause for concern and requires user intervention.The Kafka documentation provides a wealth of information on the user-configurable parameters for brokers.",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3082,7 +3082,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "rate(kafka_server_replicamanager_isrexpandspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
+              "expr": "rate(kafka_server_replicamanager_isrexpands_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}",
@@ -5732,7 +5732,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum(kafka_server_brokertopicmetrics_producemessageconversions_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{topic}}",
@@ -5824,7 +5824,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "expr": "sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum(kafka_server_brokertopicmetrics_fetchmessageconversions_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{topic}}",

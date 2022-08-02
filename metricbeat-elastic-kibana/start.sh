@@ -43,7 +43,7 @@ docker-compose up -d prometheus grafana
 MAX_WAIT=120
 echo
 echo -e "\nWaiting up to $MAX_WAIT seconds for Kibana to be ready"
-retry $MAX_WAIT host_check_kibana_ready || exit 1
+retry $MAX_WAIT host_check_up kibana || exit 1
 echo -e "\nConfigure Kibana dashboard:"
 # Add ZK Dashboard
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/zookeeper.ndjson

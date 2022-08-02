@@ -76,7 +76,7 @@ services:
     cpus: 0.8
 
   metricbeat:
-    image: docker.elastic.co/beats/metricbeat-oss:7.14.1
+    image: docker.elastic.co/beats/metricbeat-oss:7.10.0
     container_name: metricbeat
     restart: always
     volumes:
