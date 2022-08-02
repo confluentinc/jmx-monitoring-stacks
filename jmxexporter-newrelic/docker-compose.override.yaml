@@ -8,14 +8,14 @@ services:
 
   kafka1:
     volumes:
-      - $MONITORING_STACK/assets/newrelic/kafka_broker.yml:/usr/share/jmx-exporter/kafka_broker.yml
+      - $MONITORING_STACK/../shared-assets/jmx-exporter/kafka_broker.yml:/usr/share/jmx-exporter/kafka_broker.yml
       - $MONITORING_STACK/../shared-assets/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar
     environment:
       EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   kafka2:
     volumes:
-      - $MONITORING_STACK/assets/newrelic/kafka_broker.yml:/usr/share/jmx-exporter/kafka_broker.yml
+      - $MONITORING_STACK/../shared-assets/jmx-exporter/kafka_broker.yml:/usr/share/jmx-exporter/kafka_broker.yml
       - $MONITORING_STACK/../shared-assets/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar
     environment:
       EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
