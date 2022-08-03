@@ -218,8 +218,63 @@ def dashboard(ds="Prometheus", env_label="namespace", server_label="pod"):
         ),
     ]
 
+
+    request_panels = [
+        G.RowPanel(
+            title="Requests",
+            gridPos=G.GridPos(h=1, w=24, x=0, y=2),
+        ),
+        G.TimeSeries(
+            title="Connections",
+            dataSource=ds,
+            targets=[
+                G.Target(
+                    expr="kafka_schema_registry_kafka_schema_registry_metrics_connection_count{"
+                    + by_env
+                    +"}",
+                    legendFormat="{{" + server_label + "}}",
+                ),
+            ],
+            legendDisplayMode="table",
+            legendCalcs=["max", "mean", "last"],
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 0, y=2),
+        ),
+        G.TimeSeries(
+            title="Request Rate",
+            dataSource=ds,
+            targets=[
+                G.Target(
+                    expr="kafka_schema_registry_jersey_metrics_request_rate{"
+                    + by_env
+                    +"}",
+                    legendFormat="{{" + server_label + "}}",
+                ),
+            ],
+            legendDisplayMode="table",
+            legendCalcs=["max", "mean", "last"],
+            unit="reqps",
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 1, y=2),
+        ),
+        G.TimeSeries(
+            title="Request Latency (p99)",
+            dataSource=ds,
+            targets=[
+                G.Target(
+                    expr="kafka_schema_registry_jersey_metrics_request_latency_99{"
+                    + by_env
+                    +"}",
+                    legendFormat="{{" + server_label + "}}",
+                ),
+            ],
+            legendDisplayMode="table",
+            legendCalcs=["max", "mean", "last"],
+            unit="ms",
+            gridPos=G.GridPos(h=default_height * 2, w=ts_width, x=ts_width * 2, y=2),
+        ),
+    ]
+
     # group all panels
-    panels = healthcheck_panels + system_panels
+    panels = healthcheck_panels + system_panels + request_panels
 
     # build dashboard
     return G.Dashboard(

@@ -90,7 +90,7 @@ def dashboard(
     overview_base = 0
     overview_panels = [
         G.RowPanel(
-            title="Overview",
+            title="Cluster Overview",
             gridPos=G.GridPos(h=1, w=24, x=0, y=overview_base),
         ),
         # First layer

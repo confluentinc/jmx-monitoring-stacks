@@ -661,7 +661,7 @@ def dashboard(
     tasks_base = worker_base + 1
     tasks_inner = [
         G.TimeSeries(
-            title="Batch Size",
+            title="Batch size",
             description="Maximum and average size of the batches processed by the connector task.",
             dataSource=ds,
             targets=[
@@ -686,7 +686,7 @@ def dashboard(
             ),
         ),
         G.TimeSeries(
-            title="Offset commit",
+            title="Offset commit success/failure",
             description="Percentage of offset commit successful and failed.",
             dataSource=ds,
             targets=[
@@ -707,7 +707,7 @@ def dashboard(
             legendCalcs=["max", "mean", "last"],
             unit="percentunit",
             gridPos=G.GridPos(
-                h=default_height * 2, w=ts_width, x=ts_width * 0, y=tasks_base
+                h=default_height * 2, w=ts_width, x=ts_width * 1, y=tasks_base
             ),
         ),
         G.TimeSeries(
