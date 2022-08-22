@@ -52,7 +52,7 @@ Now edit the file `./ccloud-prometheus-grafana/utils/env_variables.env` and add 
 ### Step 4 ( select dashboard )
 * Open [Grafana_Endpoint](http://localhost:3000) 
   * userid: admin
-  * password: admin
+  * password: password
 * Select Option to Browse Dashboards
 * Open Confluent Cloud Dashboard
 
