@@ -70,7 +70,7 @@ services:
       - "^(aufs|proc|nsfs|shm|cgroup|tmpfs|binfmt_misc|debugfs|devpts|fusectl|hugetlbfs|fuse.lxcfs|mqueue|pstore|securityfs|sysfs|autofs|devtmpfs|configfs)"
 
   kafka-lag-exporter:
-    image: lightbend/kafka-lag-exporter:0.6.7
+    image: seglo/kafka-lag-exporter:0.7.0
     container_name: kafka-lag-exporter
     hostname: kafka-lag-exporter
     restart: always
