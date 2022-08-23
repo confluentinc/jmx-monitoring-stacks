@@ -49,7 +49,7 @@ services:
       KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
 
   kafka-lag-exporter:
-    image: lightbend/kafka-lag-exporter:0.6.7
+    image: seglo/kafka-lag-exporter:0.7.1
     container_name: kafka-lag-exporter
     hostname: kafka-lag-exporter
     restart: always
