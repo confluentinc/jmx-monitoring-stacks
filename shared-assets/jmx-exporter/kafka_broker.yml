@@ -28,16 +28,7 @@ blacklistObjectNames:
   - "confluent.metadata.service:type=app-info,client-id=*"
   - "confluent.metadata:type=kafkaauthstore,*"
 rules:
-  # This is by far the biggest contributor to the number of sheer metrics being produced.
-  # Always keep it on the top for the case of probability when so many metrics will hit the first condition and exit.
-  # "kafka.cluster:type=*, name=*, topic=*, partition=*"
-  # "kafka.log:type=*,name=*, topic=*, partition=*"
-  - pattern: kafka.(\w+)<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
-    name: kafka_$1_$2_$3
-    type: GAUGE
-    labels:
-      topic: "$4"
-      partition: "$5"
+  # This rule is more specific than the next rule; it has to come before it otherwise it will never be hit
   # "kafka.server:type=*,name=*, client-id=*, topic=*, partition=*"
   - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
     name: kafka_server_$1_$2
@@ -46,12 +37,44 @@ rules:
       clientId: "$3"
       topic: "$4"
       partition: "$5"
+  # This is by far the biggest contributor to the number of sheer metrics being produced.
+  # Always keep it near the top for the case of probability when so many metrics will hit the first condition and exit.
+  # "kafka.cluster:type=*, name=*, topic=*, partition=*"
+  # "kafka.log:type=*,name=*, topic=*, partition=*"
+  - pattern: kafka.(\w+)<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
+    name: kafka_$1_$2_$3
+    type: GAUGE
+    labels:
+      topic: "$4"
+      partition: "$5"
+  # Next two rules are similar; Value version is a GAUGE; Count version is not
   - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><>Value
     name: kafka_server_$1_$2
     type: GAUGE
     labels:
       clientId: "$3"
       broker: "$4:$5"
+  - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><>Count
+    name: kafka_server_$1_$2
+    labels:
+      clientId: "$3"
+      broker: "$4:$5"
+  # Needed for Cluster Linking metrics
+  # "kafka.server:type=*, name=*, *=*, *=*, *=*, *=*"
+  - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+    name: kafka_$1_$2_$3
+    labels:
+      "$4": "$5"
+      "$6": "$7"
+      "$8": "$9"
+      "$10": "$11"
+  # "kafka.server:type=*, name=*, *=*, *=*, *=*"
+  - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+    name: kafka_$1_$2_$3
+    labels:
+      "$4": "$5"
+      "$6": "$7"
+      "$8": "$9"
   # "kafka.network:type=*, name=*, request=*, error=*"
   # "kafka.network:type=*, name=*, request=*, version=*"
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
