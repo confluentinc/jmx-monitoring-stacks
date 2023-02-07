@@ -1,0 +1,17 @@
+# Module: prometheus
+# Docs: https://www.elastic.co/guide/en/beats/metricbeat/8.4/metricbeat-module-prometheus.html
+
+- module: prometheus
+  period: 900s
+  # Set hosts to CCloud Export API endpoint and populate query parameters for CCloud resources
+  #     resource.kafka.id
+  #     resource.connector.id
+  #     resource.ksql.id
+  #     resource.schema_registry.id
+  #     metric
+  # Reference: https://api.telemetry.confluent.cloud/docs#tag/Version-2/paths/~1v2~1metrics~1%7Bdataset%7D~1export/get
+  #[Sample] hosts: ['https://api.telemetry.confluent.cloud/v2/metrics/cloud/export?resource.kafka.id=lkc-9kg320&resource.schema_registry.id=lsrc-x1gxg']
+  hosts: ['<replace with query for  CCloud resources>']
+  fields_under_root: true
+  username: "<replace with  CCloud API Key>"
+  password: "<replace with  CCloud API Secret>"
