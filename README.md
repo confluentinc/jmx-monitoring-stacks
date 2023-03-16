@@ -74,6 +74,25 @@ To add JMX exporter configurations from this project into [cp-ansible](https://g
 
 Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/cp-ansible/prometheus-config.yml) to generate the Prometheus configuration for your Ansible inventory.
 
+# How to use with Confluent for Kubernetes
+
+When deploying Confluent Platform with `Confluent for Kubernetes`, the default Prometheus JMX exporter configuration can be overridden with the configuration necessary for this project.
+
+The following `metrics` configuration can be added to the Custom Resource for a Confluent Platform component:
+
+```
+spec:
+  metrics:
+    prometheus:
+      whitelist:
+        # copy the whitelistObjectNames section from the jmx-exporter yaml configuration for the component.
+      blacklist:
+        # copy the blacklistObjectNames section from the jmx-exporter yaml configuration for the component.
+      rules:
+        # copy the rules section from the jmx-exporter yaml configuration for the component.
+```
+
+
 # See Also
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).

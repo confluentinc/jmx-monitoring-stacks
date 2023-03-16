@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    release: prometheus
+  name: sm-kafka
+spec:
+  endpoints:
+    - port: prometheus
+      metricRelabelings:
+        # remove duplicate metrics
+        - regex: kafka-.*
+          sourceLabels: [service]
+          action: drop
+        # set job label
+        - targetLabel: job
+          replacement: kafka-broker
+          action: replace
+        # set env label
+        - targetLabel: env
+          replacement: dev
+          action: replace
+  selector:
+    matchLabels:
+      cr-name: kafka

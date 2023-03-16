@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    release: prometheus
+  name: sm-ksqldb
+spec:
+  endpoints:
+    - port: prometheus
+      metricRelabelings:
+        # remove duplicate metrics
+        - regex: ksqldb-.*
+          sourceLabels: [service]
+          action: drop
+        # set job label
+        - targetLabel: job
+          replacement: ksqldb
+          action: replace
+        # set env label
+        - targetLabel: env
+          replacement: dev
+          action: replace
+  selector:
+    matchLabels:
+      cr-name: ksqldb

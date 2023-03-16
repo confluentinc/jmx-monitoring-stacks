@@ -136,4 +136,13 @@ scrape_configs:
 
 This configuration can be added to the Prometheus config file.
 Once Prometheus is restarted with this configuration, targets will be scrapped.
- 
+
+## Integration with `Confluent for Kubernetes` using the `kube-promethues-stack`
+
+The [cfk](./cfk) folder contains a Prometheus ServiceMonitor for each component that will label and filter the metrics for the Grafana dashboards.  It is configured to use a custom resource name that follows the Confluent for Kubernetes examples, update the `cr-name` if using a different name.
+
+Adding a Grafana dashboard as a ConfigMap:
+```
+kubectl create configmap grafana-zookeeper-cluster --from-file=jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards/zookeeper-cluster.json
+kubectl label configmap grafana-zookeeper-cluster grafana_dashboard=1
+```
