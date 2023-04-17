@@ -229,3 +229,20 @@ rules:
     labels:
       client-id: "$2"
   
+# Broker  Metrics
+  - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec), topic=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+    name: kafka_server_brokertopicmetrics_$1_$3
+    type: GAUGE
+    labels:
+      topic: "$2"
+
+  - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+    name: kafka_server_brokertopicmetrics_$1_$2_alltopics
+    type: GAUGE
+
+# Network Request  Metrics
+  - pattern : 'kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+), version=([0-9]+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+    name: kafka_network_requestmetrics_requestspersec_$3
+    type: GAUGE
+    labels:
+      request: "$1"

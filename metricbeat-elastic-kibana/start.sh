@@ -5,6 +5,7 @@
 ########################################
 
 export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+export OVERRIDE_PATH="${MONITORING_STACK}/docker-compose.override.yaml"
 
 . $MONITORING_STACK/../utils/setup_cp_demo.sh
 
@@ -27,7 +28,7 @@ mkdir -p $SECURITY_DIR
 echo -e "Create role binding for kafkaLagExporter"
 cd $CP_DEMO_HOME
 KAFKA_CLUSTER_ID=$(docker-compose exec zookeeper zookeeper-shell zookeeper:2181 get /cluster/id 2> /dev/null | grep \"version\" | jq -r .id)
-docker-compose exec tools bash -c "confluent iam rolebinding create \
+docker-compose exec tools bash -c "confluent iam rbac role-binding create \
     --principal $KAFKA_LAG_EXPORTER \
     --role SystemAdmin \
     --kafka-cluster-id $KAFKA_CLUSTER_ID"
@@ -37,13 +38,13 @@ echo -e "Launch $MONITORING_STACK"
 docker-compose up -d elasticsearch kibana node-exporter kafka-lag-exporter metricbeat
 
 # This can be enabled for testing purposes when you want to run Elastic stack as well as the Prometheus stack together.
-docker-compose up -d prometheus grafana
+#docker-compose up -d prometheus grafana
 
 # Verify Kibana is ready
 MAX_WAIT=120
 echo
 echo -e "\nWaiting up to $MAX_WAIT seconds for Kibana to be ready"
-retry $MAX_WAIT host_check_kibana_ready || exit 1
+retry $MAX_WAIT host_check_up kibana || exit 1
 echo -e "\nConfigure Kibana dashboard:"
 # Add ZK Dashboard
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/zookeeper.ndjson

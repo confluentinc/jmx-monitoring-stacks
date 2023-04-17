@@ -41,7 +41,7 @@ rules:
       ksql_cluster: $1
   # "io.confluent.ksql.metrics:type=ksql-queries,status=_confluent-ksql-<cluser-id>_query_<query>
   # The below statement parses KSQL query specific status
-  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.+)query_(.+)><>(.+): (.+)"
+  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.*)query_(.+)><>(.+): (.+)"
     value: 1
     name: ksql_ksql_metrics_$1_$4
     labels:
