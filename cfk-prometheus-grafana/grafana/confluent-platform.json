@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Quorum Size of Zookeeper ensemble.\n            Count Zookeeper servers with quorum size metric.\n            ",
       "editable": true,
       "error": false,
@@ -139,7 +139,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(zookeeper_status_quorumsize{env=\"$env\"})",
+          "expr": "count(zookeeper_status_quorumsize{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -161,7 +161,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average size of ZNodes in the cluster.\n            Getting the node count per server, and averaging the node count.\n            ",
       "editable": true,
       "error": false,
@@ -222,7 +222,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount{env=\"$env\"})",
+          "expr": "avg(zookeeper_inmemorydatatree_nodecount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -244,7 +244,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of the number of alive connections per servers divided by the maximum number of client connections allowed per host.\n            If the percentage is higher than 60%, then Zookeeper should be scaled and/or the Zookeeper clients should be investigated to find the reason for high number of connections opened.\n            ",
       "editable": true,
       "error": false,
@@ -321,7 +321,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "zookeeper_numaliveconnections{env=\"$env\"} / zookeeper_maxclientcnxnsperhost{env=\"$env\"}",
+          "expr": "zookeeper_numaliveconnections{namespace=\"$env\"} / zookeeper_maxclientcnxnsperhost{namespace=\"$env\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -343,7 +343,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of client watchers subscribed to changes on the ZNodes.\n            ",
       "editable": true,
       "error": false,
@@ -404,7 +404,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount{env=\"$env\"})",
+          "expr": "sum(zookeeper_inmemorydatatree_watchcount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -426,7 +426,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of requests waiting for processing (queued).\n            If the number of outstanding requests grows higher than 10, then the Zookeeper hosts should be checked.\n            It could mean that there is not enough resources to cope with the number of requests.\n            ",
       "editable": true,
       "error": false,
@@ -528,7 +528,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "zookeeper_outstandingrequests{env=\"$env\"}",
+          "expr": "zookeeper_outstandingrequests{namespace=\"$env\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -591,7 +591,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Count of brokers available (online).\n            This value is referential and should not be used for alerting.\n            ",
       "editable": true,
       "error": false,
@@ -652,7 +652,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_server_replicamanager_leadercount{env=\"$env\"})",
+          "expr": "count(kafka_server_replicamanager_leadercount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -674,7 +674,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Active Controller broker.\n            It should always be 1. If the value is different than 1, then it must be alerted for troubleshooting.\n            ",
       "editable": true,
       "error": false,
@@ -735,13 +735,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_controller_kafkacontroller_activecontrollercount{env=\"$env\"} > 0",
+          "expr": "kafka_controller_kafkacontroller_activecontrollercount{namespace=\"$env\"} > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -757,7 +757,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of Topic partitions across the cluster.\n            ",
       "editable": true,
       "error": false,
@@ -818,7 +818,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_server_replicamanager_partitioncount{env=\"$env\"})",
+          "expr": "sum(kafka_server_replicamanager_partitioncount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -840,7 +840,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of Under-Replicated Partitions. This is caused by broker or volumes unavailable, impacting replicas to be offline, and reducing the ISR set for those partitions.\n            There are transient scenarios that could lead to this number growing (e.g. broker restart), but if the number doesn't shrink in a short period of time (e.g. 1 minute), then it's recommended to alert.\n            ",
       "editable": true,
       "error": false,
@@ -909,7 +909,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{env=\"$env\"})",
+          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -931,7 +931,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of partitions where the number of replicas offline is higher than the minimum ISR configuration.\n            This means partitions are not available for Producers with acks=all.\n            It's recommended alerting when this values is higher than 0.\n            ",
       "editable": true,
       "error": false,
@@ -1000,7 +1000,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_cluster_partition_underminisr{env=\"$env\"})",
+          "expr": "sum(kafka_cluster_partition_underminisr{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1022,7 +1022,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of partitions where all replicas are offline.\n            Producers and Consumers are affected by this condition.\n            It's recommended alerting when this values is higher than 0.\n            ",
       "editable": true,
       "error": false,
@@ -1091,7 +1091,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{env=\"$env\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1154,7 +1154,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Schema Registry online instances returning metrics.\n            ",
       "editable": true,
       "error": false,
@@ -1231,7 +1231,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_schema_registry_registered_count{env=\"$env\"})",
+          "expr": "count(kafka_schema_registry_registered_count{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1253,7 +1253,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average number of registered schemas across the cluster.\n            ",
       "editable": true,
       "error": false,
@@ -1314,7 +1314,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(kafka_schema_registry_registered_count{env=\"$env\"})",
+          "expr": "avg(kafka_schema_registry_registered_count{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1336,7 +1336,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average number of schemas created, by type.\n            ",
       "editable": true,
       "error": false,
@@ -1397,7 +1397,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(kafka_schema_registry_schemas_created{env=\"$env\"}) by (schema_type)",
+          "expr": "avg(kafka_schema_registry_schemas_created{namespace=\"$env\"}) by (schema_type)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1419,7 +1419,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average number of schemas deleted, by type.\n            ",
       "editable": true,
       "error": false,
@@ -1480,7 +1480,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_schema_registry_schemas_deleted{env=\"$env\"}) by (schema_type)",
+          "expr": "sum(kafka_schema_registry_schemas_deleted{namespace=\"$env\"}) by (schema_type)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1532,7 +1532,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Kafka Connect online workers returning metrics.\n            ",
           "editable": true,
           "error": false,
@@ -1593,7 +1593,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "count(kafka_connect_connect_worker_metrics_connector_count{env=\"$env\",kafka_connect_cluster_id=~\"$connect_cluster\"})",
+              "expr": "count(kafka_connect_connect_worker_metrics_connector_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1615,7 +1615,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of tasks deployed on Kafka Connect cluster.\n            ",
           "editable": true,
           "error": false,
@@ -1676,7 +1676,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\",kafka_connect_cluster_id=~\"$connect_cluster\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1698,7 +1698,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of Running Tasks on the Kafka Connect cluster.\n            Ideally, this number should be equal to the total number of tasks deployed.\n            ",
           "editable": true,
           "error": false,
@@ -1767,7 +1767,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{env=\"$env\",kafka_connect_cluster_id=~\"$connect_cluster\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1789,7 +1789,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of Paused Tasks on the Kafka Connect cluster.\n            Ideally, this number should be zero, as tasks should be running.\n            ",
           "editable": true,
           "error": false,
@@ -1858,7 +1858,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{env=\"$env\",kafka_connect_cluster_id=~\"$connect_cluster\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1880,7 +1880,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of Paused Tasks on the Kafka Connect cluster.\n            Ideally, this number should be zero, as tasks should be running.\n            It's recommended alerting when this value is higher than 0.\n            ",
           "editable": true,
           "error": false,
@@ -1949,7 +1949,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{env=\"$env\",kafka_connect_cluster_id=~\"$connect_cluster\"})",
+              "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$env\",app=~\"$connect_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1971,7 +1971,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Informative value. Time since last rebalance.\n            When this value is continuously and repeatedly low means some connectors are failing and rebalancing is triggered constantly.\n            ",
           "editable": true,
           "error": false,
@@ -2032,7 +2032,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=\"$env\",kafka_connect_cluster_id=~\"$connect_cluster\"} >= 0",
+              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{namespace=\"$env\",app=~\"$connect_cluster\"} >= 0",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2096,7 +2096,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "ksqlDB online instances returning metrics.\n            ",
           "editable": true,
           "error": false,
@@ -2157,7 +2157,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+              "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2179,7 +2179,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of active queries deployed in the cluster.\n            ",
           "editable": true,
           "error": false,
@@ -2240,7 +2240,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+              "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2262,7 +2262,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of running queries deployed in the cluster.\n            Ideally, this number should be equal to the number of active queries as queries should be running.\n            ",
           "editable": true,
           "error": false,
@@ -2331,7 +2331,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(ksql_ksql_engine_query_stats_running_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+              "expr": "sum(ksql_ksql_engine_query_stats_running_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2353,7 +2353,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of queries rebalancing in the cluster.\n            Ideally, this number should be equal zero, or return to zero in a short period (e.g. 1 minute).\n            It's recommended to alert if the number of rebalancing queries stay higher than 0 for a longer period of time.\n            ",
           "editable": true,
           "error": false,
@@ -2422,7 +2422,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+              "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2444,7 +2444,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of queries failed in the cluster.\n            Ideally, this number should be equal zero.\n            It's recommended to alert if the number of queries failed is higher than 0.\n            ",
           "editable": true,
           "error": false,
@@ -2513,7 +2513,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "avg(ksql_ksql_engine_query_stats_error_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+              "expr": "avg(ksql_ksql_engine_query_stats_error_queries{namespace=\"$env\",app=\"$ksqldb_cluster\"})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2572,14 +2572,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
         "multi": false,
         "name": "env",
         "options": [],
-        "query": "label_values(env)",
+        "query": "label_values(namespace)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -2599,14 +2599,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": true,
         "includeAll": false,
         "label": "Kafka Connect cluster",
         "multi": false,
         "name": "connect_cluster",
         "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_count{env=\"$env\"}, kafka_connect_cluster_id)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_count{namespace=\"$env\"}, app)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -2626,14 +2626,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": true,
         "includeAll": false,
         "label": "ksqlDB cluster",
         "multi": false,
         "name": "ksqldb_cluster",
         "options": [],
-        "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator{env=\"$env\"}, ksqldb_cluster_id)",
+        "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator{namespace=\"$env\"}, app)",
         "refresh": 1,
         "regex": null,
         "sort": 1,

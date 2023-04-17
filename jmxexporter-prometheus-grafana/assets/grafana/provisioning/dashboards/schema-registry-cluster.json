@@ -1,396 +1,543 @@
 {
+  "__inputs": [
+    {
+      "description": "",
+      "label": "Prometheus",
+      "name": "DS_PROMETHEUS",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus",
+      "type": "datasource"
+    }
+  ],
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
+  "description": "Overview of the Schema Registry cluster",
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1632254298743,
+  "hideControls": false,
+  "id": null,
   "links": [],
   "panels": [
     {
+      "cacheTimeout": null,
       "collapsed": false,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 19,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 1,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [],
-      "title": "Schemas",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Overview",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": "Schema Registry online instances returning metrics.\n            ",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
+          "custom": {},
+          "decimals": null,
           "mappings": [],
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "red",
-                "value": null
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "yellow",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
               },
               {
                 "color": "green",
-                "value": 1
+                "index": 2,
+                "line": true,
+                "op": "gt",
+                "value": 2.0,
+                "yaxis": "left"
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 0,
-        "y": 1
+        "y": 0
       },
+      "height": null,
+      "hideTimeOverride": false,
       "id": 2,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "count(kafka_schema_registry_registered_count{job=\"schema-registry\",env=\"$env\"})",
-          "instant": true,
+          "datasource": null,
+          "expr": "count(kafka_schema_registry_registered_count{env=\"$env\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "",
-          "refId": "A"
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Schema Registry Instances",
+      "title": "SR: Online instances",
+      "transformations": [],
+      "transparent": false,
       "type": "stat"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 4,
-        "y": 1
-      },
-      "id": 11,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "right"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum by(schema_type) (kafka_schema_registry_schemas_created{job=\"schema-registry\",env=\"$env\"})",
-          "interval": "",
-          "legendFormat": "{{schema_type}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Schema registered over time",
-      "type": "timeseries"
     },
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": "Average number of registered schemas across the cluster.\n            ",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
+          "custom": {},
+          "decimals": null,
           "mappings": [],
-          "unit": "short"
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 3,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "avg(kafka_schema_registry_registered_count{env=\"$env\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SR: Registered Schemas (avg.)",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "Average number of schemas created, by type.\n            ",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 4,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "avg(kafka_schema_registry_schemas_created{env=\"$env\"}) by (schema_type)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{schema_type}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SR: Created Schemas by Type (avg.)",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 5,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum(kafka_schema_registry_schemas_deleted{env=\"$env\"}) by (schema_type)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{schema_type}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SR: Sum of Deleted Schemas by Type",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "Number of active connections",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
         "w": 4,
         "x": 16,
-        "y": 1
+        "y": 0
       },
-      "id": 8,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 6,
       "interval": null,
       "links": [],
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "bottom",
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "7.3.4",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum by(schema_type)(kafka_schema_registry_schemas_created{job=\"schema-registry\",env=\"$env\"})",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{schema_type}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Schemas created",
-      "type": "piechart"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 9,
-      "interval": null,
-      "links": [],
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "bottom",
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "7.3.4",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg by(schema_type)(kafka_schema_registry_schemas_deleted{job=\"schema-registry\",env=\"$env\"})",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{schema_type}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Schemas deleted",
-      "type": "piechart"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 5
-      },
-      "id": 25,
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "sum(kafka_schema_registry_registered_count{job=\"schema-registry\",env=\"$env\"})",
-          "instant": true,
+          "datasource": null,
+          "expr": "sum(kafka_schema_registry_kafka_schema_registry_metrics_connection_count{env=\"$env\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "",
-          "refId": "A"
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Schemas registered",
+      "title": "SR: Sum of Active Connections",
+      "transformations": [],
+      "transparent": false,
       "type": "stat"
     },
     {
+      "cacheTimeout": null,
       "collapsed": false,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 1
       },
-      "id": 15,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 7,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
       "title": "System",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -401,7 +548,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -412,239 +559,45 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 0,
-        "y": 10
-      },
-      "id": 13,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "irate(process_cpu_seconds_total{job=\"schema-registry\",env=\"$env\"}[5m])*100",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CPU Usage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 10
-      },
-      "id": 21,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"schema-registry\",env=\"$env\"})",
-          "interval": "",
-          "legendFormat": "Used:{{instance}}",
-          "refId": "A"
-        },
-        {
-          "expr": "jvm_memory_bytes_max{job=\"schema-registry\",env=\"$env\",area=\"heap\"}",
-          "interval": "",
-          "legendFormat": "Max:{{instance}}",
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "JVM Memory Used",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 3,
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 8,
-        "x": 16,
-        "y": 10
+        "x": 0,
+        "y": 1
       },
-      "id": 23,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -653,34 +606,279 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"schema-registry\",env=\"$env\"}[5m]))",
+          "datasource": null,
+          "expr": "irate(process_cpu_seconds_total{env=\"$env\",hostname=\"$sr_server\"}[5m])",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Time spent in GC",
+      "title": "CPU usage",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 9,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=\"$sr_server\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Memory usage",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 10,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=\"$sr_server\"}[5m]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "GC collection",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": false,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 2
       },
-      "id": 17,
-      "title": "Connections",
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 11,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Requests",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -691,7 +889,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -702,14 +900,12 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
@@ -717,34 +913,32 @@
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "short"
+          "unit": ""
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 0,
-        "y": 18
+        "y": 2
       },
-      "id": 4,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 12,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -753,22 +947,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "kafka_schema_registry_jetty_metrics_connections_active{job=\"schema-registry\",env=\"$env\"}",
+          "datasource": null,
+          "expr": "kafka_schema_registry_kafka_schema_registry_metrics_connection_count{env=\"$env\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Active Connections",
+      "title": "Connections",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -779,7 +989,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -790,14 +1000,12 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
@@ -805,34 +1013,32 @@
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "short"
+          "unit": "reqps"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 8,
-        "y": 18
+        "y": 2
       },
-      "id": 6,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 13,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -841,22 +1047,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "kafka_schema_registry_jersey_metrics_request_rate{job=\"schema-registry\",env=\"$env\"}",
+          "datasource": null,
+          "expr": "kafka_schema_registry_jersey_metrics_request_rate{env=\"$env\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Requests Rate",
+      "title": "Request Rate",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -867,7 +1089,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -878,14 +1100,12 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
@@ -893,34 +1113,32 @@
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "short"
+          "unit": "ms"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 16,
-        "y": 18
+        "y": 2
       },
-      "id": 24,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 14,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -929,66 +1147,132 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "kafka_schema_registry_jersey_metrics_request_latency_99{job=\"schema-registry\",env=\"$env\"}",
+          "datasource": null,
+          "expr": "kafka_schema_registry_jersey_metrics_request_latency_99{env=\"$env\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Requests latency 99p",
+      "title": "Request Latency (p99)",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 30,
+  "refresh": "30s",
+  "rows": [],
+  "schemaVersion": 12,
+  "sharedCrosshair": false,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "confluent",
+    "schema-registry"
+  ],
   "templating": {
     "list": [
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "dev",
-          "value": "dev"
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(env)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
         "multi": false,
         "name": "env",
         "options": [],
-        "query": {
-          "query": "label_values(env)",
-          "refId": "Prometheus-env-Variable-Query"
-        },
+        "query": "label_values(env)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
+        },
+        "datasource": "Prometheus",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Server",
+        "multi": true,
+        "name": "sr_server",
+        "options": [],
+        "query": "label_values(kafka_schema_registry_registered_count{env=\"$env\"}, hostname)",
+        "refresh": 1,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-1h",
     "to": "now"
   },
-  "timepicker": {},
-  "timezone": "",
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
   "title": "Schema Registry cluster",
-  "uid": "9ixzve-Mk",
-  "version": 2
+  "uid": null,
+  "version": 0
 }

@@ -1,33 +1,30 @@
 {
+  "__inputs": [
+    {
+      "description": "",
+      "label": "Prometheus",
+      "name": "DS_PROMETHEUS",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus",
+      "type": "datasource"
+    }
+  ],
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
+  "description": "Overview of the Kafka quotass",
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1647426501739,
+  "hideControls": false,
+  "id": null,
   "links": [],
   "panels": [
     {
-      "datasource": null,
-      "description": "Indicates the data produce rate of the client in bytes/sec",
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -38,7 +35,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -49,34 +46,22 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "Bps"
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -86,13 +71,20 @@
         "x": 0,
         "y": 0
       },
-      "id": 6,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 1,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
             "max",
-            "mean"
+            "mean",
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -101,24 +93,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, kafka_server_produce_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"})",
+          "datasource": null,
+          "expr": "topk(10,kafka_server_produce_byte_rate{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "User:{{user}} | Client ID:{{client_id}} @ Broker:{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Produce Byte Rate",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "Indicates the data consume rate of the client in bytes/sec",
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -129,7 +135,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -140,34 +146,22 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "Bps"
+          "unit": "binBps"
         },
         "overrides": []
       },
@@ -177,13 +171,20 @@
         "x": 8,
         "y": 0
       },
-      "id": 7,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 2,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
             "max",
-            "mean"
+            "mean",
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -192,24 +193,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, kafka_server_fetch_byte_rate{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"})",
+          "datasource": null,
+          "expr": "topk(10,kafka_server_fetch_byte_rate{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "User:{{user}} | Client ID:{{client_id}} @ Broker:{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Fetch Byte Rate",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "Indicates the percentage of time spent in broker network and I/O threads to process requests from client group",
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -220,7 +235,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -231,32 +246,20 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "percent"
         },
@@ -268,13 +271,20 @@
         "x": 16,
         "y": 0
       },
-      "id": 8,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 3,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
             "max",
-            "mean"
+            "mean",
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -283,24 +293,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "topk(10, kafka_server_request_request_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"})",
+          "datasource": null,
+          "expr": "topk(10,kafka_server_request_request_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "User:{{user}} | Client ID:{{client_id}} @ Broker:{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Request Time",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "Indicates the amount of time in ms the client was throttled",
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -311,7 +335,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -322,32 +346,20 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "ms"
         },
@@ -357,15 +369,22 @@
         "h": 12,
         "w": 8,
         "x": 0,
-        "y": 12
+        "y": 1
       },
-      "id": 3,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 4,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
             "max",
-            "mean"
+            "mean",
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -374,24 +393,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "kafka_server_produce_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"} > 0",
+          "datasource": null,
+          "expr": "topk(10,kafka_server_produce_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"} > 0)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "User:{{user}} | Client ID:{{client_id}} @ Broker:{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Produce Bandwidth Throttle",
+      "title": "Produce Throttle Time",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "Indicates the amount of time in ms the client was throttled",
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -402,7 +435,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -413,32 +446,20 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "ms"
         },
@@ -448,15 +469,22 @@
         "h": 12,
         "w": 8,
         "x": 8,
-        "y": 12
+        "y": 1
       },
+      "height": null,
+      "hideTimeOverride": false,
       "id": 5,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
             "max",
-            "mean"
+            "mean",
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -465,24 +493,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "kafka_server_fetch_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"} > 0",
+          "datasource": null,
+          "expr": "topk(10,kafka_server_fetch_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"} > 0)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "User:{{user}} | Client ID:{{client_id}} @ Broker:{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Fetch Bandwidth Throttle",
+      "title": "Fetch Throttle Time",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "Indicates the amount of time in ms the client was throttled",
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -493,7 +535,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -504,32 +546,20 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "ms"
         },
@@ -539,15 +569,22 @@
         "h": 12,
         "w": 8,
         "x": 16,
-        "y": 12
+        "y": 1
       },
-      "id": 4,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 6,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
             "max",
-            "mean"
+            "mean",
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -556,168 +593,163 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "kafka_server_request_throttle_time{user=~\"$user\",client_id=~\"$client_id\",instance=~\"$broker_id\",env=\"$env\",job=\"kafka-broker\"} > 0",
+          "datasource": null,
+          "expr": "topk(10,kafka_server_request_throttle_time{env=\"$env\",user=~\"$user\",client_id=~\"$client_id\",hostname=~\"$broker\"} > 0)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "User: {{ user }} - Client: {{ client_id }} @ Broker: {{ instance }}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "User:{{user}} | Client ID:{{client_id}} @ Broker:{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Request Throttle",
+      "title": "Request Throttle Time",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 30,
+  "refresh": "30s",
+  "rows": [],
+  "schemaVersion": 12,
+  "sharedCrosshair": false,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "confluent",
+    "kafka-client",
+    "kafka-quota"
+  ],
   "templating": {
     "list": [
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "dev",
-          "value": "dev"
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(env)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
         "multi": false,
         "name": "env",
         "options": [],
-        "query": {
-          "query": "label_values(env)",
-          "refId": "Prometheus-env-Variable-Query"
-        },
+        "query": "label_values(env)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(kafka_server_kafkaserver_brokerstate, instance)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
-        "label": "Instance",
+        "label": "Broker",
         "multi": true,
-        "name": "broker_id",
+        "name": "broker",
         "options": [],
-        "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate, instance)",
-          "refId": "Prometheus-broker_id-Variable-Query"
-        },
+        "query": "label_values(kafka_server_produce_byte_rate{env=\"$env\"},hostname)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": ".*",
+        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(user)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "User",
         "multi": true,
         "name": "user",
         "options": [],
-        "query": {
-          "query": "label_values(user)",
-          "refId": "Prometheus-user-Variable-Query"
-        },
+        "query": "label_values(user)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": ".*",
+        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(client_id)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
-        "label": "Client Id",
+        "label": "Client ID",
         "multi": true,
         "name": "client_id",
         "options": [],
-        "query": {
-          "query": "label_values(client_id)",
-          "refId": "Prometheus-client_id-Variable-Query"
-        },
+        "query": "label_values(client_id)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
+    "hidden": false,
     "refresh_intervals": [
+      "5s",
       "10s",
       "30s",
       "1m",
@@ -727,10 +759,21 @@
       "1h",
       "2h",
       "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
     ]
   },
-  "timezone": "",
+  "timezone": "browser",
   "title": "Kafka Quotas",
-  "uid": "cwWEgYqMz",
-  "version": 2
+  "uid": null,
+  "version": 0
 }

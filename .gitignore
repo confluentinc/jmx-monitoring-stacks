@@ -6,3 +6,4 @@ both-enabled/
 .vscode/
 utils/testing/output/*
 utils/testing/code/*.ipynb
+__pycache__/

@@ -139,7 +139,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(zookeeper_status_quorumsize{env=\"$env\"})",
+          "expr": "count(zookeeper_status_quorumsize{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -222,7 +222,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount{env=\"$env\"})",
+          "expr": "avg(zookeeper_inmemorydatatree_nodecount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -321,7 +321,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "zookeeper_numaliveconnections{env=\"$env\"} / zookeeper_maxclientcnxnsperhost{env=\"$env\"}",
+          "expr": "zookeeper_numaliveconnections{namespace=\"$env\"} / zookeeper_maxclientcnxnsperhost{namespace=\"$env\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -404,7 +404,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount{env=\"$env\"})",
+          "expr": "sum(zookeeper_inmemorydatatree_watchcount{namespace=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -528,13 +528,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "zookeeper_outstandingrequests{env=\"$env\"}",
+          "expr": "zookeeper_outstandingrequests{namespace=\"$env\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}} ({{server_id}}:{{member_type}})",
+          "legendFormat": "{{pod}} ({{server_id}}:{{member_type}})",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -669,13 +669,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "irate(process_cpu_seconds_total{env=\"$env\",hostname=~\"$zk_server\"}[5m])",
+          "expr": "irate(process_cpu_seconds_total{namespace=\"$env\",pod=~\"$zk_server\"}[5m])",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -769,13 +769,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=\"$zk_server\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$env\",pod=\"$zk_server\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -869,13 +869,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=\"$zk_server\"}[5m]))",
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$env\",pod=\"$zk_server\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -999,13 +999,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "zookeeper_minrequestlatency{env=\"$env\"} * zookeeper_ticktime",
+              "expr": "zookeeper_minrequestlatency{namespace=\"$env\"} * zookeeper_ticktime",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1099,13 +1099,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "zookeeper_avgrequestlatency{env=\"$env\"} * zookeeper_ticktime",
+              "expr": "zookeeper_avgrequestlatency{namespace=\"$env\"} * zookeeper_ticktime",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1199,13 +1199,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "zookeeper_maxrequestlatency{env=\"$env\"} * zookeeper_ticktime",
+              "expr": "zookeeper_maxrequestlatency{namespace=\"$env\"} * zookeeper_ticktime",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1341,13 +1341,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{env=\"$env\",quantile=~\"$quantile\"}",
+              "expr": "kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{namespace=\"$env\",quantile=~\"$quantile\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1443,13 +1443,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_server_sessionexpirelistener_zookeepersyncconnectspersec{env=\"$env\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeepersyncconnectspersec{namespace=\"$env\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1545,13 +1545,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_server_sessionexpirelistener_zookeeperexpirespersec{env=\"$env\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeeperexpirespersec{namespace=\"$env\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1647,13 +1647,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_server_sessionexpirelistener_zookeeperdisconnectspersec{env=\"$env\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeeperdisconnectspersec{namespace=\"$env\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1749,13 +1749,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_server_sessionexpirelistener_zookeeperauthfailurespersec{env=\"$env\"}",
+              "expr": "kafka_server_sessionexpirelistener_zookeeperauthfailurespersec{namespace=\"$env\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -1812,7 +1812,7 @@
         "multi": false,
         "name": "env",
         "options": [],
-        "query": "label_values(env)",
+        "query": "label_values(namespace)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -1839,7 +1839,7 @@
         "multi": true,
         "name": "zk_server",
         "options": [],
-        "query": "label_values(zookeeper_outstandingrequests{env=\"$env\"}, hostname)",
+        "query": "label_values(zookeeper_outstandingrequests{namespace=\"$env\"}, pod)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -1866,7 +1866,7 @@
         "multi": false,
         "name": "quantile",
         "options": [],
-        "query": "label_values(kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{env=\"$env\"}, quantile)",
+        "query": "label_values(kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{namespace=\"$env\"}, quantile)",
         "refresh": 1,
         "regex": null,
         "sort": 1,

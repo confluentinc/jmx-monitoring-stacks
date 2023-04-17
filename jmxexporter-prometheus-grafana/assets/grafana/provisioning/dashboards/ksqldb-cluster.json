@@ -1,36 +1,38 @@
 {
+  "__inputs": [
+    {
+      "description": "",
+      "label": "Prometheus",
+      "name": "DS_PROMETHEUS",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus",
+      "type": "datasource"
+    }
+  ],
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
+  "description": "Overview of ksqlDB clusters.",
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
-  "id": 10,
-  "iteration": 1632254575966,
+  "hideControls": false,
+  "id": null,
   "links": [],
   "panels": [
     {
+      "cacheTimeout": null,
       "collapsed": false,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
       },
       "gridPos": {
         "h": 1,
@@ -38,983 +40,531 @@
         "x": 0,
         "y": 0
       },
-      "id": 29,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 1,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [],
-      "title": "Overview",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cluster Overview",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     },
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "Average number of active queries per server.",
+      "description": "ksqlDB online instances returning metrics.\n            ",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#d44a3a",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0
-              },
-              {
-                "color": "#299c46",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 1
-      },
-      "id": 18,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "avg(ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Active Queries",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Num of created queries",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 500
-              },
-              {
-                "color": "#d44a3a",
-                "value": 800
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 1
-      },
-      "id": 20,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "avg(ksql_ksql_engine_query_stats_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Running Queries",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Num of persisted queries",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#d44a3a",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0
-              },
-              {
-                "color": "#299c46",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 1
-      },
-      "id": 2,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "avg(ksql_ksql_engine_query_stats_num_persistent_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total Persisted Queries",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Num of rebalancing queries",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "#d44a3a",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 12,
-        "y": 1
-      },
-      "id": 16,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Rebalancing Queries",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Number of error query",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "#d44a3a",
-                "value": 2
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 1
-      },
-      "id": 4,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "avg(ksql_ksql_engine_query_stats_error_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Queries in Error State",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Num of idle queries",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "#d44a3a",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 19,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "sum(ksql_ksql_engine_query_stats_num_idle_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Idle Queries",
-      "type": "stat"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "displayMode": "auto",
-            "filterable": false
-          },
+          "custom": {},
+          "decimals": null,
           "mappings": [],
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ksql_query"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 426
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "instance"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 381
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 16,
-        "x": 0,
-        "y": 5
-      },
-      "id": 23,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "ksql_ksql_metrics_ksql_queries_query_status{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
-          "format": "table",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Queries Status",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": true,
-              "Value": true,
-              "__name__": true,
-              "env": true,
-              "job": true,
-              "ksql_cluster": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "Time": "",
-              "__name__": "",
-              "instance": "",
-              "ksql_cluster": "",
-              "ksql_query": ""
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Num of not running queries",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "#d44a3a",
-                "value": 5
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
               }
             ]
           },
           "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 5
-      },
-      "id": 5,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "sum(ksql_ksql_engine_query_stats_not_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Stopped Queries",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Num of running queries",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "#d44a3a",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 5
-      },
-      "id": 15,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "sum(ksql_ksql_engine_query_stats_pending_shutdown_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Currently Shutting Down Queries",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
-      "description": "Cluster liveness",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
-        "x": 16,
-        "y": 9
+        "w": 4,
+        "x": 0,
+        "y": 0
       },
-      "id": 17,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 2,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
-        "legend": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
-          "displayMode": "list",
-          "placement": "bottom"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "ksql_ksql_engine_query_stats_liveness_indicator{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
+          "datasource": null,
+          "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Cluster liveness",
-      "type": "timeseries"
+      "title": "ksqlDB: Online Servers",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "Message consumed/sec",
+      "description": "Number of active queries deployed in the cluster.\n            ",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
+          "custom": {},
+          "decimals": null,
           "mappings": [],
-          "min": 0,
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
               }
             ]
           },
-          "unit": "short"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 14
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 0
       },
-      "id": 21,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 3,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
-        "legend": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
-          "displayMode": "table",
-          "placement": "bottom"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "ksql_ksql_engine_query_stats_messages_consumed_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
+          "datasource": null,
+          "expr": "sum(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Message consumed/sec",
-      "type": "timeseries"
+      "title": "ksqlDB: Sum of Active Queries",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "Message produced/sec",
+      "description": "Number of running queries deployed in the cluster.\n            Ideally, this number should be equal to the number of active queries as queries should be running.\n            ",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
+          "custom": {},
+          "decimals": null,
           "mappings": [],
-          "min": 0,
+          "noValue": "none",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "green",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
               }
             ]
           },
-          "unit": "short"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 4,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum(ksql_ksql_engine_query_stats_running_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ksqlDB: Sum of Running Queries",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "Number of queries rebalancing in the cluster.\n            Ideally, this number should be equal zero, or return to zero in a short period (e.g. 1 minute).\n            It's recommended to alert if the number of rebalancing queries stay higher than 0 for a longer period of time.\n            ",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "yellow",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
         "x": 12,
-        "y": 14
+        "y": 0
       },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 5,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ksqlDB: Sum of Rebalancing Queries",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "Number of queries failed in the cluster.\n            Ideally, this number should be equal zero.\n            It's recommended to alert if the number of queries failed is higher than 0.\n            ",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": null,
+          "mappings": [],
+          "noValue": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 1.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 6,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "avg(ksql_ksql_engine_query_stats_error_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Connect: Sum of Queries Failed",
+      "transformations": [],
+      "transparent": false,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "A metric with constant value 1 indicating the server is up and emitting metrics.",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": ""
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
       "id": 7,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -1023,41 +573,279 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "irate(ksql_ksql_engine_query_stats_messages_produced_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}[5m])",
+          "datasource": null,
+          "expr": "ksql_ksql_engine_query_stats_liveness_indicator{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Message produced/sec",
+      "title": "Cluster Liveness",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "The number of messages consumed per second across all queries.",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "cps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "ksql_ksql_engine_query_stats_messages_consumed_per_sec{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Messages consumed/sec",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "Prometheus",
+      "description": "The number of messages produced per second across all queries.",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "cps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 9,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": null,
+          "expr": "ksql_ksql_engine_query_stats_messages_produced_per_sec{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Messages produced/sec",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
       "collapsed": false,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 2
       },
-      "id": 33,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 10,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
       "title": "System",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "",
+      "description": "Rate of CPU seconds used by the Java process.\n            100% usage represents one core. \n            If there are multiple cores, the total capacity should be 100% * number_cores.",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1068,7 +856,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1079,50 +867,45 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 0,
-        "y": 23
+        "y": 2
       },
-      "id": 12,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 11,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -1131,23 +914,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "irate(process_cpu_seconds_total{job=\"ksqldb\", env=\"$env\", instance=~\"$instance\"}[5m])",
+          "datasource": null,
+          "expr": "irate(process_cpu_seconds_total{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"}[5m])",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CPU Usage",
+      "title": "CPU usage",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "",
+      "description": "Sum of JVM memory used, without including areas (e.g. heap size).",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1158,7 +956,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1169,50 +967,45 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "decbytes"
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 8,
-        "y": 23
+        "y": 2
       },
-      "id": 24,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 12,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -1221,29 +1014,38 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"ksqldb\", env=\"$env\",instance=~\"$instance\"})",
+          "datasource": null,
+          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "Used:{{instance}}",
-          "refId": "A"
-        },
-        {
-          "expr": "jvm_memory_bytes_max{job=\"ksqldb\",env=\"$env\",area=\"heap\"}",
-          "interval": "",
-          "legendFormat": "Max:{{instance}}",
-          "refId": "B"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "JVM Memory Used",
+      "title": "Memory usage",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "",
+      "description": "Sum of seconds used by Garbage Collection.",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1254,7 +1056,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1265,52 +1067,45 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
+              "log": 2,
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "decimals": 4,
-          "links": [],
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
-          "unit": "short"
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 16,
-        "y": 23
+        "y": 2
       },
-      "id": 14,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 13,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "options": {
         "legend": {
           "calcs": [
+            "max",
             "mean",
-            "lastNotNull",
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "bottom"
@@ -1319,38 +1114,68 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "8.1.3",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
       "targets": [
         {
-          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"ksqldb\", env=\"$env\", instance=~\"$instance\"}[5m]))",
+          "datasource": null,
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"}[5m]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "intervalFactor": 2,
+          "legendFormat": "{{hostname}}",
+          "metric": "",
+          "refId": "",
+          "step": 10,
+          "target": ""
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Time spent in GC",
+      "title": "GC collection",
+      "transformations": [],
+      "transparent": false,
       "type": "timeseries"
     },
     {
+      "cacheTimeout": null,
       "collapsed": true,
       "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 3
       },
-      "id": 31,
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 14,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
       "panels": [
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1372,50 +1197,45 @@
                 "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 6,
+            "h": 10,
+            "w": 8,
             "x": 0,
-            "y": 32
+            "y": 3
           },
-          "id": 26,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 15,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -1424,117 +1244,52 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
-              "legendFormat": "{{thread_id}}_avg",
-              "refId": "A"
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             },
             {
-              "refId": "C"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Poll Latency (Avg)",
-          "transformations": [],
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 2,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 6,
-            "y": 32
-          },
-          "id": 35,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
-              "legendFormat": "{{thread_id}}_max",
-              "refId": "B"
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Poll Latency (Max)",
+          "title": "Poll Latency",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1556,619 +1311,45 @@
                 "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 12,
-            "y": 32
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 3
           },
-          "id": 25,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
-              "format": "time_series",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{thread_id}}_avg",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Process Latency (Avg)",
-          "transformations": [],
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 2,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 18,
-            "y": 32
-          },
-          "id": 34,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{thread_id}}_max",
-              "refId": "B"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Process Latency Max",
-          "transformations": [],
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 0,
-            "y": 43
-          },
-          "id": 13,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
-              "format": "time_series",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{thread_id}}_avg",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Commit Latency (Avg)",
-          "transformations": [],
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 6,
-            "y": 43
-          },
-          "id": 38,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
-              "format": "time_series",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{thread_id}}_avg",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Commit Latency (Max)",
-          "transformations": [],
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 12,
-            "y": 43
-          },
-          "id": 27,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
-              "format": "time_series",
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{thread_id}}_avg",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Punctuate Latency (Avg)",
-          "transformations": [],
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 3,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "ms"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/max/"
-                },
-                "properties": [
-                  {
-                    "id": "custom.lineStyle",
-                    "value": {
-                      "dash": [
-                        5,
-                        2
-                      ],
-                      "fill": "dash"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 18,
-            "y": 43
-          },
-          "id": 37,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{thread_id}}_max",
-              "refId": "B"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Punctuate Latency (Max)",
-          "transformations": [],
-          "type": "timeseries"
-        }
-      ],
-      "title": "Queries Performance",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 32
-      },
-      "id": 40,
-      "panels": [
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 3,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "iops"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 6,
-            "x": 0,
-            "y": 33
-          },
-          "id": 36,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 16,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2177,24 +1358,422 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_process_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Process Latency",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "Prometheus",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 4
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 17,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Commit Latency",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "Prometheus",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 4
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 18,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (avg.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            },
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{thread_id}} (max.)",
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Punctuate Latency",
+          "transformations": [],
+          "transparent": false,
+          "type": "timeseries"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Queries Performance",
+      "transformations": [],
+      "transparent": false,
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "collapsed": true,
+      "datasource": null,
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        }
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 19,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "Prometheus",
+          "description": null,
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 5
+          },
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 20,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
+          "options": {
+            "legend": {
+              "calcs": [
+                "max",
+                "mean",
+                "last"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
+          "targets": [
+            {
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_put_rate{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
           "title": "Put Rate",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2213,53 +1792,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 6,
-            "y": 33
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 5
           },
-          "id": 42,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 21,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2268,24 +1842,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_put_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put average latency",
+          "title": "Put Latency (Avg.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2304,53 +1892,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 33
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 5
           },
-          "id": 43,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 22,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2359,24 +1942,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_put_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put max latency",
+          "title": "Put Latency (Max.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2395,54 +1992,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
-              "unit": "iops"
+              "unit": "ops"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 6,
+            "h": 10,
+            "w": 8,
             "x": 0,
-            "y": 44
+            "y": 6
           },
-          "id": 52,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 23,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2451,24 +2042,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put if absent rate",
+          "title": "Put if absent Rate",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2487,53 +2092,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 6,
-            "y": 44
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 6
           },
-          "id": 53,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 24,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2542,24 +2142,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put if absent average latency",
+          "title": "Put if absent Latency (Avg.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2578,53 +2192,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 44
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 6
           },
-          "id": 54,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 25,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2633,24 +2242,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Put if absent max latency",
+          "title": "Put if absent Latency (Max.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2669,54 +2292,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
-              "unit": "iops"
+              "unit": "ops"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 6,
+            "h": 10,
+            "w": 8,
             "x": 0,
-            "y": 55
+            "y": 7
           },
-          "id": 41,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 26,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2725,24 +2342,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_fetch_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_fetch_rate{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
           "title": "Fetch Rate",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
-          "datasource": null,
-          "description": "",
+          "cacheTimeout": null,
+          "datasource": "Prometheus",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2761,53 +2392,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 6,
-            "y": 55
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 7
           },
-          "id": 44,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 27,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2816,24 +2442,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Fetch average latency",
+          "title": "Fetch Latency (Avg.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2852,53 +2492,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 55
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 7
           },
-          "id": 45,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 28,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2907,24 +2542,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_put_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_fetch_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Fetch max latency",
+          "title": "Fetch Latency (Max.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2943,54 +2592,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
-              "unit": "iops"
+              "unit": "ops"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 6,
+            "h": 10,
+            "w": 8,
             "x": 0,
-            "y": 66
+            "y": 8
           },
-          "id": 46,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 29,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -2999,24 +2642,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_delete_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_delete_rate{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
           "title": "Delete Rate",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3035,53 +2692,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 6,
-            "y": 66
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 8
           },
-          "id": 47,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 30,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -3090,24 +2742,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_delete_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_delete_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delete average latency",
+          "title": "Delete Latency (Avg.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3126,53 +2792,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 66
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 8
           },
-          "id": 48,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 31,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -3181,24 +2842,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_delete_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_delete_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delete max latency",
+          "title": "Delete Latency (Max.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3217,54 +2892,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
-              "unit": "iops"
+              "unit": "ops"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 6,
+            "h": 10,
+            "w": 8,
             "x": 0,
-            "y": 77
+            "y": 9
           },
-          "id": 49,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 32,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -3273,24 +2942,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_restore_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_restore_rate{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
           "title": "Restore Rate",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3309,53 +2992,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 6,
-            "y": 77
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 9
           },
-          "id": 50,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 33,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -3364,24 +3042,38 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_restore_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_restore_latency_avg{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Restore average latency",
+          "title": "Restore Latency (Avg.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         },
         {
+          "cacheTimeout": null,
           "datasource": "Prometheus",
-          "description": "",
+          "description": null,
+          "editable": true,
+          "error": false,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3400,53 +3092,48 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 3,
+                "lineWidth": 1,
                 "pointSize": 5,
                 "scaleDistribution": {
+                  "log": 2,
                   "type": "linear"
                 },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {},
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+                "steps": []
               },
               "unit": "ms"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 9,
-            "x": 15,
-            "y": 77
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 9
           },
-          "id": 51,
+          "height": null,
+          "hideTimeOverride": false,
+          "id": 34,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "maxPerRow": null,
+          "minSpan": null,
           "options": {
             "legend": {
               "calcs": [
+                "max",
                 "mean",
-                "lastNotNull",
-                "max"
+                "last"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -3455,130 +3142,174 @@
               "mode": "single"
             }
           },
-          "pluginVersion": "8.1.3",
+          "repeat": null,
+          "repeatDirection": null,
+          "span": null,
           "targets": [
             {
-              "expr": "kafka_streams_stream_state_metrics_restore_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "datasource": null,
+              "expr": "kafka_streams_stream_state_metrics_restore_latency_max{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\",hostname=~\"$ksqldb_server\"thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
               "interval": "",
+              "intervalFactor": 2,
               "legendFormat": "{{thread_id}}",
-              "refId": "B"
+              "metric": "",
+              "refId": "",
+              "step": 10,
+              "target": ""
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Restore max latency",
+          "title": "Restore Latency (Max.)",
           "transformations": [],
+          "transparent": false,
           "type": "timeseries"
         }
       ],
-      "title": "StateStore Metric",
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "State Stores",
+      "transformations": [],
+      "transparent": false,
       "type": "row"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 30,
+  "refresh": "30s",
+  "rows": [],
+  "schemaVersion": 12,
+  "sharedCrosshair": false,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "confluent",
+    "ksqldb"
+  ],
   "templating": {
     "list": [
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "dev",
-          "value": "dev"
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,env)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
         "multi": false,
         "name": "env",
         "options": [],
-        "query": {
-          "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,env)",
-          "refId": "Prometheus-env-Variable-Query"
-        },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "query": "label_values(env)",
+        "refresh": 1,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
-        "description": null,
-        "error": null,
         "hide": 0,
-        "includeAll": true,
-        "label": "Cluster ID",
-        "multi": true,
+        "includeAll": false,
+        "label": "ksqlDB cluster",
+        "multi": false,
+        "name": "ksqldb_cluster",
+        "options": [],
+        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\"},ksqldb_cluster_id)",
+        "refresh": 1,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "tags": [],
+          "text": null,
+          "value": null
+        },
+        "datasource": "Prometheus",
+        "hide": 2,
+        "includeAll": false,
+        "label": "ksqlDB cluster ID",
+        "multi": false,
         "name": "ksqldb_cluster_id",
         "options": [],
-        "query": {
-          "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
-          "refId": "Prometheus-ksqldb_cluster_id-Variable-Query"
-        },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\"},ksql_cluster)",
+        "refresh": 1,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "tags": [],
+          "text": null,
+          "value": null
         },
         "datasource": "Prometheus",
-        "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
-        "label": "Instance",
+        "label": "ksqlDB server",
         "multi": true,
-        "name": "instance",
+        "name": "ksqldb_server",
         "options": [],
-        "query": {
-          "query": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
-          "refId": "Prometheus-instance-Variable-Query"
-        },
+        "query": "label_values(ksql_ksql_engine_query_stats_num_active_queries{env=\"$env\",ksqldb_cluster_id=\"$ksqldb_cluster\"}, hostname)",
         "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tagsQuery": null,
         "type": "query",
         "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
+    "hidden": false,
     "refresh_intervals": [
+      "5s",
       "10s",
       "30s",
       "1m",
@@ -3588,10 +3319,21 @@
       "1h",
       "2h",
       "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
     ]
   },
-  "timezone": "",
+  "timezone": "browser",
   "title": "ksqlDB cluster",
-  "uid": "pbx34foGk",
-  "version": 1
+  "uid": null,
+  "version": 0
 }

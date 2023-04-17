@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Kafka Connect online workers returning metrics.\n            ",
       "editable": true,
       "error": false,
@@ -123,7 +123,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "count(kafka_connect_app_info{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",version!=\"\"})",
+          "expr": "count(kafka_connect_app_info{namespace=\"$env\",app=\"$connect_cluster\",version!=\"\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -145,7 +145,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of tasks deployed on Kafka Connect cluster.\n            ",
       "editable": true,
       "error": false,
@@ -206,7 +206,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -228,7 +228,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of Running Tasks on the Kafka Connect cluster.\n            Ideally, this number should be equal to the total number of tasks deployed.\n            ",
       "editable": true,
       "error": false,
@@ -297,7 +297,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -319,7 +319,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of Paused Tasks on the Kafka Connect cluster.\n            Ideally, this number should be zero, as tasks should be running.\n            ",
       "editable": true,
       "error": false,
@@ -388,7 +388,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -410,7 +410,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Number of Paused Tasks on the Kafka Connect cluster.\n            Ideally, this number should be zero, as tasks should be running.\n            It's recommended alerting when this value is higher than 0.\n            ",
       "editable": true,
       "error": false,
@@ -479,7 +479,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -501,7 +501,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Informative value. Time since last rebalance.\n            When this value is continuously and repeatedly low means some connectors are failing and rebalancing is triggered constantly.\n            ",
       "editable": true,
       "error": false,
@@ -562,13 +562,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"} >= 0",
+          "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{namespace=\"$env\",app=\"$connect_cluster\"} >= 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -588,7 +588,7 @@
         "mode": "thresholds"
       },
       "columns": [],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Connect workers metadata and stats.\n            ",
       "editable": true,
       "error": false,
@@ -631,7 +631,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_app_info{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",start_time_ms!=\"\"}",
+          "expr": "kafka_connect_app_info{namespace=\"$env\",app=\"$connect_cluster\",start_time_ms!=\"\"}",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -645,7 +645,7 @@
         },
         {
           "datasource": null,
-          "expr": "kafka_connect_app_info{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",version!=\"\"}",
+          "expr": "kafka_connect_app_info{namespace=\"$env\",app=\"$connect_cluster\",version!=\"\"}",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -659,7 +659,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (hostname) (kafka_connect_connect_worker_metrics_connector_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -673,7 +673,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (hostname) (kafka_connect_connect_worker_metrics_connector_startup_success_total{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_startup_success_total{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -687,7 +687,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (hostname) (kafka_connect_connect_worker_metrics_connector_startup_failure_total{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_connector_startup_failure_total{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -701,7 +701,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (hostname) (kafka_connect_connect_worker_metrics_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -715,7 +715,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (hostname) (kafka_connect_connect_worker_metrics_task_startup_success_total{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_startup_success_total{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -729,7 +729,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (hostname) (kafka_connect_connect_worker_metrics_task_startup_failure_total{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (pod) (kafka_connect_connect_worker_metrics_task_startup_failure_total{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -749,7 +749,7 @@
         {
           "id": "seriesToColumns",
           "options": {
-            "byField": "hostname"
+            "byField": "pod"
           }
         },
         {
@@ -757,8 +757,8 @@
           "options": {
             "include": {
               "names": [
-                "hostname",
-                "kafka_connect_cluster_id 1",
+                "pod",
+                "app 1",
                 "start_time_ms",
                 "version",
                 "Value #C",
@@ -767,7 +767,7 @@
                 "Value #F",
                 "Value #G",
                 "Value #H",
-                "env 1"
+                "namespace 1"
               ]
             }
           }
@@ -777,9 +777,9 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
-              "env 1": 0,
-              "hostname": 2,
-              "kafka_connect_cluster_id 1": 1,
+              "app 1": 1,
+              "namespace 1": 0,
+              "pod": 2,
               "start_time_ms": 3,
               "version": 4
             },
@@ -790,9 +790,9 @@
               "Value #F": "tasks",
               "Value #G": "tasks success",
               "Value #H": "tasks failure",
-              "env 1": "environment",
-              "hostname": "worker",
-              "kafka_connect_cluster_id 1": "cluster",
+              "app 1": "cluster",
+              "namespace 1": "environment",
+              "pod": "worker",
               "start_time_ms": "start time",
               "version": "version"
             }
@@ -808,7 +808,7 @@
         "mode": "thresholds"
       },
       "columns": [],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Connectors deployed and task stats.\n            ",
       "editable": true,
       "error": false,
@@ -851,7 +851,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connector_info{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"}",
+          "expr": "kafka_connect_connector_info{namespace=\"$env\",app=\"$connect_cluster\"}",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -865,7 +865,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -879,7 +879,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -893,7 +893,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -907,7 +907,7 @@
         },
         {
           "datasource": null,
-          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"})",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{namespace=\"$env\",app=\"$connect_cluster\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -962,7 +962,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "How much time the connector tasks are in running state.\n            ",
       "editable": true,
       "error": false,
@@ -1040,7 +1040,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connector_task_metrics_running_ratio{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"}",
+          "expr": "kafka_connect_connector_task_metrics_running_ratio{namespace=\"$env\",app=\"$connect_cluster\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1062,7 +1062,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Average ime spent on rebalance state.\n            ",
       "editable": true,
       "error": false,
@@ -1140,13 +1140,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"}",
+          "expr": "kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\"}",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1203,7 +1203,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Rate of CPU seconds used by the Java process.\n            100% usage represents one core. \n            If there are multiple cores, the total capacity should be 100% * number_cores.",
       "editable": true,
       "error": false,
@@ -1281,13 +1281,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "irate(process_cpu_seconds_total{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}[5m])",
+          "expr": "irate(process_cpu_seconds_total{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}[5m])",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1303,7 +1303,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of JVM memory used, without including areas (e.g. heap size).",
       "editable": true,
       "error": false,
@@ -1381,13 +1381,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"})",
+          "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1403,7 +1403,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Sum of seconds used by Garbage Collection.",
       "editable": true,
       "error": false,
@@ -1481,13 +1481,13 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}[5m]))",
+          "expr": "sum without(gc)(irate(jvm_gc_collection_seconds_sum{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{hostname}}",
+          "legendFormat": "{{pod}}",
           "metric": "",
           "refId": "",
           "step": 10,
@@ -1533,7 +1533,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Maximum and average size of the batches processed by the connector task.",
           "editable": true,
           "error": false,
@@ -1611,7 +1611,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_batch_size_avg{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_connector_task_metrics_batch_size_avg{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1625,7 +1625,7 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_batch_size_max{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_connector_task_metrics_batch_size_max{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1647,7 +1647,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Percentage of offset commit successful and failed.",
           "editable": true,
           "error": false,
@@ -1725,7 +1725,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_offset_commit_success_percentage{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_connector_task_metrics_offset_commit_success_percentage{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1739,7 +1739,7 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_offset_commit_failure_percentage{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_connector_task_metrics_offset_commit_failure_percentage{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1761,7 +1761,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Average and Maximum time in milliseconds taken by the task to commit offsets",
           "editable": true,
           "error": false,
@@ -1839,7 +1839,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1853,7 +1853,7 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_connect_connector_task_metrics_offset_commit_max_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_connector_task_metrics_offset_commit_max_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1917,7 +1917,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Total number of failures seen by task.",
           "editable": true,
           "error": false,
@@ -1995,7 +1995,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_record_failures{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_task_error_metrics_total_record_failures{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2017,7 +2017,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Total number of errors seen by task.",
           "editable": true,
           "error": false,
@@ -2095,7 +2095,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_record_errors{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_task_error_metrics_total_record_errors{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2117,7 +2117,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Total number of records skipped seen by task.",
           "editable": true,
           "error": false,
@@ -2195,7 +2195,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_records_skipped{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_task_error_metrics_total_records_skipped{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2217,7 +2217,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Total number of records logged seen by task.",
           "editable": true,
           "error": false,
@@ -2295,7 +2295,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_errors_logged{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_task_error_metrics_total_errors_logged{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2317,7 +2317,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Total number of retries seen by task.",
           "editable": true,
           "error": false,
@@ -2395,7 +2395,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_total_retries{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_task_error_metrics_total_retries{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2417,7 +2417,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of produce requests to dead letter topics.",
           "editable": true,
           "error": false,
@@ -2495,7 +2495,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2559,7 +2559,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Average and Maximum time in milliseconds taken by this task to poll for a batch of source records",
           "editable": true,
           "error": false,
@@ -2637,7 +2637,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_poll_batch_avg_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_source_task_metrics_poll_batch_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2651,7 +2651,7 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_poll_batch_max_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_source_task_metrics_poll_batch_max_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2673,7 +2673,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Before transformations are applied, \n            this is the average per-second number of records produced or \n            polled by the task belonging to the named source connector in the worker\n            ",
           "editable": true,
           "error": false,
@@ -2751,7 +2751,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_source_record_poll_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_source_task_metrics_source_record_poll_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2773,7 +2773,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "After transformations are applied, \n            this is the average per-second number of records output from the transformations and \n            written to Kafka for the task belonging to the named source connector in the worker \n            (excludes any records filtered out by the transformations)\n            ",
           "editable": true,
           "error": false,
@@ -2851,7 +2851,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_source_task_metrics_source_record_write_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_source_task_metrics_source_record_write_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -2915,7 +2915,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -2993,7 +2993,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_put_batch_avg_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_sink_task_metrics_put_batch_avg_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3007,7 +3007,7 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_put_batch_max_time_ms{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_sink_task_metrics_put_batch_max_time_ms{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3029,7 +3029,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Before transformations are applied, \n            this is the average per-second number of records read from Kafka \n            for the task belonging to the named sink connector in the worker\n            ",
           "editable": true,
           "error": false,
@@ -3107,7 +3107,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_sink_record_read_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_sink_task_metrics_sink_record_read_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3129,7 +3129,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "After transformations are applied, \n            this is the average per-second number of records output from the transformations and \n            sent to the task belonging to the named sink connector in the worker \n            (excludes any records filtered out by the transformations)\n            ",
           "editable": true,
           "error": false,
@@ -3207,7 +3207,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_sink_record_send_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_sink_task_metrics_sink_record_send_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3229,7 +3229,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of topic partitions assigned to the task and \n            which belong to the named sink connector in the worker\n            ",
           "editable": true,
           "error": false,
@@ -3307,7 +3307,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_sink_task_metrics_partition_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\",connector=~\"$connector\"}",
+              "expr": "kafka_connect_sink_task_metrics_partition_count{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\",connector=~\"$connector\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -3371,7 +3371,7 @@
       "panels": [
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Incoming byte rate per second per worker.",
           "editable": true,
           "error": false,
@@ -3449,13 +3449,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_incoming_byte_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_incoming_byte_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3471,7 +3471,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Outgoing byte rate per second per worker.",
           "editable": true,
           "error": false,
@@ -3549,13 +3549,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_outgoing_byte_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_outgoing_byte_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3571,7 +3571,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Fraction of time the I/O thread spent doing I/O",
           "editable": true,
           "error": false,
@@ -3649,13 +3649,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_io_ratio{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_io_ratio{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3671,7 +3671,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Average number of network operations (reads or writes) on all connections per second",
           "editable": true,
           "error": false,
@@ -3749,13 +3749,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_network_io_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_network_io_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3771,7 +3771,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Number of active connections",
           "editable": true,
           "error": false,
@@ -3849,13 +3849,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_connection_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_connection_count{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}}",
+              "legendFormat": "{{pod}}",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3871,7 +3871,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": "Successful and failed authentications per second.",
           "editable": true,
           "error": false,
@@ -3949,13 +3949,13 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_successful_authentication_rate{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_successful_authentication_rate{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}} (success)",
+              "legendFormat": "{{pod}} (success)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -3963,13 +3963,13 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_connect_connect_metrics_failed_authentication_total{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\",hostname=~\"$connect_worker\"}",
+              "expr": "kafka_connect_connect_metrics_failed_authentication_total{namespace=\"$env\",app=\"$connect_cluster\",pod=~\"$connect_worker\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{hostname}} (failed)",
+              "legendFormat": "{{pod}} (failed)",
               "metric": "",
               "refId": "",
               "step": 10,
@@ -4018,14 +4018,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
         "multi": false,
         "name": "env",
         "options": [],
-        "query": "label_values(env)",
+        "query": "label_values(namespace)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -4045,14 +4045,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Connect cluster",
         "multi": false,
         "name": "connect_cluster",
         "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\"}, kafka_connect_cluster_id)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\"}, app)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -4072,14 +4072,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Connect worker",
         "multi": true,
         "name": "connect_worker",
         "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"}, hostname)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"}, pod)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -4099,14 +4099,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Connector",
         "multi": true,
         "name": "connector",
         "options": [],
-        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\",kafka_connect_cluster_id=\"$connect_cluster\"}, connector)",
+        "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{namespace=\"$env\",app=\"$connect_cluster\"}, connector)",
         "refresh": 1,
         "regex": null,
         "sort": 1,

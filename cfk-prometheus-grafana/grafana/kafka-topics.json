@@ -62,7 +62,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -142,7 +142,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_messagesinpersec{env=\"$env\",topic=~\"$topic\"}[5m])))",
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_messagesinpersec{namespace=\"$env\",topic=~\"$topic\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -164,7 +164,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -244,7 +244,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum(kafka_log_log_size{env=\"$env\",topic=~\"$topic\"}) by (topic))",
+          "expr": "topk(10, sum(kafka_log_log_size{namespace=\"$env\",topic=~\"$topic\"}) by (topic))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -266,7 +266,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -346,7 +346,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesinpersec{env=\"$env\",topic=~\"$topic\"}[5m])))",
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesinpersec{namespace=\"$env\",topic=~\"$topic\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -368,7 +368,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -448,7 +448,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{env=\"$env\",topic=~\"$topic\"}[5m])))",
+          "expr": "topk(10, sum without(instance,pod,statefulset_kubernetes_io_pod_name) (rate(kafka_server_brokertopicmetrics_bytesoutpersec{namespace=\"$env\",topic=~\"$topic\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -470,7 +470,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -550,7 +550,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{ env=\"$env\",topic=~\"$topic\"}[5m])) by (topic))",
+          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalproducerequestspersec{ namespace=\"$env\",topic=~\"$topic\"}[5m])) by (topic))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -572,7 +572,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": null,
       "editable": true,
       "error": false,
@@ -652,7 +652,7 @@
       "targets": [
         {
           "datasource": null,
-          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{ env=\"$env\",topic=~\"$topic\"}[5m])) by (topic))",
+          "expr": "topk(10, sum(rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec{ namespace=\"$env\",topic=~\"$topic\"}[5m])) by (topic))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -708,7 +708,7 @@
             "mode": "thresholds"
           },
           "columns": [],
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "description": null,
           "editable": true,
           "error": false,
@@ -751,7 +751,7 @@
           "targets": [
             {
               "datasource": null,
-              "expr": "kafka_log_log_logstartoffset{env=\"$env\",topic=~\"$topic\"}",
+              "expr": "kafka_log_log_logstartoffset{namespace=\"$env\",topic=~\"$topic\"}",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -765,7 +765,7 @@
             },
             {
               "datasource": null,
-              "expr": "kafka_log_log_logendoffset{env=\"$env\",topic=~\"$topic\"}",
+              "expr": "kafka_log_log_logendoffset{namespace=\"$env\",topic=~\"$topic\"}",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -794,7 +794,7 @@
               "options": {
                 "include": {
                   "names": [
-                    "hostname 1",
+                    "pod 1",
                     "topic 1",
                     "Value #A",
                     "Value #B",
@@ -832,15 +832,15 @@
                 "indexByName": {
                   "Value #A": 3,
                   "Value #B": 4,
-                  "hostname 1": 5,
                   "partition 1": 2,
+                  "pod 1": 5,
                   "topic 1": 1
                 },
                 "renameByName": {
                   "Value #A": "start offset",
                   "Value #B": "end offset",
-                  "hostname 1": "broker",
                   "partition 1": "",
+                  "pod 1": "broker",
                   "topic": "",
                   "topic 1": ""
                 }
@@ -885,14 +885,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
         "multi": false,
         "name": "env",
         "options": [],
-        "query": "label_values(env)",
+        "query": "label_values(namespace)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
@@ -912,14 +912,14 @@
           "text": null,
           "value": null
         },
-        "datasource": "Prometheus",
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": true,
         "label": "Topic",
         "multi": true,
         "name": "topic",
         "options": [],
-        "query": "label_values(kafka_log_log_size{env=\"$env\"}, topic)",
+        "query": "label_values(kafka_log_log_size{namespace=\"$env\"}, topic)",
         "refresh": 1,
         "regex": null,
         "sort": 1,
