@@ -137,7 +137,7 @@ scrape_configs:
 This configuration can be added to the Prometheus config file.
 Once Prometheus is restarted with this configuration, targets will be scrapped.
 
-## Integration with `Confluent for Kubernetes` using the `kube-promethues-stack`
+## Integration with `Confluent for Kubernetes` using the `kube-prometheus-stack`
 
 The [cfk](./cfk) folder contains a Prometheus PodMonitor that will query the JMX metrics for all components of the Confluent Platform.  
 

@@ -808,7 +808,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "kafka_log_log_logstartoffset{job=\"kafka-broker\",env=~\"$env\",topic=\"$topic\"}",
+              "expr": "kafka_log_log_logstartoffset{job=\"kafka-broker\",env=~\"$env\",topic=~\"$topic\"}",
               "format": "table",
               "instant": true,
               "interval": "",
@@ -932,7 +932,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "kafka_log_log_logendoffset{job=\"kafka-broker\",env=~\"$env\",topic=\"$topic\"}",
+              "expr": "kafka_log_log_logendoffset{job=\"kafka-broker\",env=~\"$env\",topic=~\"$topic\"}",
               "format": "table",
               "instant": true,
               "interval": "",
