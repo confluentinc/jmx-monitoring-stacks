@@ -1,7 +1,7 @@
 # Overview
 
-This repo demonstrates examples of JMX monitoring stacks that can monitor Confluent Platform.
-While Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
+This repo demonstrates examples of JMX monitoring stacks that can monitor Confluent Cloud and Confluent Platform.
+While Confluent Cloud UI and Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
@@ -10,7 +10,7 @@ While Confluent Control Center provides an opinionated view of Apache Kafka moni
 # Caution
 
 The examples in this repo may not be complete and are for testing purposes only.
-They serve only to demonstrate how the integration works with Confluent Platform.
+They serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
 
 # How to run with cp-demo
 
