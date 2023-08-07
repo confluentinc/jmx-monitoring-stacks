@@ -6,6 +6,7 @@ While Confluent Cloud UI and Confluent Control Center provides an opinionated vi
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
+- [ccloud-metricbeat-elastic-kibana](ccloud-metricbeat-elastic-kibana)
 
 # Caution
 
@@ -14,7 +15,7 @@ They serve only to demonstrate how the integration works with Confluent Cloud an
 
 # How to run with cp-demo
 
-This repo is intended to be run specifically with [cp-demo](https://github.com/confluentinc/cp-demo).
+This repo is intended to be run specifically with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
 Make sure you have enough system resources on the local host to run this.
 Verify in the advanced Docker preferences settings that the memory available to Docker is at least 8 GB (default is 2 GB).
 
@@ -61,7 +62,7 @@ The demo with CCloud needs a CCloud Instance running and you (as a user) are req
 
 # How to use with cp-ansible
 
-To add JMX exporter configurations from this project into [cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
+To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
 
 ```yaml
     zookeeper_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/zookeeper.yml
