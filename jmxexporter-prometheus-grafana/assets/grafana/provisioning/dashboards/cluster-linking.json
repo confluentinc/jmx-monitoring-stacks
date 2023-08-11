@@ -3,10 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "datasource",
-          "uid": "grafana"
-        },
+        "datasource": "-- Grafana --",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -32,10 +29,7 @@
   "panels": [
     {
       "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -45,10 +39,7 @@
       "id": 144,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Maximum lag in messages between the replicas on the destination cluster and the leader replica on the source cluster. Provides an indication of overall cluster link health and a relative measure of whether the destination cluster is lagging behind.",
           "fieldConfig": {
             "defaults": {
@@ -124,10 +115,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_fetcher_manager_maxlag{link_name=~\"$link\",env=~\"$env\",instance=~\"$instance\"}",
@@ -141,10 +129,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Number of dead threads of type ClusterLinkThread, where a dead thread is indicative of an issue with fetching from the source cluster for a partition.",
           "fieldConfig": {
             "defaults": {
@@ -220,10 +205,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_fetcher_manager_deadthreadcount{link_name=~\"$link\",env=~\"$env\",instance=~\"$instance\"}",
@@ -237,10 +219,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -316,10 +295,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_fetcher_manager_totalfetchrate{link_name=~\"$link\",env=~\"$env\",instance=~\"$instance\"}",
@@ -333,10 +309,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Number of failed mirror partitions for which the broker is leader. A partition may be in a failed state if the source partition’s epoch has gone backwards; for example, if the topic was recreated.",
           "fieldConfig": {
             "defaults": {
@@ -431,10 +404,7 @@
       ],
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -443,10 +413,7 @@
     },
     {
       "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -456,10 +423,7 @@
       "id": 134,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -533,10 +497,7 @@
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "kafka_server_replicamanager_throttledclusterlinkreplicaspersec{env=~\"$env\",instance=~\"$instance\"}",
@@ -552,10 +513,7 @@
       ],
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -564,10 +522,7 @@
     },
     {
       "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -577,10 +532,7 @@
       "id": 42,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Provides metrics on delayed operations on the cluster link.",
           "fieldConfig": {
             "defaults": {
@@ -629,10 +581,7 @@
           "pluginVersion": "8.5.16",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(kafka_server_delayedoperationpurgatory_purgatorysize{delayedoperation=\"ClusterLink\"})",
               "interval": "",
@@ -644,10 +593,7 @@
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -723,10 +669,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(kafka_network_requestmetrics_requestbytes{request=\"CreateClusterLinks\"})",
               "interval": "",
@@ -734,10 +677,7 @@
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(kafka_network_requestmetrics_requestbytes{request=\"DeleteClusterLinks\"})",
               "hide": false,
@@ -746,10 +686,7 @@
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(kafka_network_requestmetrics_requestbytes{request=\"ListClusterLinks\"})",
               "hide": false,
@@ -762,10 +699,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -848,10 +782,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_totaltimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -863,10 +794,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_totaltimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -879,10 +807,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_totaltimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -895,10 +820,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -981,10 +903,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_localtimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -996,10 +915,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_localtimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1012,10 +928,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_localtimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1028,10 +941,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -1114,10 +1024,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_requestqueuetimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1129,10 +1036,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_requestqueuetimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1145,10 +1049,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_requestqueuetimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1161,10 +1062,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -1247,10 +1145,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsequeuetimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1262,10 +1157,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsequeuetimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1278,10 +1170,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsequeuetimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1294,10 +1183,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -1380,10 +1266,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_remotetimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1395,10 +1278,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_remotetimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1411,10 +1291,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_remotetimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1427,10 +1304,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -1513,10 +1387,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsesendtimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1528,10 +1399,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsesendtimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1544,10 +1412,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsesendtimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1560,10 +1425,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -1642,10 +1504,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_throttletimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1657,10 +1516,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_throttletimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1673,10 +1529,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_throttletimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1689,10 +1542,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
           "fieldConfig": {
             "defaults": {
@@ -1771,10 +1621,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsesendiotimems{request=\"CreateClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1786,10 +1633,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsesendiotimems{request=\"DeleteClusterLinks\"}[5m]))",
               "format": "time_series",
@@ -1802,10 +1646,7 @@
               "step": 4
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "sum(rate(kafka_network_requestmetrics_responsesendiotimems{request=\"ListClusterLinks\"}[5m]))",
               "hide": false,
@@ -1820,10 +1661,7 @@
       ],
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -1832,10 +1670,7 @@
     },
     {
       "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1845,10 +1680,7 @@
       "id": 138,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Number of mirrored partitions that are blocked on fetching data due to issues on the source cluster.",
           "fieldConfig": {
             "defaults": {
@@ -1895,10 +1727,7 @@
           "pluginVersion": "8.5.16",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "kafka_server_replicamanager_blockedonmirrorsourcepartitioncount{env=~\"$env\"}",
@@ -1912,10 +1741,7 @@
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Number of mirrored partitions that are under replicated.",
           "fieldConfig": {
             "defaults": {
@@ -1962,10 +1788,7 @@
           "pluginVersion": "8.5.16",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "sum(kafka_server_replicamanager_underreplicatedmirrorpartitions{env=~\"$env\"})",
@@ -1979,10 +1802,7 @@
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Number of mirrored partitions that are under min ISR.",
           "fieldConfig": {
             "defaults": {
@@ -2029,10 +1849,7 @@
           "pluginVersion": "8.5.16",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "sum(kafka_server_replicamanager_underminisrmirrorpartitioncount{env=~\"$env\"})",
@@ -2046,10 +1863,7 @@
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Number of actively mirrored partitions for which the broker is leader",
           "fieldConfig": {
             "defaults": {
@@ -2096,10 +1910,7 @@
           "pluginVersion": "8.5.16",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "editorMode": "code",
               "exemplar": true,
               "expr": "sum(kafka_server_cluster_link_metrics_mirror_partition_count{link_name=~\"$link\",env=~\"$env\"})",
@@ -2113,10 +1924,7 @@
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "Rate per second and total number of consumer offsets committed for a cluster link.\n\nHelps verify if offset migration is happening correctly, a critical metric for failover readiness scenarios.",
           "fieldConfig": {
             "defaults": {
@@ -2192,10 +2000,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_metrics_consumer_offset_committed_rate{link_name=~\"$link\",env=~\"$env\",instance=~\"$instance\"}",
               "interval": "",
@@ -2209,10 +2014,7 @@
       ],
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -2221,10 +2023,7 @@
     },
     {
       "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2234,10 +2033,7 @@
       "id": 153,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2313,10 +2109,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_source_metrics_fetch_request_byte_total{env=~\"$env\",instance=~\"$instance\"}",
               "interval": "",
@@ -2328,10 +2121,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2407,10 +2197,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_source_metrics_fetch_request_total{env=~\"$env\",instance=~\"$instance\"}",
               "interval": "",
@@ -2422,10 +2209,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "\n\nHelps verify if offset migration is happening correctly, a critical metric for failover readiness scenarios.",
           "fieldConfig": {
             "defaults": {
@@ -2501,10 +2285,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_source_metrics_fetch_response_byte_total{env=~\"$env\",instance=~\"$instance\"}",
               "interval": "",
@@ -2516,10 +2297,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2595,10 +2373,7 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
+              "datasource": "Prometheus",
               "exemplar": true,
               "expr": "kafka_server_cluster_link_source_metrics_fetch_response_time_ns_avg{env=~\"$env\",instance=~\"$instance\"}",
               "interval": "",
@@ -2612,10 +2387,7 @@
       ],
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -2636,10 +2408,7 @@
           "text": "dev",
           "value": "dev"
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(env)",
         "hide": 0,
         "includeAll": false,
@@ -2670,10 +2439,7 @@
             "$__all"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(kafka_server_replicamanager_blockedonmirrorsourcepartitioncount{env=\"${env}\"}, instance)",
         "hide": 0,
         "includeAll": true,
@@ -2705,10 +2471,7 @@
             "0.95"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(quantile)",
         "hide": 0,
         "includeAll": true,
@@ -2739,10 +2502,7 @@
             "$__all"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(kafka_log_log_size,topic)",
         "hide": 0,
         "includeAll": true,
@@ -2770,10 +2530,7 @@
             "$__all"
           ]
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": "Prometheus",
         "definition": "label_values(kafka_server_cluster_link_fetcher_manager_maxlag,link_name)",
         "hide": 0,
         "includeAll": true,
