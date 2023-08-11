@@ -1,0 +1,2500 @@
+{
+  "name": "Confluent Platform Overview",
+  "description": null,
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "name": "Confluent Platform Overview",
+      "description": null,
+      "widgets": [
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 12,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Zookeeper"
+          }
+        },
+        {
+          "title": "Zookeeper nodes online",
+          "layout": {
+            "column": 1,
+            "row": 2,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT cardinality(zookeeper_status_quorumsize) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 1
+              },
+              {
+                "alertSeverity": "WARNING",
+                "value": 2
+              }
+            ]
+          }
+        },
+        {
+          "title": "Number of ZNodes",
+          "layout": {
+            "column": 3,
+            "row": 2,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT average(zookeeper_inmemorydatatree_nodecount) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 10000
+              }
+            ]
+          }
+        },
+        {
+          "title": "Alive Connections",
+          "layout": {
+            "column": 5,
+            "row": 2,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(zookeeper_numaliveconnections) * cardinality(zookeeper_numaliveconnections)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 200
+              }
+            ]
+          }
+        },
+        {
+          "title": "Number of Watchers",
+          "layout": {
+            "column": 7,
+            "row": 2,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(zookeeper_inmemorydatatree_watchcount) * cardinality(zookeeper_inmemorydatatree_watchcount)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 1000
+              }
+            ]
+          }
+        },
+        {
+          "title": "Outstanding Requests",
+          "layout": {
+            "column": 9,
+            "row": 2,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(zookeeper_outstandingrequests) * cardinality(zookeeper_outstandingrequests)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 200
+              }
+            ]
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 12,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Kafka Cluster"
+          }
+        },
+        {
+          "title": "Active Controllers",
+          "layout": {
+            "column": 1,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT ifthen((latest(kafka_controller_kafkacontroller_activecontrollercount) > 0), latest(kafka_controller_kafkacontroller_activecontrollercount)) FROM Metric WHERE (getfield(kafka_controller_kafkacontroller_activecontrollercount, latest) > 0) SINCE 1 MINUTES AGO UNTIL NOW FACET targetName LIMIT 100"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 3
+              }
+            ]
+          }
+        },
+        {
+          "title": "Brokers Online",
+          "layout": {
+            "column": 3,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT cardinality(kafka_server_replicamanager_leadercount) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 0
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": -1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Online Partitions",
+          "layout": {
+            "column": 5,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT average(kafka_server_replicamanager_partitioncount) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 0
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": -1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Under Replicated Partitions",
+          "layout": {
+            "column": 7,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT average(kafka_server_replicamanager_underreplicatedpartitions) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "Under Min ISR Partitions",
+          "layout": {
+            "column": 9,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT average(kafka_cluster_partition_underminisr) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "Offline Partitions Count",
+          "layout": {
+            "column": 11,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT average(kafka_controller_kafkacontroller_offlinepartitionscount) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "width": 12,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Schema Registry"
+          }
+        },
+        {
+          "title": "Schema Registry Instances",
+          "layout": {
+            "column": 1,
+            "row": 8,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT cardinality(kafka_schema_registry_registered_count) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW "
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": -1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Schemas Registered",
+          "layout": {
+            "column": 3,
+            "row": 8,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_schema_registry_registered_count) * cardinality(kafka_schema_registry_registered_count)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 200
+              }
+            ]
+          }
+        },
+        {
+          "title": "Schemas deleted",
+          "layout": {
+            "column": 5,
+            "row": 8,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_schema_registry_schemas_deleted) * cardinality(kafka_schema_registry_schemas_deleted)) as ''FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 1000
+              }
+            ]
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 10,
+            "width": 12,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Kafka Connect"
+          }
+        },
+        {
+          "title": "Connect worker instances",
+          "layout": {
+            "column": 1,
+            "row": 11,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT cardinality(kafka_connect_connect_worker_metrics_connector_count) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Tasks Total",
+          "layout": {
+            "column": 3,
+            "row": 11,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_connect_connect_worker_metrics_connector_total_task_count) * cardinality(kafka_connect_connect_worker_metrics_connector_total_task_count)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Tasks Running",
+          "layout": {
+            "column": 5,
+            "row": 11,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_connect_connect_worker_metrics_connector_running_task_count) * cardinality(kafka_connect_connect_worker_metrics_connector_running_task_count)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Tasks Paused",
+          "layout": {
+            "column": 7,
+            "row": 11,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_connect_connect_worker_metrics_connector_paused_task_count) * cardinality(kafka_connect_connect_worker_metrics_connector_paused_task_count)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Tasks Failed",
+          "layout": {
+            "column": 9,
+            "row": 11,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_connect_connect_worker_metrics_connector_failed_task_count) * cardinality(kafka_connect_connect_worker_metrics_connector_failed_task_count)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Time since last rebalance",
+          "layout": {
+            "column": 11,
+            "row": 11,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW LIMIT 100"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 13,
+            "width": 12,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# ksqlDB Cluster"
+          }
+        },
+        {
+          "title": "ksqlDB instances",
+          "layout": {
+            "column": 1,
+            "row": 14,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT cardinality(ksql_ksql_engine_query_stats_num_active_queries) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Active Queries",
+          "layout": {
+            "column": 3,
+            "row": 14,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT average(ksql_ksql_engine_query_stats_num_active_queries) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Running Queries",
+          "layout": {
+            "column": 5,
+            "row": 14,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT average(ksql_ksql_engine_query_stats_running_queries) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Rebalancing Queries",
+          "layout": {
+            "column": 7,
+            "row": 14,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(ksql_ksql_engine_query_stats_rebalancing_queries) * cardinality(ksql_ksql_engine_query_stats_rebalancing_queries)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Queries in Error State",
+          "layout": {
+            "column": 9,
+            "row": 14,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT average(ksql_ksql_engine_query_stats_error_queries) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Stopped Queries",
+          "layout": {
+            "column": 11,
+            "row": 14,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(ksql_ksql_engine_query_stats_not_running_queries) * cardinality(ksql_ksql_engine_query_stats_not_running_queries)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kafka Cluster",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Active Controllers",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT ifthen((latest(kafka_controller_kafkacontroller_activecontrollercount) > 0), latest(kafka_controller_kafkacontroller_activecontrollercount)) FROM Metric WHERE (getfield(kafka_controller_kafkacontroller_activecontrollercount, latest) > 0) SINCE 1 MINUTES AGO UNTIL NOW FACET targetName LIMIT 100"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 3
+              }
+            ]
+          }
+        },
+        {
+          "title": "Brokers Online",
+          "layout": {
+            "column": 2,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT cardinality(kafka_server_replicamanager_leadercount) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 0
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": -1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Online Partitions",
+          "layout": {
+            "column": 3,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_server_replicamanager_partitioncount) * cardinality(kafka_server_replicamanager_partitioncount)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 0
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": -1
+              }
+            ]
+          }
+        },
+        {
+          "title": "Under Replicated Partitions",
+          "layout": {
+            "column": 4,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_server_replicamanager_underreplicatedpartitions) * cardinality(kafka_server_replicamanager_underreplicatedpartitions)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "Offline Partitions Count",
+          "layout": {
+            "column": 5,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_controller_kafkacontroller_offlinepartitionscount) * cardinality(kafka_controller_kafkacontroller_offlinepartitionscount)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "Under Min ISR Partitions",
+          "layout": {
+            "column": 6,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT average(kafka_cluster_partition_underminisr) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "WARNING",
+                "value": 1
+              },
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "Preferred Replica Imbalance",
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT average(kafka_controller_kafkacontroller_preferredreplicaimbalancecount) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Unclean Leader Election Rate",
+          "layout": {
+            "column": 8,
+            "row": 1,
+            "width": 1,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_controller_controllerstats_uncleanleaderelectionspersec) * cardinality(kafka_controller_controllerstats_uncleanleaderelectionspersec)) as '' FROM Metric SINCE 1 MINUTES AGO UNTIL NOW"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "title": "Broker Network Throughput",
+          "layout": {
+            "column": 9,
+            "row": 1,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_brokertopicmetrics_bytesinpersec),latest(kafka_server_brokertopicmetrics_bytesoutpersec) FROM Metric SINCE 30 minutes ago TIMESERIES "
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Requests Per Sec (by request type)",
+          "layout": {
+            "column": 1,
+            "row": 3,
+            "width": 8,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.area"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_network_requestmetrics_requestspersec) FROM Metric SINCE 30 minutes ago TIMESERIES facet request"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Errors",
+          "layout": {
+            "column": 9,
+            "row": 3,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_errors_total) FROM Metric SINCE 30 minutes ago TIMESERIES "
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "CPU Usage",
+          "layout": {
+            "column": 1,
+            "row": 6,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (irate(process_cpu_seconds_total, 1 SECONDS) * 100) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW LIMIT 100 TIMESERIES 300000 SLIDE BY 30000 where scrapedTargetName like 'kafka%' facet targetName"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "JVM Memory Used",
+          "layout": {
+            "column": 5,
+            "row": 6,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(jvm_memory_bytes_used) * cardinality(jvm_memory_bytes_used)) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET dimensions(exclude: {'area'}) LIMIT 100 TIMESERIES 30000 where scrapedTargetName like 'kafka%'"
+              },
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT average(jvm_memory_bytes_max) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET dimensions(exclude: {'area'}) LIMIT 100 TIMESERIES 30000 where scrapedTargetName like 'kafka%'"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Time Spent in GC",
+          "layout": {
+            "column": 9,
+            "row": 6,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(jvm_gc_collection_seconds_sum) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET dimensions() LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Throughput/Threads",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Messages In",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT sum(kafka_server_brokertopicmetrics_messagesinpersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 300000 SLIDE BY 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Bytes In",
+          "layout": {
+            "column": 5,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT rate(sum(kafka_server_brokertopicmetrics_bytesinpersec), 1 SECONDS) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 300000 SLIDE BY 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Bytes Out",
+          "layout": {
+            "column": 9,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT rate(sum(kafka_server_brokertopicmetrics_bytesoutpersec), 1 SECONDS) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 300000 SLIDE BY 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Network Processor Avg Usage Percent",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (1 - latest(kafka_network_socketserver_networkprocessoravgidlepercent)) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Request Handler Avg Percent",
+          "layout": {
+            "column": 7,
+            "row": 4,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (1 - latest(kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total)) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Zookeeper",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Zookeeper Request Latency",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName  LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Zookeeper connections per sec",
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_sessionexpirelistener_zookeepersyncconnectspersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Zookeeper expired connections per sec",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_sessionexpirelistener_zookeeperexpirespersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Zookeeper disconnect per sec",
+          "layout": {
+            "column": 5,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_sessionexpirelistener_zookeeperdisconnectspersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Zookeeper auth failures per sec",
+          "layout": {
+            "column": 9,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_sessionexpirelistener_zookeeperauthfailurespersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Log size per Broker",
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_log_log_size) * cardinality(kafka_log_log_size)) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW TIMESERIES 30000 facet scrapedTargetName"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Log size per Topic",
+          "layout": {
+            "column": 7,
+            "row": 7,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT (average(kafka_log_log_size) * cardinality(kafka_log_log_size)) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET topic LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "IsrShrinks per Sec",
+          "layout": {
+            "column": 1,
+            "row": 10,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_replicamanager_isrshrinkspersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET dimensions() LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "IsrExpands per Sec",
+          "layout": {
+            "column": 7,
+            "row": 10,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  "<YOURACCOUNTID>"
+                ],
+                "query": "SELECT latest(kafka_server_replicamanager_isrexpandspersec) FROM Metric SINCE 60 MINUTES AGO UNTIL NOW FACET dimensions() LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Producer",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Producer - RequestQueueTimeMs",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_requestqueuetimems) FROM Metric WHERE (request = 'Produce') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Producer - LocalTimeMs",
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_localtimems) FROM Metric WHERE (request = 'Produce') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Producer - RemoteTimeMs",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_remotetimems) FROM Metric WHERE (request = 'Produce') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Producer - ResponseQueueTimeMs",
+          "layout": {
+            "column": 5,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_responsequeuetimems) FROM Metric WHERE (request = 'Produce') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Producer - ResponseSendTimeMs",
+          "layout": {
+            "column": 9,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_responsesendtimems) FROM Metric WHERE (request = 'Produce') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Consumer - RequestQueueTimeMs",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_requestqueuetimems) FROM Metric WHERE (request = 'Fetch') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Consumer - LocalTimeMs",
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_localtimems) FROM Metric WHERE (request = 'Fetch') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Consumer - RemoteTimeMs",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_remotetimems) FROM Metric WHERE (request = 'Fetch') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Consumer - ResponseQueueTimeMs",
+          "layout": {
+            "column": 5,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_responsequeuetimems) FROM Metric WHERE (request = 'Fetch') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Consumer - ResponseSendTimeMs",
+          "layout": {
+            "column": 9,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_responsesendtimems) FROM Metric WHERE (request = 'Fetch') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fetch Follower",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Fetch Follower - RequestQueueTimeMs",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_requestqueuetimems) FROM Metric WHERE (request = 'FetchFollower') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Fetch Follower - LocalTimeMs",
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_localtimems) FROM Metric WHERE (request = 'FetchFollower') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Fetch Follower - RemoteTimeMs",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_remotetimems) FROM Metric WHERE (request = 'FetchFollower') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Fetch Follower - ResponseQueueTimeMs",
+          "layout": {
+            "column": 5,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_responsequeuetimems) FROM Metric WHERE (request = 'FetchFollower') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Fetch Follower - ResponseSendTimeMs",
+          "layout": {
+            "column": 9,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": "<YOURACCOUNTID>",
+                "query": "SELECT latest(kafka_network_requestmetrics_responsesendtimems) FROM Metric WHERE (request = 'FetchFollower') SINCE 60 MINUTES AGO UNTIL NOW FACET scrapedTargetName LIMIT 100 TIMESERIES 30000"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "yAxisLeft": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variables": []
+}
