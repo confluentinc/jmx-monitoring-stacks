@@ -6,7 +6,7 @@ services:
       - 49901:1235
     environment:
       EXTRA_ARGS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
 
@@ -16,7 +16,7 @@ services:
       - 49911:1235
     environment:
       EXTRA_ARGS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
 
@@ -26,7 +26,7 @@ services:
       - 49921:1235
     environment:
       EXTRA_ARGS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
 
@@ -36,7 +36,7 @@ services:
       - 49931:1235
     environment:
       EXTRA_ARGS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/kafka_connect.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/kafka_connect.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
 
@@ -46,7 +46,7 @@ services:
       - 49941:1235
     environment:
       EXTRA_ARGS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/confluent_schemaregistry.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/confluent_schemaregistry.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
 
@@ -56,7 +56,7 @@ services:
       - 49951:1235
     environment:
       KSQL_OPTS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/confluent_ksql.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/confluent_ksql.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
 
@@ -66,6 +66,6 @@ services:
       - 49961:1235
     environment:
       KAFKAREST_OPTS:
-        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.19.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
         -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
         -Djava.util.logging.config.file=/usr/share/jmx-exporter/exporter_debug_logging.properties
