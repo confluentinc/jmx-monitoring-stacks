@@ -14,9 +14,28 @@ While Confluent Cloud UI and Confluent Control Center provides an opinionated vi
 The examples in this repo may not be complete and are for testing purposes only.
 They serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
 
+# How to run with CCloud "/export" endpoint (openMetrics endpoint)
+
+The demo with CCloud needs a CCloud Instance running and you (as a user) are required to gather some details before spinning up the CCloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a CCloud based sample dashboard.
+
+# How to use with cp-ansible
+
+To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
+
+```yaml
+    zookeeper_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/zookeeper.yml
+    kafka_broker_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
+    schema_registry_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_schemaregistry.yml
+    kafka_connect_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_connect.yml
+    kafka_rest_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_rest.yml
+    ksql_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_ksql.yml
+```
+
+Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/cp-ansible/prometheus-config.yml) to generate the Prometheus configuration for your Ansible inventory.
+
 # How to run with cp-demo
 
-This repo is intended to be run specifically with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
+This repo is intended to work smoothly with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
 Make sure you have enough system resources on the local host to run this.
 Verify in the advanced Docker preferences settings that the memory available to Docker is at least 8 GB (default is 2 GB).
 
@@ -60,24 +79,6 @@ ${MONITORING_STACK}/start.sh
 ```bash
 ${MONITORING_STACK}/stop.sh
 ```
-# How to run with CCloud "/export" endpoint (openMetrics endpoint)
-
-The demo with CCloud needs a CCloud Instance running and you (as a user) are required to gather some details before spinning up the CCloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a CCloud based sample dashboard.
-
-# How to use with cp-ansible
-
-To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
-
-```yaml
-    zookeeper_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/zookeeper.yml
-    kafka_broker_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
-    schema_registry_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_schemaregistry.yml
-    kafka_connect_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_connect.yml
-    kafka_rest_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_rest.yml
-    ksql_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_ksql.yml
-```
-
-Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/cp-ansible/prometheus-config.yml) to generate the Prometheus configuration for your Ansible inventory.
 
 # See Also
 
