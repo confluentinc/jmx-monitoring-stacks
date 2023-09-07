@@ -14,9 +14,9 @@ While Confluent Cloud UI and Confluent Control Center provides an opinionated vi
 The examples in this repo may not be complete and are for testing purposes only.
 They serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
 
-# How to run with CCloud "/export" endpoint (openMetrics endpoint)
+# How to use with Confluent Cloud
 
-The demo with CCloud needs a CCloud Instance running and you (as a user) are required to gather some details before spinning up the CCloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a CCloud based sample dashboard.
+The demo with Confluent Cloud needs a running instance and you (as a user) are required to gather some details before spinning up the Confluent Cloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a Confluent Cloud based sample dashboard.
 
 # How to use with cp-ansible
 
@@ -72,7 +72,7 @@ MONITORING_STACK=jmxexporter-newrelic
 ${MONITORING_STACK}/start.sh
 ```
 
-**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) in the command - ${MONITORING_STACK}/start.sh e4d7b76e0ff30730bb
+**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) in the command - ${MONITORING_STACK}/start.sh -
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
