@@ -63,7 +63,7 @@ MONITORING_STACK=jmxexporter-newrelic
 
 ```bash
 [[ -d "jmx-monitoring-stacks" ]] || git clone https://github.com/confluentinc/jmx-monitoring-stacks.git
-(cd jmx-monitoring-stacks && git fetch && git checkout `main` && git pull)
+(cd jmx-monitoring-stacks && git fetch && git checkout main && git pull)
 ```
 
 5. Start the monitoring solution with the STACK selected. This command also starts cp-demo, you do not need to start cp-demo separately.

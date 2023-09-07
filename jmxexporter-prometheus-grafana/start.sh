@@ -36,7 +36,7 @@ mkdir -p $SECURITY_DIR
 echo -e "Create role binding for kafkaLagExporter"
 cd $CP_DEMO_HOME
 KAFKA_CLUSTER_ID=$(docker-compose exec zookeeper zookeeper-shell zookeeper:2181 get /cluster/id 2> /dev/null | grep \"version\" | jq -r .id)
-docker-compose exec tools bash -c "confluent iam rolebinding create \
+docker-compose exec tools bash -c "confluent iam rbac role-binding create \
     --principal $KAFKA_LAG_EXPORTER \
     --role SystemAdmin \
     --kafka-cluster-id $KAFKA_CLUSTER_ID"
