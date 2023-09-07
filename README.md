@@ -52,7 +52,7 @@ MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 ```
 
-3. Clone `cp-demo` and checkout a branch (starting from 7.2.0-post).
+3. Clone `cp-demo` and checkout a branch _(tested branches are from 7.2.0-post)_.
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git

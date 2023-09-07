@@ -88,10 +88,10 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
       cluster.name: "elasticsearch-cp-demo"
-      bootstrap.memory_lock: true
+      bootstrap.memory_lock: "true"
       discovery.type: single-node
       ELASTIC_PASSWORD: es_pass
-      xpack.security.enabled: false
+      xpack.security.enabled: "false"
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.3.3
