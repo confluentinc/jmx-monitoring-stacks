@@ -52,18 +52,18 @@ MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 ```
 
-3. Clone `cp-demo` and checkout 7.2.0-post (this has been validated only with cp-demo in the `7.2.0-post` branch).
+3. Clone `cp-demo` and checkout a branch (starting from 7.2.0-post).
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
-(cd cp-demo && git fetch && git checkout 7.2.0-post && git pull)
+(cd cp-demo && git fetch && git checkout 7.4.0-post && git pull)
 ```
 
-4. Clone `jmx-monitoring-stacks` and checkout a compatible release.
+4. Clone `jmx-monitoring-stacks` and checkout main branch.
 
 ```bash
 [[ -d "jmx-monitoring-stacks" ]] || git clone https://github.com/confluentinc/jmx-monitoring-stacks.git
-(cd jmx-monitoring-stacks && git fetch && git checkout 7.2-post && git pull)
+(cd jmx-monitoring-stacks && git fetch && git checkout `main` && git pull)
 ```
 
 5. Start the monitoring solution with the STACK selected. This command also starts cp-demo, you do not need to start cp-demo separately.
