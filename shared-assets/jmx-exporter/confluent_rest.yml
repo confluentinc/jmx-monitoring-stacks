@@ -1,7 +1,6 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
-cacheRules: true
 whitelistObjectNames:
   - kafka.rest:type=jetty-metrics
   - kafka.rest:type=jersey-metrics
@@ -27,6 +26,7 @@ rules:
   - pattern: "kafka.rest<type=(.+), client-id=(.+), node-id=node-(.+)><>(.+): (.+)"
     name: "kafka_rest_$1_$4"
     type: GAUGE
+    cache: true
     labels:
       client_id: $2
       node_id: $3
@@ -35,5 +35,6 @@ rules:
   - pattern: "kafka.rest<type=(.+), client-id=(.+)><>(.+): (.+)"
     name: "kafka_rest_$1_$3"
     type: GAUGE
+    cache: true
     labels:
       client_id: $2

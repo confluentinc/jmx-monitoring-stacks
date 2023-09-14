@@ -1,7 +1,6 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
-cacheRules: true
 whitelistObjectNames:
   - kafka.schema.registry:type=jetty-metrics
   - kafka.schema.registry:type=jersey-metrics
@@ -39,6 +38,7 @@ rules:
   - pattern: "kafka.schema.registry<type=app-info, id=(.+)><>(.+): (.+)"
     name: "kafka_schema_registry_app_info"
     value: 1
+    cache: true
     labels:
       client-id: "$1"
       $2: "$3"
@@ -54,12 +54,14 @@ rules:
   # "kafka.schema.registry:type=avro-schemas-deleted"
   - pattern: "kafka.schema.registry<type=(\\w+)-schemas-(\\w+)>([^:]+):"
     name: "kafka_schema_registry_schemas_$2"
+    cache: true
     labels:
       schema_type: $1
   # kafka.schema.registry:type=kafka.schema.registry-metrics,client-id=*
   # kafka.schema.registry:type=kafka.schema.registry-coordinator-metrics,client-id=*
   - pattern: "kafka.schema.registry<type=(.+), client-id=(.+)><>([^:]+):"
     name: "kafka_schema_registry_$1_$3"
+    cache: true
     labels:
       client_id: $2
   # "kafka.consumer:type=app-info,client-id=*"
@@ -67,6 +69,7 @@ rules:
   - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
     value: 1
     name: kafka_$1_app_info
+    cache: true
     labels:
       client_type: $1
       client_id: $2
@@ -78,6 +81,7 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$9
     type: GAUGE
+    cache: true
     labels:
       client_type: $1
       $3: "$4"
@@ -90,6 +94,7 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$7
     type: GAUGE
+    cache: true
     labels:
       client_type: $1
       $3: "$4"
@@ -100,10 +105,12 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$5
     type: GAUGE
+    cache: true
     labels:
       client_type: $1
       $3: "$4"
   - pattern: "kafka.(.+)<type=(.+)><>(.+):"
     name: kafka_$1_$2_$3
+    cache: true
     labels:
       client_type: $1
