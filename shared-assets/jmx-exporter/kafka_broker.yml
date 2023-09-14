@@ -2,7 +2,6 @@
 startDelaySeconds: 120
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
-cacheRules: true
 blacklistObjectNames:
   - "kafka.consumer:type=*,id=*"
   - "kafka.consumer:type=*,client-id=*"
@@ -33,6 +32,7 @@ rules:
   - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
     name: kafka_server_$1_$2
     type: GAUGE
+    cache: true
     labels:
       clientId: "$3"
       topic: "$4"
@@ -44,6 +44,7 @@ rules:
   - pattern: kafka.(\w+)<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
     name: kafka_$1_$2_$3
     type: GAUGE
+    cache: true
     labels:
       topic: "$4"
       partition: "$5"
@@ -51,11 +52,13 @@ rules:
   - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><>Value
     name: kafka_server_$1_$2
     type: GAUGE
+    cache: true
     labels:
       clientId: "$3"
       broker: "$4:$5"
   - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><>Count
     name: kafka_server_$1_$2
+    cache: true
     labels:
       clientId: "$3"
       broker: "$4:$5"
@@ -63,6 +66,7 @@ rules:
   # "kafka.server:type=*, name=*, *=*, *=*, *=*, *=*"
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
     name: kafka_$1_$2_$3
+    cache: true
     labels:
       "$4": "$5"
       "$6": "$7"
@@ -71,6 +75,7 @@ rules:
   # "kafka.server:type=*, name=*, *=*, *=*, *=*"
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
     name: kafka_$1_$2_$3
+    cache: true
     labels:
       "$4": "$5"
       "$6": "$7"
@@ -79,12 +84,14 @@ rules:
   # "kafka.network:type=*, name=*, request=*, version=*"
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
     name: kafka_$1_$2_$3
+    cache: true
     labels:
       "$4": "$5"
       "$6": "$7"
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.*), (.+)=(.+)><>(\d+)thPercentile
     name: kafka_$1_$2_$3
     type: GAUGE
+    cache: true
     labels:
       "$4": "$5"
       "$6": "$7"
@@ -93,6 +100,7 @@ rules:
   # "kafka.rest:type=*, cipher=*, protocol=*, client-id=*"
   - pattern: kafka.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>Value
     name: kafka_$1_$2
+    cache: true
     labels:
       "$3": "$4"
       "$5": "$6"
@@ -111,6 +119,7 @@ rules:
   # "kafka.rest:type=*, node-id=*, client-id=*"
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+)><>(Count|Value)
     name: kafka_$1_$2_$3
+    cache: true
     labels:
       "$4": "$5"
   # "kafka.consumer:type=*, topic=*, client-id=*"
@@ -120,11 +129,13 @@ rules:
   # "kafka.server:type=*, listener=*, networkProcessor=*"
   - pattern: kafka.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
     name: kafka_$1_$2
+    cache: true
     labels:
       "$3": "$4"
       "$5": "$6"
   # - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
   #   name: kafka_$1_$2
+  #   cache: true
   #   labels:
   #     "$3": "$4"
   #     "$5": "$6"
@@ -146,10 +157,12 @@ rules:
   # "kafka.server:type=*, id=*"
   - pattern: kafka.(\w+)<type=(.+), (.+)=(.+)><>Value
     name: kafka_$1_$2
+    cache: true
     labels:
       "$3": "$4"
   # - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
   #   name: kafka_$1_$2
+  #   cache: true
   #   labels:
   #     "$3": "$4"
   #     attribute_name: "$5"
@@ -160,6 +173,7 @@ rules:
   - pattern: kafka.server<type=socket-server-metrics, clientSoftwareName=(.+), clientSoftwareVersion=(.+), listener=(.+), networkProcessor=(.+)><>connections
     name: kafka_server_socketservermetrics_connections
     type: GAUGE
+    cache: true
     labels:
       client_software_name: "$1"
       client_software_version: "$2"
@@ -168,12 +182,14 @@ rules:
   - pattern: "kafka.server<type=socket-server-metrics, listener=(.+), networkProcessor=(.+)><>(.+):"
     name: kafka_server_socketservermetrics_$3
     type: GAUGE
+    cache: true
     labels:
       listener: "$1"
       network_processor: "$2"
   # - pattern: "kafka.server<type=socket-server-metrics, listener=(.+)><>(.+):"
   #   name: kafka_server_socketservermetrics
   #   type: GAUGE
+  #   cache: true
   #   labels:
   #     listener: "$1"
   #     attribute_name: "$2"
@@ -185,12 +201,14 @@ rules:
   - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.*)><>(\d+)thPercentile
     name: kafka_$1_$2_$3
     type: GAUGE
+    cache: true
     labels:
       "$4": "$5"
       quantile: "0.$6"
   - pattern: kafka.(\w+)<type=(.+), name=(.+)><>(\d+)thPercentile
     name: kafka_$1_$2_$3
     type: GAUGE
+    cache: true
     labels:
       quantile: "0.$4"
   # Additional Rules for Confluent Server Metrics
@@ -198,6 +216,7 @@ rules:
   - pattern: confluent.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Value|Count)
     name: confluent_$1_$2
     type: GAUGE
+    cache: true
     labels:
       "$3": "$4"
       "$5": "$6"
@@ -206,6 +225,7 @@ rules:
   - pattern: confluent.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>Value
     name: confluent_$1_$2
     type: GAUGE
+    cache: true
     labels:
       "$3": "$4"
       "$5": "$6"
@@ -213,6 +233,7 @@ rules:
   - pattern: 'confluent.metadata.service<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
     name: $1
     type: GAUGE
+    cache: true
     labels:
       "$2": "$3"
       "$4": "$5"
@@ -224,11 +245,13 @@ rules:
   - pattern: confluent.(.+)<type=(.+), (.+)=(.+)><>Value
     name: confluent_$1_$2
     type: GAUGE
+    cache: true
     labels:
       "$3": "$4"
   - pattern: 'confluent.(.+)<type=(.+), (.+)=(.+)><>(.+):'
     name: confluent_$1_$2
     type: GAUGE
+    cache: true
     labels:
       "$3": "$4"
       attribute_name: "$5"
@@ -236,26 +259,30 @@ rules:
   - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+), client-id=(.+)><>(.+):'
     name: kafka_server_$1_$4
     type: GAUGE
+    cache: true
     labels:
       user: "$2"
       client-id: "$3"
-  
+
   - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+)><>(.+):'
     name: kafka_server_$1_$3
     type: GAUGE
+    cache: true
     labels:
       user: "$2"
-  
+
   - pattern : 'kafka.server<type=(Produce|Fetch|Request), client-id=(.+)><>(.+):'
     name: kafka_server_$1_$3
     type: GAUGE
+    cache: true
     labels:
       client-id: "$2"
-  
+
 # Broker  Metrics
-  - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec), topic=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+  - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec|TotalProduceRequestsPerSec|TotalFetchRequestsPerSec), topic=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
     name: kafka_server_brokertopicmetrics_$1_$3
     type: GAUGE
+    cache: true
     labels:
       topic: "$2"
 
@@ -267,5 +294,6 @@ rules:
   - pattern : 'kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+), version=([0-9]+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
     name: kafka_network_requestmetrics_requestspersec_$3
     type: GAUGE
+    cache: true
     labels:
       request: "$1"

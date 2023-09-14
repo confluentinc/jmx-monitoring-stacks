@@ -1,7 +1,6 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
-cacheRules: true
 whitelistObjectNames:
   - org.apache.ZooKeeperService:name3=Connections,*
   - org.apache.ZooKeeperService:name3=InMemoryDataTree,*
@@ -17,6 +16,7 @@ rules:
   # org.apache.ZooKeeperService:name0=*,name3=Connections,name1=*,name2=*,name4=*,name5=*
   - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+), name3=Connections, name4=(.+), name5=(.+)><>([^:]+)"
     name: zookeeper_connections_$6
+    cache: true
     labels:
       server_name: "$1"
       server_id: $2
@@ -25,6 +25,7 @@ rules:
       member_type: "$3"
   - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+)><>(\\w+): (\\d+)"
     name: zookeeper_$4
+    cache: true
     labels:
       server_name: "$1"
       server_id: $2
@@ -34,6 +35,7 @@ rules:
   - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+), name3=InMemoryDataTree><>(WatchCount|NodeCount): (\\d+)"
     name: zookeeper_inmemorydatatree_$4
     type: GAUGE
+    cache: true
     labels:
       server_name: "$1"
       server_id: $2
@@ -44,6 +46,7 @@ rules:
     name: zookeeper_status
     type: UNTYPED
     value: "1"
+    cache: true
     labels:
       server_name: "$1"
       server_id: $2
@@ -53,6 +56,7 @@ rules:
   - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+)><>(QuorumSize): (\\d+)"
     name: zookeeper_status_$2
     type: GAUGE
+    cache: true
     labels:
       server_id: $1
   # ###########################################################################
@@ -62,6 +66,7 @@ rules:
   - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=InMemoryDataTree><>(WatchCount|NodeCount): (\\d+)"
     name: zookeeper_inmemorydatatree_$2
     type: GAUGE
+    cache: true
     labels:
       server_name: $1
       server_id: "1"
@@ -69,6 +74,7 @@ rules:
   # org.apache.ZooKeeperService:name0=*,name1=Connections,name2=*,name3=*
   - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=Connections, name2=(.+), name3=(.+)><>([^:]+)"
     name: zookeeper_connections_$4
+    cache: true
     labels:
       server_name: "$1"
       client_address: "$2"
@@ -78,6 +84,7 @@ rules:
   - pattern: "org.apache.ZooKeeperService<name0=(.+)><>(StartTime|ClientPort|SecureClientAddress|Version|SecureClientPort): (.+)"
     name: zookeeper_$2
     value: "1"
+    cache: true
     labels:
       server_name: "$1"
       $2: "$3"

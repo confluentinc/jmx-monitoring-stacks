@@ -1,7 +1,6 @@
 ---
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
-cacheRules: true
 whitelistObjectNames:
   # Engine Application Versioning Info
   - kafka.connect:type=app-info,client-id=*
@@ -40,6 +39,7 @@ rules:
   - pattern: "kafka.connect<type=app-info, client-id=(.+)><>(.+): (.+)"
     name: "kafka_connect_app_info"
     value: 1
+    cache: true
     labels:
       client-id: "$1"
       $2: "$3"
@@ -51,22 +51,26 @@ rules:
   # kafka.connect:type=connect-metrics,client-id=*
   - pattern: "kafka.connect<type=(.+), client-id=(.+)><>([^:]+)"
     name: kafka_connect_$1_$3
+    cache: true
     labels:
       client_id: $2
   # kafka.connect:type=connect-worker-metrics
   - pattern: "kafka.connect<type=connect-worker-metrics><>([^:]+)"
     name: kafka_connect_connect_worker_metrics_$1
+    cache: true
     labels:
       connector: "aggregate"
   # kafka.connect:type=connect-worker-metrics,connector=*
   - pattern: "kafka.connect<type=connect-worker-metrics, connector=(.+)><>([^:]+)"
     name: kafka_connect_connect_worker_metrics_$2
+    cache: true
     labels:
       connector: $1
   # kafka.connect:type=connector-metrics,connector=*
   - pattern: "kafka.connect<type=connector-metrics, connector=(.+)><>(.+): (.+)"
     value: 1
     name: kafka_connect_connector_metrics
+    cache: true
     labels:
       connector: $1
       $2: $3
@@ -77,6 +81,7 @@ rules:
   # kafka.connect:type=connector-task-metrics,connector=*,task=*
   - pattern: "kafka.connect<type=(.+)-task-metrics, connector=(.+), task=(\\d+)><>(.+): (.+)"
     name: kafka_connect_$1_task_metrics_$4
+    cache: true
     labels:
       connector: "$2"
       task: "$3"
@@ -84,12 +89,14 @@ rules:
   # kafka.connect:type=task-error-metrics,connector=*,task=*
   - pattern: "kafka.connect<type=task-error-metrics, connector=(.+), task=(\\d+)><>([^:]+)"
     name: kafka_connect_task_error_metrics_$3
+    cache: true
     labels:
       connector: "$1"
       task: "$2"
   # confluent.replicator:type=confluent-replicator-task-metrics,* : confluent-replicator-task-topic-partition-*: Number Values
   - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>confluent-replicator-task-topic-partition-(.*): (.*)"
     name: confluent_replicator_task_metrics_$9
+    cache: true
     labels:
       $1: "$2"
       $3: "$4"
@@ -99,6 +106,7 @@ rules:
   - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>(confluent-replicator-destination-cluster|confluent-replicator-source-cluster|confluent-replicator-destination-topic-name): (.*)"
     name: confluent_replicator_task_metrics_info
     value: 1
+    cache: true
     labels:
       $1: "$2"
       $3: "$4"
@@ -110,6 +118,7 @@ rules:
   - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
     value: 1
     name: kafka_$1_app_info
+    cache: true
     labels:
       client_type: $1
       client_id: $2
@@ -121,6 +130,7 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$9
     type: GAUGE
+    cache: true
     labels:
       client_type: $1
       $3: "$4"
@@ -133,6 +143,7 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$7
     type: GAUGE
+    cache: true
     labels:
       client_type: $1
       $3: "$4"
@@ -143,10 +154,12 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$5
     type: GAUGE
+    cache: true
     labels:
       client_type: $1
       $3: "$4"
   - pattern: "kafka.(.+)<type=(.+)><>(.+):"
     name: kafka_$1_$2_$3
+    cache: true
     labels:
       client_type: $1
