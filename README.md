@@ -33,7 +33,11 @@ To add JMX exporter configurations from this project into [Confluent cp-ansible]
 
 Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/cp-ansible/prometheus-config.yml) to generate the Prometheus configuration for your Ansible inventory.
 
-# How to run with cp-demo
+# How to use with Kubernetes and Confluent for Kubernetes Operator (CFK)
+
+To add JMX exporter configurations to your Kubernetes workspace, please refer to this [folder](jmxexporter-prometheus-grafana/cfk)
+
+# How to use with cp-demo
 
 This repo is intended to work smoothly with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
 Make sure you have enough system resources on the local host to run this.
