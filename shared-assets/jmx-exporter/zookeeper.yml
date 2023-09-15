@@ -45,7 +45,7 @@ rules:
   - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+)><>(.+): (.+)"
     name: zookeeper_status
     type: UNTYPED
-    value: 1
+    value: "1"
     cache: true
     labels:
       server_name: "$1"
@@ -83,7 +83,7 @@ rules:
   # org.apache.ZooKeeperService:name0=*
   - pattern: "org.apache.ZooKeeperService<name0=(.+)><>(StartTime|ClientPort|SecureClientAddress|Version|SecureClientPort): (.+)"
     name: zookeeper_$2
-    value: 1
+    value: "1"
     cache: true
     labels:
       server_name: "$1"
