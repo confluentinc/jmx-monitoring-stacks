@@ -37,6 +37,22 @@ Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/
 
 To add JMX exporter configurations to your Kubernetes workspace, please refer to this [folder](jmxexporter-prometheus-grafana/cfk)
 
+When deploying Confluent Platform with `Confluent for Kubernetes`, the default Prometheus JMX exporter configuration can be overridden with the configuration necessary for this project.
+
+The following `metrics` configuration can be added to the Custom Resource for a Confluent Platform component:
+
+```
+spec:
+  metrics:
+    prometheus:
+      whitelist:
+        # copy the whitelistObjectNames section from the jmx-exporter yaml configuration for the component.
+      blacklist:
+        # copy the blacklistObjectNames section from the jmx-exporter yaml configuration for the component.
+      rules:
+        # copy the rules section from the jmx-exporter yaml configuration for the component.
+```
+
 # How to use with cp-demo
 
 This repo is intended to work smoothly with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
@@ -83,25 +99,6 @@ ${MONITORING_STACK}/start.sh
 ```bash
 ${MONITORING_STACK}/stop.sh
 ```
-
-# How to use with Confluent for Kubernetes
-
-When deploying Confluent Platform with `Confluent for Kubernetes`, the default Prometheus JMX exporter configuration can be overridden with the configuration necessary for this project.
-
-The following `metrics` configuration can be added to the Custom Resource for a Confluent Platform component:
-
-```
-spec:
-  metrics:
-    prometheus:
-      whitelist:
-        # copy the whitelistObjectNames section from the jmx-exporter yaml configuration for the component.
-      blacklist:
-        # copy the blacklistObjectNames section from the jmx-exporter yaml configuration for the component.
-      rules:
-        # copy the rules section from the jmx-exporter yaml configuration for the component.
-```
-
 
 # See Also
 
