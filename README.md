@@ -4,10 +4,11 @@ This repo demonstrates examples of JMX monitoring stacks that can monitor Conflu
 While Confluent Cloud UI and Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
 - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
+- [jmxexporter-prometheus-grafana for kubernetes](jmxexporter-prometheus-grafana/cfk)
+- [jmxexporter-newrelic](jmxexporter-newrelic)
 - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
 - [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
 - [ccloud-metricbeat-elastic-kibana](ccloud-metricbeat-elastic-kibana)
-- [jmxexporter-newrelic](jmxexporter-newrelic)
 
 # Caution
 
@@ -35,7 +36,7 @@ Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/
 
 # How to use with Kubernetes and Confluent for Kubernetes Operator (CFK)
 
-To add JMX exporter configurations to your Kubernetes workspace, please refer to this [folder](jmxexporter-prometheus-grafana/cfk)
+To add JMX exporter configurations to your Kubernetes workspace, please refer to this [README](jmxexporter-prometheus-grafana/README.md)
 
 When deploying Confluent Platform with `Confluent for Kubernetes`, the default Prometheus JMX exporter configuration can be overridden with the configuration necessary for this project.
 
