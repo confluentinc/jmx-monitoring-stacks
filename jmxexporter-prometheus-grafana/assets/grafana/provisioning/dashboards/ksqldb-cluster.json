@@ -109,10 +109,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "avg(ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "instant": true,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -187,9 +187,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "avg(ksql_ksql_engine_query_stats_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -264,9 +264,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "avg(ksql_ksql_engine_query_stats_num_persistent_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_num_persistent_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -341,9 +341,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_rebalancing_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -418,9 +418,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "avg(ksql_ksql_engine_query_stats_error_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_error_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -495,9 +495,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(ksql_ksql_engine_query_stats_num_idle_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_num_idle_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -571,7 +571,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "ksql_ksql_metrics_ksql_queries_query_status{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
+          "expr": "ksql_ksql_metrics_ksql_queries_query_status{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -673,9 +673,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(ksql_ksql_engine_query_stats_not_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_not_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -750,9 +750,9 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(ksql_ksql_engine_query_stats_pending_shutdown_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
+          "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_pending_shutdown_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
@@ -844,7 +844,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "ksql_ksql_engine_query_stats_liveness_indicator{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
+          "expr": "ksql_ksql_engine_query_stats_liveness_indicator{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -935,7 +935,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "ksql_ksql_engine_query_stats_messages_consumed_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
+          "expr": "ksql_ksql_engine_query_stats_messages_consumed_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -1026,7 +1026,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "irate(ksql_ksql_engine_query_stats_messages_produced_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\", instance=~\"$instance\"}[5m])",
+          "expr": "irate(ksql_ksql_engine_query_stats_messages_produced_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}[5m])",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"

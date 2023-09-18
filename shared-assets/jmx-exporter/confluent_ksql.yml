@@ -25,6 +25,7 @@ blacklistObjectNames:
   - "kafka.streams:type=stream-processor-node-metrics,thread-id=*,task-id=*,processor-node-id=*"
   - "kafka.*:type=kafka-metrics-count,*"
   - "io.confluent.ksql.metrics:type=_confluent-ksql-rest-app-command-runner,*"
+  - "io.confluent.ksql.metrics:type=ksql-queries,query-id=*,*"
 rules:
   # "io.confluent.ksql.metrics:type=producer-metrics,key=*,id=*"
   # "io.confluent.ksql.metrics:type=consumer-metrics,key=*,id=*"
@@ -39,9 +40,9 @@ rules:
     name: "ksql_ksql_engine_query_stats_$2"
     labels:
       ksql_cluster: $1
-  # "io.confluent.ksql.metrics:type=ksql-queries,status=_confluent-ksql-<cluser-id>_query_<query>
+  # "io.confluent.ksql.metrics:type=ksql-queries,ksql_service_id=<cluser-id>,status=_confluent-ksql-query_<query>"
   # The below statement parses KSQL query specific status
-  - pattern: "io.confluent.ksql.metrics<type=(.+), status=_confluent-ksql-(.*)query_(.+)><>(.+): (.+)"
+  - pattern: "io.confluent.ksql.metrics<type=(.+), ksql_service_id=(.+), status=_confluent-ksql-query_(.+)><>(.+): (.+)"
     value: 1
     name: ksql_ksql_metrics_$1_$4
     labels:
