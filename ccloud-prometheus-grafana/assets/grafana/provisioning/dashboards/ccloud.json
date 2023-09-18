@@ -22,7 +22,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1644018630691,
+  "iteration": 1687425228917,
   "links": [],
   "panels": [
     {
@@ -846,7 +846,7 @@
     },
     {
       "datasource": null,
-      "description": "The average active connections to a cluster. Basic clusters limit active connections to 1000.",
+      "description": "The lag between a group member's committed offset and the partition's high watermark.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -903,6 +903,94 @@
         "x": 0,
         "y": 17
       },
+      "id": 53,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "sum by (consumer_group_id, topic) (confluent_kafka_server_consumer_lag_offsets{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{topic}}-{{consumer_group_id}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Consumer Lag Offsets",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "description": "The average active connections to a cluster. Basic clusters limit active connections to 1000.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
       "id": 46,
       "options": {
         "legend": {
@@ -939,7 +1027,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 29
       },
       "id": 16,
       "panels": [],
@@ -965,10 +1053,10 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 30
       },
       "hiddenSeries": false,
-      "id": 6,
+      "id": 52,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -1069,7 +1157,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 4,
@@ -1167,7 +1255,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 2,
@@ -1266,7 +1354,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 39
+        "y": 45
       },
       "hiddenSeries": false,
       "id": 31,
@@ -1364,7 +1452,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 39
+        "y": 45
       },
       "hiddenSeries": false,
       "id": 30,
@@ -1462,7 +1550,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 50
       },
       "hiddenSeries": false,
       "id": 29,
@@ -1552,7 +1640,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 59
       },
       "id": 33,
       "panels": [],
@@ -1571,7 +1659,7 @@
         "h": 9,
         "w": 9,
         "x": 0,
-        "y": 54
+        "y": 60
       },
       "hiddenSeries": false,
       "id": 35,
@@ -1661,7 +1749,7 @@
         "h": 9,
         "w": 9,
         "x": 9,
-        "y": 54
+        "y": 60
       },
       "hiddenSeries": false,
       "id": 38,
@@ -1751,7 +1839,7 @@
         "h": 17,
         "w": 6,
         "x": 18,
-        "y": 54
+        "y": 60
       },
       "hiddenSeries": false,
       "id": 51,
@@ -1844,7 +1932,7 @@
         "h": 8,
         "w": 9,
         "x": 0,
-        "y": 63
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 37,
@@ -1934,7 +2022,7 @@
         "h": 8,
         "w": 9,
         "x": 9,
-        "y": 63
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 36,
@@ -2019,7 +2107,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 77
       },
       "id": 42,
       "panels": [],
@@ -2052,7 +2140,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 72
+        "y": 78
       },
       "id": 44,
       "options": {
@@ -2061,7 +2149,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -2110,7 +2200,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 72
+        "y": 78
       },
       "id": 45,
       "options": {
@@ -2119,7 +2209,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -2148,7 +2240,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 77
+        "y": 83
       },
       "id": 25,
       "panels": [],
@@ -2161,14 +2253,20 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [50],
+              "params": [
+                50
+              ],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": ["A", "5m", "now"]
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
             },
             "reducer": {
               "params": [],
@@ -2202,7 +2300,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 78
+        "y": 84
       },
       "hiddenSeries": false,
       "id": 28,
@@ -2298,9 +2396,13 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(confluent_kafka_server_retained_bytes, kafka_id)",
@@ -2328,9 +2430,13 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(confluent_kafka_server_retained_bytes, topic)",
@@ -2378,5 +2484,5 @@
   "timezone": "",
   "title": "Confluent Cloud",
   "uid": "fhX5408Zk",
-  "version": 4
+  "version": 6
 }
