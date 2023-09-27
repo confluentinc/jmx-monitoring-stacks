@@ -294,7 +294,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total Schema Registry Instances",
+      "title": "Total Schemas",
       "type": "gauge"
     },
     {
