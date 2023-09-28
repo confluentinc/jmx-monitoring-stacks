@@ -2,6 +2,20 @@
 
 ## Grafana dashboards
 
+List of provided dashboards:
+ - Confluent Platform overview
+ - Zookeeper cluster
+ - Kafka cluster
+ - Kafka topics
+ - Kafka quotas
+ - Schema Registry cluster
+ - Kafka Connect cluster
+ - ksqlDB cluster
+ - Kafka Clients
+ - Kafka lag exporter
+ - Cluster Linking
+ - Kafka streams RocksDB
+
 ### Confluent Platform overview
 
 ![Confluent Platform overview](img/confluent-platform-overview.png)
