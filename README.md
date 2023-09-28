@@ -3,12 +3,14 @@
 This repo demonstrates examples of JMX monitoring stacks that can monitor Confluent Cloud and Confluent Platform.
 While Confluent Cloud UI and Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
-- [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
-- [jmxexporter-prometheus-grafana for kubernetes](jmxexporter-prometheus-grafana/cfk)
-- [jmxexporter-newrelic](jmxexporter-newrelic)
-- [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
-- [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
-- [ccloud-metricbeat-elastic-kibana](ccloud-metricbeat-elastic-kibana)
+Repo provides metrics and dashboards for:
+
+- Confluent Platform with Prometheus and Grafana - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
+- Confluent Platform on Kubernetes with Prometheus and Grafana - [jmxexporter-prometheus-grafana for kubernetes](jmxexporter-prometheus-grafana/cfk)
+- Confluent Platform with New Relic - [jmxexporter-newrelic](jmxexporter-newrelic)
+- Confluent Platform with Metricbeat and Kibana - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
+- Confluent Cloud with Prometheus and Grafana - [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
+- Confluent Cloud with Metricbeat and Kibana - [ccloud-metricbeat-elastic-kibana](ccloud-metricbeat-elastic-kibana)
 
 # Caution
 
