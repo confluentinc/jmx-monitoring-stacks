@@ -57,6 +57,10 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ![ksqlDB cluster dashboard 0](img/ksqldb-cluster-0.png)
 ![ksqlDB cluster dashboard 1](img/ksqldb-cluster-1.png)
 
+### Kafka streams RocksDB 
+
+![kafkastreams-rocksdb 0](img/kafkastreams-rocksdb.png)
+
 ### Kafka Clients
 
 ![Kafka Producer](img/kafka-producer.png)
@@ -150,16 +154,3 @@ scrape_configs:
 
 This configuration can be added to the Prometheus config file.
 Once Prometheus is restarted with this configuration, targets will be scrapped.
-
-## Integration with `Confluent for Kubernetes` using the `kube-prometheus-stack`
-
-The [cfk](./cfk) folder contains a Prometheus PodMonitor that will query the JMX metrics for all components of the Confluent Platform.  
-
-The Grafana dashboards need to be updated to use labels provided by Confluent for Kubernetes rather than the custom Prometheus labels for cp-demo.
-Use the `cfk/update-dashboards.sh` script to create a new set of Grafana dashboards with renamed labels, then add the Grafana dashboards to Kubernetes.
-
-Adding a Grafana dashboard as a ConfigMap:
-```
-kubectl create configmap grafana-zookeeper-cluster --from-file=jmxexporter-prometheus-grafana/cfk/dashboards/zookeeper-cluster.json
-kubectl label configmap grafana-zookeeper-cluster grafana_dashboard=1
-```

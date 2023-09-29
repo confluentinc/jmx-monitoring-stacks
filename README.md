@@ -5,12 +5,12 @@ While Confluent Cloud UI and Confluent Control Center provides an opinionated vi
 
 Repo provides metrics and dashboards for:
 
-- Confluent Platform with Prometheus and Grafana - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana)
-- Confluent Platform on Kubernetes with Prometheus and Grafana - [jmxexporter-prometheus-grafana for kubernetes](jmxexporter-prometheus-grafana/cfk)
-- Confluent Platform with New Relic - [jmxexporter-newrelic](jmxexporter-newrelic)
-- Confluent Platform with Metricbeat and Kibana - [metricbeat-elastic-kibana](metricbeat-elastic-kibana)
-- Confluent Cloud with Prometheus and Grafana - [ccloud-prometheus-grafana](ccloud-prometheus-grafana)
-- Confluent Cloud with Metricbeat and Kibana - [ccloud-metricbeat-elastic-kibana](ccloud-metricbeat-elastic-kibana)
+- [Confluent Platform with Prometheus and Grafana](jmxexporter-prometheus-grafana)
+- [Confluent Platform on Kubernetes with Prometheus and Grafana](jmxexporter-prometheus-grafana/cfk)
+- [Confluent Platform with New Relic](jmxexporter-newrelic)
+- [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
+- [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
+- [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 
 # Caution
 
@@ -19,9 +19,9 @@ They serve only to demonstrate how the integration works with Confluent Cloud an
 
 # How to use with Confluent Cloud
 
-The demo with Confluent Cloud needs a running instance and you (as a user) are required to gather some details before spinning up the Confluent Cloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a Confluent Cloud based sample dashboard.
+The demo with Confluent Cloud needs a Confluent Cloud cluster and you (as a user) are required to gather some details before spinning up the Confluent Cloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a Confluent Cloud based sample dashboard.
 
-# How to use with cp-ansible
+# How to use with Confluent cp-ansible
 
 To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
 
@@ -38,23 +38,7 @@ Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/
 
 # How to use with Kubernetes and Confluent for Kubernetes Operator (CFK)
 
-To add JMX exporter configurations to your Kubernetes workspace, please refer to this [README](jmxexporter-prometheus-grafana/README.md)
-
-When deploying Confluent Platform with `Confluent for Kubernetes`, the default Prometheus JMX exporter configuration can be overridden with the configuration necessary for this project.
-
-The following `metrics` configuration can be added to the Custom Resource for a Confluent Platform component:
-
-```
-spec:
-  metrics:
-    prometheus:
-      whitelist:
-        # copy the whitelistObjectNames section from the jmx-exporter yaml configuration for the component.
-      blacklist:
-        # copy the blacklistObjectNames section from the jmx-exporter yaml configuration for the component.
-      rules:
-        # copy the rules section from the jmx-exporter yaml configuration for the component.
-```
+To add JMX exporter configurations to your Kubernetes workspace, please refer to this [README](jmxexporter-prometheus-grafana/cfk/README.md)
 
 # How to use with cp-demo
 
@@ -70,6 +54,7 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 
 ```bash
 # Set one of these
+CP_DEMO_VERSION=7.5.0-post
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
@@ -79,7 +64,7 @@ MONITORING_STACK=jmxexporter-newrelic
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
-(cd cp-demo && git fetch && git checkout 7.4.0-post && git pull)
+(cd cp-demo && git fetch && git checkout $CP_DEMO_VERSION && git pull)
 ```
 
 4. Clone `jmx-monitoring-stacks` and checkout main branch.
@@ -95,7 +80,7 @@ MONITORING_STACK=jmxexporter-newrelic
 ${MONITORING_STACK}/start.sh
 ```
 
-**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) in the command - ${MONITORING_STACK}/start.sh -
+**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
@@ -103,6 +88,6 @@ ${MONITORING_STACK}/start.sh
 ${MONITORING_STACK}/stop.sh
 ```
 
-# See Also
+# How to use with Apache Kafka client applications (producers, consumers, kafka streams applications)
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).
