@@ -43,8 +43,11 @@ To add JMX exporter configurations to your Kubernetes workspace, please refer to
 # How to use with cp-demo
 
 This repo is intended to work smoothly with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
+
 Make sure you have enough system resources on the local host to run this.
 Verify in the advanced Docker preferences settings that the memory available to Docker is at least 8 GB (default is 2 GB).
+
+NOTE: [jq](https://jqlang.github.io/jq/) is required to be installed on your machine to run the demo.
 
 NOTE: If there is interest to test Kafka Lag Exporter (included on the monitoring stacks) make sure to use JDK 8 when running the demo, as it requires JDK8-generated certificates for the container to work (<https://github.com/lightbend/kafka-lag-exporter/issues/270>).
 
