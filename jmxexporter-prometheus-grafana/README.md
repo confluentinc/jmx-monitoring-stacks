@@ -3,19 +3,19 @@
 ## Grafana dashboards
 
 List of provided dashboards:
- - Confluent Platform overview
- - Zookeeper cluster
- - Kafka cluster
- - Kafka topics
- - Kafka quotas
- - Schema Registry cluster
- - Kafka Connect cluster
- - ksqlDB cluster
- - Kafka Clients
+ - [Confluent Platform overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
+ - [Zookeeper cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#zookeeper-cluster)
+ - [Kafka cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-cluster)
+ - [Kafka topics](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-topics)
+ - [Kafka Clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
+ - [Kafka quotas](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-quotas)
+ - [Schema Registry cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
+ - [Kafka Connect cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
+ - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
+ - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
+ - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - Kafka lag exporter
  - Cluster Linking
- - Kafka streams RocksDB
- - Oracle CDC source Connector
 
 ### Confluent Platform overview
 
@@ -34,7 +34,14 @@ List of provided dashboards:
 
 ![Kafka topics](img/kafka-topics.png)
 
+### Kafka Clients
+
+![Kafka Producer](img/kafka-producer.png)
+
+![Kafka Consumer](img/kafka-consumer.png)
+
 ### Kafka quotas
+
 For Kafka to output quota metrics, at least one quota configuration is necessary.
 
 A quota can be configured from the cp-demo folder using docker-compose:
@@ -62,15 +69,12 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 ![kafkastreams-rocksdb 0](img/kafkastreams-rocksdb.png)
 
-### Kafka Clients
-
-![Kafka Producer](img/kafka-producer.png)
-
-![Kafka Consumer](img/kafka-consumer.png)
-
 ### Oracle CDC source Connector
 
+To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using --enable-jmx-grafana
+
 ![oraclecdc](img/oraclecdc.jpg)
+
 
 ## Integration with `cp-ansible`
 
