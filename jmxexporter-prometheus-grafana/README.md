@@ -15,6 +15,7 @@ List of provided dashboards:
  - Kafka lag exporter
  - Cluster Linking
  - Kafka streams RocksDB
+ - Oracle CDC source Connector
 
 ### Confluent Platform overview
 
@@ -66,6 +67,10 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ![Kafka Producer](img/kafka-producer.png)
 
 ![Kafka Consumer](img/kafka-consumer.png)
+
+### Oracle CDC source Connector
+
+![oraclecdc](img/oraclecdc.jpg)
 
 ## Integration with `cp-ansible`
 
