@@ -56,8 +56,11 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
-# Set one of these
 CP_DEMO_VERSION=7.5.0-post
+```
+
+```bash
+# Set one of these
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
