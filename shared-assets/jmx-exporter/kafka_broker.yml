@@ -17,7 +17,7 @@ blacklistObjectNames:
   # "kafka.admin.client:type=*, id=*"
   - "kafka.admin.client:*"
   - "kafka.server:type=*,cipher=*,protocol=*,listener=*,networkProcessor=*"
-  - "kafka.server:type=*"
+  #- "kafka.server:type=*"
   - "kafka.server:type=app-info,id=*"
   - "kafka.rest:*"
   - "rest.utils:*"
@@ -297,3 +297,9 @@ rules:
     cache: true
     labels:
       request: "$1"
+
+# kafka.server:type=transaction-coordinator-metrics
+  - pattern: kafka.server<type=transaction-coordinator-metrics><>(.+):(.*)
+    name: kafka_server_transaction_coordinator_metrics_$1
+    type: GAUGE
+    cache: true
