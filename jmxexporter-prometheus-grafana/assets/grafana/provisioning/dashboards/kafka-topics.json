@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1647426704713,
+  "id": 12,
+  "iteration": 1697637632051,
   "links": [],
   "panels": [
     {
@@ -702,7 +702,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -711,270 +711,269 @@
         "y": 28
       },
       "id": 21,
-      "panels": [
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": null,
-                "displayMode": "auto",
-                "filterable": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "partition"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 103
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 137
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "instance"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 155
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "topic"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 294
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 29
-          },
-          "id": 6,
-          "options": {
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "partition"
-              }
-            ]
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "kafka_log_log_logstartoffset{job=\"kafka-broker\",env=~\"$env\",topic=~\"$topic\"}",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Start Offset",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "__name__": true,
-                  "env": true,
-                  "instance": false,
-                  "job": true
-                },
-                "indexByName": {
-                  "Time": 0,
-                  "Value": 7,
-                  "__name__": 1,
-                  "env": 2,
-                  "instance": 3,
-                  "job": 4,
-                  "partition": 6,
-                  "topic": 5
-                },
-                "renameByName": {
-                  "Value": "offset"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": "Prometheus",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": null,
-                "displayMode": "auto",
-                "filterable": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "partition"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 103
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 105
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "topic"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 289
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 29
-          },
-          "id": 7,
-          "options": {
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "partition"
-              }
-            ]
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "kafka_log_log_logendoffset{job=\"kafka-broker\",env=~\"$env\",topic=~\"$topic\"}",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "End Offset",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "__name__": true,
-                  "env": true,
-                  "instance": false,
-                  "job": true
-                },
-                "indexByName": {
-                  "Time": 0,
-                  "Value": 7,
-                  "__name__": 1,
-                  "env": 2,
-                  "instance": 3,
-                  "job": 4,
-                  "partition": 6,
-                  "topic": 5
-                },
-                "renameByName": {
-                  "Value": "offset"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "Topic offsets",
       "type": "row"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "partition"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 137
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "instance"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 155
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "topic"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 294
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "id": 6,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "partition"
+          }
+        ]
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kafka_log_log_logstartoffset{job=\"kafka-broker\",env=~\"$env\",instance=~\"$instance\",topic=~\"$topic\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Start Offset",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "env": true,
+              "instance": false,
+              "job": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 7,
+              "__name__": 1,
+              "env": 2,
+              "instance": 3,
+              "job": 4,
+              "partition": 6,
+              "topic": 5
+            },
+            "renameByName": {
+              "Value": "offset"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "partition"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 105
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "topic"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 289
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "id": 7,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "partition"
+          }
+        ]
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kafka_log_log_logendoffset{job=\"kafka-broker\",env=~\"$env\",instance=~\"$instance\",topic=~\"$topic\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "End Offset",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "env": true,
+              "instance": false,
+              "job": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 7,
+              "__name__": 1,
+              "env": 2,
+              "instance": 3,
+              "job": 4,
+              "partition": 6,
+              "topic": 5
+            },
+            "renameByName": {
+              "Value": "offset"
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "1m",
@@ -1018,6 +1017,37 @@
         "current": {
           "selected": true,
           "text": [
+            "kafka1:1234"
+          ],
+          "value": [
+            "kafka1:1234"
+          ]
+        },
+        "datasource": null,
+        "definition": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Instance",
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "query": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
             "All"
           ],
           "value": [
@@ -1025,7 +1055,7 @@
           ]
         },
         "datasource": "Prometheus",
-        "definition": "label_values(kafka_log_log_size,topic)",
+        "definition": "label_values(kafka_log_log_size{env=\"${env}\",instance=~\"$instance\"},topic)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1035,8 +1065,8 @@
         "name": "topic",
         "options": [],
         "query": {
-          "query": "label_values(kafka_log_log_size,topic)",
-          "refId": "Prometheus-topic-Variable-Query"
+          "query": "label_values(kafka_log_log_size{env=\"${env}\",instance=~\"$instance\"},topic)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -1057,5 +1087,5 @@
   "timezone": "",
   "title": "Kafka Topics",
   "uid": "vQT4b1-Mz",
-  "version": 1
+  "version": 19
 }
