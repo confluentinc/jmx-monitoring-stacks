@@ -94,7 +94,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -158,7 +158,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -222,7 +222,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -286,7 +286,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -356,7 +356,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -422,7 +422,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -491,7 +491,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -566,7 +566,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -636,7 +636,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": "Prometheus",
@@ -1090,7 +1090,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1179,7 +1179,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1270,7 +1270,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1359,7 +1359,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1446,7 +1446,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1537,7 +1537,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1637,7 +1637,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1717,7 +1717,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1797,7 +1797,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "8.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
