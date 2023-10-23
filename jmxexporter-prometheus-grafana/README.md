@@ -14,7 +14,7 @@ List of provided dashboards:
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
- - Kafka lag exporter
+ - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
  - Cluster Linking
 
 ### Confluent Platform overview
@@ -74,6 +74,10 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using --enable-jmx-grafana
 
 ![oraclecdc](img/oraclecdc.jpg)
+
+### Kafka Lag Exporter
+
+![kafkalagexporter](img/kafka-lag-exporter.png)
 
 
 ## Integration with `cp-ansible`
