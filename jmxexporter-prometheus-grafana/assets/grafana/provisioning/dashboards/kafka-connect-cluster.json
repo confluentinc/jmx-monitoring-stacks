@@ -2698,10 +2698,7 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
-      },
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2712,10 +2709,7 @@
       "panels": [],
       "targets": [
         {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -2723,10 +2717,7 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3341,10 +3332,7 @@
       "pluginVersion": "10.1.5",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "label_replace(label_replace(label_replace(kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status!=\"\"}, \"status\", \"1\", \"status\", \"running\"), \"status\", \"2\", \"status\", \"paused\"), \"status\", \"3\", \"status\", \"stopped\")",
           "format": "table",
           "hide": false,
@@ -3354,10 +3342,7 @@
           "refId": "I"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_type!=\"\"}",
           "format": "table",
           "instant": true,
@@ -3366,10 +3351,7 @@
           "refId": "A"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_version!=\"\"}",
           "format": "table",
           "hide": false,
@@ -3379,10 +3361,7 @@
           "refId": "C"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_class!=\"\"}",
           "format": "table",
           "instant": true,
@@ -3391,10 +3370,7 @@
           "refId": "D"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
           "hide": false,
@@ -3404,10 +3380,7 @@
           "refId": "E"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
           "instant": true,
@@ -3416,10 +3389,7 @@
           "refId": "F"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
           "instant": true,
@@ -3428,10 +3398,7 @@
           "refId": "G"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
           "instant": true,
@@ -3440,10 +3407,7 @@
           "refId": "H"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
           "instant": true,
@@ -3452,10 +3416,7 @@
           "refId": "B"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "c4f66615-2d4a-4de6-935d-2551cdfb2bb8"
-          },
+          "datasource": "Prometheus",
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
           "instant": true,
