@@ -3396,7 +3396,7 @@
           "repeat": "instance",
           "targets": [
             {
-              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",job=\"connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
+              "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",job=\"kafka-connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
               "format": "time_series",
               "instant": false,
               "interval": "",
