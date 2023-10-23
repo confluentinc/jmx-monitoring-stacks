@@ -2133,7 +2133,6 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "datasource": "Prometheus",
           "expr": "count(confluent_kafka_ksql_streaming_unit_count)",
           "interval": "",
           "legendFormat": "",
@@ -2155,12 +2154,6 @@
       },
       "id": 25,
       "panels": [],
-      "targets": [
-        {
-          "datasource": "Prometheus",
-          "refId": "A"
-        }
-      ],
       "title": "Metrics API",
       "type": "row"
     },
@@ -2247,7 +2240,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "datasource": "Prometheus",
           "expr": "scrape_duration_seconds{job=\"Confluent Cloud\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
@@ -2290,12 +2282,13 @@
         }
       ],
       "yaxis": {
-        "align": false
+        "align": false,
+        "alignLevel": null
       }
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 38,
+  "refresh": "5s",
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2367,7 +2360,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -2387,6 +2380,5 @@
   "timezone": "",
   "title": "Confluent Cloud",
   "uid": "fhX5408Zk",
-  "version": 9,
-  "weekStart": ""
+  "version": 6
 }
