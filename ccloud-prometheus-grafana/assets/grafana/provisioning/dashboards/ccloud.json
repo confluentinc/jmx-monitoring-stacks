@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -38,7 +41,7 @@
       "panels": [],
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -46,7 +49,7 @@
       "type": "row"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The number of registered schemas",
       "fieldConfig": {
         "defaults": {
@@ -94,7 +97,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "count (confluent_kafka_server_partition_count)",
           "format": "time_series",
@@ -110,7 +113,7 @@
       "type": "gauge"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The number of registered schemas",
       "fieldConfig": {
         "defaults": {
@@ -158,7 +161,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "count(confluent_kafka_connect_sent_bytes)",
           "format": "time_series",
@@ -174,7 +177,7 @@
       "type": "gauge"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The number of registered schemas",
       "fieldConfig": {
         "defaults": {
@@ -222,7 +225,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "count(confluent_kafka_ksql_streaming_unit_count)",
           "format": "time_series",
@@ -238,7 +241,7 @@
       "type": "gauge"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The number of registered schemas",
       "fieldConfig": {
         "defaults": {
@@ -286,7 +289,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "confluent_kafka_schema_registry_schema_count",
           "format": "time_series",
@@ -300,7 +303,7 @@
       "type": "gauge"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "Basic clusters have a max retained bytes limit of 5 TB prior to replication. ccloud_metrics_retained_bytes is after replication thus needs to be divided by 3.",
       "fieldConfig": {
         "defaults": {
@@ -356,7 +359,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "sum(confluent_kafka_server_retained_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})/3",
           "interval": "",
           "legendFormat": "{{cluster}}",
@@ -367,7 +370,7 @@
       "type": "stat"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "Per-second average rate of ingress of data to topics, basic cluster has a max of 100MBps.",
       "fieldConfig": {
         "defaults": {
@@ -422,7 +425,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "editorMode": "code",
           "exemplar": true,
           "expr": "sum(rate(confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[1m]))",
@@ -436,7 +439,7 @@
       "type": "stat"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "Per-second average rate of egress data to topics, basic cluster has a max of 100MBps.",
       "fieldConfig": {
         "defaults": {
@@ -491,7 +494,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
@@ -510,7 +513,7 @@
       "type": "stat"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "Per-second average rate of requests, basic cluster maxes out at 1500 requests per second.",
       "fieldConfig": {
         "defaults": {
@@ -566,7 +569,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "editorMode": "code",
           "expr": "sum(rate(confluent_kafka_server_request_count{type=~\".*\", kafka_id=~\"$cluster\"}[1m]))",
           "interval": "",
@@ -579,7 +582,7 @@
       "type": "stat"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The average active connections to a cluster. Basic clusters limit active connections to 1000.",
       "fieldConfig": {
         "defaults": {
@@ -636,7 +639,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "avg(confluent_kafka_server_active_connection_count{kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -648,7 +651,7 @@
       "type": "stat"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The sum of partitions in a cluster. Basic cluster max partitions limit is 2048.",
       "fieldConfig": {
         "defaults": {
@@ -732,7 +735,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}",
           "hide": false,
@@ -745,7 +748,7 @@
       "type": "timeseries"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "Basic clusters have a limit on the number of partitions that can be created and deleted in a 5 minute period. This single stat provides the absolute difference between the number of partitions are the beginning and end of the 5 minute period. This over simplifies the problem, so more conservative thresholds are put in place. ",
       "fieldConfig": {
         "defaults": {
@@ -829,7 +832,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "abs(delta(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[5m]))",
           "format": "time_series",
@@ -845,7 +848,7 @@
       "type": "timeseries"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The lag between a group member's committed offset and the partition's high watermark.",
       "fieldConfig": {
         "defaults": {
@@ -922,7 +925,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "sum by (consumer_group_id, topic) (confluent_kafka_server_consumer_lag_offsets{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
@@ -935,7 +938,7 @@
       "type": "timeseries"
     },
     {
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The average active connections to a cluster. Basic clusters limit active connections to 1000.",
       "fieldConfig": {
         "defaults": {
@@ -1012,7 +1015,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "confluent_kafka_server_successful_authentication_count{}",
           "hide": false,
@@ -1026,7 +1029,7 @@
     },
     {
       "collapsed": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1037,7 +1040,7 @@
       "panels": [],
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "refId": "A"
         }
       ],
@@ -1049,7 +1052,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The current count of bytes retained by the cluster, summed across all partitions. The count is sampled every 60 seconds.",
       "fieldConfig": {
         "defaults": {
@@ -1097,7 +1100,7 @@
       "steppedLine": false,
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "sum by (kafka_id, topic) (confluent_kafka_server_retained_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1142,7 +1145,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The delta count of bytes received from the network. Each sample is the number of bytes received since the previous data sample. The count is sampled every 60 seconds.",
       "fieldConfig": {
         "defaults": {
@@ -1186,7 +1189,7 @@
       "steppedLine": false,
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1231,7 +1234,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The delta count of bytes sent over the network. Each sample is the number of bytes sent since the previous data point. The count is sampled every 60 seconds.",
       "fieldConfig": {
         "defaults": {
@@ -1277,7 +1280,7 @@
       "steppedLine": false,
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_sent_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1322,7 +1325,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The delta count of records received. Each sample is the number of records received since the previous data sample. The count is sampled every 60 seconds.",
       "fieldConfig": {
         "defaults": {
@@ -1366,7 +1369,7 @@
       "steppedLine": false,
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_received_records{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1409,7 +1412,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The delta count of records sent. Each sample is the number of records sent since the previous data point. The count is sampled every 60 seconds.",
       "fieldConfig": {
         "defaults": {
@@ -1453,7 +1456,7 @@
       "steppedLine": false,
       "targets": [
         {
-          : "Prometheus",
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_sent_records{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1496,7 +1499,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      : "Prometheus",
+      "datasource": "Prometheus",
       "description": "The delta count of requests received over the network. Each sample is the number of requests received since the previous data point. The count sampled every 60 seconds.",
       "fieldConfig": {
         "defaults": {
