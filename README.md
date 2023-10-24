@@ -23,18 +23,7 @@ The demo with Confluent Cloud needs a Confluent Cloud cluster and you (as a user
 
 # How to use with Confluent cp-ansible
 
-To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
-
-```yaml
-    zookeeper_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/zookeeper.yml
-    kafka_broker_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
-    schema_registry_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_schemaregistry.yml
-    kafka_connect_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_connect.yml
-    kafka_rest_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_rest.yml
-    ksql_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_ksql.yml
-```
-
-Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/cp-ansible/prometheus-config.yml) to generate the Prometheus configuration for your Ansible inventory.
+To add JMX exporter configurations to cp-ansible, please refer to this [README](jmxexporter-prometheus-grafana/cp-ansible/README.md)
 
 # How to use with Kubernetes and Confluent for Kubernetes Operator (CFK)
 
