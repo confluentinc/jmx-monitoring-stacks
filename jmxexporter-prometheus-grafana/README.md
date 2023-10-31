@@ -10,6 +10,7 @@ List of provided dashboards:
  - [Schema Registry cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
  - [Kafka Connect cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
+ - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
@@ -62,6 +63,10 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 ![ksqlDB cluster dashboard 0](img/ksqldb-cluster-0.png)
 ![ksqlDB cluster dashboard 1](img/ksqldb-cluster-1.png)
+
+### Kafka streams
+
+![Kafka streams dashboard 0](img/kafka-streams.png)
 
 ### Kafka streams RocksDB 
 
