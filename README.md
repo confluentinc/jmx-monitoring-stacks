@@ -87,17 +87,17 @@ ${MONITORING_STACK}/stop.sh
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).
 
-# dev-toolkit
+# DEV-toolkit
 
 To run a lightweight dev environment:
 
 1. `cd dev-toolkit`
 2. Put your new dashboards into the `grafana-wip` folder
 3. `start.sh` -> It will create a minimal environment with a KRaft single node cluster, prometheus, grafana and a spring based java client
-4. For Grafana, go to (http://localhost:3000)[http://localhost:3000], login with admin/grafana
+4. For Grafana, go to http://localhost:3000, login with admin/grafana
 5. `stop.sh`
 
-## FAQ
+## DEV-toolkit-FAQ
 
 - What if I need more components?
 
