@@ -86,6 +86,8 @@ To test run [playground example](https://github.com/vdesabou/kafka-docker-playgr
 
 ![clusterlinking](img/clusterlinking.png)
 
+Demo is based on https://github.com/confluentinc/demo-scene/tree/master/cluster-linking-disaster-recovery
+
 To test follow the next steps:
 
 1. Set env:

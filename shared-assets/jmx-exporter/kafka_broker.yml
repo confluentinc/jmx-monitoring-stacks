@@ -354,9 +354,10 @@ rules:
     labels:
       "$1": "$2"
   # kafka.server:type=cluster-link-source-metrics,request=*,link-id=*
-  - pattern: kafka.server<type=cluster-link-source-metrics, (.+)=(.+), (.+)=(.+)><>Value
-    name: kafka_server_cluster_link_source_metrics
+  - pattern: 'kafka.server<type=cluster-link-source-metrics, request=(.+), link-id=(.+)><>(.+):(.+)'
+    name: kafka_server_cluster_link_source_metrics_$1_$3
+    value: $4
     type: GAUGE
     labels:
-      "$1": "$2"
-      "$3": "$4"
+      request: "$1"
+      link-id: "$2"

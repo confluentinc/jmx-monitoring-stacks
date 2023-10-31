@@ -2091,7 +2091,7 @@
           "exemplar": true,
           "expr": "kafka_server_cluster_link_source_metrics_fetch_request_byte_total{env=~\"$env\",instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{link_id}}",
+          "legendFormat": "{{instance}} - link: {{link_id}}",
           "refId": "A"
         }
       ],
@@ -2177,7 +2177,7 @@
           "exemplar": true,
           "expr": "kafka_server_cluster_link_source_metrics_fetch_request_total{env=~\"$env\",instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{link_id}}",
+          "legendFormat": "{{instance}} - link: {{link_id}}",
           "refId": "A"
         }
       ],
@@ -2263,7 +2263,7 @@
           "exemplar": true,
           "expr": "kafka_server_cluster_link_source_metrics_fetch_response_byte_total{env=~\"$env\",instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{link_id}}",
+          "legendFormat": "{{instance}} - link: {{link_id}}",
           "refId": "A"
         }
       ],
@@ -2349,7 +2349,7 @@
           "exemplar": true,
           "expr": "kafka_server_cluster_link_source_metrics_fetch_response_time_ns_avg{env=~\"$env\",instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{link_id}}",
+          "legendFormat": "{{instance}} - link: {{link_id}}",
           "refId": "A"
         }
       ],
