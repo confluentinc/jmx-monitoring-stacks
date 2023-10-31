@@ -7,3 +7,5 @@ both-enabled/
 .vscode/
 utils/testing/output/*
 utils/testing/code/*.ipynb
+dev-toolkit/assets/*
+dev-toolkit/jmx-exporter/*

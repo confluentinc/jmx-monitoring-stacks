@@ -75,7 +75,7 @@ MONITORING_STACK=jmxexporter-newrelic
 ${MONITORING_STACK}/start.sh
 ```
 
-**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
+**_NOTE:_** New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
@@ -86,3 +86,37 @@ ${MONITORING_STACK}/stop.sh
 # How to use with Apache Kafka client applications (producers, consumers, kafka streams applications)
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).
+
+# dev-toolkit
+
+To run a lightweight dev environment:
+
+1. `cd dev-toolkit`
+2. Put your new dashboards into the `grafana-wip` folder
+3. `start.sh` -> It will create a minimal environment with a KRaft single node cluster, prometheus, grafana and a spring based java client
+4. For Grafana, go to (http://localhost:3000)[http://localhost:3000], login with admin/grafana
+5. `stop.sh`
+
+## FAQ
+
+- What if I need more components?
+
+More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer)
+
+- What if I need more prometheus jobs?
+
+You can add them to the `start.sh`, i.e.
+
+```
+# ADD client monitoring to prometheus config
+cat <<EOF >> assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: 'spring-client'
+    static_configs:
+      - targets: ['spring-client:9191']
+        labels:
+          env: "dev"
+EOF
+```
+
+You can also change the prometheus configuration [here](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/assets/prometheus/prometheus-config/prometheus.yml).
