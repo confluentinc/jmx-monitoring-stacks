@@ -63,6 +63,10 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ![ksqlDB cluster dashboard 0](img/ksqldb-cluster-0.png)
 ![ksqlDB cluster dashboard 1](img/ksqldb-cluster-1.png)
 
+### Kafka streams
+
+![Kafka streams dashboard 0](img/kafka-streams.png)
+
 ### Kafka streams RocksDB 
 
 ![kafkastreams-rocksdb 0](img/kafkastreams-rocksdb.png)
