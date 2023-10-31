@@ -12,10 +12,8 @@ Repo provides metrics and dashboards for:
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 
-# Caution
 
-The examples in this repo may not be complete.
-They serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
+NOTE: The examples in this repo may not be complete and they serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
 
 # How to use with Confluent Cloud
 
