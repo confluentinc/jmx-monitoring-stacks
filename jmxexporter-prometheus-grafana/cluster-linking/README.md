@@ -14,7 +14,7 @@ List of provided dashboards:
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
- - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
+ - Cluster Linking
 
 ### Confluent Platform overview
 
@@ -81,31 +81,3 @@ To test run [playground example](https://github.com/vdesabou/kafka-docker-playgr
 ### Kafka Lag Exporter
 
 ![kafkalagexporter](img/kafka-lag-exporter.png)
-
-### Cluster Linking
-
-![clusterlinking](img/clusterlinking.png)
-
-To test follow the next steps:
-
-1. Set env:
- ```bash
-MONITORING_STACK=jmxexporter-prometheus-grafana
- ```
-2. Clone demo cluster linking disaster recovery from confluentinc/demo-scene:
-```bash
-   [[ -d "clink-demo" ]] || git clone git@github.com:confluentinc/demo-scene.git clink-demo
-   (cd clink-demo && git fetch && git pull)
-   ```
-3. Start the monitoring solution with the STACK selected. This command also starts clink-demo, you do not need to start clink-demo separately.
-
-```bash
-${MONITORING_STACK}/cluster-linking/start.sh
-``` 
-
-4. Stop the monitoring solution. This command also stops clink-demo, you do not need to stop clink-demo separately.
-
-```bash
-${MONITORING_STACK}/cluster-linking/stop.sh
-```
-
