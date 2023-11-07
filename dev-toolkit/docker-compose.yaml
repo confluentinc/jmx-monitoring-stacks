@@ -40,6 +40,7 @@ services:
       - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
 
+
   prometheus:
     image: prom/prometheus:${PROM_TAG}
     container_name: prometheus
