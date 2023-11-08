@@ -303,3 +303,61 @@ rules:
     name: kafka_server_transaction_coordinator_metrics_$1
     type: GAUGE
     cache: true
+
+  # Needed for Cluster Linking metrics
+  # kafka.server.link:type=ClusterLinkFetcherManager,name=*,clientId=&,link-name=*
+  - pattern: kafka.server.link<type=ClusterLinkFetcherManager, name=(.+), (.+)=(.+), (.+)=(.+)><>Value
+    name: kafka_server_link_clusterlinkfetchermanager_$1
+    type: GAUGE
+    cache: true
+    labels:
+      "$2": "$3"
+      "$4": "$5"
+  # kafka.server:type=cluster-link-fetcher-metrics,link-name=*,broker-id=*,fetcher-id=*, mechanism=*
+  - pattern: 'kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+    name: kafka_server_cluster_link_fetcher_metrics_$9
+    type: GAUGE
+    labels:
+      "$1": "$2"
+      "$3": "$4"
+      "$5": "$6"
+      "$7": "$8"
+  # kafka.server:type=cluster-link-fetcher-metrics,link-name=*,broker-id=*,fetcher-id=*
+  - pattern: 'kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+    name: kafka_server_cluster_link_fetcher_metrics_$7
+    type: GAUGE
+    cache: true
+    labels:
+      "$1": "$2"
+      "$3": "$4"
+      "$5": "$6"
+  # kafka.server:type=cluster-link-metrics, mode=*, state=*, link-name=*, name=*
+  - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+    name: kafka_server_cluster_link_metrics_$7
+    type: GAUGE
+    labels:
+      "$1": "$2"
+      "$3": "$4"
+      "$5": "$6"
+  # kafka.server:type=cluster-link-metrics,state=*,link-name=*,name=*
+  - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+)><>(.+):'
+    name: kafka_server_cluster_link_metrics_$5
+    type: GAUGE
+    cache: true
+    labels:
+      "$1": "$2"
+      "$3": "$4"
+  # kafka.server:type=cluster-link-metrics,name=*,link-name=*
+  - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+)><>(.+):'
+    name: kafka_server_cluster_link_metrics_$3
+    type: GAUGE
+    labels:
+      "$1": "$2"
+  # kafka.server:type=cluster-link-source-metrics,request=*,link-id=*
+  - pattern: 'kafka.server<type=cluster-link-source-metrics, request=(.+), link-id=(.+)><>(.+):(.+)'
+    name: kafka_server_cluster_link_source_metrics_$1_$3
+    value: $4
+    type: GAUGE
+    labels:
+      request: "$1"
+      link-id: "$2"
