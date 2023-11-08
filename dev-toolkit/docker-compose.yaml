@@ -12,6 +12,7 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:29092,PLAINTEXT_HOST://localhost:9092"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
@@ -33,6 +34,8 @@ services:
       KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
       KAFKA_LOG4J_LOGGERS: "org.apache.kafka.image.loader.MetadataLoader=WARN"
       CLUSTER_ID: "9apCDWinSSO_DuT_GJVsFw"
+      KAFKA_CONFLUENT_BALANCER_ENABLE: false
+      CONFLUENT_REPORTERS_TELEMETRY_AUTO_ENABLE: false
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka1:29092
       KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
       KAFKA_REST_BOOTSTRAP_SERVERS: "kafka1:29092"
@@ -40,6 +43,7 @@ services:
     volumes:
       - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
+
 
   prometheus:
     image: prom/prometheus:${PROM_TAG}
