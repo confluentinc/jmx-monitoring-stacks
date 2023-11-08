@@ -22,8 +22,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1698734607396,
+  "id": 5,
+  "iteration": 1699445235871,
   "links": [],
   "panels": [
     {
@@ -476,7 +476,7 @@
     },
     {
       "datasource": null,
-      "description": "The max time a currently-open transaction has been open",
+      "description": "The avg time it took for a transaction to transit from PrepareCommit to CompleteCommit state in the last 30sec",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -534,89 +534,6 @@
         "x": 12,
         "y": 13
       },
-      "id": 251,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "kafka_server_transaction_coordinator_metrics_active_transaction_total_time_max{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Open Transaction Max Time",
-      "type": "timeseries"
-    },
-    {
-      "datasource": null,
-      "description": "The avg time it took for a transaction to transit from PrepareCommit to CompleteCommit state in the last 30sec",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 21
-      },
       "id": 250,
       "options": {
         "legend": {
@@ -647,7 +564,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 21
       },
       "id": 254,
       "panels": [],
@@ -712,7 +629,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 22
       },
       "id": 252,
       "options": {
@@ -795,7 +712,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 22
       },
       "id": 256,
       "options": {
@@ -878,7 +795,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 30
       },
       "id": 257,
       "options": {
@@ -973,7 +890,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1004,5 +921,5 @@
   "timezone": "",
   "title": "Kafka Transaction Coordinator",
   "uid": "AEaSQ97mz",
-  "version": 57
+  "version": 3
 }
