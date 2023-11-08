@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1632253434096,
+  "id": 7,
+  "iteration": 1699450083916,
   "links": [],
   "panels": [
     {
@@ -106,7 +106,8 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "count(zookeeper_status_quorumsize{job=\"zookeeper\",env=\"$env\"})",
+          "exemplar": true,
+          "expr": "count(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -351,7 +352,8 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount{job=\"zookeeper\",env=\"$env\"})",
+          "exemplar": true,
+          "expr": "avg(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -431,7 +433,8 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount{job=\"zookeeper\",env=\"$env\"})",
+          "exemplar": true,
+          "expr": "sum(zookeeper_watchcount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -986,7 +989,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "1m",
+  "refresh": "",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -1044,5 +1047,5 @@
   "timezone": "",
   "title": "Zookeeper cluster",
   "uid": "H4xS98vWk",
-  "version": 1
+  "version": 5
 }
