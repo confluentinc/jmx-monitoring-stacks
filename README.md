@@ -12,10 +12,8 @@ Repo provides metrics and dashboards for:
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 
-# Caution
 
-The examples in this repo may not be complete.
-They serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
+NOTE: The examples in this repo may not be complete and they serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
 
 # How to use with Confluent Cloud
 
@@ -45,7 +43,7 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
-CP_DEMO_VERSION=7.5.0-post
+CP_DEMO_VERSION=7.5.1-post
 ```
 
 ```bash
@@ -55,7 +53,7 @@ MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 ```
 
-3. Clone `cp-demo` and checkout a branch _(tested branches are from 7.2.0-post)_.
+3. Clone `cp-demo` and checkout a branch _(tested branches starts from 7.2.0-post)_.
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
@@ -75,7 +73,7 @@ MONITORING_STACK=jmxexporter-newrelic
 ${MONITORING_STACK}/start.sh
 ```
 
-**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
+NOTE: New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
@@ -86,3 +84,37 @@ ${MONITORING_STACK}/stop.sh
 # How to use with Apache Kafka client applications (producers, consumers, kafka streams applications)
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).
+
+# DEV-toolkit
+
+To run a lightweight dev environment:
+
+1. `cd dev-toolkit`
+2. Put your new dashboards into the `grafana-wip` folder
+3. `start.sh` -> It will create a minimal environment with a KRaft single node cluster, prometheus, grafana and a spring based java client
+4. For Grafana, go to http://localhost:3000, login with admin/grafana
+5. `stop.sh`
+
+## DEV-toolkit-FAQ
+
+- What if I need more components?
+
+More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer)
+
+- What if I need more prometheus jobs?
+
+You can add them to the `start.sh`, i.e.
+
+```
+# ADD client monitoring to prometheus config
+cat <<EOF >> assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: 'spring-client'
+    static_configs:
+      - targets: ['spring-client:9191']
+        labels:
+          env: "dev"
+EOF
+```
+
+You can also change the prometheus configuration [here](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/assets/prometheus/prometheus-config/prometheus.yml).

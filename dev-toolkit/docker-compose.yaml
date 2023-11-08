@@ -1,0 +1,81 @@
+version: "3"
+services:
+  kafka1:
+    image: confluentinc/cp-server:${CFLT_TAG}
+    hostname: kafka1
+    container_name: kafka1
+    ports:
+      - "29092:29092"
+      - "9101:9101"
+      - "8090:8090"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:29092,PLAINTEXT_HOST://localhost:9092"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS: true
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka1:29093"
+      KAFKA_LISTENERS: "PLAINTEXT://kafka1:29092,CONTROLLER://kafka1:29093,PLAINTEXT_HOST://0.0.0.0:9092"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+      KAFKA_LOG4J_LOGGERS: "org.apache.kafka.image.loader.MetadataLoader=WARN"
+      CLUSTER_ID: "9apCDWinSSO_DuT_GJVsFw"
+      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka-1:19094,kafka-2:19095,kafka-3:19096
+      KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
+      KAFKA_REST_BOOTSTRAP_SERVERS: "kafka1:29092"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_config.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
+
+  prometheus:
+    image: prom/prometheus:${PROM_TAG}
+    container_name: prometheus
+    depends_on:
+      - kafka1
+    volumes:
+      - $PWD/assets/prometheus/prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:${GRAFANA_TAG}
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+    volumes:
+      - $PWD/assets/grafana/provisioning:/etc/grafana/provisioning
+
+  spring-client:
+    image: rampi88/sample-spring-client:latest
+    hostname: spring-client
+    container_name: spring-client
+    depends_on:
+      - kafka1
+    command:
+      [
+        "java",
+        "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=9191:/tmp/kafka_client.yml",
+        "-jar",
+        "app.jar",
+        "--spring.config.location=application.properties",
+      ]
+    ports:
+      - "9194:9191"
+      - "8080:8080"
+    volumes:
+      - $PWD/client/application.properties:/application.properties
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/kafka_client.yml:/tmp/kafka_client.yml
