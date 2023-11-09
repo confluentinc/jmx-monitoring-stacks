@@ -12,8 +12,14 @@ Repo provides metrics and dashboards for:
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 
+Some screenshots:
 
-NOTE: The examples in this repo may not be complete and they serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
+<img border="pixels" alt="Grafana Kafka overview dashboard" src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" height="250" width="500">
+
+<img border="pixels" alt="New Relic Kafka overview dashboard" src="jmxexporter-newrelic/img/Cluster.png" height="250" width="500">
+
+<img border="pixels" alt="Kibana Kafka overview dashboard" src="metricbeat-elastic-kibana/img/kafka-overview.png" height="400" width="500">
+
 
 # How to use with Confluent Cloud
 
