@@ -49,7 +49,7 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
-CP_DEMO_VERSION=7.5.1-post
+CP_DEMO_VERSION=7.5.2-post
 ```
 
 ```bash
@@ -98,7 +98,7 @@ To run a lightweight dev environment:
 1. `cd dev-toolkit`
 2. Put your new dashboards into the `grafana-wip` folder
 3. `start.sh` -> It will create a minimal environment with a KRaft single node cluster, prometheus, grafana and a spring based java client
-4. For Grafana, go to http://localhost:3000, login with admin/grafana
+4. For Grafana, go to http://localhost:3000, login with _admin/grafana_
 5. `stop.sh`
 
 ## DEV-toolkit-FAQ
