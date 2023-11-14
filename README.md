@@ -11,6 +11,7 @@ Repo provides metrics and dashboards for:
 - [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
+- [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
 
 Some screenshots:
 
