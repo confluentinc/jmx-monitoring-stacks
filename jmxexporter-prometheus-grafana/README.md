@@ -1,20 +1,22 @@
 # Prometheus and Grafana stack
 
-## Grafana dashboards
-
 List of provided dashboards:
- - Confluent Platform overview
- - Zookeeper cluster
- - Kafka cluster
- - Kafka topics
- - Kafka quotas
- - Schema Registry cluster
- - Kafka Connect cluster
- - ksqlDB cluster
- - Kafka Clients
- - Kafka lag exporter
- - Cluster Linking
- - Kafka streams RocksDB
+
+ - [Confluent Platform overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
+ - [Zookeeper cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#zookeeper-cluster)
+ - [Kafka cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-cluster)
+ - [Kafka topics](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-topics)
+ - [Kafka Clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
+ - [Kafka quotas](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-quotas)
+ - [Schema Registry cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
+ - [Kafka Connect cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
+ - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
+ - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
+ - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
+ - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
+ - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
+ - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
+ - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
 
 ### Confluent Platform overview
 
@@ -33,7 +35,14 @@ List of provided dashboards:
 
 ![Kafka topics](img/kafka-topics.png)
 
+### Kafka Clients
+
+![Kafka Producer](img/kafka-producer.png)
+
+![Kafka Consumer](img/kafka-consumer.png)
+
 ### Kafka quotas
+
 For Kafka to output quota metrics, at least one quota configuration is necessary.
 
 A quota can be configured from the cp-demo folder using docker-compose:
@@ -57,100 +66,58 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ![ksqlDB cluster dashboard 0](img/ksqldb-cluster-0.png)
 ![ksqlDB cluster dashboard 1](img/ksqldb-cluster-1.png)
 
+### Kafka streams
+
+![Kafka streams dashboard 0](img/kafka-streams.png)
+
 ### Kafka streams RocksDB 
 
 ![kafkastreams-rocksdb 0](img/kafkastreams-rocksdb.png)
 
-### Kafka Clients
+### Oracle CDC source Connector
 
-![Kafka Producer](img/kafka-producer.png)
-
-![Kafka Consumer](img/kafka-consumer.png)
-
-## Integration with `cp-ansible`
-
-When deploying Confluent Platform with `cp-ansible`, Ansible inventories can be used to generate Prometheus configurations for static targets:
-
-Ansible playbook: [cp-ansible/prometheus-config.yml](./cp-ansible/prometheus-config.yml)
-Template: [cp-ansible/templates/prometheus.yml.j2](./cp-ansible/templates/prometheus.yml.j2)
-
-Run the following commands providing a `cp-ansible` inventory:
-
+To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using 
+```bash
+--enable-jmx-grafana
 ```
-ansible-playbook -i hosts.yml prometheus-config.yml
-```
+![oraclecdc](img/oraclecdc.jpg)
 
-And a Prometheus configuration file should be generated:
+### Kafka Lag Exporter
 
-```
-scrape_configs:
-  - job_name: "zookeeper"
-    static_configs:
-      - targets:
-          - "zookeeper1:8079"
-          - "zookeeper2:8079"
-          - "zookeeper3:8079"
-        labels:
-          env: "dev"
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+![kafkalagexporter](img/kafka-lag-exporter.png)
 
-  - job_name: "kafka"
-    static_configs:
-      - targets:
-          - "kafka1:8080"
-          - "kafka2:8080"
-          - "kafka3:8080"
-        labels:
-          env: "dev"
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
 
-  - job_name: "schemaregistry"
-    static_configs:
-      - targets:
-          - "schemaregistry1:8078"
-          - "schemaregistry2:8078"
-        labels:
-          env: "dev"
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+### Cluster Linking
 
-  - job_name: "connect"
-    static_configs:
-      - targets:
-          - "connect1:8077"
-          - "connect2:8077"
-        labels:
-          env: "dev"
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+![clusterlinking](img/clusterlinking.png)
 
-  - job_name: "ksqldb"
-    static_configs:
-      - targets:
-          - "ksqldbserver1:8077"
-          - "ksqldbserver2:8077"
-        labels:
-          env: "dev"
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+Demo is based on https://github.com/confluentinc/demo-scene/tree/master/cluster-linking-disaster-recovery
+
+To test follow the next steps:
+
+1. Set env:
+ ```bash
+MONITORING_STACK=jmxexporter-prometheus-grafana
+ ```
+2. Clone demo cluster linking disaster recovery from confluentinc/demo-scene:
+```bash
+   [[ -d "clink-demo" ]] || git clone git@github.com:confluentinc/demo-scene.git clink-demo
+   (cd clink-demo && git fetch && git pull)
+   ```
+3. Start the monitoring solution with the STACK selected. This command also starts clink-demo, you do not need to start clink-demo separately.
+
+```bash
+${MONITORING_STACK}/cluster-linking/start.sh
+``` 
+
+4. Stop the monitoring solution. This command also stops clink-demo, you do not need to stop clink-demo separately.
+
+```bash
+${MONITORING_STACK}/cluster-linking/stop.sh
 ```
 
-This configuration can be added to the Prometheus config file.
-Once Prometheus is restarted with this configuration, targets will be scrapped.
+
+### Kafka Transaction Coordinator
+
+![kafkalagexporter](img/kafka-transaction-coordinator.png)
+

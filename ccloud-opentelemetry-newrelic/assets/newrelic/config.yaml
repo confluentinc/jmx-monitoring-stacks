@@ -1,0 +1,59 @@
+receivers:
+ kafkametrics:
+   brokers:
+     - $CLUSTER_BOOTSTRAP_SERVER
+   protocol_version: 2.0.0
+   scrapers:
+     - brokers
+     - topics
+     - consumers
+   auth:
+     sasl:
+       username: $CLUSTER_API_KEY
+       password: $CLUSTER_API_SECRET
+       mechanism: PLAIN
+     tls:
+       insecure_skip_verify: false
+   collection_interval: 30s
+
+
+
+
+ prometheus:
+   config:
+     scrape_configs:
+       - job_name: "confluent"
+         scrape_interval: 60s # Do not go any lower than this or you'll hit rate limits
+         static_configs:
+           - targets: ["api.telemetry.confluent.cloud"]
+         scheme: https
+         basic_auth:
+           username: $CONFLUENT_API_ID
+           password: $CONFLUENT_API_SECRET
+         metrics_path: /v2/metrics/cloud/export
+         params:
+           "resource.kafka.id":
+             - CLUSTER_ID
+exporters:
+ otlp:
+   endpoint: $OTLP_ENDPOINT
+   headers:
+     api-key: $NEW_RELIC_LICENSE_KEY
+processors:
+ batch:
+ memory_limiter:
+   limit_mib: 400
+   spike_limit_mib: 100
+   check_interval: 5s
+service:
+ telemetry:
+   logs:
+ pipelines:
+   metrics:
+     receivers: [prometheus]
+     processors: [batch]
+     exporters: [otlp]
+   metrics/kafka:
+     receivers: [kafkametrics]
+     processors: [batch]
+     exporters: [otlp]

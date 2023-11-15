@@ -22,7 +22,6 @@ rules:
   - pattern: "kafka.streams<type=(.+), thread-id=(.+), task-id=(.+), (.+)=(.+)><>(.+):"
     name: kafka_streams_$1_$6
     type: GAUGE
-    cache: true
     labels:
       thread_id: "$2"
       task_id: "$3"
@@ -31,16 +30,22 @@ rules:
   - pattern: "kafka.streams<type=(.+), thread-id=(.+), task-id=(.+)><>(.+):"
     name: kafka_streams_$1_$4
     type: GAUGE
-    cache: true
     labels:
       thread_id: "$2"
       task_id: "$3"
   # kafka.streams:type=stream-metrics,client-id=*
-  - pattern: "kafka.streams<type=stream-metrics, (.+)=(.+)><>(state|alive-stream-threads|commit-id|version|application-id): (.+)"
+  - pattern: "kafka.streams<type=stream-metrics, (.+)=(.+)><>(state|commit-id|version|application-id): (.+)"
     name: kafka_streams_stream_metrics
     value: 1
     type: UNTYPED
-    cache: true
+    labels:
+      $1: "$2"
+      $3: "$4"
+  # kafka.streams:type=stream-metrics,client-id=*
+  - pattern: "kafka.streams<type=stream-metrics, (.+)=(.+)><>(alive-stream-threads|failed-stream-threads): (.+)"
+    name: kafka_streams_stream_metrics
+    value: "$4"
+    type: UNTYPED
     labels:
       $1: "$2"
       $3: "$4"
@@ -48,7 +53,6 @@ rules:
   - pattern: "kafka.streams<type=(.+), (.+)=(.+)><>([^:]+)"
     name: kafka_streams_$1_$4
     type: GAUGE
-    cache: true
     labels:
       $2: "$3"
   # "kafka.consumer:type=app-info,client-id=*"
@@ -56,7 +60,6 @@ rules:
   - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
     value: 1
     name: kafka_$1_app_info
-    cache: true
     labels:
       client_type: $1
       client_id: $2
@@ -68,7 +71,6 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$9
     type: GAUGE
-    cache: true
     labels:
       client_type: $1
       $3: "$4"
@@ -81,7 +83,6 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$7
     type: GAUGE
-    cache: true
     labels:
       client_type: $1
       $3: "$4"
@@ -92,12 +93,10 @@ rules:
   - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
     name: kafka_$1_$2_$5
     type: GAUGE
-    cache: true
     labels:
       client_type: $1
       $3: "$4"
   - pattern: "kafka.(.+)<type=(.+)><>(.+):"
     name: kafka_$1_$2_$3
-    cache: true
     labels:
       client_type: $1

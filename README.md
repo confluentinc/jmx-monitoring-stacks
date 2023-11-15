@@ -11,11 +11,16 @@ Repo provides metrics and dashboards for:
 - [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
+- [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
 
-# Caution
+Some screenshots:
 
-The examples in this repo may not be complete.
-They serve only to demonstrate how the integration works with Confluent Cloud and Confluent Platform.
+<img border="pixels" alt="Grafana Kafka overview dashboard" src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" height="250" width="500">
+
+<img border="pixels" alt="New Relic Kafka overview dashboard" src="jmxexporter-newrelic/img/Cluster.png" height="250" width="500">
+
+<img border="pixels" alt="Kibana Kafka overview dashboard" src="metricbeat-elastic-kibana/img/kafka-overview.png" height="400" width="500">
+
 
 # How to use with Confluent Cloud
 
@@ -23,18 +28,7 @@ The demo with Confluent Cloud needs a Confluent Cloud cluster and you (as a user
 
 # How to use with Confluent cp-ansible
 
-To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
-
-```yaml
-    zookeeper_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/zookeeper.yml
-    kafka_broker_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
-    schema_registry_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_schemaregistry.yml
-    kafka_connect_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_connect.yml
-    kafka_rest_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_rest.yml
-    ksql_jmxexporter_config_source_path: ../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_ksql.yml
-```
-
-Add and execute the Ansible template task [here](jmxexporter-prometheus-grafana/cp-ansible/prometheus-config.yml) to generate the Prometheus configuration for your Ansible inventory.
+To add JMX exporter configurations to cp-ansible, please refer to this [README](jmxexporter-prometheus-grafana/cp-ansible/README.md)
 
 # How to use with Kubernetes and Confluent for Kubernetes Operator (CFK)
 
@@ -43,8 +37,11 @@ To add JMX exporter configurations to your Kubernetes workspace, please refer to
 # How to use with cp-demo
 
 This repo is intended to work smoothly with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
+
 Make sure you have enough system resources on the local host to run this.
 Verify in the advanced Docker preferences settings that the memory available to Docker is at least 8 GB (default is 2 GB).
+
+NOTE: [jq](https://jqlang.github.io/jq/) is required to be installed on your machine to run the demo.
 
 NOTE: If there is interest to test Kafka Lag Exporter (included on the monitoring stacks) make sure to use JDK 8 when running the demo, as it requires JDK8-generated certificates for the container to work (<https://github.com/lightbend/kafka-lag-exporter/issues/270>).
 
@@ -53,14 +50,17 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
+CP_DEMO_VERSION=7.5.2-post
+```
+
+```bash
 # Set one of these
-CP_DEMO_VERSION=7.5.0-post
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 ```
 
-3. Clone `cp-demo` and checkout a branch _(tested branches are from 7.2.0-post)_.
+3. Clone `cp-demo` and checkout a branch _(tested branches starts from 7.2.0-post)_.
 
 ```bash
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
@@ -80,7 +80,7 @@ MONITORING_STACK=jmxexporter-newrelic
 ${MONITORING_STACK}/start.sh
 ```
 
-**_NOTE:_**  New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
+NOTE: New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
@@ -91,3 +91,37 @@ ${MONITORING_STACK}/stop.sh
 # How to use with Apache Kafka client applications (producers, consumers, kafka streams applications)
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/platform/current/tutorials/examples/ccloud-observability/docs/observability-overview.html).
+
+# DEV-toolkit
+
+To run a lightweight dev environment:
+
+1. `cd dev-toolkit`
+2. Put your new dashboards into the `grafana-wip` folder
+3. `start.sh` -> It will create a minimal environment with a KRaft single node cluster, prometheus, grafana and a spring based java client
+4. For Grafana, go to http://localhost:3000, login with _admin/grafana_
+5. `stop.sh`
+
+## DEV-toolkit-FAQ
+
+- What if I need more components?
+
+More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer)
+
+- What if I need more prometheus jobs?
+
+You can add them to the `start.sh`, i.e.
+
+```
+# ADD client monitoring to prometheus config
+cat <<EOF >> assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: 'spring-client'
+    static_configs:
+      - targets: ['spring-client:9191']
+        labels:
+          env: "dev"
+EOF
+```
+
+You can also change the prometheus configuration [here](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/assets/prometheus/prometheus-config/prometheus.yml).

@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1634040033398,
+  "id": 2,
+  "iteration": 1699450118268,
   "links": [],
   "panels": [
     {
@@ -108,7 +108,8 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "count(zookeeper_status_quorumsize{job=\"zookeeper\",env=\"$env\"})",
+          "exemplar": true,
+          "expr": "count(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -180,7 +181,8 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "avg(zookeeper_inmemorydatatree_nodecount{job=\"zookeeper\",env=\"$env\"})",
+          "exemplar": true,
+          "expr": "avg(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -340,7 +342,8 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(zookeeper_inmemorydatatree_watchcount{job=\"zookeeper\",env=\"$env\"})",
+          "exemplar": true,
+          "expr": "sum(zookeeper_watchcount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1994,7 +1997,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "1m",
+  "refresh": "",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -2030,10 +2033,9 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "cluster1",
+          "value": "cluster1"
         },
         "datasource": null,
         "definition": "label_values(kafka_connect_cluster_id)",
@@ -2058,10 +2060,9 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "ksql-cluster",
+          "value": "ksql-cluster"
         },
         "datasource": null,
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
@@ -2093,5 +2094,5 @@
   "timezone": "",
   "title": "Confluent Platform overview",
   "uid": "JiqnBMNnz",
-  "version": 1
+  "version": 4
 }
