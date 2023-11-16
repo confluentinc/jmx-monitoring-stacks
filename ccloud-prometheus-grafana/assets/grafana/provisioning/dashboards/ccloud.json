@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -19,10 +22,8 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1687425228917,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -36,6 +37,12 @@
       },
       "id": 21,
       "panels": [],
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
       "title": "Global",
       "type": "row"
     },
@@ -75,7 +82,9 @@
       "options": {
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -137,7 +146,9 @@
       "options": {
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -199,7 +210,9 @@
       "options": {
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -261,7 +274,9 @@
       "options": {
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -330,7 +345,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -340,14 +357,13 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "sum(confluent_kafka_server_retained_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})/3",
           "interval": "",
           "legendFormat": "{{cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Retained bytes ",
       "type": "stat"
     },
@@ -357,35 +373,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
           "max": 100000000,
@@ -419,29 +407,34 @@
       },
       "id": 17,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": "Prometheus",
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[1m])",
+          "expr": "sum(rate(confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[1m]))",
           "interval": "",
           "legendFormat": "{{kafka_id}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Write on topics (rate)",
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": "Prometheus",
@@ -488,24 +481,32 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["mean"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "rate(confluent_kafka_server_sent_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[$__rate_interval])",
+          "datasource": "Prometheus",
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(confluent_kafka_server_sent_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[1m]))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{cluster}}",
-          "refId": "A"
+          "legendFormat": "{{topic}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Read of topics (rate)",
       "type": "stat"
     },
@@ -554,7 +555,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -564,15 +567,16 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
-          "expr": "sum(rate(confluent_kafka_server_request_count{type=~\".*\", kafka_id=~\"$cluster\"}[$__rate_interval]))",
+          "datasource": "Prometheus",
+          "editorMode": "code",
+          "expr": "sum(rate(confluent_kafka_server_request_count{type=~\".*\", kafka_id=~\"$cluster\"}[1m]))",
           "interval": "",
           "legendFormat": "{{cluster}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Requests (rate)",
+      "title": "Request Count (rate)",
       "type": "stat"
     },
     {
@@ -621,7 +625,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -631,6 +637,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "avg(confluent_kafka_server_active_connection_count{kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -638,8 +645,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Avg. Active connections",
       "type": "stat"
     },
@@ -652,6 +657,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -663,6 +670,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -714,15 +722,18 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}",
           "hide": false,
@@ -731,8 +742,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Partition count ",
       "type": "timeseries"
     },
@@ -745,6 +754,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -756,6 +767,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -807,15 +819,18 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "abs(delta(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[5m]))",
           "format": "time_series",
@@ -827,8 +842,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Partition count change (delta)",
       "type": "timeseries"
     },
@@ -841,6 +854,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -852,6 +867,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -896,10 +912,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.3",
@@ -926,6 +944,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -937,6 +957,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -981,10 +1002,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.3",
@@ -1013,6 +1036,12 @@
       },
       "id": 16,
       "panels": [],
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
       "title": "Topics",
       "type": "row"
     },
@@ -1069,6 +1098,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "sum by (kafka_id, topic) (confluent_kafka_server_retained_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1077,9 +1107,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Topic retained bytes",
       "tooltip": {
         "shared": true,
@@ -1088,36 +1116,26 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:53",
-          "decimals": null,
           "format": "decbytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:54",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1169,6 +1187,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1177,9 +1196,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Topic received bytes",
       "tooltip": {
         "shared": true,
@@ -1188,34 +1205,26 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
+          "$$hashKey": "object:335",
           "format": "decbytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:336",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1269,6 +1278,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_sent_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1277,9 +1287,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Topic Sent bytes",
       "tooltip": {
         "shared": true,
@@ -1288,33 +1296,26 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
+          "$$hashKey": "object:371",
           "format": "decbytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:372",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1366,6 +1367,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_received_records{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1374,9 +1376,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Topic received record",
       "tooltip": {
         "shared": true,
@@ -1385,34 +1385,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "none",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "none",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1464,6 +1454,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "sum by (topic, kafka_id) (confluent_kafka_server_sent_records{topic=~\"$topic\", kafka_id=~\"$cluster\"})",
           "hide": false,
           "interval": "",
@@ -1472,9 +1463,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Topic sent records",
       "tooltip": {
         "shared": true,
@@ -1483,34 +1472,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "none",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "none",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1566,6 +1545,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "confluent_kafka_server_request_count{kafka_id=~\"$cluster\"}",
           "hide": false,
           "interval": "",
@@ -1574,9 +1554,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Request rate",
       "tooltip": {
         "shared": true,
@@ -1585,34 +1563,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1626,6 +1594,12 @@
       },
       "id": 33,
       "panels": [],
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
       "title": "Connectors",
       "type": "row"
     },
@@ -1671,6 +1645,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "confluent_kafka_connect_sent_records{connector_id=~\"$cluster\"}",
           "interval": "",
           "legendFormat": "{{connector_id}} -- {{connector_id}}",
@@ -1679,9 +1654,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Sent records",
       "tooltip": {
         "shared": true,
@@ -1690,33 +1663,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1761,6 +1725,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "confluent_kafka_connect_received_bytes{connector_id=~\"$cluster\"}",
           "interval": "",
           "legendFormat": "{{connector_id}} -- {{connector_id}}",
@@ -1769,9 +1734,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Received bytes",
       "tooltip": {
         "shared": true,
@@ -1780,33 +1743,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1851,6 +1805,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "confluent_kafka_connect_dead_letter_queue_records{connector_id=~\"$cluster\"}",
           "interval": "",
@@ -1860,9 +1815,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Dead Letter Queue bytes",
       "tooltip": {
         "shared": true,
@@ -1871,9 +1824,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1881,25 +1832,19 @@
         {
           "$$hashKey": "object:308",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:309",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1944,6 +1889,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "confluent_kafka_connect_sent_bytes{connector_id=~\"$cluster\"}",
           "interval": "",
           "legendFormat": "{{connector_id}} -- {{connector_id}}",
@@ -1952,9 +1898,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Sent bytes",
       "tooltip": {
         "shared": true,
@@ -1963,33 +1907,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -2034,6 +1969,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": "Prometheus",
           "expr": "confluent_kafka_connect_received_records{connector_id=~\"$cluster\"}",
           "interval": "",
           "legendFormat": "{{connector_id}} -- {{connector_id}}",
@@ -2042,9 +1978,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Received records",
       "tooltip": {
         "shared": true,
@@ -2053,33 +1987,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -2093,6 +2018,12 @@
       },
       "id": 42,
       "panels": [],
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
       "title": "ksqlDB",
       "type": "row"
     },
@@ -2106,8 +2037,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2143,6 +2073,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": "Prometheus",
           "exemplar": true,
           "expr": "confluent_kafka_ksql_streaming_unit_count",
           "interval": "",
@@ -2151,8 +2082,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "ksqlDB streaming unit",
       "type": "stat"
     },
@@ -2166,8 +2095,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2210,8 +2138,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "ksqlDB application count",
       "type": "stat"
     },
@@ -2328,9 +2254,7 @@
           "visible": true
         }
       ],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Scrape duration",
       "tooltip": {
         "shared": true,
@@ -2339,27 +2263,19 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "s",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
@@ -2388,8 +2304,6 @@
         },
         "datasource": "Prometheus",
         "definition": "label_values(confluent_kafka_server_retained_bytes, kafka_id)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Cluster",
@@ -2422,8 +2336,6 @@
         },
         "datasource": "Prometheus",
         "definition": "label_values(confluent_kafka_server_retained_bytes, topic)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Topics",
