@@ -17,6 +17,7 @@ List of provided dashboards:
  - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
  - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
  - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
+ - [Rest Proxy](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
 
 ### Confluent Platform overview
 
@@ -120,4 +121,8 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 ### Kafka Transaction Coordinator
 
 ![kafkalagexporter](img/kafka-transaction-coordinator.png)
+
+### Rest Proxy
+
+![restproxy](img/rest-proxy.png)
 
