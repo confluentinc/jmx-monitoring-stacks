@@ -298,6 +298,12 @@ rules:
     labels:
       request: "$1"
 
+# "kafka.server:type=raft-metrics"
+  - pattern: kafka.server<type=raft-metrics><>(.+):(.*)
+    name: kafka_server_raft_metrics_$1
+    type: GAUGE
+    cache: true
+
 # kafka.server:type=transaction-coordinator-metrics
   - pattern: kafka.server<type=transaction-coordinator-metrics><>(.+):(.*)
     name: kafka_server_transaction_coordinator_metrics_$1
