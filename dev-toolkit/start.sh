@@ -24,10 +24,14 @@ cat <<EOF >> assets/prometheus/prometheus-config/prometheus.yml
 
   - job_name: 'kafka-controller'
     static_configs:
-      - targets: ['kafka1:1234']
+      - targets: ['kafka1:1234', 'kafka2:1234', 'kafka3:1234']
         labels:
           env: "dev"
 EOF
 
 # Start the development environment
 docker-compose up -d
+
+# Look at Grafana dashboards
+echo -e "\nView Grafana dashboards at (admin/grafana) ->"
+echo -e "http://localhost:3000"
