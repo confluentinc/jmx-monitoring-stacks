@@ -3,7 +3,7 @@
 This repo demonstrates examples of JMX monitoring stacks that can monitor Confluent Cloud and Confluent Platform.
 While Confluent Cloud UI and Confluent Control Center provides an opinionated view of Apache Kafka monitoring, JMX monitoring stacks serve a larger purpose to our users, allowing them to setup monitoring across multiple parts of their organization, many outside of Kafka, and to have a single pane of glass.
 
-Repo provides metrics and dashboards for:
+This project provides metrics and dashboards for:
 
 - [Confluent Platform with Prometheus and Grafana](jmxexporter-prometheus-grafana)
 - [Confluent Platform on Kubernetes with Prometheus and Grafana](jmxexporter-prometheus-grafana/cfk)
@@ -17,7 +17,11 @@ Some screenshots:
 
 <img border="pixels" alt="Grafana Kafka overview dashboard" src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" height="250" width="500">
 
+<img border="pixels" alt="Grafana KRaft dashboard" src="jmxexporter-prometheus-grafana/img/kraft_2.png" height="250" width="500">
+
 <img border="pixels" alt="New Relic Kafka overview dashboard" src="jmxexporter-newrelic/img/Cluster.png" height="250" width="500">
+
+<img border="pixels" alt="Confluent Cloud New Relic Kafka overview dashboard" src="ccloud-opentelemetry-newrelic/assets/terraform/dashboards/dashboard.png" height="250" width="500">
 
 <img border="pixels" alt="Kibana Kafka overview dashboard" src="metricbeat-elastic-kibana/img/kafka-overview.png" height="400" width="500">
 
@@ -98,7 +102,7 @@ To run a lightweight dev environment:
 
 1. `cd dev-toolkit`
 2. Put your new dashboards into the `grafana-wip` folder
-3. `start.sh` -> It will create a minimal environment with a KRaft single node cluster, prometheus, grafana and a spring based java client
+3. `start.sh` -> It will create a minimal environment with a KRaft cluster, prometheus, grafana and a spring based java client
 4. For Grafana, go to http://localhost:3000, login with _admin/grafana_
 5. `stop.sh`
 
