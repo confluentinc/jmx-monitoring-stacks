@@ -16,10 +16,12 @@ This project provides metrics and dashboards for:
 ## 📊 Dashboards
 
 <p float="left">
-  <img src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" width="250" />
-  <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" /> 
-  <img src="jmxexporter-newrelic/img/Cluster.png" width="250" />
-  <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" />
+  <img src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" width="250" height="200" />
+  <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" height="200" /> 
+  <img src="jmxexporter-prometheus-grafana/img/kafka-quotas.png" width="250" height="200" /> 
+  <img src="jmxexporter-newrelic/img/Cluster.png" width="250" height="200" />
+  <img src="jmxexporter-newrelic/img/Throughput.png" width="250" height="200" />
+  <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
 </p>
 
 and much more...
