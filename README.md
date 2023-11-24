@@ -13,18 +13,16 @@ This project provides metrics and dashboards for:
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
 
-Some screenshots:
+## 📊 Dashboards
 
-<img border="pixels" alt="Grafana Kafka overview dashboard" src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" height="250" width="500">
+<p float="left">
+  <img src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" width="250" />
+  <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" /> 
+  <img src="jmxexporter-newrelic/img/Cluster.png" width="250" />
+  <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" />
+</p>
 
-<img border="pixels" alt="Grafana KRaft dashboard" src="jmxexporter-prometheus-grafana/img/kraft_2.png" height="250" width="500">
-
-<img border="pixels" alt="New Relic Kafka overview dashboard" src="jmxexporter-newrelic/img/Cluster.png" height="250" width="500">
-
-<img border="pixels" alt="Confluent Cloud New Relic Kafka overview dashboard" src="ccloud-opentelemetry-newrelic/assets/terraform/dashboards/dashboard.png" height="250" width="500">
-
-<img border="pixels" alt="Kibana Kafka overview dashboard" src="metricbeat-elastic-kibana/img/kafka-overview.png" height="400" width="500">
-
+and much more...
 
 # How to use with Confluent Cloud
 
