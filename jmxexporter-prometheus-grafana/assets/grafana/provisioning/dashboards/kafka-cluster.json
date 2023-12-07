@@ -963,13 +963,13 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "All Request Per Sec",
+      "title": "All Request Per Sec Across All Brokers ",
       "type": "stat"
     },
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
-      "description": "Produce request rate.",
+      "description": "All request rate, from all brokers - added together, with a 5 minutes avg",
       "fieldConfig": {
         "defaults": {
           "mappings": [
