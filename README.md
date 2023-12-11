@@ -26,6 +26,13 @@ This project provides metrics and dashboards for:
 
 and much more...
 
+## ⚠️ Alerts
+
+Alerts are available for the stacks:
+
+ - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana/assets/prometheus/prometheus-alerts) including alerts on broker, zookeeper and kafka connect.
+
+
 # How to use with Confluent Cloud
 
 The demo with Confluent Cloud needs a Confluent Cloud cluster and you (as a user) are required to gather some details before spinning up the Confluent Cloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a Confluent Cloud based sample dashboard.
