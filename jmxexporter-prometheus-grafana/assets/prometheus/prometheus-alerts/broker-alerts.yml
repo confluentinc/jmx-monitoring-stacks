@@ -1,0 +1,74 @@
+groups:
+- name: brokers
+  rules:
+
+  # Page when ActiveControllerCount != 1 for more than 10s.
+  - alert: ActiveControllerCount != 1
+    expr: sum by (env) (kafka_controller_kafkacontroller_activecontrollercount) != 1
+    for: 10s
+    labels:
+      severity: page
+    annotations:
+      summary: "Active controller count for env {{ $labels.env }}"
+      description: "Active controller count for env {{ $labels.env }} is {{ $value }}. "
+  
+  # Page when OfflinePartitionsCount > 0
+  - alert: OfflinePartitionCount > 0
+    expr: sum by(env) (kafka_controller_kafkacontroller_offlinepartitionscount) > 0
+    for: 10s
+    labels:
+      severity: page
+    annotations:
+      summary: "Offline partitions for env {{ $labels.env }}"
+      description: "Offline partitions count for env {{ $labels.env }} is {{ $value }}. "
+
+  # Page when UncleanLeaderElectionsPerSec > 0 for more than 1m.
+  - alert: UncleanLeaderElectionsPerSec > 0
+    expr: sum by(env) (kafka_controller_controllerstats_uncleanleaderelectionspersec) > 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "UncleanLeaderElectionsPerSec for env {{ $labels.env }}"
+      description: "UncleanLeaderElectionsPerSec for env {{ $labels.env }} is {{ $value }}. "
+  
+  # Page when UnderReplicatedPartitions > 0 for more than 1m.
+  - alert: UnderReplicatedPartitions > 0
+    expr: sum by(env) (kafka_server_replicamanager_underreplicatedpartitions) > 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "UnderReplicatedPartitions for env {{ $labels.env }}"
+      description: "UnderReplicatedPartitions for env {{ $labels.env }} is {{ $value }}. "
+
+  # Page when UnderMinIsrPartitionCount > 0 for more than 1m.
+  - alert: UnderMinIsrPartitionCount > 0
+    expr: sum by (env) (kafka_cluster_partition_underminisr) > 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "UnderMinIsrPartitionCount for env {{ $labels.env }}"
+      description: "UnderMinIsrPartitionCount for env {{ $labels.env }} is {{ $value }}. "
+
+    
+  # Page when Broker IO Activity < 40% for more than 10m.
+  - alert: Broker IO Activity < 0.4
+    expr: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total < 1
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "Broker IO Activity <  for env {{ $labels.env }}"
+      description: "Broker IO Activity for env {{ $labels.env }} and broker {{ $label.instance }} is {{ $value }}. "
+  
+  # Page when Broker Network Activity < 40% for more than 10m.
+  - alert: Broker IO Activity < 40%
+    expr: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total < 0.4
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "Broker IO Activity < 40% for env {{ $labels.env }}"
+      description: "Broker IO Activity for env {{ $labels.env }} and broker {{ $label.instance }} is {{ $value }}. "

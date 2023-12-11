@@ -1,0 +1,13 @@
+groups:
+- name: connectors
+  rules:
+
+  # Alert for any instance that is unreachable for >2 minutes.
+  - alert: Failed connector task
+    expr: sum(kafka_connect_connect_worker_metrics_connector_failed_task_count) > 0
+    for: 2m
+    labels:
+      severity: page
+    annotations:
+      summary: "Connector {{ $labels.connector }} down"
+      description: "Connector {{ $labels.connector }} down for more than 2 minutes."

@@ -1,0 +1,24 @@
+groups:
+- name: zookeeper
+  rules:
+
+  # Alert for Zookeeper average request latenct > 10ms for 30s
+  - alert: Zookeeper average request latenct > 10ms for 30s
+    expr: zookeeper_avgrequestlatency > 10
+    for: 30s
+    labels:
+      severity: page
+    annotations:
+      summary: "Zookeeper average latency > 10ms"
+      description: "Zookeeper average latency is {{ $value }}"
+
+   # Alert for Zookeeper outstanding request  > 10 for 30s
+  - alert: Alert for Zookeeper outstanding request  > 10 for 30s
+    expr: zookeeper_outstandingrequests > 10
+    for: 30s
+    labels:
+      severity: page
+    annotations:
+      summary: "Zookeeper outstanding request  > 10"
+      description: "Zookeeper outstanding request  is {{ $value }}"
+      
