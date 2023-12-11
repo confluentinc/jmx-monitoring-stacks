@@ -2010,7 +2010,7 @@
           "text": "dev",
           "value": "dev"
         },
-        "datasource": null,
+        "datasource": "Prometheus",
         "definition": "label_values(env)",
         "description": null,
         "error": null,
@@ -2037,7 +2037,7 @@
           "text": "cluster1",
           "value": "cluster1"
         },
-        "datasource": null,
+        "datasource": "Prometheus",
         "definition": "label_values(kafka_connect_cluster_id)",
         "description": null,
         "error": null,
@@ -2064,7 +2064,7 @@
           "text": "ksql-cluster",
           "value": "ksql-cluster"
         },
-        "datasource": null,
+        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
         "description": null,
         "error": null,
