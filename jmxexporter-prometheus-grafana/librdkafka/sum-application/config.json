@@ -1,0 +1,23 @@
+{
+    "inputTopic": "input.topic",
+    "outputTopic": "output.topic",
+    "stateDir": "/tmp/count",
+    "prometheusPort": 7071,
+    "consumerConf": {
+        "ClientId": "sample_client_id",
+        "BootstrapServers": "localhost:11091",        
+        "StatisticsIntervalMs": 1000
+    },
+    "producerConf": {
+        "ClientId": "sample_client_id",
+        "BootstrapServers": "localhost:11091",
+        "Acks": "-1",
+        "BatchNumMessages": "2000",
+        "LingerMs": "100",
+        "CompressionType": "zstd",
+        "StatisticsIntervalMs": 1000
+    },
+    "schemaRegistryConf": {
+        "Url": "http://localhost:8085"
+    }
+}

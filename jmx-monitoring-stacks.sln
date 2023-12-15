@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jmxexporter-prometheus-grafana", "jmxexporter-prometheus-grafana", "{B22F7875-1061-4CBA-A847-0775B4172215}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "librdkafka", "librdkafka", "{4C06AF2A-E3A2-407F-97FE-F8F924FC3D76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "producer", "jmxexporter-prometheus-grafana\librdkafka\producer\producer.csproj", "{6201B8A2-97F7-4932-934A-1EA907062DB2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "jmxexporter-prometheus-grafana\librdkafka\common\common.csproj", "{7E3CFCDF-1B02-4D5F-ACDA-EEE7315D7AE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "consumer", "jmxexporter-prometheus-grafana\librdkafka\consumer\consumer.csproj", "{C7D221D2-B08B-4011-BB53-6413C6FA44BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6201B8A2-97F7-4932-934A-1EA907062DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6201B8A2-97F7-4932-934A-1EA907062DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6201B8A2-97F7-4932-934A-1EA907062DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6201B8A2-97F7-4932-934A-1EA907062DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E3CFCDF-1B02-4D5F-ACDA-EEE7315D7AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E3CFCDF-1B02-4D5F-ACDA-EEE7315D7AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E3CFCDF-1B02-4D5F-ACDA-EEE7315D7AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E3CFCDF-1B02-4D5F-ACDA-EEE7315D7AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D221D2-B08B-4011-BB53-6413C6FA44BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D221D2-B08B-4011-BB53-6413C6FA44BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D221D2-B08B-4011-BB53-6413C6FA44BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D221D2-B08B-4011-BB53-6413C6FA44BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C06AF2A-E3A2-407F-97FE-F8F924FC3D76} = {B22F7875-1061-4CBA-A847-0775B4172215}
+		{6201B8A2-97F7-4932-934A-1EA907062DB2} = {4C06AF2A-E3A2-407F-97FE-F8F924FC3D76}
+		{7E3CFCDF-1B02-4D5F-ACDA-EEE7315D7AE1} = {4C06AF2A-E3A2-407F-97FE-F8F924FC3D76}
+		{C7D221D2-B08B-4011-BB53-6413C6FA44BB} = {4C06AF2A-E3A2-407F-97FE-F8F924FC3D76}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {745B46DC-0834-4644-9409-708AEA07DCD2}
+	EndGlobalSection
+EndGlobal
