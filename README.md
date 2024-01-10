@@ -37,6 +37,7 @@ _and much more..._
 | Kafka Connect         |yes|              |yes|
 | ksqlDB                |yes|              |yes|
 | Producer/Consumer     |yes| yes          |yes|
+| Lag Exporter          |yes|           ||
 | Topics                |yes|           |yes|
 | Kafka Streams         |yes|           ||
 | Kafka Streams RocksDB |yes|           ||
