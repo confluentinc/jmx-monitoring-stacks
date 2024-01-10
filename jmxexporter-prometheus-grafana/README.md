@@ -6,19 +6,20 @@ List of provided dashboards:
  - [Zookeeper cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#zookeeper-cluster)
  - [Kafka cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-cluster)
  - [Kafka topics](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-topics)
- - [Kafka Clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
+ - [Kafka clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
  - [Kafka quotas](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-quotas)
+ - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
+ - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
  - [Schema Registry cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
  - [Kafka Connect cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
- - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
  - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
- - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
  - [Rest Proxy](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
  - [KRaft overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
+ - [Confluent RBAC](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
 
 ### Confluent Platform overview
 
@@ -37,7 +38,7 @@ List of provided dashboards:
 
 ![Kafka topics](img/kafka-topics.png)
 
-### Kafka Clients
+### Kafka clients
 
 ![Kafka Producer](img/kafka-producer.png)
 
@@ -53,6 +54,15 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ```
 
 ![Kafka quotas](img/kafka-quotas.png)
+
+### Kafka Lag Exporter
+
+![kafkalagexporter](img/kafka-lag-exporter.png)
+
+### Kafka Transaction Coordinator
+
+![kafkalagexporter](img/kafka-transaction-coordinator.png)
+
 
 ### Schema Registry cluster
 
@@ -84,10 +94,6 @@ To test run [playground example](https://github.com/vdesabou/kafka-docker-playgr
 ```
 ![oraclecdc](img/oraclecdc.jpg)
 
-### Kafka Lag Exporter
-
-![kafkalagexporter](img/kafka-lag-exporter.png)
-
 
 ### Cluster Linking
 
@@ -118,11 +124,6 @@ ${MONITORING_STACK}/cluster-linking/start.sh
 ${MONITORING_STACK}/cluster-linking/stop.sh
 ```
 
-
-### Kafka Transaction Coordinator
-
-![kafkalagexporter](img/kafka-transaction-coordinator.png)
-
 ### Rest Proxy
 
 ![restproxy](img/rest-proxy.png)
@@ -131,3 +132,7 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ![kraft1](img/kraft_1.png)
 ![kraft2](img/kraft_2.png)
+
+### Confluent RBAC
+
+![rbac](img/rbac.png)
