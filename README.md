@@ -24,7 +24,28 @@ This project provides metrics and dashboards for:
   <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
 </p>
 
-and much more...
+_and much more..._
+
+**List of available dashboards for Confluent Platform:**
+
+| Dashboard             |CP Prometheus and Grafana| CP New Relic | CP Metricbeat and Kibana |
+|-----------------------|----|--------------|----------------------|
+| Kafka Cluster         |yes| yes          | yes                  |
+| Zookeeper             |yes| yes          | yes                  |
+| KRaft                 |yes|              |                      |
+| Schema Registry       |yes|              |yes|
+| Kafka Connect         |yes|              |yes|
+| ksqlDB                |yes|              |yes|
+| Producer/Consumer     |yes| yes          |yes|
+| Topics                |yes|           |yes|
+| Kafka Streams         |yes|           ||
+| Kafka Streams RocksDB |yes|           ||
+| Quotas                |yes|           ||
+| TX Coordinator        |yes|           ||
+| Rest Proxy            |yes|           ||
+| Cluster Linking       |yes|           ||
+| Oracle CDC            |yes|           ||
+| Confluent RBAC        |yes|           ||
 
 ## ⚠️ Alerts
 
