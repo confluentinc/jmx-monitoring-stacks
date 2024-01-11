@@ -20,6 +20,7 @@ List of provided dashboards:
  - [Rest Proxy](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
  - [KRaft overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
  - [Confluent RBAC](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
+ - [Replicator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
 
 ### Confluent Platform overview
 
@@ -136,3 +137,8 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 ### Confluent RBAC
 
 ![rbac](img/rbac.png)
+
+### Replicator 
+
+![replicator](img/replicator_1.png)
+![replicator](img/replicator_2.png)

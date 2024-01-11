@@ -47,6 +47,7 @@ _and much more..._
 | Cluster Linking       |yes|           ||
 | Oracle CDC            |yes|           ||
 | Confluent RBAC        |yes|           ||
+| Replicator            |yes|           ||
 
 ## ⚠️ Alerts
 
@@ -134,6 +135,12 @@ To run a lightweight dev environment:
 3. `start.sh` -> It will create a minimal environment with a KRaft cluster, prometheus, grafana and a spring based java client
 4. For Grafana, go to http://localhost:3000, login with _admin/grafana_
 5. `stop.sh`
+
+## Run with profiles
+
+To add more use cases, we are leveraging the docker profiles. 
+
+To run replicator scenario, i.e. `start.sh --profile replicator`.
 
 ## DEV-toolkit-FAQ
 
