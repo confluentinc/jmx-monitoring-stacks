@@ -212,6 +212,11 @@ rules:
     labels:
       quantile: "0.$4"
   # Additional Rules for Confluent Server Metrics
+  # 'kafka.server:type=confluent-auth-store-metrics'
+  - pattern: kafka.server<type=confluent-auth-store-metrics><>(.+):(.*)
+    name: confluent_auth_store_metrics_$1
+    type: GAUGE
+    cache: true
   # 'confluent.metadata:type=*, name=*, topic=*, partition=*'
   - pattern: confluent.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Value|Count)
     name: confluent_$1_$2
