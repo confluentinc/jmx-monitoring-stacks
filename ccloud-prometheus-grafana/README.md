@@ -16,8 +16,6 @@
 
 This project integrates Confluent Cloud Cost information with Prometheus. It uses current month to query the cost information from Confluent Cloud and expose it as Prometheus metrics.
 
-* [Confluent Cloud Metrics API](https://docs.confluent.io/cloud/current/metrics-api.html) provides metrics for Confluent Cloud resources, supports [Prometheus](https://prometheus.io) `export` and filtering by `resource`.
-
 * [Confluent Cloud Costs API](https://docs.confluent.io/cloud/current/billing/overview.html) provides costs for Confluent Cloud resources.
 
 [Confluent Costs API considerations](https://docs.confluent.io/cloud/current/billing/overview.html#retrieve-costs-for-a-range-of-dates):
@@ -87,3 +85,4 @@ Now edit the file `./ccloud-prometheus-grafana/utils/env_variables.env` and add 
 ## Additional Links
 
 * [Confluent Cloud - Monitoring/Metrics api](https://docs.confluent.io/cloud/current/monitoring/metrics-api.html)
+* [Confluent Cloud Costs API](https://docs.confluent.io/cloud/current/billing/overview.html)
