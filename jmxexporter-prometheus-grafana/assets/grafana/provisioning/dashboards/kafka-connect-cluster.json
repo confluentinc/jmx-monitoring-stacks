@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 3,
-  "iteration": 1704894146088,
+  "iteration": 1704964845252,
   "links": [],
   "panels": [
     {
@@ -1099,7 +1099,7 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -1326,7 +1326,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -1335,683 +1335,7 @@
         "y": 26
       },
       "id": 132,
-      "panels": [
-        {
-          "datasource": "Prometheus",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "right",
-                "displayMode": "auto"
-              },
-              "decimals": 2,
-              "displayName": "",
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Time"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "__name__"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "connector_class"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "class"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align",
-                    "value": "left"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "env"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "instance"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "job"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #B"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Nb of Tasks destroyed"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": null
-                        },
-                        {
-                          "color": "#B877D9",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #A"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #C"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #D"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "status"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": null
-                        },
-                        {
-                          "color": "rgba(237, 129, 40, 0.89)",
-                          "value": 2
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "connector"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "name"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align",
-                    "value": "left"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "connector_type"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "type"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align",
-                    "value": "left"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "connector_version"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "version"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align",
-                    "value": "left"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #E"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Nb of tasks"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(245, 54, 54, 0.9)",
-                          "value": null
-                        },
-                        {
-                          "color": "rgba(237, 129, 40, 0.89)",
-                          "value": 0
-                        },
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #F"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Nb of Tasks running"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(245, 54, 54, 0.9)",
-                          "value": null
-                        },
-                        {
-                          "color": "rgba(237, 129, 40, 0.89)",
-                          "value": 0
-                        },
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #G"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Nb of Tasks failed"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": null
-                        },
-                        {
-                          "color": "#F2495C",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #H"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Nb of Tasks paused"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": null
-                        },
-                        {
-                          "color": "#FF9830",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #I"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "decimals",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.align"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value #J"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Nb of Tasks unassigned"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "short"
-                  },
-                  {
-                    "id": "custom.align"
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": null
-                        },
-                        {
-                          "color": "#FADE2A",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 24,
-            "x": 0,
-            "y": 27
-          },
-          "id": 129,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 3,
-            "showHeader": true
-          },
-          "pluginVersion": "8.1.3",
-          "targets": [
-            {
-              "datasource": "Prometheus",
-              "expr": "label_replace(label_replace(label_replace(kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status!=\"\"}, \"status\", \"1\", \"status\", \"running\"), \"status\", \"2\", \"status\", \"paused\"), \"status\", \"3\", \"status\", \"stopped\")",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "I"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_type!=\"\"}",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_version!=\"\"}",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "C"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "kafka_connect_connector_info{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_class!=\"\"}",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "D"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "E"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "F"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "G"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "H"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "B"
-            },
-            {
-              "datasource": "Prometheus",
-              "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "J"
-            }
-          ],
-          "title": "Connectors",
-          "transformations": [
-            {
-              "id": "seriesToRows",
-              "options": {
-                "reducers": []
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "targets": [
         {
           "datasource": "Prometheus",
@@ -2022,13 +1346,728 @@
       "type": "row"
     },
     {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "displayMode": "auto",
+            "filterable": true
+          },
+          "decimals": 2,
+          "displayName": "",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeAsIso"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "__name__"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "connector_class"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "class"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "env"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "instance"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "job"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Nb of Tasks destroyed"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": null
+                    },
+                    {
+                      "color": "#B877D9",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #A"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #C"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #D"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 2
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "connector"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "name"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "connector_type"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "type"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "connector_version"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "version"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #E"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Nb of tasks"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 0
+                    },
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "decimals"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #F"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Nb of Tasks running"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(245, 54, 54, 0.9)",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 0
+                    },
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "decimals"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #G"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Nb of Tasks failed"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": null
+                    },
+                    {
+                      "color": "#F2495C",
+                      "value": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "decimals"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #H"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Nb of Tasks paused"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": null
+                    },
+                    {
+                      "color": "#FF9830",
+                      "value": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "decimals"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #I"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #J"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Nb of Tasks unassigned"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": null
+                    },
+                    {
+                      "color": "#FADE2A",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 129,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "exemplar": true,
+          "expr": "kafka_connect_connector_metrics{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status!=\"\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "I"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "kafka_connect_connector_metrics{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_type!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "kafka_connect_connector_metrics{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_version!=\"\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "kafka_connect_connector_metrics{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_class!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "D"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "E"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "F"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "G"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "H"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "J"
+        }
+      ],
+      "title": "Connectors",
+      "transformations": [
+        {
+          "id": "seriesToRows",
+          "options": {
+            "reducers": []
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Time",
+                "connector",
+                "env",
+                "hostname",
+                "instance",
+                "kafka_connect_cluster_id",
+                "status",
+                "connector_type",
+                "connector_version",
+                "connector_class",
+                "Value #E",
+                "Value #F",
+                "Value #G",
+                "Value #H",
+                "Value #B",
+                "Value #J"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
       "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 38
       },
       "id": 97,
       "panels": [
@@ -3399,7 +3438,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 39
       },
       "id": 234,
       "panels": [
@@ -3664,7 +3703,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 40
       },
       "id": 112,
       "panels": [
@@ -4149,7 +4188,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 41
       },
       "id": 201,
       "panels": [
@@ -4831,7 +4870,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 42
       },
       "id": 139,
       "panels": [
@@ -5413,7 +5452,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 43
       },
       "id": 134,
       "panels": [
@@ -6422,5 +6461,5 @@
   "timezone": "",
   "title": "Kafka Connect cluster",
   "uid": "AEaSQ97mz",
-  "version": 9
+  "version": 4
 }
