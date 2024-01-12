@@ -1,0 +1,81 @@
+version: "3"
+services:
+  connect:
+    image: confluentinc/cp-enterprise-replicator:${CFLT_TAG}
+    profiles:
+      - replicator
+    hostname: connect
+    container_name: connect
+    depends_on:
+      - kafka1
+    ports:
+      - "8083:8083"
+    environment:
+      CONNECT_REST_ADVERTISED_PORT: 8083
+      CONNECT_REST_PORT: 8083
+      CONNECT_LISTENERS: http://0.0.0.0:8083
+      CONNECT_BOOTSTRAP_SERVERS: broker-replicator-dst:29092
+      CONNECT_REST_ADVERTISED_HOST_NAME: connect
+      CONNECT_GROUP_ID: kafka-connect
+      CONNECT_CONFIG_STORAGE_TOPIC: _connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: _connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: _connect-status
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_EXACTLY_ONCE_SOURCE_SUPPORT: enabled
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL:
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connect-plugin-jars
+      CONNECT_REST_EXTENSION_CLASSES: io.confluent.connect.replicator.monitoring.ReplicatorMonitoringExtension
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_connect.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/kafka_connect.yml:/tmp/kafka_connect.yml
+    command:
+      - bash
+      - -c
+      - |
+        echo "Installing Connector"
+        confluent-hub install --no-prompt confluentinc/kafka-connect-replicator:7.5.2
+        cp /usr/share/java/kafka-connect-replicator/replicator-rest-extension-*.jar /etc/kafka-connect/jars/
+        #
+        echo "Launching Kafka Connect worker"
+        /etc/confluent/docker/run &
+        #
+        sleep infinity
+
+  broker-replicator-dst:
+    image: confluentinc/cp-kafka:${CFLT_TAG}
+    hostname: broker-replicator-dst
+    container_name: broker-replicator-dst
+    profiles:
+      - replicator
+    ports:
+      - "9091:9091"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://broker-replicator-dst:29092,PLAINTEXT_HOST://localhost:9091"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS: true
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@broker-replicator-dst:29093"
+      KAFKA_LISTENERS: "PLAINTEXT://broker-replicator-dst:29092,CONTROLLER://broker-replicator-dst:29093,PLAINTEXT_HOST://0.0.0.0:9091"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+      KAFKA_LOG4J_LOGGERS: "org.apache.kafka.image.loader.MetadataLoader=WARN"
+      CLUSTER_ID: "N3Ept9vxTMijB5S74gkfPA"
+      KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
+      KAFKA_REST_BOOTSTRAP_SERVERS: "broker-replicator-dst:29092"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_config.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
