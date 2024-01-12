@@ -91,19 +91,18 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
-CP_DEMO_VERSION=7.5.2-post
-```
-
-```bash
 # Set one of these
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 ```
 
-3. Clone `cp-demo` and checkout a branch _(tested branches starts from 7.2.0-post)_.
+3. Clone `cp-demo` and checkout a branch.
 
 ```bash
+# Example with CP-DEMO 7.5.3 version (all braches starting from 7.2.0 have been tested)
+CP_DEMO_VERSION=7.5.3-post
+
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
 (cd cp-demo && git fetch && git checkout $CP_DEMO_VERSION && git pull)
 ```
