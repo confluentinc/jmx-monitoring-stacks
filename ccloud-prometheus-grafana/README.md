@@ -24,7 +24,9 @@ This project integrates Confluent Cloud Cost information with Prometheus. It use
 * Start date can reach a maximum of one year into the past
 * One month is the maximum window between start and end dates.
 
-[More info]([http://](https://github.com/mcolomerc/confluent-cloud-cost-exporter)
+[More info](https://github.com/mcolomerc/confluent-cloud-cost-exporter)
+
+<img src="./docs/billing.png" width="480">
 
 ## How to run
 
