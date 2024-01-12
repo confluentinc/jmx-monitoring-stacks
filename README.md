@@ -51,10 +51,11 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Cloud:**
 
-|Dashboard| Prometheus and Grafana |New Relic|Metricbeat and Kibana|
-|---------|------------------------|---------|---------------------|
-| Cluster | yes                    | yes     | yes                 |
-| Producer/Consumer |                        |      | yes                 |
+| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|
+|-----------------------|------------------------|---------|---------------------|
+| Cluster               | yes                    | yes     | yes                 |
+| Producer/Consumer     |                        |      | yes                 |
+| Billing/Cost tracking | yes                    |      |                  |
 
 ## ⚠️ Alerts
 
