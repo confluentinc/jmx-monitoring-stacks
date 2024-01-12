@@ -16,13 +16,14 @@ echo " creating prometheus configuration file $OUTPUT_FILE "
 mkdir -p "$MONITORING_STACK/assets/prometheus/prometheus-config"
 source $MONITORING_STACK/utils/env_variables.env
 envsubst < $MONITORING_STACK/utils/prometheus-template.yml > $MONITORING_STACK/assets/prometheus/prometheus-config/prometheus.yml
+envsubst < $MONITORING_STACK/utils/docker-compose-template.yaml > $MONITORING_STACK/docker-compose.yaml
 
 
 ########################################
 # Start monitoring solution
 ########################################
 echo -e "Launch $MONITORING_STACK"
-docker-compose -f $MONITORING_STACK/docker-compose.yaml up -d prometheus  grafana
+docker-compose -f $MONITORING_STACK/docker-compose.yaml up -d prometheus grafana confluent_cost_exporter
 
 echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"
