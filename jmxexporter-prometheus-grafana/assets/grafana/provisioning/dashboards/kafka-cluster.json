@@ -22,8 +22,8 @@
   "editable": true,
   "gnetId": 721,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1647427255896,
+  "id": 21,
+  "iteration": 1705401573908,
   "links": [],
   "panels": [
     {
@@ -1505,6 +1505,7 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "exemplar": true,
           "expr": "irate(process_cpu_seconds_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])*100",
           "format": "time_series",
           "interval": "",
@@ -1745,13 +1746,230 @@
       "type": "timeseries"
     },
     {
+      "datasource": "Prometheus",
+      "description": "The total number of bytes read by the broker process, including reads from all disks. The total doesn’t include reads from page cache. Available only on Linux-based systems.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Memory",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "localhost:7071"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BA43A9",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "id": 126,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kafka_server_kafkaserver_linux_disk_read_bytes{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Linux Disk Read Bytes",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "The total number of bytes written by the broker process, including writes from all disks. Available only on Linux-based systems",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Memory",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "localhost:7071"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BA43A9",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "id": 127,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(kafka_server_kafkaserver_linux_disk_write_bytes{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Linux Disk Write Bytes",
+      "type": "timeseries"
+    },
+    {
       "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 35
       },
       "id": 29,
       "panels": [
@@ -2329,7 +2547,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 36
       },
       "id": 44,
       "panels": [
@@ -2525,7 +2743,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 37
       },
       "id": 86,
       "panels": [
@@ -2999,7 +3217,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 38
       },
       "id": 82,
       "panels": [
@@ -3197,7 +3415,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 39
       },
       "id": 53,
       "panels": [
@@ -3388,7 +3606,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 40
       },
       "id": 58,
       "panels": [
@@ -3854,7 +4072,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 41
       },
       "id": 68,
       "panels": [
@@ -4322,7 +4540,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 42
       },
       "id": 66,
       "panels": [
@@ -4790,7 +5008,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 43
       },
       "id": 102,
       "panels": [
@@ -5519,7 +5737,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 44
       },
       "id": 120,
       "panels": [
@@ -5740,7 +5958,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 45
       },
       "id": 46,
       "panels": [
@@ -6136,5 +6354,5 @@
   "timezone": "browser",
   "title": "Kafka cluster",
   "uid": "qu-QZdfZz",
-  "version": 2
+  "version": 1
 }
