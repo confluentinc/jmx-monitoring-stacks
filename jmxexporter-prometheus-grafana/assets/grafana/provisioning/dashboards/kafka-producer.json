@@ -22,8 +22,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1705392817532,
+  "id": 3,
+  "iteration": 1705401931050,
   "links": [],
   "panels": [
     {
@@ -78,7 +78,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -140,7 +141,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -266,7 +268,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -423,7 +425,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -514,7 +516,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -592,20 +594,18 @@
             }
           },
           "mappings": [],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -2987,7 +2987,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "dev"
           ],
@@ -3068,5 +3068,5 @@
   "timezone": "",
   "title": "Kafka Producer",
   "uid": "-C-IEldWk",
-  "version": 1
+  "version": 2
 }
