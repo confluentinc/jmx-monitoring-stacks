@@ -101,7 +101,7 @@ MONITORING_STACK=jmxexporter-newrelic
 3. Clone `cp-demo` and checkout a branch.
 
 ```bash
-# Example with CP-DEMO 7.5.3 version (all braches starting from 7.2.0 have been tested)
+# Example with CP-DEMO 7.5.3 version (all branches starting from 7.2.0 have been tested)
 CP_DEMO_VERSION=7.5.3-post
 
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git

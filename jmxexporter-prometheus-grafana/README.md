@@ -1,5 +1,8 @@
 # Prometheus and Grafana stack
 
+- Prometheus version: 2.47.2
+- Grafana version 10.2.0
+
 List of provided dashboards:
 
  - [Confluent Platform overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
@@ -89,10 +92,8 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 ### Oracle CDC source Connector
 
-To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using 
-```bash
---enable-jmx-grafana
-```
+To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
+
 ![oraclecdc](img/oraclecdc.jpg)
 
 
