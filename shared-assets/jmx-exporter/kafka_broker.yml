@@ -372,3 +372,14 @@ rules:
     labels:
       request: "$1"
       link-id: "$2"
+
+  ## Needed for Tiered Storage Metrics
+  # kafka.tier.tasks.archive:type=TierArchiver,name=*
+  - pattern: 'kafka.tier.tasks.archive<type=TierArchiver, name=(.+)><>(.+):(.+)'
+    name: kafka_tier_tasks_archive_tierarchiver_$1
+    type: GAUGE
+  # kafka.tier.tasks:type=TierTasks,name=*
+  - pattern: 'kafka.tier.tasks<type=TierTasks, name=(.+)><>(.+):(.+)'
+    name: kafka_tier_tasks_tiertasks_$1
+    type: GAUGE
+
