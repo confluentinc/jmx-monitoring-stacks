@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using consumer.Topology;
 using Microsoft.Extensions.Configuration;
 using Prometheus;
@@ -10,7 +11,6 @@ namespace consumer
         public static void Main(string[] args)
         {
             var configuration = GetConfiguration(args);
-
             try
             {
                 MetricServer metricServer = new(7071);
