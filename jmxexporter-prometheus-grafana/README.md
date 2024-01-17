@@ -24,6 +24,7 @@ List of provided dashboards:
  - [KRaft overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
  - [Confluent RBAC](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
  - [Replicator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
+ - [Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
 
 ### Confluent Platform overview
 
@@ -143,3 +144,6 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ![replicator](img/replicator_1.png)
 ![replicator](img/replicator_2.png)
+
+### Tiered Storage
+![tiered-storage](img/tiered-storage.png)

@@ -28,26 +28,27 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard|Prometheus and Grafana|New Relic|Metricbeat and Kibana|
-|----------|----|---------|---------------------|
-| Kafka Cluster |yes| yes     | yes                 |
-| Zookeeper |yes| yes     | yes                 |
-| KRaft    |yes|         |                     |
-| Schema Registry |yes|         |yes|
-| Kafka Connect |yes|         |yes|
-| ksqlDB   |yes|         |yes|
-| Producer/Consumer |yes| yes     |yes|
-| Lag Exporter |yes|         ||
-| Topics   |yes|         |yes|
-| Kafka Streams |yes|         ||
+| Dashboard             |Prometheus and Grafana|New Relic|Metricbeat and Kibana|
+|-----------------------|----|---------|---------------------|
+| Kafka Cluster         |yes| yes     | yes                 |
+| Zookeeper             |yes| yes     | yes                 |
+| KRaft                 |yes|         |                     |
+| Schema Registry       |yes|         |yes|
+| Kafka Connect         |yes|         |yes|
+| ksqlDB                |yes|         |yes|
+| Producer/Consumer     |yes| yes     |yes|
+| Lag Exporter          |yes|         ||
+| Topics                |yes|         |yes|
+| Kafka Streams         |yes|         ||
 | Kafka Streams RocksDB |yes|         ||
-| Quotas   |yes|         ||
-| TX Coordinator |yes|         ||
-| Rest Proxy |yes|         ||
-| Cluster Linking |yes|         ||
-| Oracle CDC |yes|         ||
-| Confluent RBAC |yes|         ||
-| Replicator |yes|         ||
+| Quotas                |yes|         ||
+| TX Coordinator        |yes|         ||
+| Rest Proxy            |yes|         ||
+| Cluster Linking       |yes|         ||
+| Oracle CDC            |yes|         ||
+| Confluent RBAC        |yes|         ||
+| Replicator            |yes|         ||
+| Tiered Storage        |yes|         ||
 
 **List of available dashboards for Confluent Cloud:**
 
