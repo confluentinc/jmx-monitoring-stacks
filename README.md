@@ -9,6 +9,7 @@ This project provides metrics and dashboards for:
 - [Confluent Platform on Kubernetes with Prometheus and Grafana](jmxexporter-prometheus-grafana/cfk)
 - [Confluent Platform with New Relic](jmxexporter-newrelic)
 - [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
+- [Confluent Platform with Jolokia Agent](jolokia)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
@@ -90,13 +91,14 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), or [jmxexporter-newrelic](jmxexporter-newrelic) and set the `MONITORING_STACK` variable accordingly.
+2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), [jmxexporter-newrelic](jmxexporter-newrelic) or [jolokia](jolokia) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
 # Set one of these
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
+MONITORING_STACK=jolokia
 ```
 
 3. Clone `cp-demo` and checkout a branch.
@@ -122,7 +124,7 @@ CP_DEMO_VERSION=7.5.3-post
 ${MONITORING_STACK}/start.sh
 ```
 
-NOTE: New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in ${MONITORING_STACK}/start.sh
+NOTE: New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in _${MONITORING_STACK}/start.sh_
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
