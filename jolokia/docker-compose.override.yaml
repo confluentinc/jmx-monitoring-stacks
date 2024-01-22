@@ -1,10 +1,12 @@
 version: "2.3"
 services:
   zookeeper:
+    ports:
+      - "8777:8777"
     volumes:
       - $MONITORING_STACK/../shared-assets/jolokia-agent/:/usr/share/jolokia-agent
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jolokia-agent/jolokia-agent-jvm-2.0.0-javaagent.jar=port=8778,host=0.0.0.0
+      EXTRA_ARGS: -javaagent:/usr/share/jolokia-agent/jolokia-agent-jvm-2.0.0-javaagent.jar=port=8777,host=0.0.0.0
 
   kafka1:
     ports:

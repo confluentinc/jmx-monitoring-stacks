@@ -22,6 +22,11 @@ curl http://localhost:8778/jolokia/read/java.lang:type\=Memory/HeapMemoryUsage |
 }
 ```
 
+- zookeeper:
+```bash
+curl http://localhost:8777/jolokia/list | jq
+```
+
 - kafka1: 
 ```bash
 curl http://localhost:8778/jolokia/list | jq
