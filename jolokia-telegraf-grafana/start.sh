@@ -7,14 +7,7 @@
 export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 export OVERRIDE_PATH="${MONITORING_STACK}/docker-compose.override.yaml"
 
-while test $# != 0 
-do
-    case "$1" in
-    --test) echo "Detected test Flag. Last detected flag will be honoured." ; export OVERRIDE_PATH="${OVERRIDE_PATH}:${MONITORING_STACK}/docker-compose.testing.yaml" ;;
-    --local) echo "Detected local Flag. Last detected flag will be honoured." ; export OVERRIDE_PATH="${OVERRIDE_PATH}:${MONITORING_STACK}/docker-compose.local.yaml" ;;
-    esac
-    shift
-done
+
 echo "Using ${OVERRIDE_PATH} for docker-compose override"
 
 . $MONITORING_STACK/../utils/setup_cp_demo.sh
@@ -42,21 +35,19 @@ docker-compose exec tools bash -c "confluent iam rbac role-binding create \
     --kafka-cluster-id $KAFKA_CLUSTER_ID"
 
 echo -e "Launch $MONITORING_STACK"
-docker-compose up -d prometheus node-exporter kafka-lag-exporter grafana
+docker-compose up -d influxdb kafka-lag-exporter
 
+echo -e "Waiting 15 seconds for influxdb to start"
 
-echo -e "\nView Prometheus at ->"
-echo -e "http://localhost:9090"
+sleep 15
+
+echo -e "Setup influxdb"
+docker exec influxdb bash -c "influx setup --host http://influxdb:8086 --username admin --password password --token AAAAA --org dev --bucket dev --force"
+
+docker-compose up -d telegraf grafana
+
+echo -e "\nView InfluxDB at ->"
+echo -e "http://localhost:9086"
 
 echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"
-
-
-while test $# != 0 
-do
-    case "$1" in
-    --test) echo "Auto testing is not implemented yet. Please use the --local flag to invoke the test script manually." ;;
-    --local) echo "Detected local Flag. Will wait for about 150 seconds before executing the testing script." ; sleep 150 ; base_stacks_dir="$(dirname "${MONITORING_STACK}")" ; ${MONITORING_STACK}/../utils/testing/code/main.py --jmx-monitoring-stacks-base-fullpath ${base_stacks_dir} ;;
-    esac
-    shift
-done

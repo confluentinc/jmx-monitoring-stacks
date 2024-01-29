@@ -1,0 +1,26 @@
+# config file version
+apiVersion: 1
+
+# list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: InfluxDB
+    orgId: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    database: kafka
+    user: admin
+    password: password
+    url: http://influxdb:8086
+    isDefault: true
+    editable: true
+    basicAuth: false
+    jsonData:
+      version: Flux
+      defaultBucket: "dev"
+      organization: "dev"
+      url: http://influxdb:8086
+    secureJsonData:
+      token: "AAAAA"
