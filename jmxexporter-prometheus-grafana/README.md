@@ -93,14 +93,14 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 ### Oracle CDC source Connector
 
+Demo is based on https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source
+
 To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
 
 ![oraclecdc](img/oraclecdc.jpg)
 
 
 ### Cluster Linking
-
-![clusterlinking](img/clusterlinking.png)
 
 Demo is based on https://github.com/confluentinc/demo-scene/tree/master/cluster-linking-disaster-recovery
 
@@ -127,14 +127,27 @@ ${MONITORING_STACK}/cluster-linking/start.sh
 ${MONITORING_STACK}/cluster-linking/stop.sh
 ```
 
+![clusterlinking](img/clusterlinking.png)
+
+
 ### Rest Proxy
 
 ![restproxy](img/rest-proxy.png)
 
 ### KRaft
 
+To test follow the next steps:
+
+1. Start dev-toolkit with
+
+```bash
+$ cd dev-toolkit
+$ start.sh
+```
+
 ![kraft1](img/kraft_1.png)
 ![kraft2](img/kraft_2.png)
+
 
 ### Confluent RBAC
 
@@ -142,8 +155,18 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ### Replicator 
 
+To test follow the next steps:
+
+1. Start dev-toolkit with _replicator_ profile
+
+```bash
+$ cd dev-toolkit
+$ start.sh --profile replicator
+```
+
 ![replicator](img/replicator_1.png)
 ![replicator](img/replicator_2.png)
+
 
 ### Tiered Storage
 ![tiered-storage](img/tiered-storage.png)
