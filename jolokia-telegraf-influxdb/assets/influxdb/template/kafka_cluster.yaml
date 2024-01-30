@@ -1,0 +1,391 @@
+apiVersion: influxdata.com/v2alpha1
+kind: Variable
+metadata:
+  name: charming-poincare-247001
+spec:
+  language: flux
+  name: environment
+  query: |-
+    buckets()
+        |> filter(fn: (r) => r.name !~ /^_/)
+        |> rename(columns: {name: "_value"})
+        |> keep(columns: ["_value"])
+  selected:
+    - _monitoring
+  type: query
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Variable
+metadata:
+  name: goofy-lalande-247003
+spec:
+  language: flux
+  name: instance
+  query: |-
+    import "influxdata/influxdb/v1"
+    all_data = buckets() |> limit(n:1) |> set(key: "_value", value: "*") |> keep(columns:["_value"])
+    hosts = v1.measurementTagValues(bucket: v.environment, measurement: "kafka.server_ReplicaManager", tag: "jolokia_agent_url")
+    union(tables: [all_data, hosts]) |> sort()
+  selected:
+    - '*'
+  type: query
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Dashboard
+metadata:
+  name: xenodochial-noyce-a47001
+spec:
+  charts:
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+        - hex: '#DC4E58'
+          id: vjgaiPC92s-REtt1aTgJR
+          name: fire
+          type: text
+          value: 2
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Active Controllers
+      note: Number of active controllers in the cluster.
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.controller_KafkaController")
+              |> filter(fn: (r) => r["_field"] == "ActiveControllerCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> group(columns: ["jolokia_agent_url"])
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+        - hex: '#FFB94A'
+          id: -Hise-8mg716uFWlkKYDm
+          name: pineapple
+          type: text
+          value: 1
+        - hex: '#DC4E58'
+          id: O8opu1tX4fXTF0enkBRwL
+          name: fire
+          type: text
+          value: 1
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Offline Partitions Count
+      note: Number of partitions that dont have an active leader and are hence not writable or readable.
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.controller_KafkaController")
+              |> filter(fn: (r) => r["_field"] == "OfflinePartitionsCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+      yPos: 3
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Number of Brokers Online
+      note: Number of Brokers Online
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.server_ReplicaManager")
+              |> filter(fn: (r) => r["_field"] == "LeaderCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> group(columns: ["jolokia_agent_url"])
+              |> last()
+              |> group()
+              |> count()
+      staticLegend: {}
+      width: 2
+      xPos: 2
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+        - hex: '#FFB94A'
+          id: -Hise-8mg716uFWlkKYDm
+          name: pineapple
+          type: text
+          value: 2
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Unclean Leader Election Rate
+      note: Unclean leader election rate
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.controller_ControllerStats")
+              |> filter(fn: (r) => r["_field"] == "UncleanLeaderElectionEnableCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+      xPos: 2
+      yPos: 3
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Online Partitions
+      note: Partitions that are online
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.server_ReplicaManager")
+              |> filter(fn: (r) => r["_field"] == "PartitionCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+      xPos: 4
+    - axes:
+        - base: "10"
+          name: x
+          scale: linear
+        - base: "10"
+          name: "y"
+          scale: linear
+      colorizeRows: true
+      colors:
+        - hex: '#31C0F6'
+          id: kjls91Uso7RZWACgFdpaw
+          name: Nineteen Eighty Four
+          type: scale
+        - hex: '#A500A5'
+          id: XPG20PHoITsRw3ottzgdk
+          name: Nineteen Eighty Four
+          type: scale
+        - hex: '#FF7E27'
+          id: uWA7KYQTQ6FdR3bnedaOV
+          name: Nineteen Eighty Four
+          type: scale
+      geom: line
+      height: 3
+      heightRatio: 0.2
+      hoverDimension: auto
+      kind: Xy
+      legendColorizeRows: true
+      legendOpacity: 1
+      legendOrientationThreshold: 1e+08
+      name: Broker network throughput
+      opacity: 1
+      orientationThreshold: 1e+08
+      position: overlaid
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.server_BrokerTopicMetrics")
+              |> filter(fn: (r) => r["_field"] == "BytesOutPerSec")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.server_BrokerTopicMetrics")
+              |> filter(fn: (r) => r["_field"] == "BytesInPerSec")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+      staticLegend:
+        colorizeRows: true
+        heightRatio: 0.2
+        opacity: 1
+        orientationThreshold: 1e+08
+        widthRatio: 1
+      width: 4
+      widthRatio: 1
+      xCol: _time
+      xPos: 4
+      yCol: _value
+      yPos: 3
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+        - hex: '#FFB94A'
+          id: -Hise-8mg716uFWlkKYDm
+          name: pineapple
+          type: text
+          value: 2
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Preferred Replica Imbalance
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.controller_KafkaController")
+              |> filter(fn: (r) => r["_field"] == "PreferredReplicaImbalanceCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+      xPos: 6
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+        - hex: '#FFB94A'
+          id: -Hise-8mg716uFWlkKYDm
+          name: pineapple
+          type: text
+          value: 1
+        - hex: '#DC4E58'
+          id: O8opu1tX4fXTF0enkBRwL
+          name: fire
+          type: text
+          value: 5
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Under Replicated Partitions
+      note: Number of under-replicated partitions (| ISR | < | all replicas |).
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.server_ReplicaManager")
+              |> filter(fn: (r) => r["_field"] == "UnderReplicatedPartitions")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+      xPos: 8
+    - axes:
+        - base: "10"
+          name: x
+          scale: linear
+        - base: "10"
+          name: "y"
+          scale: linear
+      colorizeRows: true
+      colors:
+        - hex: '#31C0F6'
+          id: kjls91Uso7RZWACgFdpaw
+          name: Nineteen Eighty Four
+          type: scale
+        - hex: '#A500A5'
+          id: XPG20PHoITsRw3ottzgdk
+          name: Nineteen Eighty Four
+          type: scale
+        - hex: '#FF7E27'
+          id: uWA7KYQTQ6FdR3bnedaOV
+          name: Nineteen Eighty Four
+          type: scale
+      geom: line
+      height: 3
+      heightRatio: 0.2
+      hoverDimension: auto
+      kind: Xy
+      legendColorizeRows: true
+      legendOpacity: 1
+      legendOrientationThreshold: 1e+08
+      name: Broker network throughput (Clone)
+      note: Number of leaders per broker. This should be mostly even across all brokers.
+      opacity: 1
+      orientationThreshold: 1e+08
+      position: overlaid
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.server_ReplicaManager")
+              |> filter(fn: (r) => r["_field"] == "LeaderCount")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+      staticLegend:
+        colorizeRows: true
+        heightRatio: 0.2
+        opacity: 1
+        orientationThreshold: 1e+08
+        widthRatio: 1
+      width: 4
+      widthRatio: 1
+      xCol: _time
+      xPos: 8
+      yCol: _value
+      yPos: 3
+    - colors:
+        - hex: '#32B08C'
+          id: base
+          name: viridian
+          type: text
+        - hex: '#FFB94A'
+          id: -Hise-8mg716uFWlkKYDm
+          name: pineapple
+          type: text
+          value: 1
+        - hex: '#DC4E58'
+          id: O8opu1tX4fXTF0enkBRwL
+          name: fire
+          type: text
+          value: 5
+      decimalPlaces: 0
+      height: 3
+      kind: Single_Stat
+      name: Under Min ISR Partitions
+      note: Number of partitions under min insync replicas.
+      queries:
+        - query: |-
+            from(bucket: v.environment)
+              |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+              |> filter(fn: (r) => r["_measurement"] == "kafka.cluster_Partition")
+              |> filter(fn: (r) => r["_field"] == "UnderMinIsr")
+              |> filter(fn: (r) => r["environment"] == v.environment)
+              |> filter(fn: (r) => (if v.instance == "*" then true else r["jolokia_agent_url"] == v.instance))
+              |> last()
+              |> group()
+              |> sum()
+      staticLegend: {}
+      width: 2
+      xPos: 10
+  description: Metrics for Brokers
+  name: Kafka Cluster
