@@ -74,7 +74,7 @@ services:
       - $MONITORING_STACK/assets/security:/etc/kafka/secrets
 
   telegraf:
-    image: telegraf
+    image: telegraf:1.29.2
     container_name: telegraf
     restart: always
     ports:
@@ -92,20 +92,10 @@ services:
       - /etc:/rootfs/etc:ro
 
   influxdb:
-    image: influxdb
+    image: influxdb:2.7.5
     container_name: influxdb
     restart: always
     ports:
       - '9086:8086'
-
-  grafana:
-    image: grafana/grafana:10.2.0
-    container_name: grafana
-    environment:
-      - "GF_SECURITY_ADMIN_USER=admin"
-      - "GF_SECURITY_ADMIN_PASSWORD=password"
-      - "GF_USERS_ALLOW_SIGN_UP=false"
-    ports:
-      - 3000:3000
     volumes:
-      - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning
+      - $MONITORING_STACK/assets/influxdb/template:/tmp/template

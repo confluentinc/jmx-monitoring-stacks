@@ -3,6 +3,7 @@
 jmxexporter-prometheus-grafana/assets/security/
 jmxexporter-newrelic/assets/security/
 metricbeat-elastic-kibana/assets/security/
+jolokia-telegraf-influxdb/assets/security/
 both-enabled/
 .vscode/
 utils/testing/output/*

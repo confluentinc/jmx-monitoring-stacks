@@ -44,10 +44,11 @@ sleep 15
 echo -e "Setup influxdb"
 docker exec influxdb bash -c "influx setup --host http://influxdb:8086 --username admin --password password --token AAAAA --org dev --bucket dev --force"
 
-docker-compose up -d telegraf grafana
+echo -e "Import influxdb templates"
+docker exec influxdb bash -c "influx apply -f /tmp/template/kafka_cluster.yaml --host http://influxdb:8086 --token AAAAA --org dev --force yes"
 
-echo -e "\nView InfluxDB at ->"
+echo -e "Setup telegraf"
+docker-compose up -d telegraf
+
+echo -e "\nView InfluxDB dashboards at (admin/password) ->"
 echo -e "http://localhost:9086"
-
-echo -e "\nView Grafana dashboards at (admin/password) ->"
-echo -e "http://localhost:3000"

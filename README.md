@@ -10,6 +10,7 @@ This project provides metrics and dashboards for:
 - [Confluent Platform with New Relic](jmxexporter-newrelic)
 - [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
 - [Confluent Platform with Jolokia Agent](jolokia)
+- [Confluent Platform with Jolokia, Telegraf and InfluxDB](jolokia-telegraf-influxdb)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
@@ -25,13 +26,14 @@ This project provides metrics and dashboards for:
   <img src="jmxexporter-newrelic/img/Cluster.png" width="250" height="200" />
   <img src="jmxexporter-newrelic/img/Throughput.png" width="250" height="200" />
   <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
+  <img src="jolokia-telegraf-influxdb/img/kafka-cluster-0.png" width="250" height="200" />
 </p>
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard             |Prometheus and Grafana|New Relic|Metricbeat and Kibana|
-|-----------------------|----|---------|---------------------|
-| Kafka Cluster         |yes| yes     | yes                 |
+| Dashboard             |Prometheus and Grafana|New Relic|Metricbeat and Kibana|Telegraf and Influx|
+|-----------------------|----|---------|---------------------|---------------------|
+| Kafka Cluster         |yes| yes     | yes                 |yes|
 | Zookeeper             |yes| yes     | yes                 |
 | KRaft                 |yes|         |                     |
 | Schema Registry       |yes|         |yes|
@@ -91,7 +93,7 @@ NOTE: If there is interest to test Kafka Lag Exporter (included on the monitorin
 
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), [jmxexporter-newrelic](jmxexporter-newrelic) or [jolokia](jolokia) and set the `MONITORING_STACK` variable accordingly.
+2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), [jmxexporter-newrelic](jmxexporter-newrelic), [jolokia-telegraf-influxdb](jolokia-telegraf-influxdb) or [jolokia](jolokia) and set the `MONITORING_STACK` variable accordingly.
 
 ```bash
 # Set one of these
@@ -99,6 +101,7 @@ MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 MONITORING_STACK=jolokia
+MONITORING_STACK=jolokia-telegraf-influxdb
 ```
 
 3. Clone `cp-demo` and checkout a branch.
