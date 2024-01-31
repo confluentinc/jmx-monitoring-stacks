@@ -6,6 +6,7 @@ using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
+using consumer.Deserializer;
 using consumer.Nodes;
 using io.confluent.demos.common.wiki;
 using Microsoft.Extensions.Configuration;
@@ -15,37 +16,28 @@ namespace consumer.Topology
 {
     public static class TopologyBuilder
     {
-        // [2023-12-15 16:12:37,519] INFO Principal = User:appSA is Denied Operation = Describe from host = 172.19.0.1 on resource = Group:LITERAL:count-wikipedia-page (kafka.authorizer.logger)
-        // openssl pkcs12 -in /Users/slegouellec/Repos/cp-demo/scripts/security/appSA.keystore.p12 -nodes -passin pass:"confluent"
-        
-        public class DeserializerWikiEdit : IDeserializer<WikiEdit>
-        {
-            public WikiEdit Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
-            {
-                return JsonConvert.DeserializeObject<WikiEdit>(Deserializers.Utf8.Deserialize(data, isNull, context)) ?? new WikiEdit();
-            }
-        }
-        
         public static Topology BuildTopology(IConfiguration configuration)
         {
             CancellationTokenSource cancellationTokenSource = new();
             
             var consumerConf = configuration.GetSection("consumerConf").Get<ConsumerConfig>();
             consumerConf.GroupId = "count-wikipedia-page";
+            consumerConf.AutoOffsetReset = AutoOffsetReset.Latest;
             consumerConf.AutoOffsetReset = AutoOffsetReset.Earliest;
             consumerConf.EnableAutoCommit = true;
             consumerConf.EnableAutoOffsetStore = false;
             consumerConf.SecurityProtocol = SecurityProtocol.Ssl;
-            consumerConf.SslKeyLocation = "/Users/slegouellec/Repos/cp-demo/scripts/security/appSA.key";
+            consumerConf.SslKeyLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.key";
             consumerConf.SslKeyPassword = "confluent";
-            consumerConf.SslCaLocation = "/Users/slegouellec/Repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
-            consumerConf.SslCertificateLocation = "/Users/slegouellec/Repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
+            consumerConf.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
+            consumerConf.SslCertificateLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
             consumerConf.EnableSslCertificateVerification = true;
 
             var srConfig = configuration.GetSection("schemaRegistryConf").Get<SchemaRegistryConfig>();
-            srConfig.SslCaLocation = "/Users/slegouellec/Repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
-            srConfig.SslKeystoreLocation = "/Users/slegouellec/Repos/cp-demo/scripts/security/appSA.keystore.p12";
+            srConfig.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
+            srConfig.SslKeystoreLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.keystore.p12";
             srConfig.SslKeystorePassword = "confluent";
+            srConfig.EnableSslCertificateVerification = false;
             srConfig.BasicAuthCredentialsSource = AuthCredentialsSource.UserInfo;
             srConfig.BasicAuthUserInfo = "appSA:appSA";
             
@@ -57,8 +49,7 @@ namespace consumer.Topology
             CountProcessorNode countProcessorNode =
                 new(sinkProcessorNode);
             SourceProcessorNode<String, WikiEdit> sourceProcessorNode = new(
-                Deserializers.Utf8, deserializer.AsSyncOverAsync(), countProcessorNode);
-                //Deserializers.Utf8, new DeserializerWikiEdit() , countProcessorNode);
+                Deserializers.Utf8, new DeserializerWikiEdit() , countProcessorNode);
             
             sourceProcessorNode.Init(configuration);
             countProcessorNode.Init(configuration);

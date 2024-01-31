@@ -18,49 +18,11 @@ namespace io.confluent.demos.common.wiki
 		public static Schema _SCHEMA = Avro.Schema.Parse("{\"type\":\"record\",\"name\":\"WikiEdit\",\"namespace\":\"io.confluent.demos.common.wiki\",\"" +
 				"fields\":[{\"name\":\"bot\",\"default\":null,\"type\":[\"null\",\"boolean\"]},{\"name\":\"commen" +
 				"t\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"id\",\"default\":null,\"type\":[" +
-				"\"null\",\"long\"]},{\"name\":\"LOG_ACTION\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"" +
-				"name\":\"LOG_ACTION_COMMENT\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"LOG" +
-				"_ID\",\"default\":null,\"type\":[\"null\",\"long\"]},{\"name\":\"LOG_TYPE\",\"default\":null,\"t" +
-				"ype\":[\"null\",\"string\"]},{\"name\":\"meta\",\"default\":null,\"type\":[\"null\",{\"type\":\"re" +
-				"cord\",\"name\":\"KsqlDataSourceSchema_META\",\"namespace\":\"io.confluent.demos.common." +
-				"wiki\",\"fields\":[{\"name\":\"domain\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name" +
-				"\":\"dt\",\"default\":null,\"type\":[\"null\",\"long\"]},{\"name\":\"ID\",\"default\":null,\"type\"" +
-				":[\"null\",\"string\"]},{\"name\":\"REQUEST_ID\",\"default\":null,\"type\":[\"null\",\"string\"]" +
-				"},{\"name\":\"STREAM\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"uri\",\"defau" +
-				"lt\":null,\"type\":[\"null\",\"string\"]}]}]},{\"name\":\"minor\",\"default\":null,\"type\":[\"n" +
-				"ull\",\"boolean\"]},{\"name\":\"NAMESPACE\",\"default\":null,\"type\":[\"null\",\"long\"]},{\"na" +
-				"me\":\"PARSEDCOMMENT\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"patrolled\"" +
-				",\"default\":null,\"type\":[\"null\",\"boolean\"]},{\"name\":\"REVISION\",\"default\":null,\"ty" +
-				"pe\":[\"null\",{\"type\":\"record\",\"name\":\"KsqlDataSourceSchema_REVISION\",\"namespace\":" +
-				"\"io.confluent.demos.common.wiki\",\"fields\":[{\"name\":\"NEW\",\"default\":null,\"type\":[" +
-				"\"null\",\"long\"]},{\"name\":\"OLD\",\"default\":null,\"type\":[\"null\",\"long\"]}]}]},{\"name\"" +
-				":\"SERVER_NAME\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"SERVER_SCRIPT_P" +
-				"ATH\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"SERVER_URL\",\"default\":nul" +
-				"l,\"type\":[\"null\",\"string\"]},{\"name\":\"TIMESTAMP\",\"default\":null,\"type\":[\"null\",\"l" +
-				"ong\"]},{\"name\":\"TITLE\",\"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"TYPE\",\"" +
-				"default\":null,\"type\":[\"null\",\"string\"]},{\"name\":\"user\",\"default\":null,\"type\":[\"n" +
-				"ull\",\"string\"]},{\"name\":\"WIKI\",\"default\":null,\"type\":[\"null\",\"string\"]}]}");
+				"\"null\",\"long\"]}]}");
 		private System.Nullable<System.Boolean> _bot;
 		private string _comment;
 		private System.Nullable<System.Int64> _id;
-		private string _LOG_ACTION;
-		private string _LOG_ACTION_COMMENT;
-		private System.Nullable<System.Int64> _LOG_ID;
-		private string _LOG_TYPE;
-		private io.confluent.demos.common.wiki.KsqlDataSourceSchema_META _meta;
-		private System.Nullable<System.Boolean> _minor;
-		private System.Nullable<System.Int64> _NAMESPACE;
-		private string _PARSEDCOMMENT;
-		private System.Nullable<System.Boolean> _patrolled;
-		private io.confluent.demos.common.wiki.KsqlDataSourceSchema_REVISION _REVISION;
-		private string _SERVER_NAME;
-		private string _SERVER_SCRIPT_PATH;
-		private string _SERVER_URL;
-		private System.Nullable<System.Int64> _TIMESTAMP;
-		private string _TITLE;
-		private string _TYPE;
-		private string _user;
-		private string _WIKI;
+		
 		public virtual Schema Schema
 		{
 			get
@@ -101,204 +63,7 @@ namespace io.confluent.demos.common.wiki
 				this._id = value;
 			}
 		}
-		public string LOG_ACTION
-		{
-			get
-			{
-				return this._LOG_ACTION;
-			}
-			set
-			{
-				this._LOG_ACTION = value;
-			}
-		}
-		public string LOG_ACTION_COMMENT
-		{
-			get
-			{
-				return this._LOG_ACTION_COMMENT;
-			}
-			set
-			{
-				this._LOG_ACTION_COMMENT = value;
-			}
-		}
-		public System.Nullable<System.Int64> LOG_ID
-		{
-			get
-			{
-				return this._LOG_ID;
-			}
-			set
-			{
-				this._LOG_ID = value;
-			}
-		}
-		public string LOG_TYPE
-		{
-			get
-			{
-				return this._LOG_TYPE;
-			}
-			set
-			{
-				this._LOG_TYPE = value;
-			}
-		}
-		public io.confluent.demos.common.wiki.KsqlDataSourceSchema_META meta
-		{
-			get
-			{
-				return this._meta;
-			}
-			set
-			{
-				this._meta = value;
-			}
-		}
-		public System.Nullable<System.Boolean> minor
-		{
-			get
-			{
-				return this._minor;
-			}
-			set
-			{
-				this._minor = value;
-			}
-		}
-		public System.Nullable<System.Int64> NAMESPACE
-		{
-			get
-			{
-				return this._NAMESPACE;
-			}
-			set
-			{
-				this._NAMESPACE = value;
-			}
-		}
-		public string PARSEDCOMMENT
-		{
-			get
-			{
-				return this._PARSEDCOMMENT;
-			}
-			set
-			{
-				this._PARSEDCOMMENT = value;
-			}
-		}
-		public System.Nullable<System.Boolean> patrolled
-		{
-			get
-			{
-				return this._patrolled;
-			}
-			set
-			{
-				this._patrolled = value;
-			}
-		}
-		public io.confluent.demos.common.wiki.KsqlDataSourceSchema_REVISION REVISION
-		{
-			get
-			{
-				return this._REVISION;
-			}
-			set
-			{
-				this._REVISION = value;
-			}
-		}
-		public string SERVER_NAME
-		{
-			get
-			{
-				return this._SERVER_NAME;
-			}
-			set
-			{
-				this._SERVER_NAME = value;
-			}
-		}
-		public string SERVER_SCRIPT_PATH
-		{
-			get
-			{
-				return this._SERVER_SCRIPT_PATH;
-			}
-			set
-			{
-				this._SERVER_SCRIPT_PATH = value;
-			}
-		}
-		public string SERVER_URL
-		{
-			get
-			{
-				return this._SERVER_URL;
-			}
-			set
-			{
-				this._SERVER_URL = value;
-			}
-		}
-		public System.Nullable<System.Int64> TIMESTAMP
-		{
-			get
-			{
-				return this._TIMESTAMP;
-			}
-			set
-			{
-				this._TIMESTAMP = value;
-			}
-		}
-		public string TITLE
-		{
-			get
-			{
-				return this._TITLE;
-			}
-			set
-			{
-				this._TITLE = value;
-			}
-		}
-		public string TYPE
-		{
-			get
-			{
-				return this._TYPE;
-			}
-			set
-			{
-				this._TYPE = value;
-			}
-		}
-		public string user
-		{
-			get
-			{
-				return this._user;
-			}
-			set
-			{
-				this._user = value;
-			}
-		}
-		public string WIKI
-		{
-			get
-			{
-				return this._WIKI;
-			}
-			set
-			{
-				this._WIKI = value;
-			}
-		}
+		
 		public virtual object Get(int fieldPos)
 		{
 			switch (fieldPos)
@@ -306,24 +71,6 @@ namespace io.confluent.demos.common.wiki
 			case 0: return this.bot;
 			case 1: return this.comment;
 			case 2: return this.id;
-			case 3: return this.LOG_ACTION;
-			case 4: return this.LOG_ACTION_COMMENT;
-			case 5: return this.LOG_ID;
-			case 6: return this.LOG_TYPE;
-			case 7: return this.meta;
-			case 8: return this.minor;
-			case 9: return this.NAMESPACE;
-			case 10: return this.PARSEDCOMMENT;
-			case 11: return this.patrolled;
-			case 12: return this.REVISION;
-			case 13: return this.SERVER_NAME;
-			case 14: return this.SERVER_SCRIPT_PATH;
-			case 15: return this.SERVER_URL;
-			case 16: return this.TIMESTAMP;
-			case 17: return this.TITLE;
-			case 18: return this.TYPE;
-			case 19: return this.user;
-			case 20: return this.WIKI;
 			default: throw new AvroRuntimeException("Bad index " + fieldPos + " in Get()");
 			};
 		}
@@ -334,24 +81,6 @@ namespace io.confluent.demos.common.wiki
 			case 0: this.bot = (System.Nullable<System.Boolean>)fieldValue; break;
 			case 1: this.comment = (System.String)fieldValue; break;
 			case 2: this.id = (System.Nullable<System.Int64>)fieldValue; break;
-			case 3: this.LOG_ACTION = (System.String)fieldValue; break;
-			case 4: this.LOG_ACTION_COMMENT = (System.String)fieldValue; break;
-			case 5: this.LOG_ID = (System.Nullable<System.Int64>)fieldValue; break;
-			case 6: this.LOG_TYPE = (System.String)fieldValue; break;
-			case 7: this.meta = (io.confluent.demos.common.wiki.KsqlDataSourceSchema_META)fieldValue; break;
-			case 8: this.minor = (System.Nullable<System.Boolean>)fieldValue; break;
-			case 9: this.NAMESPACE = (System.Nullable<System.Int64>)fieldValue; break;
-			case 10: this.PARSEDCOMMENT = (System.String)fieldValue; break;
-			case 11: this.patrolled = (System.Nullable<System.Boolean>)fieldValue; break;
-			case 12: this.REVISION = (io.confluent.demos.common.wiki.KsqlDataSourceSchema_REVISION)fieldValue; break;
-			case 13: this.SERVER_NAME = (System.String)fieldValue; break;
-			case 14: this.SERVER_SCRIPT_PATH = (System.String)fieldValue; break;
-			case 15: this.SERVER_URL = (System.String)fieldValue; break;
-			case 16: this.TIMESTAMP = (System.Nullable<System.Int64>)fieldValue; break;
-			case 17: this.TITLE = (System.String)fieldValue; break;
-			case 18: this.TYPE = (System.String)fieldValue; break;
-			case 19: this.user = (System.String)fieldValue; break;
-			case 20: this.WIKI = (System.String)fieldValue; break;
 			default: throw new AvroRuntimeException("Bad index " + fieldPos + " in Put()");
 			};
 		}

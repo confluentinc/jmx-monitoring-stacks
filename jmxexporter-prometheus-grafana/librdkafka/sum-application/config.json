@@ -1,6 +1,6 @@
 {
-    "inputTopic": "input.topic",
-    "outputTopic": "output.topic",
+    "inputTopic": "wikipedia.parsed",
+    "outputTopic": "agg-wikipedia-page",
     "stateDir": "/tmp/count",
     "prometheusPort": 7071,
     "consumerConf": {
@@ -18,6 +18,6 @@
         "StatisticsIntervalMs": 1000
     },
     "schemaRegistryConf": {
-        "Url": "http://localhost:8085"
+        "Url": "https://localhost:8085"
     }
 }

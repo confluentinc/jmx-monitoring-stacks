@@ -23,8 +23,15 @@ namespace consumer.Nodes
         public override void Init(IConfiguration configuration)
         {
             outputTopic = configuration.GetValue<string>("outputTopic");
-            ProducerBuilder<string, int> builder = new(
-                configuration.GetSection("producerConf").Get<ProducerConfig>());
+            var producerConfig = configuration.GetSection("producerConf").Get<ProducerConfig>();
+            producerConfig.SecurityProtocol = SecurityProtocol.Ssl;
+            producerConfig.SslKeyLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.key";
+            producerConfig.SslKeyPassword = "confluent";
+            producerConfig.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
+            producerConfig.SslCertificateLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
+            producerConfig.EnableSslCertificateVerification = true;
+            
+            ProducerBuilder<string, int> builder = new(producerConfig);
             
             builder.SetErrorHandler((_, error) =>
             {
