@@ -12,3 +12,6 @@ echo -e "Stop cp-demo in $CP_DEMO_HOME and monitoring stack in $MONITORING_STACK
 echo -e "Compose ENV Var: ${COMPOSE_FILE}"
 
 (cd $CP_DEMO_HOME && ./scripts/stop.sh)
+
+GRAFANA_IMPORT_FOLDER=${MONITORING_STACK}/assets/grafana/provisioning/import
+rm -rf ${GRAFANA_IMPORT_FOLDER}

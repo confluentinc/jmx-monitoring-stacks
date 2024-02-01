@@ -1,9 +1,55 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -19,18 +65,17 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 10,
-  "iteration": 1632254575966,
+  "id": null,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -40,12 +85,23 @@
       },
       "id": 29,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Overview",
       "type": "row"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Average number of active queries per server.",
       "fieldConfig": {
         "defaults": {
@@ -88,7 +144,6 @@
         "y": 1
       },
       "id": 18,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -106,9 +161,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "instant": true,
           "interval": "",
@@ -116,14 +175,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Active Queries",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Num of created queries",
       "fieldConfig": {
         "defaults": {
@@ -166,7 +225,6 @@
         "y": 1
       },
       "id": 20,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -184,23 +242,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Running Queries",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Num of persisted queries",
       "fieldConfig": {
         "defaults": {
@@ -243,7 +305,6 @@
         "y": 1
       },
       "id": 2,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -261,23 +322,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_num_persistent_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total Persisted Queries",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Num of rebalancing queries",
       "fieldConfig": {
         "defaults": {
@@ -320,7 +385,6 @@
         "y": 1
       },
       "id": 16,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -338,23 +402,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_rebalancing_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Rebalancing Queries",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Number of error query",
       "fieldConfig": {
         "defaults": {
@@ -397,7 +465,6 @@
         "y": 1
       },
       "id": 4,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -415,23 +482,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "avg by (ksql_cluster)(ksql_ksql_engine_query_stats_error_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Queries in Error State",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Num of idle queries",
       "fieldConfig": {
         "defaults": {
@@ -474,7 +545,6 @@
         "y": 1
       },
       "id": 19,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -492,28 +562,35 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_num_idle_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Idle Queries",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
-            "displayMode": "auto",
-            "filterable": false
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -565,12 +642,25 @@
       },
       "id": 23,
       "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "ksql_ksql_metrics_ksql_queries_query_status{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
           "format": "table",
           "instant": true,
@@ -579,8 +669,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Queries Status",
       "transformations": [
         {
@@ -608,8 +696,10 @@
       "type": "table"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Num of not running queries",
       "fieldConfig": {
         "defaults": {
@@ -652,7 +742,6 @@
         "y": 5
       },
       "id": 5,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -670,23 +759,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_not_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Stopped Queries",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Num of running queries",
       "fieldConfig": {
         "defaults": {
@@ -729,7 +822,6 @@
         "y": 5
       },
       "id": 15,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -747,23 +839,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum by (ksql_cluster)(ksql_ksql_engine_query_stats_pending_shutdown_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{ksql_cluster}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Currently Shutting Down Queries",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Cluster liveness",
       "fieldConfig": {
         "defaults": {
@@ -771,6 +867,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -782,6 +881,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -826,7 +926,6 @@
         "y": 9
       },
       "id": 17,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -835,28 +934,35 @@
             "lastNotNull"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "ksql_ksql_engine_query_stats_liveness_indicator{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Cluster liveness",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Message consumed/sec",
       "fieldConfig": {
         "defaults": {
@@ -864,6 +970,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -875,6 +984,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -926,28 +1036,35 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "ksql_ksql_engine_query_stats_messages_consumed_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Message consumed/sec",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Message produced/sec",
       "fieldConfig": {
         "defaults": {
@@ -955,6 +1072,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -966,6 +1086,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1017,32 +1138,35 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "irate(ksql_ksql_engine_query_stats_messages_produced_per_sec{job=\"ksqldb\", env=\"$env\", ksql_cluster=~\"$ksqldb_cluster_id\", instance=~\"$instance\"}[5m])",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Message produced/sec",
       "type": "timeseries"
     },
     {
       "collapsed": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1052,11 +1176,23 @@
       },
       "id": 33,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "System",
       "type": "row"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1097,8 +1233,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1125,7 +1260,8 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single"
@@ -1134,19 +1270,24 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "irate(process_cpu_seconds_total{job=\"ksqldb\", env=\"$env\", instance=~\"$instance\"}[5m])",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "CPU Usage",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1187,8 +1328,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1215,7 +1355,8 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single"
@@ -1224,25 +1365,34 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum without(area)(jvm_memory_bytes_used{job=\"ksqldb\", env=\"$env\",instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "Used:{{instance}}",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "jvm_memory_bytes_max{job=\"ksqldb\",env=\"$env\",area=\"heap\"}",
           "interval": "",
           "legendFormat": "Max:{{instance}}",
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "JVM Memory Used",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1285,8 +1435,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1313,7 +1462,8 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single"
@@ -1322,23 +1472,24 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"ksqldb\", env=\"$env\", instance=~\"$instance\"}[5m]))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Time spent in GC",
       "type": "timeseries"
     },
     {
       "collapsed": true,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1349,7 +1500,10 @@
       "id": 31,
       "panels": [
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1390,8 +1544,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1418,7 +1571,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1427,6 +1581,10 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_poll_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "format": "time_series",
               "hide": false,
@@ -1436,17 +1594,22 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "refId": "C"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Poll Latency (Avg)",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1487,8 +1650,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1511,7 +1673,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1520,20 +1683,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_poll_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}_max",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Poll Latency (Max)",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1574,8 +1742,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1598,7 +1765,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1607,6 +1775,10 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_process_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "format": "time_series",
               "instant": false,
@@ -1615,14 +1787,15 @@
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Process Latency (Avg)",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1663,8 +1836,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1687,7 +1859,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1696,20 +1869,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_process_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}_max",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Process Latency Max",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1750,8 +1928,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1774,7 +1951,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1783,6 +1961,10 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_commit_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "format": "time_series",
               "instant": false,
@@ -1791,14 +1973,15 @@
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Commit Latency (Avg)",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1839,8 +2022,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1863,7 +2045,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1872,6 +2055,10 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_commit_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "format": "time_series",
               "instant": false,
@@ -1880,14 +2067,15 @@
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Commit Latency (Max)",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1928,8 +2116,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1952,7 +2139,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1961,6 +2149,10 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_avg{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "format": "time_series",
               "instant": false,
@@ -1969,14 +2161,15 @@
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Punctuate Latency (Avg)",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2017,8 +2210,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2060,7 +2252,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2069,17 +2262,28 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_thread_metrics_punctuate_latency_max{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}_max",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Punctuate Latency (Max)",
           "transformations": [],
           "type": "timeseries"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
         }
       ],
       "title": "Queries Performance",
@@ -2087,10 +2291,9 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -2101,7 +2304,10 @@
       "id": 40,
       "panels": [
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2143,8 +2349,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2171,7 +2376,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2180,20 +2386,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Put Rate",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2234,8 +2445,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2262,7 +2472,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2271,20 +2482,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Put average latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2325,8 +2541,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2353,7 +2568,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2362,20 +2578,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Put max latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2417,8 +2638,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2445,7 +2665,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2454,20 +2675,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Put if absent rate",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2508,8 +2734,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2536,7 +2761,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2545,20 +2771,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Put if absent average latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2599,8 +2830,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2627,7 +2857,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2636,20 +2867,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_if_absent_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Put if absent max latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2691,8 +2927,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2719,7 +2954,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2728,20 +2964,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_fetch_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Fetch Rate",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2782,8 +3023,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2810,7 +3050,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2819,20 +3060,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Fetch average latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2873,8 +3119,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2901,7 +3146,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -2910,20 +3156,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_put_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Fetch max latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2965,8 +3216,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2993,7 +3243,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -3002,20 +3253,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_delete_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Delete Rate",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3056,8 +3312,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3084,7 +3339,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -3093,20 +3349,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_delete_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Delete average latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3147,8 +3408,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3175,7 +3435,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -3184,20 +3445,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_delete_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Delete max latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3239,8 +3505,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3267,7 +3532,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -3276,20 +3542,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_restore_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Restore Rate",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3330,8 +3601,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3358,7 +3628,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -3367,20 +3638,25 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_restore_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Restore average latency",
           "transformations": [],
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3421,8 +3697,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3449,7 +3724,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -3458,17 +3734,28 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "kafka_streams_stream_state_metrics_restore_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Restore max latency",
           "transformations": [],
           "type": "timeseries"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
         }
       ],
       "title": "StateStore Metric",
@@ -3476,22 +3763,17 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 30,
-  "style": "dark",
+  "schemaVersion": 38,
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,env)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -3512,16 +3794,12 @@
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Cluster ID",
@@ -3542,16 +3820,12 @@
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,instance)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -3593,5 +3867,6 @@
   "timezone": "",
   "title": "ksqlDB cluster",
   "uid": "pbx34foGk",
-  "version": 1
+  "version": 1,
+  "weekStart": ""
 }
