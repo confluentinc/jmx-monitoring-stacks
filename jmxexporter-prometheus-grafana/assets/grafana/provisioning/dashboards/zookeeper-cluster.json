@@ -1,9 +1,49 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -19,14 +59,17 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1699450083916,
+  "id": null,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -34,12 +77,23 @@
         "y": 0
       },
       "id": 22,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Health Check",
       "type": "row"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Quorum Size of Zookeeper ensemble",
       "fieldConfig": {
         "defaults": {
@@ -85,7 +139,6 @@
         "y": 1
       },
       "id": 2,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -103,9 +156,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "count(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
@@ -113,14 +170,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Zookeeper nodes online",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Number of Alive Connections",
       "fieldConfig": {
         "defaults": {
@@ -166,7 +223,6 @@
         "y": 1
       },
       "id": 4,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -184,22 +240,27 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum(zookeeper_numaliveconnections{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Alive Connections",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Number of queued requests in the server. This goes up when the server receives more requests than it can process",
       "fieldConfig": {
         "defaults": {
@@ -207,6 +268,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -218,6 +282,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -270,15 +335,21 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "zookeeper_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
@@ -286,14 +357,14 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Outstanding Requests",
       "type": "timeseries"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -331,7 +402,6 @@
         "y": 5
       },
       "id": 3,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -349,9 +419,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "avg(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
@@ -359,14 +433,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Number of ZNodes",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Number of Watchers",
       "fieldConfig": {
         "defaults": {
@@ -412,7 +486,6 @@
         "y": 5
       },
       "id": 5,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -430,9 +503,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "sum(zookeeper_watchcount{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
@@ -440,13 +517,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Number of Watchers",
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -454,11 +532,23 @@
         "y": 9
       },
       "id": 20,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "System",
       "type": "row"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -466,6 +556,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -477,6 +570,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -523,28 +617,35 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "irate(process_cpu_seconds_total{job=\"zookeeper\",env=\"$env\"}[5m])*100",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "CPU Usage",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -552,6 +653,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -563,6 +667,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -610,34 +715,45 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "Used:{{instance}}",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "jvm_memory_bytes_max{job=\"zookeeper\",env=\"$env\",area=\"heap\"}",
           "interval": "",
           "legendFormat": "Max:{{instance}}",
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "JVM Memory Used",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -645,6 +761,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -656,6 +775,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -704,28 +824,35 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"zookeeper\",env=\"$env\"}[5m]))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Time spent in GC",
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -733,11 +860,23 @@
         "y": 17
       },
       "id": 18,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Request Latency",
       "type": "row"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
@@ -745,6 +884,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -756,6 +898,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -800,28 +943,35 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "zookeeper_minrequestlatency{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Request Latency - Minimum",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
@@ -829,6 +979,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -840,6 +993,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -884,15 +1038,21 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "zookeeper_avgrequestlatency{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
@@ -900,13 +1060,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Request Latency - Average",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "Amount of time it takes for the server to respond to a client request",
       "fieldConfig": {
         "defaults": {
@@ -914,6 +1075,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -925,6 +1089,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -968,44 +1133,43 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "expr": "zookeeper_maxrequestlatency{job=\"zookeeper\",env=\"$env\"}",
           "interval": "",
           "legendFormat": "{{server_id}}:{{member_type}} ({{instance}})",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Request Latency - Maximum",
       "type": "timeseries"
     }
   ],
   "refresh": "",
-  "schemaVersion": 30,
-  "style": "dark",
+  "schemaVersion": 38,
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(env)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -1047,5 +1211,6 @@
   "timezone": "",
   "title": "Zookeeper cluster",
   "uid": "H4xS98vWk",
-  "version": 5
+  "version": 1,
+  "weekStart": ""
 }

@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,7 +67,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -44,7 +87,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Total tier size",
       "fieldConfig": {
@@ -101,7 +144,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -116,7 +159,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -135,7 +178,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Rate of bytes per second that is being uploaded by the archiver to cloud storage",
       "fieldConfig": {
@@ -144,6 +187,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -157,6 +201,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -216,7 +261,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -234,7 +279,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of times the archiver has reattempted to upload a non-active segment to cloud storage",
       "fieldConfig": {
@@ -243,6 +288,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -256,6 +302,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -315,7 +362,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -333,7 +380,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of bytes in non-active segments not yet uploaded by the archiver to cloud storage",
       "fieldConfig": {
@@ -342,6 +389,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -355,6 +403,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -414,7 +463,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -432,7 +481,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of partitions that the archiver was unable to upload that are in an error state",
       "fieldConfig": {
@@ -496,13 +545,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.5.15",
+      "pluginVersion": "10.2.0",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_tier_tasks_tiertasks_numpartitionsinerror{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
@@ -533,7 +582,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Total tier size",
       "fieldConfig": {
@@ -542,6 +591,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -555,6 +605,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -618,7 +669,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -635,7 +686,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Total tier size",
       "fieldConfig": {
@@ -692,7 +743,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -707,7 +758,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -726,19 +777,14 @@
   ],
   "refresh": "1m",
   "schemaVersion": 38,
-  "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(env)",
         "hide": 0,
@@ -761,14 +807,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
         "hide": 0,
@@ -788,18 +830,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "test-topic"
-          ],
-          "value": [
-            "test-topic"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_log_log_size{env=\"${env}\",instance=~\"$instance\"},topic)",
         "hide": 0,

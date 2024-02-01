@@ -1,4 +1,35 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,7 +55,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 15,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -32,7 +63,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -46,7 +77,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -57,7 +88,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Quorum Size of Zookeeper ensemble",
       "fieldConfig": {
@@ -126,7 +157,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "count(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
@@ -141,7 +172,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -202,7 +233,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "avg(zookeeper_nodecount{job=\"zookeeper\",env=\"$env\"})",
@@ -217,7 +248,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of Alive Connections",
       "fieldConfig": {
@@ -286,7 +317,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "expr": "sum(zookeeper_numaliveconnections{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
@@ -300,7 +331,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of Watchers",
       "fieldConfig": {
@@ -369,7 +400,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(zookeeper_watchcount{job=\"zookeeper\",env=\"$env\"})",
@@ -384,7 +415,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of Alive Connections",
       "fieldConfig": {
@@ -453,7 +484,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "zookeeper_outstandingrequests{job=\"zookeeper\",env=\"$env\"}",
@@ -470,7 +501,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -484,7 +515,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -495,7 +526,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of active controllers in the cluster.",
       "fieldConfig": {
@@ -560,7 +591,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "kafka_controller_kafkacontroller_activecontrollercount{job=\"kafka-broker\",env=\"$env\"} > 0",
@@ -578,7 +609,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of Brokers Online",
       "fieldConfig": {
@@ -648,7 +679,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "count(kafka_server_replicamanager_leadercount{job=\"kafka-broker\",env=\"$env\"})",
@@ -666,7 +697,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Partitions that are online",
       "fieldConfig": {
@@ -735,7 +766,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_server_replicamanager_partitioncount{job=\"kafka-broker\",env=\"$env\"})",
@@ -753,7 +784,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of under-replicated partitions (| ISR | < | all replicas |).",
       "fieldConfig": {
@@ -822,7 +853,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{job=\"kafka-broker\",env=\"$env\"})",
@@ -841,7 +872,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of partitions under min insync replicas.",
       "fieldConfig": {
@@ -910,7 +941,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_cluster_partition_underminisr{job=\"kafka-broker\",env=\"$env\"})",
@@ -929,7 +960,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of partitions that dont have an active leader and are hence not writable or readable.",
       "fieldConfig": {
@@ -998,7 +1029,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{job=\"kafka-broker\",env=\"$env\"})",
@@ -1017,7 +1048,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1031,7 +1062,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -1042,7 +1073,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1090,7 +1121,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "count(kafka_schema_registry_registered_count{job=\"schema-registry\",env=\"$env\"})",
@@ -1106,7 +1137,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1150,7 +1181,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_schema_registry_registered_count{job=\"schema-registry\",env=\"$env\"})",
@@ -1166,7 +1197,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1210,7 +1241,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_schema_registry_schemas_deleted{job=\"schema-registry\",env=\"$env\"})",
@@ -1227,7 +1258,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1242,7 +1273,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -1253,7 +1284,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1299,7 +1330,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "count(kafka_connect_connect_worker_metrics_connector_count{env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"})",
@@ -1315,7 +1346,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1361,7 +1392,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"})",
@@ -1377,7 +1408,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1423,7 +1454,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"})",
@@ -1439,7 +1470,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1489,7 +1520,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -1505,7 +1536,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1555,7 +1586,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -1571,7 +1602,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Time since last rebalance",
       "fieldConfig": {
@@ -1636,7 +1667,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=\"$env\",job=\"connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
@@ -1655,7 +1686,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1670,7 +1701,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -1681,7 +1712,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Average number of active queries per server.",
       "fieldConfig": {
@@ -1746,7 +1777,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "count(ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\"})",
@@ -1762,7 +1793,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Average number of active queries per server.",
       "fieldConfig": {
@@ -1827,7 +1858,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "avg(ksql_ksql_engine_query_stats_num_active_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\"})",
@@ -1843,7 +1874,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Num of created queries",
       "fieldConfig": {
@@ -1908,7 +1939,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "avg(ksql_ksql_engine_query_stats_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\"})",
@@ -1923,7 +1954,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Num of rebalancing queries",
       "fieldConfig": {
@@ -1988,7 +2019,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(ksql_ksql_engine_query_stats_rebalancing_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\"})",
@@ -2003,7 +2034,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of error query",
       "fieldConfig": {
@@ -2068,7 +2099,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "avg(ksql_ksql_engine_query_stats_error_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\"})",
@@ -2083,7 +2114,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Num of not running queries",
       "fieldConfig": {
@@ -2148,7 +2179,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(ksql_ksql_engine_query_stats_not_running_queries{job=\"ksqldb\", env=\"$env\", ksql_cluster=\"$ksqldb_cluster_id\"})",
@@ -2167,14 +2198,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(env)",
         "hide": 0,
@@ -2194,14 +2221,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "cluster1",
-          "value": "cluster1"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_connect_cluster_id)",
         "hide": 0,
@@ -2221,14 +2244,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "ksql-cluster",
-          "value": "ksql-cluster"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(ksql_ksql_engine_query_stats_liveness_indicator,ksql_cluster)",
         "hide": 0,
@@ -2257,6 +2276,6 @@
   "timezone": "",
   "title": "Confluent Platform overview",
   "uid": "JiqnBMNnz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

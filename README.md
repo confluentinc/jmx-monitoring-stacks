@@ -146,7 +146,7 @@ To run a lightweight dev environment:
 1. `cd dev-toolkit`
 2. Put your new dashboards into the `grafana-wip` folder
 3. `start.sh` -> It will create a minimal environment with a KRaft cluster, prometheus, grafana and a spring based java client
-4. For Grafana, go to http://localhost:3000, login with _admin/grafana_
+4. For Grafana, go to http://localhost:3000, login with _admin/password_
 5. `stop.sh`
 
 ## Run with profiles

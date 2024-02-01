@@ -1,6 +1,7 @@
 .DS_Store
 *.idea
 jmxexporter-prometheus-grafana/assets/security/
+jmxexporter-prometheus-grafana/assets/grafana/import/
 jmxexporter-newrelic/assets/security/
 metricbeat-elastic-kibana/assets/security/
 jolokia-telegraf-influxdb/assets/security/

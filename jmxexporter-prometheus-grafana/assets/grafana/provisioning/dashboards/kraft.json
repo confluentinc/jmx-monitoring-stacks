@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,7 +61,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -44,7 +81,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -161,7 +198,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "max(kafka_server_raft_metrics_high_watermark{env=\"$env\", job=\"kafka-controller\"})",
@@ -190,7 +227,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "When using KRaft, the number of registered and unfenced brokers as observed by this controller.",
       "fieldConfig": {
@@ -259,7 +296,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "sum(kafka_controller_kafkacontroller_activebrokercount{env=\"$env\", job=\"kafka-controller\"})/count(kafka_controller_kafkacontroller_activebrokercount{env=\"$env\", job=\"kafka-controller\"})",
@@ -275,7 +312,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "When using KRaft, the number of registered but fenced brokers as observed by this controller.",
       "fieldConfig": {
@@ -344,7 +381,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "max(kafka_controller_kafkacontroller_fencedbrokercount{env=\"$env\", job=\"kafka-controller\"})",
@@ -360,7 +397,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "When using KRaft, the number of registered and unfenced brokers as observed by this controller.",
       "fieldConfig": {
@@ -465,7 +502,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_controller_kafkacontroller_activebrokercount{env=\"$env\", job=\"kafka-controller\"}",
@@ -483,7 +520,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -497,7 +534,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -508,7 +545,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The current quorum leader’s id; -1 indicates unknown.",
       "fieldConfig": {
@@ -577,7 +614,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "sum(kafka_server_raft_metrics_current_leader{env=\"$env\", job=\"kafka-controller\"})/count(kafka_server_raft_metrics_current_leader{env=\"$env\", job=\"kafka-controller\"})",
@@ -593,7 +630,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The current quorum epoch.",
       "fieldConfig": {
@@ -662,7 +699,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "max(kafka_server_raft_metrics_current_epoch{env=\"$env\", job=\"kafka-controller\"})",
@@ -678,7 +715,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of times this controller node has encountered an error during metadata log processing.",
       "fieldConfig": {
@@ -747,7 +784,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "max(kafka_controller_kafkacontroller_metadataerrorcount{env=\"$env\", job=\"kafka-controller\"})",
@@ -775,7 +812,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The difference between now and the timestamp of the last record from the cluster metadata partition that was applied by the controller. For active controllers the value of this lag is always zero.",
       "fieldConfig": {
@@ -830,8 +867,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -873,7 +909,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_controller_kafkacontroller_lastappliedrecordlagms{env=\"$env\", job=\"kafka-controller\"}",
@@ -889,7 +925,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The average number of records appended per sec by the leader of the raft quorum.",
       "fieldConfig": {
@@ -944,8 +980,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -987,7 +1022,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_server_raft_metrics_append_records_rate{env=\"$env\", job=\"kafka-controller\"}",
@@ -1003,7 +1038,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The average number of records fetched from the leader of the raft quorum.",
       "fieldConfig": {
@@ -1058,8 +1093,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1101,7 +1135,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_server_raft_metrics_fetch_records_rate{env=\"$env\", job=\"kafka-controller\"}",
@@ -1117,7 +1151,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The maximum time in milliseconds spent on electing a new leader.",
       "fieldConfig": {
@@ -1172,8 +1206,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1215,7 +1248,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_server_raft_metrics_election_latency_max{env=\"$env\", job=\"kafka-controller\"}",
@@ -1231,7 +1264,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The average time in milliseconds to commit an entry in the raft log.",
       "fieldConfig": {
@@ -1286,8 +1319,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1329,7 +1361,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_server_raft_metrics_commit_latency_avg{env=\"$env\", job=\"kafka-controller\"}",
@@ -1345,7 +1377,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The max time in milliseconds to commit an entry in the raft log.",
       "fieldConfig": {
@@ -1400,8 +1432,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
-                "value": null
+                "color": "dark-green"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1443,7 +1474,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "kafka_server_raft_metrics_commit_latency_max{env=\"$env\", job=\"kafka-controller\"}",
@@ -1459,7 +1490,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1472,7 +1503,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -1483,7 +1514,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -1529,8 +1560,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1566,7 +1596,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "irate(process_cpu_seconds_total{job=\"kafka-controller\",env=\"$env\"}[5m])*100",
@@ -1582,7 +1612,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -1629,8 +1659,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1666,7 +1695,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "sum without(area)(jvm_memory_bytes_used{job=\"kafka-controller\",env=\"$env\"})",
@@ -1678,7 +1707,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "jvm_memory_bytes_max{job=\"kafka-controller\",env=\"$env\",area=\"heap\"}",
@@ -1694,7 +1723,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -1742,8 +1771,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1779,7 +1807,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"kafka-controller\",env=\"$env\"}[5m]))",
@@ -1799,14 +1827,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(env)",
         "hide": 0,
@@ -1850,6 +1874,6 @@
   "timezone": "",
   "title": "KRaft",
   "uid": "e54aafd3-7319-43f1-9936-ea3ddaf64fed",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

@@ -1,9 +1,49 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -20,15 +60,18 @@
   },
   "description": "Monitor Confluent Oracle CDC connector",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1696242847587,
+  "id": null,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -37,11 +80,23 @@
       },
       "id": 139,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Oracle CDC",
       "type": "row"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -86,9 +141,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"streaming-lag-from-source-in-milliseconds\"}",
           "format": "time_series",
@@ -100,13 +159,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current Streaming Lag From Source",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -114,6 +174,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -125,6 +188,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -172,15 +236,21 @@
             "max"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"streaming-lag-from-source-in-milliseconds\"}",
           "format": "time_series",
@@ -192,13 +262,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Streaming Lag From Source",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -243,9 +314,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"offset-scn\"}) by (connector) - sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"current-scn\"}) by (connector)",
           "hide": false,
@@ -255,14 +330,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "current-scn - offset-scn",
       "transformations": [],
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -270,6 +346,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -281,6 +360,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -324,15 +404,21 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"offset-scn\"}) by (connector) - sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"current-scn\"}) by (connector)",
           "hide": false,
@@ -342,14 +428,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "current-scn - offset-scn",
       "transformations": [],
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -394,9 +481,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"logmining-session-redo-log-files-count\"}",
           "format": "time_series",
@@ -408,13 +499,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Count of redo log files in log miner session",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -422,6 +514,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -433,6 +528,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -476,15 +572,21 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"logmining-session-redo-log-files-count\"}",
           "format": "time_series",
@@ -496,13 +598,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Count of redo log files in log miner session",
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -547,9 +650,13 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"logmining-session-end-scn\"}) by (connector) - sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"logmining-session-start-scn\"}) by (connector)",
           "format": "time_series",
@@ -561,14 +668,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current Log Mining Range (mining_end_scn - mining_start_scn)",
       "transformations": [],
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -576,6 +684,9 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -587,6 +698,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -630,15 +742,21 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"logmining-session-end-scn\"}) by (connector) - sum(kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"logmining-session-start-scn\"}) by (connector)",
           "format": "time_series",
@@ -650,14 +768,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Log Mining Range (mining_end_scn - mining_start_scn)",
       "transformations": [],
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -670,8 +789,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -705,6 +823,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"count-active-transactions-in-buffer\"}",
           "format": "time_series",
@@ -716,13 +838,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Active Transactions in Buffer",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -735,8 +858,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -770,6 +892,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"age-of-oldest-transaction-in-buffer-in-milliseconds\"}",
           "format": "time_series",
@@ -781,13 +907,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current Age of Oldest Transaction in Buffer",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -800,8 +927,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -835,6 +961,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"count-processed-transactions-in-cache\"}",
           "format": "time_series",
@@ -846,13 +976,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Processed Transactions in Cache",
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -893,8 +1024,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -918,7 +1048,8 @@
             "max"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single"
@@ -927,6 +1058,10 @@
       "pluginVersion": "8.1.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "exemplar": true,
           "expr": "kafka_connect_oracle_cdc_source_task_metrics_context_streaming_number{client_type=\"connect.oracle.cdc\", connector=~\"$connector\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\", env=~\"$env\", instance=~\"$instance\", job=\"kafka-connect\", name=\"age-of-oldest-transaction-in-buffer-in-milliseconds\"}",
           "format": "time_series",
@@ -938,14 +1073,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Age of Oldest Transaction in Buffer",
       "type": "timeseries"
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -955,7 +1091,10 @@
       "id": 221,
       "panels": [
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -995,8 +1134,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1023,7 +1161,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1032,6 +1171,10 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "exemplar": true,
               "expr": "rate(process_cpu_seconds_total{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"}[5m])",
               "interval": "",
@@ -1039,13 +1182,14 @@
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "CPU Usage",
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1085,8 +1229,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1113,7 +1256,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1122,25 +1266,34 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "sum without(area)(jvm_memory_bytes_used{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"})",
               "interval": "",
               "legendFormat": "{{kafka_connect_cluster_id}}-{{instance}}",
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "jvm_memory_bytes_max{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\",area=\"heap\"}",
               "interval": "",
               "legendFormat": "{{instance}}",
               "refId": "B"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "JVM Memory Used",
           "type": "timeseries"
         },
         {
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1182,8 +1335,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1210,7 +1362,8 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1219,16 +1372,27 @@
           "pluginVersion": "8.1.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${Prometheus}"
+              },
               "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"}[5m]))",
               "interval": "",
               "legendFormat": "{{kafka_connect_cluster_id}}-{{instance}}",
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "JVM GC time",
           "type": "timeseries"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "refId": "A"
         }
       ],
       "title": "System",
@@ -1236,22 +1400,18 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 30,
-  "style": "dark",
+  "schemaVersion": 38,
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": ".+",
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(kafka_connect_app_info,env)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -1273,19 +1433,12 @@
       },
       {
         "allValue": ".+",
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(kafka_connect_app_info,kafka_connect_cluster_id)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Cluster ID",
@@ -1306,16 +1459,12 @@
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(kafka_connect_app_info{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -1336,20 +1485,12 @@
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Prometheus}"
         },
-        "datasource": "Prometheus",
         "definition": "label_values(kafka_connect_connector_task_metrics_pause_ratio{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},connector)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Connector name",
@@ -1403,5 +1544,6 @@
   "timezone": "",
   "title": "Confluent Oracle CDC",
   "uid": "AEaSQ97yz",
-  "version": 2
+  "version": 1,
+  "weekStart": ""
 }

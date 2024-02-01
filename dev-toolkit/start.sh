@@ -4,12 +4,43 @@
 docker_args=("$@")
 echo "docker_args: ${docker_args[@]}"
 
+mkdir -p assets/prometheus
+mkdir -p assets/grafana/provisioning/dashboards assets/grafana/provisioning/datasources
+
+echo -e "Create dashboards for auto import in grafana"
+MONITORING_STACK=../jmxexporter-prometheus-grafana
+GRAFANA_IMPORT_FOLDER=${MONITORING_STACK}/assets/grafana/provisioning/import
+mkdir -p ${GRAFANA_IMPORT_FOLDER}/dashboards ${GRAFANA_IMPORT_FOLDER}/datasources
+cp -rf ${MONITORING_STACK}/assets/grafana/provisioning/datasources/datasource.yml ${GRAFANA_IMPORT_FOLDER}/datasources/datasource.yml
+cp -rf ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/dashboard.yml ${GRAFANA_IMPORT_FOLDER}/dashboards/dashboard.yml
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/cluster-linking.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/cluster-linking.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-oracle-cdc.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-oracle-cdc.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-platform.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-platform.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-rbac.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-rbac.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/rest-proxy.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/rest-proxy.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-connect-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-connect-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-consumer.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-consumer.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-lag-exporter.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-lag-exporter.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-producer.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-producer.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-quotas.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-quotas.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-stream.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-stream.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-streams-rocksdb.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-streams-rocksdb.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-topics.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-topics.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-transaction-coordinator.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-transaction-coordinator.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kraft.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/kraft.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/ksqldb-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/ksqldb-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/replicator.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/replicator.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/schema-registry-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/schema-registry-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/tiered-storage.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/tiered-storage.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/zookeeper-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/zookeeper-cluster.json
+
 # Copy needed files in the current folder
 cp -R ../shared-assets/jmx-exporter .
-cp -R ../jmxexporter-prometheus-grafana/assets .
+cp -R ${MONITORING_STACK}/assets/prometheus/prometheus-config ./assets/prometheus
+cp -R ${GRAFANA_IMPORT_FOLDER}/dashboards/* ./assets/grafana/provisioning/dashboards
+cp -R ${GRAFANA_IMPORT_FOLDER}/datasources/* ./assets/grafana/provisioning/datasources
 
-# Copy WIP dashboards
-cp ./grafana-wip/* ./assets/grafana/provisioning/dashboards
 
 # ADD client monitoring to prometheus config
 cat <<EOF >> assets/prometheus/prometheus-config/prometheus.yml
@@ -37,7 +68,7 @@ EOF
 docker-compose ${docker_args[@]} -f docker-compose.yaml -f docker-compose.replicator.yaml up -d
 
 # Look at Grafana dashboards
-echo -e "\nView Grafana dashboards at (admin/grafana) ->"
+echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"
 
 # if docker_args contains replicator, then start the replicator

@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,14 +61,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 12,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -110,7 +147,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "avg(confluent_replicator_task_metrics_latency{topic_name=~\"$topic\", instance=~\"$instance\", name=~\"$connector\", env=~\"$env\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0) by (topic_name)",
@@ -125,7 +162,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -204,7 +241,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "expr": "avg(confluent_replicator_task_metrics_message_lag{topic_name=~\"$topic\", instance=~\"$instance\", name=~\"$connector\", env=~\"$env\", kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0) by (topic_name)",
@@ -219,7 +256,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -361,12 +398,12 @@
           }
         ]
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -380,7 +417,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -395,7 +432,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -454,11 +491,11 @@
     {
       "_datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -600,12 +637,12 @@
           }
         ]
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -619,7 +656,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -634,7 +671,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -693,7 +730,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -835,12 +872,12 @@
           }
         ]
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -854,7 +891,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -869,7 +906,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -928,7 +965,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1070,12 +1107,12 @@
           }
         ]
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1089,7 +1126,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1104,7 +1141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1161,25 +1198,17 @@
       "type": "table"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(confluent_replicator_task_metrics_latency, topic_name)",
         "hide": 0,
@@ -1200,14 +1229,10 @@
       },
       {
         "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(confluent_replicator_task_metrics_latency, instance)",
         "description": "",
@@ -1229,14 +1254,10 @@
       },
       {
         "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(confluent_replicator_task_metrics_latency, name)",
         "description": "",
@@ -1257,18 +1278,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(confluent_replicator_task_metrics_info,env)",
         "hide": 0,
@@ -1289,18 +1302,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(confluent_replicator_task_metrics_info,kafka_connect_cluster_id)",
         "hide": 0,
@@ -1323,13 +1328,13 @@
     ]
   },
   "time": {
-    "from": "2024-01-11T17:56:19.933Z",
-    "to": "2024-01-11T17:58:28.830Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Replicator",
   "uid": "y36zygoVzqwe",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

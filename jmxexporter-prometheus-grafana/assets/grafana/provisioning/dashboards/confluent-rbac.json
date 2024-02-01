@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -25,7 +62,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 17,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -33,7 +70,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -47,7 +84,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -58,7 +95,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "Number of active writers in the metadata cluster. Alert if the sum is any number other than one because there should be exactly one writer in the metadata cluster.",
       "fieldConfig": {
@@ -112,7 +149,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum(confluent_metadata_kafkaauthstore{job=\"kafka-broker\", env=\"$env\", name=\"active-writer-count\"})",
@@ -127,7 +164,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of role bindings defined. This metric is useful in cases where you need to know the exact number of role bindings that exist.",
       "fieldConfig": {
@@ -185,7 +222,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "topk(1, sum(confluent_auth_store_metrics_rbac_role_bindings_count{job=\"kafka-broker\", instance=~\"$instance\", env=\"$env\"}) by (instance))",
@@ -200,7 +237,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of RBAC access rules defined. This metric is useful in cases where you need to know the exact number of RBAC access rules that exist. Access rules allow or deny access to specific resources within a specific scope, unlike role bindings, which assign an RBAC role for a specific resource to a specific principal.",
       "fieldConfig": {
@@ -283,7 +320,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -300,7 +337,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of ACL access rules defined. This metric is useful in cases where you need to know the exact number of ACLs that exist.",
       "fieldConfig": {
@@ -383,7 +420,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -400,7 +437,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of seconds since the last failure in the consumer that processes authentication or authorization metadata from the topics in the metadata cluster. This is reset to zero after the next successful metadata refresh. This metric is available on all brokers configured to use RBAC. Alert if value is greater than zero.",
       "fieldConfig": {
@@ -483,7 +520,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "confluent_metadata_kafkaauthstore{job=\"kafka-broker\", env=\"$env\", instance=~\"$instance\", name=\"reader-failure-start-seconds-ago\"}",
@@ -498,7 +535,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of seconds since the last failed attempt to process metadata from the LDAP server. This is reset to zero on the next successful metadata refresh. This metric is available on brokers in the metadata cluster if LDAP group-based authorization is enabled. Alert if value is greater than zero.",
       "fieldConfig": {
@@ -581,7 +618,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "confluent_metadata_ldapgroupmanager{job=\"kafka-broker\", env=\"$env\", instance=~\"$instance\", name=\"failure-start-seconds-ago\"}",
@@ -596,7 +633,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The average number of records sent per second to the metadata topic partitions.",
       "fieldConfig": {
@@ -642,8 +679,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -679,7 +715,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "confluent_metadata_kafkaauthstore{job=\"kafka-broker\", env=\"$env\", instance=~\"$instance\", name=\"record-send-rate\"}",
@@ -694,7 +730,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of seconds since the last failure in the writer that updates authentication or authorization metadata on topics in the metadata cluster. This is reset to zero after the next successful metadata update. This metric is available on brokers in the metadata cluster. Alert if value is greater than zero.",
       "fieldConfig": {
@@ -740,8 +776,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -777,7 +812,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "confluent_metadata_kafkaauthstore{job=\"kafka-broker\", env=\"$env\", instance=~\"$instance\", name=\"writer-failure-start-seconds-ago\"}",
@@ -792,7 +827,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The number of seconds since the last failure in the metadata service, for example, due to LDAP refresh failures for a long duration. This is reset to zero when notification of successful refresh from the metadata service is processed. This metric is available on all brokers configured to use RBAC. Alert if value is greater than zero.",
       "fieldConfig": {
@@ -838,8 +873,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -875,7 +909,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "confluent_metadata_kafkaauthstore{job=\"kafka-broker\", env=\"$env\", instance=~\"$instance\", name=\"remote-failure-start-seconds-ago\"}",
@@ -890,7 +924,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The average number of record send attempts per second to the metadata topic partitions that failed.",
       "fieldConfig": {
@@ -936,8 +970,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -973,7 +1006,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "confluent_metadata_kafkaauthstore{job=\"kafka-broker\", env=\"$env\", instance=~\"$instance\", name=\"record-error-rate\"}",
@@ -993,14 +1026,10 @@
     "list": [
       {
         "allValue": ".+",
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_connect_app_info,env)",
         "hide": 0,
@@ -1023,14 +1052,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
         "hide": 0,
@@ -1086,6 +1111,6 @@
   "timezone": "",
   "title": "Confluent RBAC",
   "uid": "1r1vi9KSz",
-  "version": 5,
+  "version": 1,
   "weekStart": ""
 }
