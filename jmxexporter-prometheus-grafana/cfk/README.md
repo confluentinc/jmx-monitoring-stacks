@@ -1,6 +1,27 @@
 # Integration with `Confluent for Kubernetes` using the `kube-prometheus-stack`
 
-The [cfk](./cfk) folder contains a Prometheus PodMonitor that will query the JMX metrics for all components of the Confluent Platform.
+## Demo
+
+### Requirements
+
+- [kind](https://kind.sigs.k8s.io/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [helm](https://helm.sh/docs/intro/install/)
+
+### Run
+
+```
+./up.sh
+```
+
+### Stop
+
+```
+./teardown.sh
+```
+
+
+This folder contains a Prometheus PodMonitor that will query the JMX metrics for all components of the Confluent Platform.
 
 The Grafana dashboards need to be updated to use labels provided by Confluent for Kubernetes rather than the custom Prometheus labels for cp-demo.
 Use the `cfk/update-dashboards.sh` script to create a new set of Grafana dashboards with renamed labels, then add the Grafana dashboards to Kubernetes.
@@ -26,24 +47,4 @@ spec:
         # copy the blacklistObjectNames section from the jmx-exporter yaml configuration for the component.
       rules:
         # copy the rules section from the jmx-exporter yaml configuration for the component.
-```
-
-## Demo
-
-### Requirements
-
-- [kind](https://kind.sigs.k8s.io/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-- [helm](https://helm.sh/docs/intro/install/)
-
-### Run
-
-```
-./up.sh
-```
-
-### Stop
-
-```
-./teardown.sh
 ```
