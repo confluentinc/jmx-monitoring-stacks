@@ -1,0 +1,525 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Zookeeper
+metadata:
+  name: zookeeper
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-zookeeper:7.5.0
+    init: confluentinc/confluent-init-container:2.7.0
+  dataVolumeCapacity: 10Gi
+  logVolumeCapacity: 10Gi
+  podTemplate:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+  metrics:
+    prometheus:
+      whitelist:
+        - org.apache.ZooKeeperService:name3=Connections,*
+        - org.apache.ZooKeeperService:name3=InMemoryDataTree,*
+        - org.apache.ZooKeeperService:name0=*,name1=replica*,name2=*
+        - org.apache.ZooKeeperService:name0=*,name1=replica*
+        - org.apache.ZooKeeperService:name0=*
+        - org.apache.ZooKeeperService:name1=InMemoryDataTree,name0=*
+        - org.apache.ZooKeeperService:name0=*,name1=Connections,name2=*,name3=*
+      rules:
+        # Below rule applies for Zookeeper Cluster having multiple ZK nodes
+        # org.apache.ZooKeeperService:name0=*,name3=Connections,name1=*,name2=*,name4=*,name5=*
+        - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+), name3=Connections, name4=(.+), name5=(.+)><>([^:]+)"
+          name: zookeeper_connections_$6
+          cache: true
+          labels:
+            server_name: "$1"
+            server_id: $2
+            client_address: "$4"
+            connection_id: "$5"
+            member_type: "$3"
+        - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+)><>(\\w+): (\\d+)"
+          name: zookeeper_$4
+          cache: true
+          labels:
+            server_name: "$1"
+            server_id: $2
+            member_type: "$3"
+        # Below rule applies for Zookeeper Cluster having multiple ZK nodes
+        # org.apache.ZooKeeperService:name0=*,name3=InMemoryDataTree
+        - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+), name2=(\\w+), name3=InMemoryDataTree><>(WatchCount|NodeCount): (\\d+)"
+          name: zookeeper_inmemorydatatree_$4
+          type: GAUGE
+          cache: true
+          labels:
+            server_name: "$1"
+            server_id: $2
+            member_type: "$3"
+        # Below rule applies for Zookeeper Cluster having multiple ZK nodes
+        # org.apache.ZooKeeperService:name0=*,name1=replica*
+        - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=replica.(\\d+)><>(.+): (.+)"
+          name: zookeeper_status
+          type: UNTYPED
+          value: "1"
+          cache: true
+          labels:
+            server_name: "$1"
+            server_id: $2
+            $3: $4
+        # Below rule applies for Zookeeper Cluster having multiple ZK nodes
+        # org.apache.ZooKeeperService:name0=*
+        - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+)><>(QuorumSize): (\\d+)"
+          name: zookeeper_status_$2
+          type: GAUGE
+          cache: true
+          labels:
+            server_id: $1
+        # ###########################################################################
+        # ###########################################################################
+        # Below rule applies to a Standalone ZK
+        # org.apache.ZooKeeperService:name0=*,name1=InMemoryDataTree
+        - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=InMemoryDataTree><>(WatchCount|NodeCount): (\\d+)"
+          name: zookeeper_inmemorydatatree_$2
+          type: GAUGE
+          cache: true
+          labels:
+            server_name: $1
+            server_id: "1"
+        # Below rule applies to a Standalone ZK
+        # org.apache.ZooKeeperService:name0=*,name1=Connections,name2=*,name3=*
+        - pattern: "org.apache.ZooKeeperService<name0=(.+), name1=Connections, name2=(.+), name3=(.+)><>([^:]+)"
+          name: zookeeper_connections_$4
+          cache: true
+          labels:
+            server_name: "$1"
+            client_address: "$2"
+            connection_id: "$3"
+        # Below rule applies to a Standalone ZK
+        # org.apache.ZooKeeperService:name0=*
+        - pattern: "org.apache.ZooKeeperService<name0=(.+)><>(StartTime|ClientPort|SecureClientAddress|Version|SecureClientPort): (.+)"
+          name: zookeeper_$2
+          value: "1"
+          cache: true
+          labels:
+            server_name: "$1"
+            $2: "$3"
+        # Below rule applies to a Standalone ZK
+        # org.apache.ZooKeeperService:name0=*
+        - pattern: "org.apache.ZooKeeperService<name0=(.+)><>(.+): (.+)"
+          name: zookeeper_$2
+          type: GAUGE
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server:7.5.0
+    init: confluentinc/confluent-init-container:2.7.0
+  dataVolumeCapacity: 10Gi
+  configOverrides:
+    server:
+      - "confluent.license.topic.replication.factor=1"
+      - "confluent.metrics.reporter.topic.replicas=1"
+      - "confluent.tier.metadata.replication.factor=1"
+      - "confluent.metadata.topic.replication.factor=1"
+      - "confluent.balancer.topic.replication.factor=1"
+      - "confluent.security.event.logger.exporter.kafka.topic.replicas=1"
+      - "event.logger.exporter.kafka.topic.replicas=1"
+      - "offsets.topic.replication.factor=1"
+      - "confluent.cluster.link.enable=true"
+      - "password.encoder.secret=secret"
+  podTemplate:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+  metricReporter:
+    enabled: true
+  metrics:
+    prometheus:
+      blacklist:
+        - "kafka.consumer:type=*,id=*"
+        - "kafka.consumer:type=*,client-id=*"
+        - "kafka.consumer:type=*,client-id=*,node-id=*"
+        - "kafka.producer:type=*,id=*"
+        - "kafka.producer:type=*,client-id=*"
+        - "kafka.producer:type=*,client-id=*,node-id=*"
+        - "kafka.*:type=kafka-metrics-count,*"
+        - "kafka.admin.client:*"
+        - "kafka.server:type=*,cipher=*,protocol=*,listener=*,networkProcessor=*"
+        - "kafka.server:type=app-info,id=*"
+        - "kafka.rest:*"
+        - "rest.utils:*"
+        - "io.confluent.common.security.jetty:*"
+        - "io.confluent.rest:*"
+        - "confluent.metadata.service:type=app-info,id=*"
+        - "confluent.metadata.service:type=app-info,client-id=*"
+        - "confluent.metadata:type=kafkaauthstore,*"
+      rules:
+        # This rule is more specific than the next rule; it has to come before it otherwise it will never be hit
+        # "kafka.server:type=*,name=*, client-id=*, topic=*, partition=*"
+        - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
+          name: kafka_server_$1_$2
+          type: GAUGE
+          cache: true
+          labels:
+            clientId: "$3"
+            topic: "$4"
+            partition: "$5"
+        # This is by far the biggest contributor to the number of sheer metrics being produced.
+        # Always keep it near the top for the case of probability when so many metrics will hit the first condition and exit.
+        # "kafka.cluster:type=*, name=*, topic=*, partition=*"
+        # "kafka.log:type=*,name=*, topic=*, partition=*"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
+          name: kafka_$1_$2_$3
+          type: GAUGE
+          cache: true
+          labels:
+            topic: "$4"
+            partition: "$5"
+        # Next two rules are similar; Value version is a GAUGE; Count version is not
+        - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><>Value
+          name: kafka_server_$1_$2
+          type: GAUGE
+          cache: true
+          labels:
+            clientId: "$3"
+            broker: "$4:$5"
+        - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><>Count
+          name: kafka_server_$1_$2
+          cache: true
+          labels:
+            clientId: "$3"
+            broker: "$4:$5"
+        # Needed for Cluster Linking metrics
+        # "kafka.server:type=*, name=*, *=*, *=*, *=*, *=*"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+          name: kafka_$1_$2_$3
+          cache: true
+          labels:
+            "$4": "$5"
+            "$6": "$7"
+            "$8": "$9"
+            "$10": "$11"
+        # "kafka.server:type=*, name=*, *=*, *=*, *=*"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+          name: kafka_$1_$2_$3
+          cache: true
+          labels:
+            "$4": "$5"
+            "$6": "$7"
+            "$8": "$9"
+        # "kafka.network:type=*, name=*, request=*, error=*"
+        # "kafka.network:type=*, name=*, request=*, version=*"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+          name: kafka_$1_$2_$3
+          cache: true
+          labels:
+            "$4": "$5"
+            "$6": "$7"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.*), (.+)=(.+)><>(\d+)thPercentile
+          name: kafka_$1_$2_$3
+          type: GAUGE
+          cache: true
+          labels:
+            "$4": "$5"
+            "$6": "$7"
+            quantile: "0.$8"
+        # "kafka.rest:type=*, topic=*, partition=*, client-id=*"
+        # "kafka.rest:type=*, cipher=*, protocol=*, client-id=*"
+        - pattern: kafka.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>Value
+          name: kafka_$1_$2
+          cache: true
+          labels:
+            "$3": "$4"
+            "$5": "$6"
+            "$7": "$8"
+        # Count and Value
+        # "kafka.server:type=*, name=*, topic=*"
+        # "kafka.server:type=*, name=*, clientId=*"
+        # "kafka.server:type=*, name=*, delayedOperation=*"
+        # "kafka.server:type=*, name=*, fetcherType=*"
+        # "kafka.network:type=*, name=*, networkProcessor=*"
+        # "kafka.network:type=*, name=*, processor=*"
+        # "kafka.network:type=*, name=*, request=*"
+        # "kafka.network:type=*, name=*, listener=*"
+        # "kafka.log:type=*, name=*, logDirectory=*"
+        # "kafka.log:type=*, name=*, op=*"
+        # "kafka.rest:type=*, node-id=*, client-id=*"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+)><>(Count|Value)
+          name: kafka_$1_$2_$3
+          cache: true
+          labels:
+            "$4": "$5"
+        # "kafka.consumer:type=*, topic=*, client-id=*"
+        # "kafka.producer:type=*, topic=*, client-id=*"
+        # "kafka.rest:type=*, topic=*, client-id=*"
+        # "kafka.server:type=*, broker-id=*, fetcher-id=*"
+        # "kafka.server:type=*, listener=*, networkProcessor=*"
+        - pattern: kafka.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(Count|Value)
+          name: kafka_$1_$2
+          cache: true
+          labels:
+            "$3": "$4"
+            "$5": "$6"
+        # - pattern: "kafka.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
+        #   name: kafka_$1_$2
+        #   cache: true
+        #   labels:
+        #     "$3": "$4"
+        #     "$5": "$6"
+        #     attribute_name: "$7"
+        # "kafka.network:type=*, name=*"
+        # "kafka.server:type=*, name=*"
+        # "kafka.controller:type=*, name=*"
+        # "kafka.databalancer:type=*, name=*"
+        # "kafka.log:type=*, name=*"
+        # "kafka.utils:type=*, name=*"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+)><>(Count|Value)
+          name: kafka_$1_$2_$3
+        # "kafka.producer:type=*, client-id=*"
+        # "kafka.producer:type=*, id=*"
+        # "kafka.rest:type=*, client-id=*"
+        # "kafka.rest:type=*, http-status-code=*"
+        # "kafka.server:type=*, BrokerId=*"
+        # "kafka.server:type=*, listener=*"
+        # "kafka.server:type=*, id=*"
+        - pattern: kafka.(\w+)<type=(.+), (.+)=(.+)><>Value
+          name: kafka_$1_$2
+          cache: true
+          labels:
+            "$3": "$4"
+        # - pattern: "kafka.(.+)<type=(.+), (.+)=(.+)><>(.+):"
+        #   name: kafka_$1_$2
+        #   cache: true
+        #   labels:
+        #     "$3": "$4"
+        #     attribute_name: "$5"
+        - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
+          name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total
+          type: GAUGE
+        # "kafka.server:type=*, listener=*, networkProcessor=*, clientSoftwareName=*, clientSoftwareVersion=*"
+        - pattern: kafka.server<type=socket-server-metrics, clientSoftwareName=(.+), clientSoftwareVersion=(.+), listener=(.+), networkProcessor=(.+)><>connections
+          name: kafka_server_socketservermetrics_connections
+          type: GAUGE
+          cache: true
+          labels:
+            client_software_name: "$1"
+            client_software_version: "$2"
+            listener: "$3"
+            network_processor: "$4"
+        - pattern: "kafka.server<type=socket-server-metrics, listener=(.+), networkProcessor=(.+)><>(.+):"
+          name: kafka_server_socketservermetrics_$3
+          type: GAUGE
+          cache: true
+          labels:
+            listener: "$1"
+            network_processor: "$2"
+        # - pattern: "kafka.server<type=socket-server-metrics, listener=(.+)><>(.+):"
+        #   name: kafka_server_socketservermetrics
+        #   type: GAUGE
+        #   cache: true
+        #   labels:
+        #     listener: "$1"
+        #     attribute_name: "$2"
+        # "kafka.coordinator.group:type=*, name=*"
+        # "kafka.coordinator.transaction:type=*, name=*"
+        - pattern: kafka.coordinator.(\w+)<type=(.+), name=(.+)><>(Count|Value)
+          name: kafka_coordinator_$1_$2_$3
+        # Percentile
+        - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.*)><>(\d+)thPercentile
+          name: kafka_$1_$2_$3
+          type: GAUGE
+          cache: true
+          labels:
+            "$4": "$5"
+            quantile: "0.$6"
+        - pattern: kafka.(\w+)<type=(.+), name=(.+)><>(\d+)thPercentile
+          name: kafka_$1_$2_$3
+          type: GAUGE
+          cache: true
+          labels:
+            quantile: "0.$4"
+        # Additional Rules for Confluent Server Metrics
+        # 'kafka.server:type=confluent-auth-store-metrics'
+        - pattern: kafka.server<type=confluent-auth-store-metrics><>(.+):(.*)
+          name: confluent_auth_store_metrics_$1
+          type: GAUGE
+          cache: true
+        # 'confluent.metadata:type=*, name=*, topic=*, partition=*'
+        - pattern: confluent.(\w+)<type=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(Value|Count)
+          name: confluent_$1_$2
+          type: GAUGE
+          cache: true
+          labels:
+            "$3": "$4"
+            "$5": "$6"
+            "$7": "$8"
+        # 'confluent.metadata.service:type=*, node-id=*, client-id=*'
+        - pattern: confluent.(.+)<type=(.+), (.+)=(.+), (.+)=(.+)><>Value
+          name: confluent_$1_$2
+          type: GAUGE
+          cache: true
+          labels:
+            "$3": "$4"
+            "$5": "$6"
+        # 'confluent.metadata.service:type=*, node-id=*, client-id=*'
+        - pattern: 'confluent.metadata.service<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          name: $1
+          type: GAUGE
+          cache: true
+          labels:
+            "$2": "$3"
+            "$4": "$5"
+            attribute_name: "$6"
+        # 'confluent.metadata.service:type=*, client-id=*'
+        # 'confluent.metadata.service:type=*, id=*'
+        # 'confluent.metadata:type=*, name=*'
+        # 'confluent.license:type=*, name=*'
+        - pattern: confluent.(.+)<type=(.+), (.+)=(.+)><>Value
+          name: confluent_$1_$2
+          type: GAUGE
+          cache: true
+          labels:
+            "$3": "$4"
+        - pattern: 'confluent.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+          name: confluent_$1_$2
+          type: GAUGE
+          cache: true
+          labels:
+            "$3": "$4"
+            attribute_name: "$5"
+        # Quotas
+        - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+), client-id=(.+)><>(.+):'
+          name: kafka_server_$1_$4
+          type: GAUGE
+          cache: true
+          labels:
+            user: "$2"
+            client-id: "$3"
+
+        - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+)><>(.+):'
+          name: kafka_server_$1_$3
+          type: GAUGE
+          cache: true
+          labels:
+            user: "$2"
+
+        - pattern : 'kafka.server<type=(Produce|Fetch|Request), client-id=(.+)><>(.+):'
+          name: kafka_server_$1_$3
+          type: GAUGE
+          cache: true
+          labels:
+            client-id: "$2"
+
+      # Broker  Metrics
+        - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec|TotalProduceRequestsPerSec|TotalFetchRequestsPerSec), topic=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+          name: kafka_server_brokertopicmetrics_$1_$3
+          type: GAUGE
+          cache: true
+          labels:
+            topic: "$2"
+
+        - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+          name: kafka_server_brokertopicmetrics_$1_$2_alltopics
+          type: GAUGE
+
+      # Network Request  Metrics
+        - pattern : 'kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+), version=([0-9]+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+          name: kafka_network_requestmetrics_requestspersec_$3
+          type: GAUGE
+          cache: true
+          labels:
+            request: "$1"
+
+      # "kafka.server:type=raft-metrics"
+        - pattern: kafka.server<type=raft-metrics><>(.+):(.*)
+          name: kafka_server_raft_metrics_$1
+          type: GAUGE
+          cache: true
+
+      # kafka.server:type=transaction-coordinator-metrics
+        - pattern: kafka.server<type=transaction-coordinator-metrics><>(.+):(.*)
+          name: kafka_server_transaction_coordinator_metrics_$1
+          type: GAUGE
+          cache: true
+
+        # Needed for Cluster Linking metrics
+        # kafka.server.link:type=ClusterLinkFetcherManager,name=*,clientId=&,link-name=*
+        - pattern: kafka.server.link<type=ClusterLinkFetcherManager, name=(.+), (.+)=(.+), (.+)=(.+)><>Value
+          name: kafka_server_link_clusterlinkfetchermanager_$1
+          type: GAUGE
+          cache: true
+          labels:
+            "$2": "$3"
+            "$4": "$5"
+        # kafka.server:type=cluster-link-fetcher-metrics,link-name=*,broker-id=*,fetcher-id=*, mechanism=*
+        - pattern: 'kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          name: kafka_server_cluster_link_fetcher_metrics_$9
+          type: GAUGE
+          labels:
+            "$1": "$2"
+            "$3": "$4"
+            "$5": "$6"
+            "$7": "$8"
+        # kafka.server:type=cluster-link-fetcher-metrics,link-name=*,broker-id=*,fetcher-id=*
+        - pattern: 'kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          name: kafka_server_cluster_link_fetcher_metrics_$7
+          type: GAUGE
+          cache: true
+          labels:
+            "$1": "$2"
+            "$3": "$4"
+            "$5": "$6"
+        # kafka.server:type=cluster-link-metrics, mode=*, state=*, link-name=*, name=*
+        - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+          name: kafka_server_cluster_link_metrics_$7
+          type: GAUGE
+          labels:
+            "$1": "$2"
+            "$3": "$4"
+            "$5": "$6"
+        # kafka.server:type=cluster-link-metrics,state=*,link-name=*,name=*
+        - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+)><>(.+):'
+          name: kafka_server_cluster_link_metrics_$5
+          type: GAUGE
+          cache: true
+          labels:
+            "$1": "$2"
+            "$3": "$4"
+        # kafka.server:type=cluster-link-metrics,name=*,link-name=*
+        - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+)><>(.+):'
+          name: kafka_server_cluster_link_metrics_$3
+          type: GAUGE
+          labels:
+            "$1": "$2"
+        # kafka.server:type=cluster-link-source-metrics,request=*,link-id=*
+        - pattern: 'kafka.server<type=cluster-link-source-metrics, request=(.+), link-id=(.+)><>(.+):(.+)'
+          name: kafka_server_cluster_link_source_metrics_$1_$3
+          value: $4
+          type: GAUGE
+          labels:
+            request: "$1"
+            link-id: "$2"
+
+        ## Needed for Tiered Storage Metrics
+        # kafka.tier.tasks.archive:type=TierArchiver,name=*
+        - pattern: 'kafka.tier.tasks.archive<type=TierArchiver, name=(.+)><>(.+):(.+)'
+          name: kafka_tier_tasks_archive_tierarchiver_$1
+          type: GAUGE
+        # kafka.tier.tasks:type=TierTasks,name=*
+        - pattern: 'kafka.tier.tasks<type=TierTasks, name=(.+)><>(.+):(.+)'
+          name: kafka_tier_tasks_tiertasks_$1
+          type: GAUGE
+        

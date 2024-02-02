@@ -3,6 +3,7 @@ kind: PodMonitor
 metadata:
   labels:
     release: prometheus
+    monitoring: confluent
   name: pm-confluent
 spec:
   jobLabel: platform.confluent.io/type
