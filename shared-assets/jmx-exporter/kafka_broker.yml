@@ -383,3 +383,13 @@ rules:
     name: kafka_tier_tasks_tiertasks_$1
     type: GAUGE
 
+  ## Consumer Lag Offsets
+  # "kafka.server:type=tenant-metrics,name=*,consumer-group=*,client-id=*,topic=*,partition=*"
+  - pattern: 'kafka.server<type=tenant-metrics, member=(.+), topic=(.+), consumer-group=(.+), partition=(.+), client-id=(.+)><>(.+):(.+)'
+    name: kafka_server_tenant_metrics_$6
+    type: GAUGE
+    labels:
+      consumerGroup: "$3"
+      client-id: "$5"
+      topic: "$2"
+      partition: "$4"
