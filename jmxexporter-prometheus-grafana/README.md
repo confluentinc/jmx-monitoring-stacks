@@ -26,6 +26,20 @@ List of provided dashboards:
  - [Replicator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
  - [Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
 
+---
+> [!NOTE]
+> **Consumer Group Lag**
+> 
+> Starting with CP 7.5, brokers expose JMX tenant-metrics for consumer lags, see the [documentation](https://docs.confluent.io/platform/current/monitor/monitor-consumer-lag.html#monitor-consumer-lag).
+> 
+> Consequently, you can either go with the [kafka-lag-exporter](https://github.com/seglo/kafka-lag-exporter) or with the broker built-in tenant metrics.
+> For the later one, you need to enable it by setting `confluent.consumer.lag.emitter.enabled = true` in the broker configuration, see the [documentation](https://docs.confluent.io/platform/current/kafka/monitoring.html#consumer-lag-offsets).
+> 
+> This repository contains both options:
+> - Dedicated Kafka lag exporter dashboard
+> - Consumer lag visualizations within the consumer dashboard
+---
+
 ### Confluent Platform overview
 
 ![Confluent Platform overview](img/confluent-platform-overview.png)
