@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "Prometheus",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "10.2.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -68,21 +25,47 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 10,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 60,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Key metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
       },
       "description": "",
       "gridPos": {
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 58,
       "options": {
@@ -99,7 +82,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -107,35 +90,9 @@
       "type": "text"
     },
     {
-      "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 3
-      },
-      "id": 60,
-      "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Prometheus}"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Key metrics",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "description": "The number of commit calls per second .",
       "fieldConfig": {
@@ -184,7 +141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_coordinator_metrics_commit_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -199,7 +156,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "description": "The average time in ms a request was throttled by a broker.",
       "fieldConfig": {
@@ -250,7 +207,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_avg{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -266,7 +223,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "description": "Rate of failed authentication attempts\n",
       "fieldConfig": {
@@ -316,7 +273,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_metrics_failed_authentication_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -332,7 +289,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "description": "The number of total rebalance events per hour, both successful and unsuccessful rebalance attempts.",
       "fieldConfig": {
@@ -381,7 +338,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"} + kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -397,7 +354,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -411,7 +368,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -422,7 +379,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fieldConfig": {
         "defaults": {
@@ -508,12 +465,14 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "rate(process_cpu_seconds_total{env=\"$env\",hostname=~\"$hostname\"}[5m])",
           "interval": "",
           "legendFormat": "{{job}}@{{instance}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -523,7 +482,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -609,7 +568,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "exemplar": true,
           "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=~\"$hostname\"})",
@@ -620,7 +579,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "expr": "jvm_memory_bytes_max{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\",area=\"heap\"}",
           "interval": "",
@@ -634,7 +593,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -722,7 +681,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "exemplar": true,
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=~\"$hostname\"}[5m]))",
@@ -735,23 +694,248 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Prometheus}"
-      },
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 17
       },
+      "id": 67,
+      "panels": [],
+      "title": "Consumer Lag",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "The difference between the last offset stored by the broker and the last committed offset for a specific consumer group name, client ID, member ID, group instance ID, topic name, and partition ID\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 69,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum by (hostname, consumergroup, topic) (kafka_server_tenant_metrics_consumer_lag_offsets{client_id=~\"$client_id\", env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{consumergroup}}@{{hostname}}@{{topic}}",
+          "refId": "B"
+        }
+      ],
+      "title": "Consumer Lag Offsets - Per Topic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "The difference between the last offset stored by the broker and the last committed offset for a specific consumer group name, client ID, member ID, group instance ID, topic name, and partition ID\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 68,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "kafka_server_tenant_metrics_consumer_lag_offsets{client_id=~\"$client_id\", env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"}",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{consumergroup}}@{{hostname}}@{{topic}}@{{partition}}",
+          "refId": "B"
+        }
+      ],
+      "title": "Consumer Lag Offsets - Per Partition",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
       "id": 24,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "PBFA97CFB590B2093"
           },
           "description": "The average number of bytes consumed per second\n",
           "fieldConfig": {
@@ -760,6 +944,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -771,6 +958,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -810,7 +998,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 6
+            "y": 27
           },
           "id": 6,
           "options": {
@@ -825,7 +1013,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -833,8 +1022,9 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
+              "editorMode": "code",
               "exemplar": true,
               "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{topic=~\"$topic\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])",
               "instant": false,
@@ -849,7 +1039,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The average number of records consumed per second.",
           "fieldConfig": {
@@ -858,6 +1048,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -869,6 +1062,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -907,7 +1101,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 6
+            "y": 27
           },
           "id": 9,
           "options": {
@@ -922,7 +1116,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -930,7 +1125,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{topic=~\"$topic\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])",
@@ -946,7 +1141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The average number of bytes consumed per topic per second.\n",
           "fieldConfig": {
@@ -955,6 +1150,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -966,6 +1164,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1005,7 +1204,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 14
+            "y": 35
           },
           "id": 4,
           "options": {
@@ -1020,7 +1219,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1028,7 +1228,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "sum(rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{topic!=\"\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])) by (topic)",
@@ -1044,7 +1244,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The average number of records consumed per second per topic.\n",
           "fieldConfig": {
@@ -1053,6 +1253,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1064,6 +1267,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1102,7 +1306,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 14
+            "y": 35
           },
           "id": 8,
           "options": {
@@ -1117,7 +1321,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1125,7 +1330,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "sum by (topic) (rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{topic!=\"\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval]))",
@@ -1143,7 +1348,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -1155,20 +1360,20 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 27
       },
       "id": 30,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The number of fetch requests per second.\n",
           "fieldConfig": {
@@ -1177,6 +1382,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1188,6 +1396,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1226,7 +1435,7 @@
             "h": 7,
             "w": 8,
             "x": 0,
-            "y": 7
+            "y": 28
           },
           "id": 5,
           "options": {
@@ -1241,7 +1450,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1249,7 +1459,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_fetch_total{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])",
@@ -1265,7 +1475,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The average number of bytes fetched per request for a topic",
           "fieldConfig": {
@@ -1274,6 +1484,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1285,6 +1498,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1323,7 +1537,7 @@
             "h": 7,
             "w": 8,
             "x": 8,
-            "y": 7
+            "y": 28
           },
           "id": 34,
           "options": {
@@ -1338,7 +1552,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1346,7 +1561,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{topic=~\"$topic\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1361,7 +1576,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The average time taken for a fetch request.",
           "fieldConfig": {
@@ -1370,6 +1585,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1381,6 +1599,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1419,7 +1638,7 @@
             "h": 7,
             "w": 8,
             "x": 16,
-            "y": 7
+            "y": 28
           },
           "id": 32,
           "options": {
@@ -1434,7 +1653,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1442,7 +1662,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_avg{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1459,7 +1679,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -1471,20 +1691,20 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 28
       },
       "id": 42,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The average time taken for a commit request",
           "fieldConfig": {
@@ -1493,6 +1713,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1504,6 +1727,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1541,7 +1765,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 6
+            "y": 29
           },
           "id": 36,
           "options": {
@@ -1556,7 +1780,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1564,7 +1789,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_coordinator_metrics_commit_latency_avg{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1579,7 +1804,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "The number of commit calls per second .",
           "fieldConfig": {
@@ -1588,6 +1813,9 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1599,6 +1827,7 @@
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1637,7 +1866,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 6
+            "y": 29
           },
           "id": 43,
           "options": {
@@ -1652,7 +1881,8 @@
               "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.1.3",
@@ -1660,7 +1890,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_coordinator_metrics_commit_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1677,7 +1907,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -1689,20 +1919,20 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 29
       },
       "id": 26,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "Number of simultaneous connections\n",
           "fieldConfig": {
@@ -1783,7 +2013,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_metrics_connection_count{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1799,7 +2029,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "description": "response rate per node\n",
           "fieldConfig": {
@@ -1880,7 +2110,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${Prometheus}"
+                "uid": "Prometheus"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_node_metrics_response_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1898,7 +2128,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -1913,10 +2143,14 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Prometheus}"
+          "uid": "Prometheus"
         },
         "definition": "label_values(kafka_consumer_app_info, client_id)",
         "hide": 0,
@@ -1939,10 +2173,14 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Prometheus}"
+          "uid": "Prometheus"
         },
         "definition": "label_values(env)",
         "hide": 0,
@@ -1965,10 +2203,18 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Prometheus}"
+          "uid": "Prometheus"
         },
         "definition": "label_values(kafka_consumergroup_group_lag, group)",
         "hide": 0,
@@ -1991,10 +2237,14 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Prometheus}"
+          "uid": "Prometheus"
         },
         "definition": "label_values(topic)",
         "hide": 0,
@@ -2017,10 +2267,14 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Prometheus}"
+          "uid": "Prometheus"
         },
         "definition": "label_values(kafka_consumer_app_info, hostname)",
         "hide": 0,
@@ -2062,6 +2316,6 @@
   "timezone": "",
   "title": "Kafka Consumer",
   "uid": "-C-IEldWk2",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }
