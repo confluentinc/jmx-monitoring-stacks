@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "Prometheus",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -25,7 +68,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 10,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -58,7 +101,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "",
       "gridPos": {
@@ -82,7 +125,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -92,7 +135,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "The number of commit calls per second .",
       "fieldConfig": {
@@ -141,7 +184,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_coordinator_metrics_commit_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -156,7 +199,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "The average time in ms a request was throttled by a broker.",
       "fieldConfig": {
@@ -207,7 +250,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_throttle_time_avg{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -223,7 +266,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "Rate of failed authentication attempts\n",
       "fieldConfig": {
@@ -273,7 +316,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_metrics_failed_authentication_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -289,7 +332,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "The number of total rebalance events per hour, both successful and unsuccessful rebalance attempts.",
       "fieldConfig": {
@@ -338,7 +381,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "kafka_consumer_consumer_coordinator_metrics_rebalance_rate_per_hour{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"} + kafka_consumer_consumer_coordinator_metrics_failed_rebalance_rate_per_hour{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -379,7 +422,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -465,7 +508,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -482,7 +525,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -568,7 +611,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=~\"$hostname\"})",
@@ -579,7 +622,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "expr": "jvm_memory_bytes_max{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\",area=\"heap\"}",
           "interval": "",
@@ -593,7 +636,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -681,7 +724,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "exemplar": true,
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=~\"$hostname\"}[5m]))",
@@ -709,7 +752,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The difference between the last offset stored by the broker and the last committed offset for a specific consumer group name, client ID, member ID, group instance ID, topic name, and partition ID\n",
       "fieldConfig": {
@@ -797,7 +840,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -815,7 +858,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "description": "The difference between the last offset stored by the broker and the last committed offset for a specific consumer group name, client ID, member ID, group instance ID, topic name, and partition ID\n",
       "fieldConfig": {
@@ -903,7 +946,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -935,7 +978,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of bytes consumed per second\n",
           "fieldConfig": {
@@ -1022,7 +1065,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1039,7 +1082,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of records consumed per second.",
           "fieldConfig": {
@@ -1125,7 +1168,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{topic=~\"$topic\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])",
@@ -1141,7 +1184,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of bytes consumed per topic per second.\n",
           "fieldConfig": {
@@ -1228,7 +1271,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "sum(rate(kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_total{topic!=\"\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])) by (topic)",
@@ -1244,7 +1287,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of records consumed per second per topic.\n",
           "fieldConfig": {
@@ -1330,7 +1373,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "sum by (topic) (rate(kafka_consumer_consumer_fetch_manager_metrics_records_consumed_total{topic!=\"\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval]))",
@@ -1373,7 +1416,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The number of fetch requests per second.\n",
           "fieldConfig": {
@@ -1459,7 +1502,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "rate(kafka_consumer_consumer_fetch_manager_metrics_fetch_total{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}[$__rate_interval])",
@@ -1475,7 +1518,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of bytes fetched per request for a topic",
           "fieldConfig": {
@@ -1561,7 +1604,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_size_avg{topic=~\"$topic\", client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1576,7 +1619,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average time taken for a fetch request.",
           "fieldConfig": {
@@ -1662,7 +1705,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_fetch_manager_metrics_fetch_latency_avg{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1704,7 +1747,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average time taken for a commit request",
           "fieldConfig": {
@@ -1789,7 +1832,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_coordinator_metrics_commit_latency_avg{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1804,7 +1847,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The number of commit calls per second .",
           "fieldConfig": {
@@ -1890,7 +1933,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_coordinator_metrics_commit_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -1932,7 +1975,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "Number of simultaneous connections\n",
           "fieldConfig": {
@@ -2013,7 +2056,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_metrics_connection_count{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -2029,7 +2072,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "response rate per node\n",
           "fieldConfig": {
@@ -2110,7 +2153,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "kafka_consumer_consumer_node_metrics_response_rate{client_id=~\"$client_id\", env=\"$env\",hostname=~\"$hostname\"}",
@@ -2143,14 +2186,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_consumer_app_info, client_id)",
         "hide": 0,
@@ -2173,14 +2212,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(env)",
         "hide": 0,
@@ -2203,18 +2238,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_consumergroup_group_lag, group)",
         "hide": 0,
@@ -2237,14 +2264,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(topic)",
         "hide": 0,
@@ -2267,14 +2290,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_consumer_app_info, hostname)",
         "hide": 0,
@@ -2316,6 +2335,6 @@
   "timezone": "",
   "title": "Kafka Consumer",
   "uid": "-C-IEldWk2",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
