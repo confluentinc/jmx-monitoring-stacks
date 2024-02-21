@@ -1,5 +1,7 @@
 # Jolokia Agent
 
+This demo provides the installation of a Jolokia Agent for each component of Confluent Platform.
+
 Example of how to read a value for a MBean with Jolokia:
 
 ```bash
@@ -21,6 +23,8 @@ curl http://localhost:8778/jolokia/read/java.lang:type\=Memory/HeapMemoryUsage |
   "timestamp": 1705933656
 }
 ```
+
+List of Jolokia endpoint per component:
 
 - zookeeper:
 ```bash

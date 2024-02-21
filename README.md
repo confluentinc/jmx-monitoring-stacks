@@ -68,19 +68,15 @@ Alerts are available for the stacks:
  - [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana/assets/prometheus/prometheus-alerts) including alerts on broker, zookeeper and kafka connect.
 
 
-# How to use with Confluent Cloud
-
-The demo with Confluent Cloud needs a Confluent Cloud cluster and you (as a user) are required to gather some details before spinning up the Confluent Cloud monitoring solution. Please refer to this [README](ccloud-prometheus-grafana/README.md) for detailed steps to run a Confluent Cloud based sample dashboard.
-
 # How to use with Confluent cp-ansible
 
-To add JMX exporter configurations to cp-ansible, please refer to this [README](jmxexporter-prometheus-grafana/cp-ansible/README.md)
+To add JMX exporter configurations to [Confluent cp-ansible](https://docs.confluent.io/ansible/current/overview.html), please refer to this [README](jmxexporter-prometheus-grafana/cp-ansible/README.md)
 
 # How to use with Kubernetes and Confluent for Kubernetes Operator (CFK)
 
 To add JMX exporter configurations to your Kubernetes workspace, please refer to this [README](jmxexporter-prometheus-grafana/cfk/README.md)
 
-# How to use with cp-demo
+# How to use with Confluent cp-demo
 
 This repo is intended to work smoothly with [Confluent cp-demo](https://github.com/confluentinc/cp-demo).
 
@@ -107,8 +103,8 @@ MONITORING_STACK=jolokia-telegraf-influxdb
 3. Clone `cp-demo` and checkout a branch.
 
 ```bash
-# Example with CP-DEMO 7.5.3 version (all branches starting from 7.2.0 have been tested)
-CP_DEMO_VERSION=7.5.3-post
+# Example with CP-DEMO 7.6.0 version (all branches starting from 7.2.0 have been tested)
+CP_DEMO_VERSION=7.6.0-post
 
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
 (cd cp-demo && git fetch && git checkout $CP_DEMO_VERSION && git pull)
@@ -139,7 +135,7 @@ ${MONITORING_STACK}/stop.sh
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/cloud/current/get-started/examples/ccloud-observability/docs/index.html).
 
-# DEV-toolkit
+# How to use with a minimal configuration: DEV-toolkit
 
 To run a lightweight dev environment:
 
@@ -155,7 +151,7 @@ To add more use cases, we are leveraging the docker profiles.
 
 To run replicator scenario, i.e. `start.sh --profile replicator`.
 
-## DEV-toolkit-FAQ
+## FAQ
 
 - What if I need more components?
 
