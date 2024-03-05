@@ -149,7 +149,13 @@ To run a lightweight dev environment:
 
 To add more use cases, we are leveraging the docker profiles. 
 
-To run replicator scenario, i.e. `start.sh --profile replicator`.
+To run replicator scenario, i.e. `start.sh --profile replicator`. It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
+
+Currently supported profiles:
+- replicator 
+- schema-registry
+- ksqldb
+- consumer (with kafka-lag-exported included)
 
 ## FAQ
 
