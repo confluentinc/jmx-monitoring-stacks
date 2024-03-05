@@ -1,0 +1,44 @@
+version: "3"
+services:
+  consumer-ok:
+    image: ghcr.io/ram-pi/consumer:ok
+    profiles:
+      - consumer
+    hostname: consumer-ok
+    container_name: consumer-ok
+    restart: always
+    pull_policy: always
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+    volumes:
+      - $PWD/client/consumer.properties:/client.properties
+      - $PWD/jmx-exporter/kafka_client.yml:/exporter.yaml
+
+  consumer-faulty:
+    image: ghcr.io/ram-pi/consumer:faulty
+    profiles:
+      - consumer
+    hostname: consumer-faulty
+    container_name: consumer-faulty
+    restart: always
+    pull_policy: always
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+    volumes:
+      - $PWD/client/consumer.properties:/client.properties
+      - $PWD/jmx-exporter/kafka_client.yml:/exporter.yaml
+
+  kafka-lag-exporter:
+    hostname: kafka-lag-exporter
+    container_name: kafka-lag-exporter
+    volumes:
+      - $PWD/client/kafka_lag_exporter.conf:/opt/docker/conf/application.conf
+    image: seglo/kafka-lag-exporter:0.7.0
+    command: /opt/docker/bin/kafka-lag-exporter
+            -Dconfig.file=/opt/docker/conf/application.conf
