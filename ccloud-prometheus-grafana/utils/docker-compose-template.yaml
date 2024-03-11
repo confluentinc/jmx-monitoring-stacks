@@ -9,7 +9,7 @@ services:
       - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus
 
   grafana:
-    image: grafana/grafana:8.1.3
+    image: grafana/grafana:8.5.27
     container_name: grafana
     environment:
       - "GF_SECURITY_ADMIN_USER=admin"
@@ -22,6 +22,7 @@ services:
   
   confluent_cost_exporter:
     image: docker.io/mcolomerc/confluent-costs-exporter:latest
+    platform: linux/amd64
     container_name: confluent_cost_exporter
     environment:
     - CONFLUENT_CLOUD_API_KEY=$CONFLUENT_CLOUD_API_KEY
