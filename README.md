@@ -59,6 +59,7 @@ This project provides metrics and dashboards for:
 |-----------------------|------------------------|---------|---------------------|
 | Cluster               | yes                    | yes     | yes                 |
 | Producer/Consumer     |                        |      | yes                 |
+| ksql                  | yes                    |      | yes                 |
 | Billing/Cost tracking | yes                    |      |                  |
 
 ## ⚠️ Alerts
