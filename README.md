@@ -84,9 +84,7 @@ This repo is intended to work smoothly with [Confluent cp-demo](https://github.c
 Make sure you have enough system resources on the local host to run this.
 Verify in the advanced Docker preferences settings that the memory available to Docker is at least 8 GB (default is 2 GB).
 
-NOTE: [jq](https://jqlang.github.io/jq/) is required to be installed on your machine to run the demo.
-
-NOTE: If there is interest to test Kafka Lag Exporter (included on the monitoring stacks) make sure to use JDK 8 when running the demo, as it requires JDK8-generated certificates for the container to work (<https://github.com/lightbend/kafka-lag-exporter/issues/270>).
+**NOTE:** [jq](https://jqlang.github.io/jq/) is required to be installed on your machine to run the demo.
 
 1. Ensure that cp-demo is not already running on the local host.
 
@@ -124,7 +122,7 @@ CP_DEMO_VERSION=7.6.0-post
 ${MONITORING_STACK}/start.sh
 ```
 
-NOTE: New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in _${MONITORING_STACK}/start.sh_
+**NOTE:** New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in _${MONITORING_STACK}/start.sh_
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
