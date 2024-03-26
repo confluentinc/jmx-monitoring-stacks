@@ -90,7 +90,7 @@ Verify in the advanced Docker preferences settings that the memory available to 
 
 1. Ensure that cp-demo is not already running on the local host.
 
-2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), [jmxexporter-newrelic](jmxexporter-newrelic), [jolokia-telegraf-influxdb](jolokia-telegraf-influxdb) or [jolokia](jolokia) and set the `MONITORING_STACK` variable accordingly.
+2. Decide which monitoring stack to demo: and set the `MONITORING_STACK` variable accordingly.
 
 **NOTE:** New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in [_jmxexporter-newrelic/start.sh_](jmxexporter-newrelic/start.sh)
 

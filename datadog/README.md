@@ -32,5 +32,5 @@ Depending on your region use:
 
 ## Confluent Platform Datadog integration
 
-Datadog offers a specific integration with Confluent Platform _(no predefined dashboards)_. To install the integration follow thew instructions at:
+Datadog offers a specific integration with Confluent Platform _(no predefined dashboards)_. To install the integration follow the instructions at:
 https://docs.datadoghq.com/integrations/confluent_platform/
