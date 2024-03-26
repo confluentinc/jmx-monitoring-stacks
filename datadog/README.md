@@ -7,7 +7,13 @@ https://www.datadoghq.com/free-datadog-trial
 
 ## Metrics
 
-Metrics are captured using the definition file: https://github.com/DataDog/datadog-agent/blob/main/pkg/collector/corechecks/embed/jmx/fixtures/kafka.yaml
+Metrics are captured using the definition file [kafka.yaml](assets/kafka.yaml) based on: https://github.com/DataDog/datadog-agent/blob/main/pkg/collector/corechecks/embed/jmx/fixtures/kafka.yaml
+
+Metrics exposed:
+
+ - broker metrics
+ - producer metrics (_kafka.producer.*_)
+ - consumer metrics (_kafka.consumer*_)
 
 ## Dashboards
 
