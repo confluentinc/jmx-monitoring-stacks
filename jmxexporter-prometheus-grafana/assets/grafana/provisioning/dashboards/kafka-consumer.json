@@ -844,7 +844,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (hostname, consumergroup, topic) (kafka_server_tenant_metrics_consumer_lag_offsets{client_id=~\"$client_id\", env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"})",
+          "expr": "sum by (hostname, consumergroup, topic) (kafka_server_tenant_metrics_consumer_lag_offsets{env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -950,7 +950,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "kafka_server_tenant_metrics_consumer_lag_offsets{client_id=~\"$client_id\", env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"}",
+          "expr": "kafka_server_tenant_metrics_consumer_lag_offsets{env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -2243,7 +2243,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_consumergroup_group_lag, group)",
+        "definition": "label_values(kafka_server_tenant_metrics_consumer_lag_offsets,consumergroup)",
         "hide": 0,
         "includeAll": true,
         "label": "Group ID",
@@ -2251,7 +2251,7 @@
         "name": "consumer_group",
         "options": [],
         "query": {
-          "query": "label_values(kafka_consumergroup_group_lag, group)",
+          "query": "label_values(kafka_server_tenant_metrics_consumer_lag_offsets,consumergroup)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
