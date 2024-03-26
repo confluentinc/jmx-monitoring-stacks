@@ -4,7 +4,7 @@
 
 ## Metrics
 
-Metrics are captured using the definiton file: https://github.com/DataDog/datadog-agent/blob/main/pkg/collector/corechecks/embed/jmx/fixtures/kafka.yaml
+Metrics are captured using the definition file: https://github.com/DataDog/datadog-agent/blob/main/pkg/collector/corechecks/embed/jmx/fixtures/kafka.yaml
 
 ## Dashboards
 
