@@ -29,3 +29,8 @@ Depending on your region use:
  - EU1	https://app.datadoghq.eu	datadoghq.eu	EU
  - US1-FED	https://app.ddog-gov.com	ddog-gov.com	US
  - AP1	https://ap1.datadoghq.com	ap1.datadoghq.com	Japan
+
+## Confluent Platform Datadog integration
+
+Datadog offers a specific integration with Confluent Platform _(no predefined dashboards)_. To install the integration follow thew instructions at:
+https://docs.datadoghq.com/integrations/confluent_platform/
