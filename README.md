@@ -11,6 +11,7 @@ This project provides metrics and dashboards for:
 - [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
 - [Confluent Platform with Jolokia Agent](jolokia)
 - [Confluent Platform with Jolokia, Telegraf and InfluxDB](jolokia-telegraf-influxdb)
+- [Confluent Platform with Datadog agent](datadog)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
@@ -27,31 +28,32 @@ This project provides metrics and dashboards for:
   <img src="jmxexporter-newrelic/img/Throughput.png" width="250" height="200" />
   <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
   <img src="jolokia-telegraf-influxdb/img/kafka-cluster-0.png" width="250" height="200" />
+  <img src="datadog/img/overview.png" width="250" height="200" />
 </p>
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard             |Prometheus and Grafana|New Relic|Metricbeat and Kibana|Telegraf and Influx|
-|-----------------------|----|---------|---------------------|---------------------|
-| Kafka Cluster         |yes| yes     | yes                 |yes|
-| Zookeeper             |yes| yes     | yes                 |
-| KRaft                 |yes|         |                     |
-| Schema Registry       |yes|         |yes|
-| Kafka Connect         |yes|         |yes|
-| ksqlDB                |yes|         |yes|
-| Producer/Consumer     |yes| yes     |yes|
-| Lag Exporter          |yes|         ||
-| Topics                |yes|         |yes|
-| Kafka Streams         |yes|         ||
-| Kafka Streams RocksDB |yes|         ||
-| Quotas                |yes|         ||
-| TX Coordinator        |yes|         ||
-| Rest Proxy            |yes|         ||
-| Cluster Linking       |yes|         ||
-| Oracle CDC            |yes|         ||
-| Confluent RBAC        |yes|         ||
-| Replicator            |yes|         ||
-| Tiered Storage        |yes|         ||
+| Dashboard|Prometheus and Grafana| New Relic |Metricbeat and Kibana| Telegraf and Influx |Datadog|
+|-----------------------|----|-----------|--------------------|---------------------|---------------------|
+| Kafka Cluster         |yes| yes       | yes| yes                 |yes|
+| Zookeeper             |yes| yes       |yes|
+| KRaft                 |yes|
+| Schema Registry       |yes|           |yes|
+| Kafka Connect         |yes|           |yes|
+| ksqlDB                |yes|           |yes|
+| Producer/Consumer     |yes| yes       |yes|                     |yes|
+| Lag Exporter          |yes|           ||
+| Topics                |yes|           |yes|
+| Kafka Streams         |yes|           ||
+| Kafka Streams RocksDB |yes|           ||
+| Quotas                |yes|           ||
+| TX Coordinator        |yes|           ||
+| Rest Proxy            |yes|           ||
+| Cluster Linking       |yes|           ||
+| Oracle CDC            |yes|           ||
+| Confluent RBAC        |yes|           ||
+| Replicator            |yes|           ||
+| Tiered Storage        |yes|           ||
 
 **List of available dashboards for Confluent Cloud:**
 
@@ -90,13 +92,18 @@ Verify in the advanced Docker preferences settings that the memory available to 
 
 2. Decide which monitoring stack to demo: either [jmxexporter-prometheus-grafana](jmxexporter-prometheus-grafana), [metricbeat-elastic-kibana](metricbeat-elastic-kibana), [jmxexporter-newrelic](jmxexporter-newrelic), [jolokia-telegraf-influxdb](jolokia-telegraf-influxdb) or [jolokia](jolokia) and set the `MONITORING_STACK` variable accordingly.
 
+**NOTE:** New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in [_jmxexporter-newrelic/start.sh_](jmxexporter-newrelic/start.sh)
+
+**NOTE:** Datadog requires a [DATADOG_API_KEY](https://docs.datadoghq.com/account_management/api-app-keys/) to be added in [_datadog/start.sh_](datadog/start.sh)
+
 ```bash
-# Set one of these
+# Set only one of these
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
 MONITORING_STACK=jolokia
 MONITORING_STACK=jolokia-telegraf-influxdb
+MONITORING_STACK=datadog
 ```
 
 3. Clone `cp-demo` and checkout a branch.
@@ -121,8 +128,6 @@ CP_DEMO_VERSION=7.6.0-post
 ```bash
 ${MONITORING_STACK}/start.sh
 ```
-
-**NOTE:** New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in _${MONITORING_STACK}/start.sh_
 
 6. Stop the monitoring solution. This command also stops cp-demo, you do not need to stop cp-demo separately.
 
