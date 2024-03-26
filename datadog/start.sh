@@ -5,7 +5,7 @@
 ########################################
 
 export DATADOG_API_KEY=$1
-export DATADOG_SITE=datadoghq.eu
+export DATADOG_SITE=$2
 
 export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -36,5 +36,4 @@ docker-compose exec tools bash -c "confluent iam rbac role-binding create \
 echo -e "Launch $MONITORING_STACK"
 docker-compose -f $MONITORING_STACK/docker-compose-datadog.yaml up -d
 
-echo -e "\nView Datadog dashboards at ->"
-echo -e "https://app.datadoghq.eu/"
+echo -e "\nView Datadog dashboards at Datadog site ->"

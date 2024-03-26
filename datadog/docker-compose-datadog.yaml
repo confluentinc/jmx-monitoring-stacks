@@ -3,7 +3,8 @@ services:
 
   datadog-agent:
     container_name: datadog-agent
-    build: ./assets
+    image: datadog/agent:7.52.0-jmx
+    hostname: datadog-agent
     environment:
       - DD_API_KEY=$DATADOG_API_KEY
       - DD_SITE=$DATADOG_SITE
@@ -12,6 +13,7 @@ services:
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./assets/kafka.yaml:/etc/datadog-agent/conf.d/jmx.d/conf.yaml
 
 networks:
   default:

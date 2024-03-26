@@ -94,7 +94,7 @@ Verify in the advanced Docker preferences settings that the memory available to 
 
 **NOTE:** New Relic requires a [License Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) to be added in [_jmxexporter-newrelic/start.sh_](jmxexporter-newrelic/start.sh)
 
-**NOTE:** Datadog requires a [DATADOG_API_KEY](https://docs.datadoghq.com/account_management/api-app-keys/) to be added in [_datadog/start.sh_](datadog/start.sh). Datadog offers 14 day trial for new users.
+**NOTE:** Datadog requires a [DATADOG_API_KEY](https://docs.datadoghq.com/account_management/api-app-keys/) and [DATADOG_SITE](https://docs.datadoghq.com/getting_started/site/) to be added in [_datadog/start.sh_](datadog/start.sh). Datadog offers 14 day trial for new users.
 
 ```bash
 # Set only one of these

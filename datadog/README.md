@@ -5,8 +5,7 @@
 Datadog Agent is licensed under the Apache License 2.0
 https://github.com/DataDog/datadog-agent/blob/main/LICENSE
 
-Datadog requires a [DATADOG_API_KEY](https://docs.datadoghq.com/account_management/api-app-keys/) to be added in [_start.sh_](start.sh). Datadog offers 14 day trial for new users using the link:
-https://www.datadoghq.com/free-datadog-trial
+Datadog requires a [DATADOG_API_KEY](https://docs.datadoghq.com/account_management/api-app-keys/) and [DATADOG_SITE](https://docs.datadoghq.com/getting_started/site/) to be added in [_start.sh_](start.sh). Datadog offers 14 day trial for new users.
 
 ## Metrics
 
@@ -23,3 +22,10 @@ Metrics exposed:
 Datadog offers a predefined dashboard with Kafka metrics, named _[Kafka, Zookeeper and Kafka Consumer](https://app.datadoghq.eu/dash/integration/21/kafka-zookeeper-and-kafka-consumer-overview)_
 
 Login to Datadog with your account after running cp-demo to visualize it.
+Depending on your region use:
+ - US1	https://app.datadoghq.com	datadoghq.com	US
+ - US3	https://us3.datadoghq.com	us3.datadoghq.com	US
+ - US5	https://us5.datadoghq.com	us5.datadoghq.com	US
+ - EU1	https://app.datadoghq.eu	datadoghq.eu	EU
+ - US1-FED	https://app.ddog-gov.com	ddog-gov.com	US
+ - AP1	https://ap1.datadoghq.com	ap1.datadoghq.com	Japan
