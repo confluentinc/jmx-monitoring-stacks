@@ -4,7 +4,7 @@
 # Start cp-demo
 ########################################
 
-export DATADOG_API_KEY=f770fe1d3ee2341d395bc3d49ee11ff6
+export DATADOG_API_KEY=$1
 export DATADOG_SITE=datadoghq.eu
 
 export MONITORING_STACK="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
