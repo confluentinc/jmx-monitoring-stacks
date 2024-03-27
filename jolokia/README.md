@@ -24,6 +24,35 @@ curl http://localhost:8778/jolokia/read/java.lang:type\=Memory/HeapMemoryUsage |
 }
 ```
 
+Jolokia allows you to request a list of MBeans and retrieve the value for a specific attribute with a single HTTP POST, for example:
+
+```bash 
+curl -X POST --data @request.json "http://localhost:8778/jolokia/read?includeStackTrace=false" | jq
+
+[
+  {
+    "request": {
+      "mbean": "kafka.server:name=ControlPlaneRequestHandlerAvgIdlePercent,type=KafkaRequestHandlerPool",
+      "attribute": "FifteenMinuteRate",
+      "type": "read"
+    },
+    "value": 0.0,
+    "status": 200,
+    "timestamp": 1711541027
+  },
+  {
+    "request": {
+      "mbean": "kafka.server:name=RequestHandlerAvgIdlePercent,type=KafkaRequestHandlerPool",
+      "attribute": "FifteenMinuteRate",
+      "type": "read"
+    },
+    "value": 0.9505627028636324,
+    "status": 200,
+    "timestamp": 1711541027
+  }
+]
+```
+
 List of Jolokia endpoint per component:
 
 - zookeeper:
