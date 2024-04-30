@@ -1,4 +1,3 @@
-version: "3"
 services:
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:${CFLT_TAG}

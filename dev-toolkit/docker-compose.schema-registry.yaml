@@ -1,4 +1,3 @@
-version: "3"
 services:
   schemaregistry:
     image: confluentinc/cp-schema-registry:${CFLT_TAG}

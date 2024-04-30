@@ -1,4 +1,3 @@
-version: "3"
 services:
   consumer-ok:
     image: ghcr.io/ram-pi/consumer:ok
