@@ -1,4 +1,3 @@
-version: "3"
 services:
   connect:
     image: confluentinc/cp-enterprise-replicator:${CFLT_TAG}
