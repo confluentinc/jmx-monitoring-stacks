@@ -8,7 +8,7 @@ This project provides metrics and dashboards for:
 - [Confluent Platform with Prometheus and Grafana](jmxexporter-prometheus-grafana)
 - [Confluent Platform on Kubernetes with Prometheus and Grafana](jmxexporter-prometheus-grafana/cfk)
 - [Confluent Platform with New Relic](jmxexporter-newrelic)
-- [Confluent Platform with Metricbeat and Kibana](metricbeat-elastic-kibana)
+- [Confluent Platform with Prometheus, Metricbeat and Kibana](metricbeat-elastic-kibana)
 - [Confluent Platform with Jolokia Agent](jolokia)
 - [Confluent Platform with Jolokia, Telegraf and InfluxDB](jolokia-telegraf-influxdb)
 - [Confluent Platform with Datadog agent](datadog)
