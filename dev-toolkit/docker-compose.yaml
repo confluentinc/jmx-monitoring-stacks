@@ -191,7 +191,7 @@ services:
       - $PWD/assets/grafana/provisioning:/etc/grafana/provisioning
 
   spring-client:
-    image: ghcr.io/ram-pi/spring-kafka-client:3.1.4
+    image: ghcr.io/ram-pi/spring-kafka-client:3.1.4-temurin
     hostname: spring-client
     container_name: spring-client
     depends_on:
