@@ -11,6 +11,7 @@ docker-compose \
     -f docker-compose.schema-registry.yaml \
     -f docker-compose.ksqldb.yaml \
     -f docker-compose.consumer.yaml \
+    -f docker-compose.clientsreduced.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets

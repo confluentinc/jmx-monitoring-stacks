@@ -94,6 +94,7 @@ docker-compose ${docker_args[@]} \
   -f docker-compose.schema-registry.yaml \
   -f docker-compose.ksqldb.yaml \
   -f docker-compose.consumer.yaml \
+  -f docker-compose.clientsreduced.yaml \
   up -d
 
 # Look at Grafana dashboards

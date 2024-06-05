@@ -1,0 +1,24 @@
+services:
+  spring-client:
+    image: ghcr.io/ram-pi/spring-kafka-client:3.1.4-temurin
+    hostname: spring-client
+    container_name: spring-client
+    depends_on:
+      - kafka1
+    profiles:
+      - clientsreduced
+    command:
+      [
+        "java",
+        "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=9191:/tmp/kafka_client.yml",
+        "-jar",
+        "app.jar",
+        "--spring.config.location=/app/application.properties",
+      ]
+    ports:
+      - "9194:9191"
+      - "8080:8080"
+    volumes:
+      - $PWD/client/application.properties:/app/application.properties
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/kafka_client_reduced.yml:/tmp/kafka_client.yml

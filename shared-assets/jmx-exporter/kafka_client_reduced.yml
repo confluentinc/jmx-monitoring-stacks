@@ -1,0 +1,239 @@
+---
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+whitelistObjectNames:
+  - "kafka.consumer:*"
+  - "kafka.producer:*"
+blacklistObjectNames:
+  - "kafka.admin.client:*"
+  - "kafka.consumer:type=*,id=*"
+  - "kafka.producer:type=*,id=*"
+  - "kafka.*:type=kafka-metrics-count,*"
+rules:
+  # "kafka.consumer:type=app-info,client-id=*"
+  # "kafka.producer:type=app-info,client-id=*"
+  - pattern: "kafka.(.+)<type=app-info, client-id=(.+)><>(.+): (.+)"
+    value: 1
+    name: kafka_$1_app_info
+    cache: true
+    labels:
+      client_type: $1
+      client_id: $2
+      $3: $4
+    type: UNTYPED
+  # "kafka.producer:type=*,client-id=*"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>record-retry-rate:"
+    name: kafka_producer_$1_record_retry_rate
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>record-error-rate:"
+    name: kafka_producer_$1_record_error_rate
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>buffer-available-bytes:"
+    name: kafka_producer_$1_buffer_available_bytes
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>produce-throttle-time-avg:"
+    name: kafka_producer_$1_produce_throttle_time_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>compression-rate-avg:"
+    name: kafka_producer_$1_compression_rate_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>record-queue-time-avg:"
+    name: kafka_producer_$1_record_queue_time_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>outgoing-byte-rate:"
+    name: kafka_producer_$1_outgoing_byte_rate
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>record-send-total:"
+    name: kafka_producer_$1_record_send_total
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>batch-size-avg:"
+    name: kafka_producer_$1_batch_size_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>requests-in-flight:"
+    name: kafka_producer_$1_requests_in_flight
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>record-size-avg:"
+    name: kafka_producer_$1_record_size_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>connection-count:"
+    name: kafka_producer_$1_connection_count
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>connection-creation-rate:"
+    name: kafka_producer_$1_connection_creation_rate
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>connection-close-rate:"
+    name: kafka_producer_$1_connection_close_rate
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>io-ratio:"
+    name: kafka_producer_$1_io_ratio
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>io-wait-time-ns-avg:"
+    name: kafka_producer_$1_io_wait_time_ns_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>io-time-ns-avg:"
+    name: kafka_producer_$1_io_time_ns_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  - pattern: "kafka.producer<type=(.+), client-id=(.+)><>io-wait-ratio:"
+    name: kafka_producer_$1_io_wait_ratio
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: producer
+      client_id: "$2"
+  # "kafka.consumer:type=*,client-id=*"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>commit-rate:"
+    name: kafka_consumer_$1_commit_rate
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>fetch-throttle-time-avg:"
+    name: kafka_consumer_$1_fetch_throttle_time_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>rebalance-rate-per-hour:"
+    name: kafka_consumer_$1_rebalance_rate_per_hour
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>failed-rebalance-rate-per-hour:"
+    name: kafka_consumer_$1_failed_rebalance_rate_per_hour
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>fetch-latency-max:"
+    name: kafka_consumer_$1_fetch_latency_max
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>fetch-latency-avg:"
+    name: kafka_consumer_$1_fetch_latency_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>commit-latency-avg:"
+    name: kafka_consumer_$1_commit_latency_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>commit-latency-max:"
+    name: kafka_consumer_$1_commit_latency_max
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+)><>time-between-poll-avg:"
+    name: kafka_consumer_$1_time_between_poll_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+  # "kafka.consumer:type=*,client-id=*,topic=*"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+), topic=(.+)><>bytes-consumed-total:"
+    name: kafka_consumer_$1_bytes_consumed_total
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+      topic: "$3"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+), topic=(.+)><>fetch-size-total:"
+    name: kafka_consumer_$1_fetch_size_total
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+      topic: "$3"
+  - pattern: "kafka.consumer<type=(.+), client-id=(.+), topic=(.+)><>fetch-size-avg:"
+    name: kafka_consumer_$1_fetch_size_avg
+    type: GAUGE
+    cache: true
+    labels:
+      client_type: consumer
+      client_id: "$2"
+      topic: "$3"

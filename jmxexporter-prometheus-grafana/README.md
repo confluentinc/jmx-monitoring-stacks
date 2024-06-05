@@ -53,6 +53,9 @@ List of provided dashboards:
 ![Kafka cluster dashboard 0](img/kafka-cluster-0.png)
 ![Kafka cluster dashboard 1](img/kafka-cluster-1.png)
 
+As an alternative, it is also available a definition file to collect only metrics with value at [99th percentile](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/shared-assets/jmx-exporter/kafka_broker_p99only.yml).
+
+
 ### Kafka topics
 
 ![Kafka topics](img/kafka-topics.png)
@@ -62,6 +65,8 @@ List of provided dashboards:
 ![Kafka Producer](img/kafka-producer.png)
 
 ![Kafka Consumer](img/kafka-consumer.png)
+
+As an alternative, it is also available a definition file to collect only a limited number of metrics for clients [clients - reduced](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/shared-assets/jmx-exporter/kafka_client_reduced.yml).
 
 ### Kafka quotas
 

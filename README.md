@@ -160,6 +160,7 @@ Currently supported profiles:
 - schema-registry
 - ksqldb
 - consumer (with kafka-lag-exported included)
+- clientsreduced (kafka clients with a limited number of metrics exposed)
 
 ## FAQ
 
