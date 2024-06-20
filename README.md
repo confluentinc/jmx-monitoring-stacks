@@ -141,6 +141,8 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 
 # How to use with a minimal configuration: DEV-toolkit
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://github.com/confluentinc/jmx-monitoring-stacks/)
+
 To run a lightweight dev environment:
 
 1. `cd dev-toolkit`
