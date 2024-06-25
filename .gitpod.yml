@@ -1,0 +1,23 @@
+image: gitpod/workspace-full
+
+# Commands that will run on workspace start
+tasks:
+  - name: Run dev-toolkit
+    before: |
+      curl -L --http1.1 https://cnfl.io/cli | sudo sh -s -- -b /usr/local/bin
+    command: |
+      cd dev-toolkit
+      ./start.sh
+
+# Ports to expose on workspace startup
+ports:
+  - port: 3000
+    name: Grafana
+    visibility: public
+  - port: 9090
+    name: Prometheus
+    visibility: public
+
+vscode:
+  extensions:
+    - ms-azuretools.vscode-docker

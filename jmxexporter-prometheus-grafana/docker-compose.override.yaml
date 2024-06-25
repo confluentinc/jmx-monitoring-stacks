@@ -1,4 +1,3 @@
-version: "2.3"
 services:
   zookeeper:
     volumes:
@@ -49,7 +48,7 @@ services:
       KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
 
   prometheus:
-    image: prom/prometheus:v2.29.2
+    image: prom/prometheus:v2.47.2
     container_name: prometheus
     ports:
       - 9090:9090
@@ -93,7 +92,7 @@ services:
       - $MONITORING_STACK/assets/security:/etc/kafka/secrets
 
   grafana:
-    image: grafana/grafana:8.1.3
+    image: grafana/grafana:10.2.0
     container_name: grafana
     environment:
       - "GF_SECURITY_ADMIN_USER=admin"
@@ -102,4 +101,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning
+      - $MONITORING_STACK/assets/grafana/provisioning/import:/etc/grafana/provisioning

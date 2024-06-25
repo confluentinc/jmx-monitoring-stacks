@@ -1,0 +1,8 @@
+prometheus:
+  prometheusSpec:
+    podMonitorSelector:
+      matchLabels:
+        monitoring: confluent
+    podMonitorNamespaceSelector:
+      matchLabels:
+        monitoring: confluent

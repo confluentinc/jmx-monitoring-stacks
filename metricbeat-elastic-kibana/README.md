@@ -1,5 +1,5 @@
-# Metricbat Elastic Search Kibana stack
-## Elastic Search, Kibana and Metricbeat configurations
+# Prometheus, Metricbeat Elastic Search Kibana stack
+
 Override Metricbat Elastic Search Kibana images and configurations with versions of your choice in `docker-compose.override.yaml` 
 
 ## Kibana dashboards

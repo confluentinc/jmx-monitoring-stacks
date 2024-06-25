@@ -1,24 +1,44 @@
 # Prometheus and Grafana stack
 
+- Prometheus version: 2.47.2
+- Grafana version 10.2.0
+
 List of provided dashboards:
 
  - [Confluent Platform overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
  - [Zookeeper cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#zookeeper-cluster)
  - [Kafka cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-cluster)
  - [Kafka topics](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-topics)
- - [Kafka Clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
+ - [Kafka clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
  - [Kafka quotas](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-quotas)
+ - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
+ - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
  - [Schema Registry cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
  - [Kafka Connect cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
- - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
  - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
- - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
  - [Rest Proxy](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
  - [KRaft overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
+ - [Confluent RBAC](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
+ - [Replicator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
+ - [Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
+
+---
+> [!NOTE]
+> **Consumer Group Lag**
+> 
+> Starting with CP 7.5, brokers expose JMX tenant-metrics for consumer lags, see the [documentation](https://docs.confluent.io/platform/current/monitor/monitor-consumer-lag.html#monitor-consumer-lag).
+> 
+> Consequently, you can either go with the [kafka-lag-exporter](https://github.com/seglo/kafka-lag-exporter) or with the broker built-in tenant metrics.
+> For the later one, you need to enable it by setting `confluent.consumer.lag.emitter.enabled = true` in the broker configuration, see the [documentation](https://docs.confluent.io/platform/current/kafka/monitoring.html#consumer-lag-offsets).
+> 
+> This repository contains both options:
+> - Dedicated Kafka lag exporter dashboard
+> - Consumer lag visualizations within the consumer dashboard
+---
 
 ### Confluent Platform overview
 
@@ -33,15 +53,20 @@ List of provided dashboards:
 ![Kafka cluster dashboard 0](img/kafka-cluster-0.png)
 ![Kafka cluster dashboard 1](img/kafka-cluster-1.png)
 
+As an alternative, it is also available a definition file to collect only metrics with value at [99th percentile](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/shared-assets/jmx-exporter/kafka_broker_p99only.yml).
+
+
 ### Kafka topics
 
 ![Kafka topics](img/kafka-topics.png)
 
-### Kafka Clients
+### Kafka clients
 
 ![Kafka Producer](img/kafka-producer.png)
 
 ![Kafka Consumer](img/kafka-consumer.png)
+
+As an alternative, it is also available a definition file to collect only a limited number of metrics for clients [clients - reduced](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/shared-assets/jmx-exporter/kafka_client_reduced.yml).
 
 ### Kafka quotas
 
@@ -53,6 +78,15 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ```
 
 ![Kafka quotas](img/kafka-quotas.png)
+
+### Kafka Lag Exporter
+
+![kafkalagexporter](img/kafka-lag-exporter.png)
+
+### Kafka Transaction Coordinator
+
+![kafkalagexporter](img/kafka-transaction-coordinator.png)
+
 
 ### Schema Registry cluster
 
@@ -78,20 +112,14 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 ### Oracle CDC source Connector
 
-To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using 
-```bash
---enable-jmx-grafana
-```
+Demo is based on https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source
+
+To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
+
 ![oraclecdc](img/oraclecdc.jpg)
-
-### Kafka Lag Exporter
-
-![kafkalagexporter](img/kafka-lag-exporter.png)
 
 
 ### Cluster Linking
-
-![clusterlinking](img/clusterlinking.png)
 
 Demo is based on https://github.com/confluentinc/demo-scene/tree/master/cluster-linking-disaster-recovery
 
@@ -118,10 +146,8 @@ ${MONITORING_STACK}/cluster-linking/start.sh
 ${MONITORING_STACK}/cluster-linking/stop.sh
 ```
 
+![clusterlinking](img/clusterlinking.png)
 
-### Kafka Transaction Coordinator
-
-![kafkalagexporter](img/kafka-transaction-coordinator.png)
 
 ### Rest Proxy
 
@@ -129,5 +155,37 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ### KRaft
 
+To test follow the next steps:
+
+1. Start dev-toolkit with
+
+```bash
+$ cd dev-toolkit
+$ start.sh
+```
+
 ![kraft1](img/kraft_1.png)
 ![kraft2](img/kraft_2.png)
+
+
+### Confluent RBAC
+
+![rbac](img/rbac.png)
+
+### Replicator 
+
+To test follow the next steps:
+
+1. Start dev-toolkit with _replicator_ profile
+
+```bash
+$ cd dev-toolkit
+$ start.sh --profile replicator
+```
+
+![replicator](img/replicator_1.png)
+![replicator](img/replicator_2.png)
+
+
+### Tiered Storage
+![tiered-storage](img/tiered-storage.png)
