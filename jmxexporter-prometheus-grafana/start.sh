@@ -41,6 +41,15 @@ docker-compose exec tools bash -c "confluent iam rbac role-binding create \
     --role SystemAdmin \
     --kafka-cluster-id $KAFKA_CLUSTER_ID"
 
+########################################
+# Starting the librdkafka based example
+########################################
+echo "Creating role binding librdkafka application"
+docker-compose exec tools bash -c "/tmp/helper-librdkafka/create-resources.sh" || exit 1
+
+docker build -t librdkafka-application -f $MONITORING_STACK/librdkafka/Dockerfile $MONITORING_STACK/librdkafka
+docker-compose up --no-recreate -d librdkafka
+
 echo -e "Launch $MONITORING_STACK"
 docker-compose up -d prometheus node-exporter kafka-lag-exporter grafana
 

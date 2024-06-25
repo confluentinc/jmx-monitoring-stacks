@@ -1,16 +1,12 @@
-using System;
-using System.Threading;
 using common;
 using common.Prometheus;
 using Confluent.Kafka;
-using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using consumer.Deserializer;
 using consumer.Nodes;
 using io.confluent.demos.common.wiki;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace consumer.Topology
 {
@@ -23,29 +19,36 @@ namespace consumer.Topology
             var consumerConf = configuration.GetSection("consumerConf").Get<ConsumerConfig>();
             consumerConf.GroupId = "count-wikipedia-page";
             consumerConf.AutoOffsetReset = AutoOffsetReset.Latest;
-            consumerConf.AutoOffsetReset = AutoOffsetReset.Earliest;
             consumerConf.EnableAutoCommit = true;
             consumerConf.EnableAutoOffsetStore = false;
             consumerConf.SecurityProtocol = SecurityProtocol.Ssl;
-            consumerConf.SslKeyLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.key";
-            consumerConf.SslKeyPassword = "confluent";
-            consumerConf.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
-            consumerConf.SslCertificateLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
-            consumerConf.EnableSslCertificateVerification = true;
+            //consumerConf.SslKeyLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.key";
+            //consumerConf.SslKeyPassword = "confluent";
+            //consumerConf.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
+            //consumerConf.SslCertificateLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
+            //consumerConf.EnableSslCertificateVerification = true;
 
             var srConfig = configuration.GetSection("schemaRegistryConf").Get<SchemaRegistryConfig>();
-            srConfig.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
-            srConfig.SslKeystoreLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.keystore.p12";
-            srConfig.SslKeystorePassword = "confluent";
-            srConfig.EnableSslCertificateVerification = false;
+            // srConfig.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
+            // srConfig.SslKeystoreLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.keystore.p12";
+            // srConfig.SslKeystorePassword = "confluent";
+            // srConfig.EnableSslCertificateVerification = false;
             srConfig.BasicAuthCredentialsSource = AuthCredentialsSource.UserInfo;
-            srConfig.BasicAuthUserInfo = "appSA:appSA";
+            //srConfig.BasicAuthUserInfo = "appSA:appSA";
+            
+            var producerConfig = configuration.GetSection("producerConf").Get<ProducerConfig>();
+            producerConfig.SecurityProtocol = SecurityProtocol.Ssl;
+            //producerConfig.SslKeyLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.key";
+            //producerConfig.SslKeyPassword = "confluent";
+            //producerConfig.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
+            //producerConfig.SslCertificateLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
+            //producerConfig.EnableSslCertificateVerification = true;
             
             var client = new CachedSchemaRegistryClient(srConfig);
             var deserializer = new AvroDeserializer<WikiEdit>(client);
 
             SinkProcessorNode sinkProcessorNode =
-                new(Serializers.Utf8, Serializers.Int32);
+                new(Serializers.Utf8, Serializers.Int32, producerConfig);
             CountProcessorNode countProcessorNode =
                 new(sinkProcessorNode);
             SourceProcessorNode<String, WikiEdit> sourceProcessorNode = new(
@@ -62,9 +65,10 @@ namespace consumer.Topology
                 if (error.IsFatal) Environment.Exit(-1);
             });
 
+            var appID = configuration.GetValue<string>("applicationId");
             builder.HandleStatistics(new PrometheusConsumerStatisticsHandler(
-                new string[] { "application" },
-                new string[] { "test-consumer-statistics" }));
+                new string[] { "application", "librdkafka_type" },
+                new string[] { appID, "consumer" }));
             builder.SetKeyDeserializer(Deserializers.ByteArray);
             builder.SetValueDeserializer(Deserializers.ByteArray);
 

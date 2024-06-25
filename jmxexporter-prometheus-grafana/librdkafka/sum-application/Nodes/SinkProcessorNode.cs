@@ -11,27 +11,22 @@ namespace consumer.Nodes
     {
         private readonly ISerializer<string> _keySerializer;
         private readonly ISerializer<int> _valueSerializer;
+        private readonly ProducerConfig _producerConfig;
         private IProducer<string,int> producer;
         private string outputTopic;
 
-        public SinkProcessorNode(ISerializer<string> keySerializer, ISerializer<int> valueSerializer)
+        public SinkProcessorNode(ISerializer<string> keySerializer, ISerializer<int> valueSerializer, ProducerConfig producerConfig)
         {
             _keySerializer = keySerializer;
             _valueSerializer = valueSerializer;
+            _producerConfig = producerConfig;
         }
         
         public override void Init(IConfiguration configuration)
         {
             outputTopic = configuration.GetValue<string>("outputTopic");
-            var producerConfig = configuration.GetSection("producerConf").Get<ProducerConfig>();
-            producerConfig.SecurityProtocol = SecurityProtocol.Ssl;
-            producerConfig.SslKeyLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA.key";
-            producerConfig.SslKeyPassword = "confluent";
-            producerConfig.SslCaLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/snakeoil-ca-1.crt";
-            producerConfig.SslCertificateLocation = "/Users/sylvainlegouellec/repos/cp-demo/scripts/security/appSA-ca1-signed.crt";
-            producerConfig.EnableSslCertificateVerification = true;
-            
-            ProducerBuilder<string, int> builder = new(producerConfig);
+            var appID = configuration.GetValue<string>("applicationId");
+            ProducerBuilder<string, int> builder = new(_producerConfig);
             
             builder.SetErrorHandler((_, error) =>
             {
@@ -39,7 +34,9 @@ namespace consumer.Nodes
                 if (error.IsFatal) Environment.Exit(-1);
             });
 
-            builder.HandleStatistics(new PrometheusProducerStatisticsHandler(new string[] { "application" }, new string[] { "test-producer-statistics" }));
+            builder.HandleStatistics(new PrometheusProducerStatisticsHandler(
+                new string[] { "application", "librdkafka_type" }, 
+                new string[] { appID, "producer" }));
             builder.SetKeySerializer(_keySerializer);
             builder.SetValueSerializer(_valueSerializer);
 

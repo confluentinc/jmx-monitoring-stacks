@@ -13,7 +13,7 @@ namespace consumer
             var configuration = GetConfiguration(args);
             try
             {
-                MetricServer metricServer = new(7071);
+                MetricServer metricServer = new(configuration.GetValue<int>("prometheusPort"));
                 metricServer.Start();
                 var topology = TopologyBuilder.BuildTopology(configuration);
                 topology.Run();

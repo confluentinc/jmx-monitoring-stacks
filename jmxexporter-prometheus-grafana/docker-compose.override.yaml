@@ -56,6 +56,20 @@ services:
     volumes:
       - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus
 
+  tools:
+    volumes:
+      - $MONITORING_STACK/librdkafka/helper:/tmp/helper-librdkafka
+
+  librdkafka:
+    image: librdkafka-application
+    restart: always
+    hostname: librdkafka-demo
+    container_name: librdkafka-demo
+    volumes:
+      - $MONITORING_STACK/../../cp-demo/scripts/security:/etc/kafka/secrets
+    env_file:
+      - $MONITORING_STACK/librdkafka/env_files/demo.env
+
   node-exporter:
     image: prom/node-exporter:v1.2.2
     container_name: node-exporter

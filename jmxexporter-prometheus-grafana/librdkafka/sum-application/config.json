@@ -1,15 +1,16 @@
 {
     "inputTopic": "wikipedia.parsed",
     "outputTopic": "agg-wikipedia-page",
+    "applicationId": "count-wikipedia-page",
     "stateDir": "/tmp/count",
     "prometheusPort": 7071,
     "consumerConf": {
-        "ClientId": "sample_client_id",
+        "ClientId": "consumer_librdkafka_wikipedia",
         "BootstrapServers": "localhost:11091",        
         "StatisticsIntervalMs": 1000
     },
     "producerConf": {
-        "ClientId": "sample_client_id",
+        "ClientId": "producer_librdkafka_wikipedia",
         "BootstrapServers": "localhost:11091",
         "Acks": "-1",
         "BatchNumMessages": "2000",
