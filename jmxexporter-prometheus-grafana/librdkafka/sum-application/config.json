@@ -1,0 +1,24 @@
+{
+    "inputTopic": "wikipedia.parsed",
+    "outputTopic": "agg-wikipedia-page",
+    "applicationId": "count-wikipedia-page",
+    "stateDir": "/tmp/count",
+    "prometheusPort": 7071,
+    "consumerConf": {
+        "ClientId": "consumer_librdkafka_wikipedia",
+        "BootstrapServers": "localhost:11091",        
+        "StatisticsIntervalMs": 1000
+    },
+    "producerConf": {
+        "ClientId": "producer_librdkafka_wikipedia",
+        "BootstrapServers": "localhost:11091",
+        "Acks": "-1",
+        "BatchNumMessages": "2000",
+        "LingerMs": "100",
+        "CompressionType": "zstd",
+        "StatisticsIntervalMs": 1000
+    },
+    "schemaRegistryConf": {
+        "Url": "https://localhost:8085"
+    }
+}

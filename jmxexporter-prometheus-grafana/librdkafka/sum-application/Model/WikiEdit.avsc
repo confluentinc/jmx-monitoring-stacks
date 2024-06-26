@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "WikiEdit",
+  "namespace": "io.confluent.demos.common.wiki",
+  "fields": [
+    {
+      "default": null,
+      "name": "bot",
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    {
+      "default": null,
+      "name": "comment",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "id",
+      "type": [
+        "null",
+        "long"
+      ]
+    }
+  ]
+}

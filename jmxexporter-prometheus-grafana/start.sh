@@ -41,6 +41,15 @@ docker-compose exec tools bash -c "confluent iam rbac role-binding create \
     --role SystemAdmin \
     --kafka-cluster-id $KAFKA_CLUSTER_ID"
 
+########################################
+# Starting the librdkafka based example
+########################################
+echo "Creating role binding librdkafka application"
+docker-compose exec tools bash -c "/tmp/helper-librdkafka/create-resources.sh" || exit 1
+
+docker build -t librdkafka-application -f $MONITORING_STACK/librdkafka/Dockerfile $MONITORING_STACK/librdkafka
+docker-compose up --no-recreate -d librdkafka
+
 echo -e "Create dashboards for auto import in grafana"
 GRAFANA_IMPORT_FOLDER=${MONITORING_STACK}/assets/grafana/provisioning/import
 mkdir -p ${GRAFANA_IMPORT_FOLDER}/dashboards ${GRAFANA_IMPORT_FOLDER}/datasources
@@ -67,6 +76,7 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/schema-registry-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/schema-registry-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/tiered-storage.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/tiered-storage.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/zookeeper-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/zookeeper-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/librdkafka-application.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/librdkafka-application.json
 
 echo -e "Launch $MONITORING_STACK"
 docker-compose up -d prometheus node-exporter kafka-lag-exporter grafana
