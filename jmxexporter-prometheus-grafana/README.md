@@ -18,6 +18,7 @@ List of provided dashboards:
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
+  - [Librdkafka based client](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
  - [Rest Proxy](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
@@ -109,6 +110,12 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ### Kafka streams RocksDB 
 
 ![kafkastreams-rocksdb 0](img/kafkastreams-rocksdb.png)
+
+
+### Librdkafka
+
+![librdkafka consumer](img/librdkafka-consumer.png)
+![librdkafka producer](img/librdkafka-producer.png)
 
 ### Oracle CDC source Connector
 
