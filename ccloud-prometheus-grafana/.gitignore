@@ -1,1 +1,3 @@
 docker-compose.yaml
+
+**/assets/prometheus/** 
