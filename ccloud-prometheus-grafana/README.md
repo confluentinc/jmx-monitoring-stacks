@@ -26,7 +26,26 @@ This project integrates Confluent Cloud Cost information with Prometheus. It use
 
 [More info](https://github.com/mcolomerc/confluent-cloud-cost-exporter)
 
-<img src="./docs/billing.png" width="480">
+Confluent Cloud Costs Grafana Dashboard:
+
+<img src="./docs/resource.png" width="640">
+
+* Filters by resource: Environment, Kafka Cluster, Connectors, ksqlDB and Flink Compute Pools. 
+
+<img src="./docs/filters.png" width="640">
+
+* Breakdown of costs by day  
+  
+<img src="./docs/billing.png" width="640">
+
+* Breakdown of costs by product, line type and network access type.
+  
+<img src="./docs/breakdown.png" width="640">
+
+* Breakdown of costs by resource:
+
+<img src="./docs/kafka-breakdown.png" width="640">
+
 
 ## How to run
 

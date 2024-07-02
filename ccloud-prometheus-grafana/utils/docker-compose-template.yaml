@@ -8,7 +8,7 @@ services:
       - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus
 
   grafana:
-    image: grafana/grafana:8.5.27
+    image: grafana/grafana:11.1.0
     container_name: grafana
     environment:
       - "GF_SECURITY_ADMIN_USER=admin"
@@ -18,6 +18,7 @@ services:
       - 3000:3000
     volumes:
       - $MONITORING_STACK/assets/grafana/provisioning/:/etc/grafana/provisioning
+      - $MONITORING_STACK/assets/grafana/public/img/icons/confluent:/usr/share/grafana/public/img/icons/confluent
   
   confluent_cost_exporter:
     image: docker.io/mcolomerc/confluent-costs-exporter:latest
