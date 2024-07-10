@@ -50,7 +50,10 @@ This project provides metrics and dashboards for:
 | TX Coordinator        |yes|           ||
 | Rest Proxy            |yes|           ||
 | Cluster Linking       |yes|           ||
-| Oracle CDC            |yes|           ||
+| Oracle CDC connector  |yes|           ||
+| Debezium connectors   |yes|           ||
+| Mongo connector       |yes|           ||
+| librdkafka clients    |yes|           ||
 | Confluent RBAC        |yes|           ||
 | Replicator            |yes|           ||
 | Tiered Storage        |yes|           ||
