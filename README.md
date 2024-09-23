@@ -112,8 +112,8 @@ MONITORING_STACK=datadog
 3. Clone `cp-demo` and checkout a branch.
 
 ```bash
-# Example with CP-DEMO 7.6.1 version (all branches starting from 7.2.0 have been tested)
-CP_DEMO_VERSION=7.6.1-post
+# Example with CP-DEMO 7.7.1 version
+CP_DEMO_VERSION=7.7.1-post
 
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
 (cd cp-demo && git fetch && git checkout $CP_DEMO_VERSION && git pull)
