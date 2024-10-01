@@ -808,7 +808,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum by (hostname, consumergroup, topic) (kafka_server_tenant_metrics_consumer_lag_offsets{env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"})",
+              "expr": "sum by (hostname, consumergroup, topic) (kafka_server_tenant_metrics_consumer_lag_offsets{client_id=~\"$client_id\", env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"})",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -914,7 +914,7 @@
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "kafka_server_tenant_metrics_consumer_lag_offsets{env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"}",
+              "expr": "kafka_server_tenant_metrics_consumer_lag_offsets{client_id=~\"$client_id\", env=\"$env\", topic=~\"$topic\", consumergroup=~\"$consumer_group\"}",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -2694,7 +2694,7 @@
           "type": "prometheus",
           "uid": "Prometheus"
         },
-        "definition": "label_values(kafka_consumer_app_info, client_id)",
+        "definition": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (client_id))",
         "hide": 0,
         "includeAll": true,
         "label": "Client ID",
@@ -2702,11 +2702,11 @@
         "name": "client_id",
         "options": [],
         "query": {
-          "query": "label_values(kafka_consumer_app_info, client_id)",
-          "refId": "StandardVariableQuery"
+          "query": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (client_id))",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": ".*client_id=\"(.*)\".*",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
@@ -2746,7 +2746,7 @@
           "type": "prometheus",
           "uid": "Prometheus"
         },
-        "definition": "label_values(kafka_server_tenant_metrics_consumer_lag_offsets,consumergroup)",
+        "definition": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or label_replace(kafka_consumergroup_group_lag, \"consumergroup\", \"$1\", \"group\", \"(.*)\")) by (consumergroup))",
         "hide": 0,
         "includeAll": true,
         "label": "Group ID",
@@ -2754,11 +2754,11 @@
         "name": "consumer_group",
         "options": [],
         "query": {
-          "query": "label_values(kafka_server_tenant_metrics_consumer_lag_offsets,consumergroup)",
-          "refId": "StandardVariableQuery"
+          "query": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or label_replace(kafka_consumergroup_group_lag, \"consumergroup\", \"$1\", \"group\", \"(.*)\")) by (consumergroup))",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": ".*consumergroup=\"(.*)\".*",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
@@ -2798,7 +2798,7 @@
           "type": "prometheus",
           "uid": "Prometheus"
         },
-        "definition": "label_values(kafka_consumer_app_info,instance)",
+        "definition": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (instance))",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -2806,12 +2806,11 @@
         "name": "instance",
         "options": [],
         "query": {
-          "qryType": 1,
-          "query": "label_values(kafka_consumer_app_info,instance)",
+          "query": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (instance))",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": ".*instance=\"(.*)\".*",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
@@ -2863,6 +2862,6 @@
   "timezone": "",
   "title": "Kafka Consumer",
   "uid": "-C-IEldWk2",
-  "version": 24,
+  "version": 25,
   "weekStart": ""
 }
