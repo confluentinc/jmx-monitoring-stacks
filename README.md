@@ -156,16 +156,25 @@ To run a lightweight dev environment:
 
 ## Run with profiles
 
+Default profile will create:
+ - 1 Confluent Platform with 2 brokers (_kafka1_ and _kafka2_)
+ - 1 Confluent Platform with 2 brokers (_kafka3_ and _kafka4_)
+ - 1 kafka lag exporter
+ - 1 grafana
+ - 1 prometheus
+
 To add more use cases, we are leveraging the docker profiles. 
 
-To run replicator scenario, i.e. `start.sh --profile replicator`. It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
+To run replicator scenario, i.e. run `start.sh --profile replicator`. 
+
+It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
 Currently supported profiles:
-- replicator 
-- schema-registry
-- ksqldb
-- consumer (with kafka-lag-exported included)
-- clientsreduced (kafka clients with a limited number of metrics exposed)
+- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2_ and _kafka3-kafka4_ 
+- _schema-registry_: it will add Confluent Schema Registry
+- _ksqldb_: it will add ksqldb
+- _consumer_: it will add a demo application implemented with spring with full client metrics
+- _consumer-minimal_: it will add a demo application implemented with spring with a limited number of client metrics
 
 ## FAQ
 

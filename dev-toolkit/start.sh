@@ -102,7 +102,7 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.schema-registry.yaml \
   -f docker-compose.ksqldb.yaml \
   -f docker-compose.consumer.yaml \
-  -f docker-compose.clientsreduced.yaml \
+  -f docker-compose.consumer-minimal.yaml \
   up -d
 
 # Look at Grafana dashboards
