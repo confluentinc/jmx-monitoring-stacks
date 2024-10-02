@@ -127,7 +127,7 @@ fi
 
 echo -e "\ndev-toolkit started!"
 
-# Look at Grafana dashboards
+# Look at Prometheus metrics
 echo -e "\nView Prometheus metrics at ->"
 echo -e "http://localhost:9090"
 

@@ -170,7 +170,7 @@ To run replicator scenario, i.e. run `start.sh --profile replicator`.
 It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
 Currently supported profiles:
-- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2_ and _kafka3-kafka4_ 
+- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and _broker-dest_
 - _schema-registry_: it will add Confluent Schema Registry
 - _ksqldb_: it will add ksqldb
 - _consumer_: it will add a demo application implemented with spring with full client metrics
