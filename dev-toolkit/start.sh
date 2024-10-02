@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+echo -e "\ndev-toolkit bootstrap..."
+
+# Check if docker-compose exists
+if command -v docker-compose &> /dev/null
+then
+    DOCKER_COMPOSE_CMD="docker-compose"
+else
+    DOCKER_COMPOSE_CMD="docker compose"
+fi
+
 # get args from command line (if any) and put them in a variable
 docker_args=("$@")
 echo "docker_args: ${docker_args[@]}"
@@ -87,23 +97,22 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
         replacement: '${1}'
 EOF
 
+echo -e "\nStarting profiles..."
+
 # Start the development environment
-docker-compose ${docker_args[@]} \
+$DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.yaml \
   -f docker-compose.replicator.yaml \
   -f docker-compose.schema-registry.yaml \
   -f docker-compose.ksqldb.yaml \
   -f docker-compose.consumer.yaml \
-  -f docker-compose.clientsreduced.yaml \
+  -f docker-compose.consumer-minimal.yaml \
   up -d
-
-# Look at Grafana dashboards
-echo -e "\nView Grafana dashboards at (admin/password) ->"
-echo -e "http://localhost:3000"
 
 # if docker_args contains replicator, then start the replicator
 if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
-  sleep 180
+  echo -e "\nWaiting 120 seconds before starting replicator connector..."
+  sleep 120
   echo -e "\nStarting replicator connector..."
 
   curl --request PUT \
@@ -112,5 +121,16 @@ if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
     --header 'user-agent: vscode-restclient' \
     --data '{"connector.class": "io.confluent.connect.replicator.ReplicatorSourceConnector","topic.regex": "quotes","key.converter": "io.confluent.connect.replicator.util.ByteArrayConverter","value.converter": "io.confluent.connect.replicator.util.ByteArrayConverter","header.converter": "io.confluent.connect.replicator.util.ByteArrayConverter","src.kafka.bootstrap.servers": "kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092","dest.kafka.bootstrap.servers": "broker-replicator-dst:29092","error.tolerance": "all","errors.log.enable": "true","errors.log.include.messages": "true","confluent.topic.replication.factor": 1,"provenance.header.enable": "true","topic.timestamp.type": "LogAppendTime","topic.rename.format": "replica-${topic}","tasks.max": "1"}'
 
-  sleep 60
+  echo -e "\nWaiting 45 seconds to initialize replicator connector..."
+  sleep 45
 fi
+
+echo -e "\ndev-toolkit started!"
+
+# Look at Prometheus metrics
+echo -e "\nView Prometheus metrics at ->"
+echo -e "http://localhost:9090"
+
+# Look at Grafana dashboards
+echo -e "\nView Grafana dashboards at (admin/password) ->"
+echo -e "http://localhost:3000"
