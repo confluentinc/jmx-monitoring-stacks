@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
+# Check if docker-compose exists
+if command -v docker-compose &> /dev/null
+then
+    DOCKER_COMPOSE_CMD="docker-compose"
+else
+    DOCKER_COMPOSE_CMD="docker compose"
+fi
+
 # Cleanup
-docker-compose \
+$DOCKER_COMPOSE_CMD \
     --profile replicator \
     --profile schema-registry \
     --profile ksqldb \

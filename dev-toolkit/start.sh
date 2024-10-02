@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Check if docker-compose exists
+if command -v docker-compose &> /dev/null
+then
+    DOCKER_COMPOSE_CMD="docker-compose"
+else
+    DOCKER_COMPOSE_CMD="docker compose"
+fi
+
 # get args from command line (if any) and put them in a variable
 docker_args=("$@")
 echo "docker_args: ${docker_args[@]}"
@@ -88,7 +96,7 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
 EOF
 
 # Start the development environment
-docker-compose ${docker_args[@]} \
+$DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.yaml \
   -f docker-compose.replicator.yaml \
   -f docker-compose.schema-registry.yaml \
