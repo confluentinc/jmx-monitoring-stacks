@@ -146,19 +146,21 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/confluentinc/jmx-monitoring-stacks/)
 
-To run a lightweight dev environment:
+Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
+
+To run a lightweight a **Default** environment, follow the next steps:
 
 1. `cd dev-toolkit`
-2. Put your new dashboards into the `grafana-wip` folder
-3. `start.sh` -> It will create a minimal environment with a KRaft cluster, prometheus, grafana and a spring based java client
+2. [Optional]: Put your new dashboards into the `grafana-wip` folder. All [existing grafana dashboards](jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards) will be anyway loaded.
+3. `start.sh`
 4. For Grafana, go to http://localhost:3000, login with _admin/password_
 5. `stop.sh`
 
 ## Run with profiles
 
-Default profile will create:
- - 1 Confluent Platform with 2 brokers (_kafka1_ and _kafka2_)
- - 1 Confluent Platform with 2 brokers (_kafka3_ and _kafka4_)
+**Default** profile will create:
+ - 1 Confluent Platform with KRaft and 4 brokers (_kafka1_,_kafka2_,_kafka3_,_kafka4_)
+ - 1 kafka application implemented with Spring to fetch producer and consumer metrics
  - 1 kafka lag exporter
  - 1 grafana
  - 1 prometheus
@@ -170,17 +172,17 @@ To run replicator scenario, i.e. run `start.sh --profile replicator`.
 It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
 Currently supported profiles:
-- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and _broker-dest_
+- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 - _schema-registry_: it will add Confluent Schema Registry
 - _ksqldb_: it will add ksqldb
-- _consumer_: it will add a demo application implemented with spring with full client metrics
-- _consumer-minimal_: it will add a demo application implemented with spring with a limited number of client metrics
+- _consumer_: it will add a demo application implemented with Spring with full client metrics
+- _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
 
 ## FAQ
 
 - What if I need more components?
 
-More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer)
+More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer) to create yours.
 
 - What if I need more prometheus jobs?
 

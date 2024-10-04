@@ -11,6 +11,7 @@ whitelistObjectNames:
   - kafka.schema.registry:type=avro-schemas*
   - kafka.schema.registry:type=kafka.schema.registry-metrics,client-id=*
   - kafka.schema.registry:type=kafka.schema.registry-coordinator-metrics,client-id=*
+  - kafka.schema.registry:type=master-slave-role
   # The two lines below are used to pull the Kafka Client Producer & consumer metrics from SR Client.
   # If you care about Producer/Consumer metrics for SR, please uncomment 2 lines below.
   # Please note that this increases the scrape duration to about 1 second as it needs to parse a lot of data.
@@ -56,6 +57,12 @@ rules:
     cache: true
     labels:
       schema_type: $1
+  # kafka.schema.registry:type=master-slave-role
+  - pattern: "kafka.schema.registry<type=master-slave-role><>master-slave-role"
+    name: "kafka_schema_registry_master_slave_role"
+    type: GAUGE
+    help: "Current role of this Schema Registry instance: 1 indicates primary, 0 indicates secondary"
+    cache: true
   # kafka.schema.registry:type=kafka.schema.registry-metrics,client-id=*
   # kafka.schema.registry:type=kafka.schema.registry-coordinator-metrics,client-id=*
   - pattern: "kafka.schema.registry<type=(.+), client-id=(.+)><>([^:]+):"
