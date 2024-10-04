@@ -43,6 +43,27 @@ List of provided dashboards:
 > - Consumer lag visualizations within the consumer dashboard
 ---
 
+## JMX Exporter UI
+
+**[Experimental]**
+
+You can test JMX metrics using the UI and see if they are matching against a Prometheus ruleset file.
+
+To run the UI:
+
+ - ensure you have Python 3.x install
+ - install python dependencies:
+```
+pip install Flask
+```
+ - run the UI and then connect to localhost:5000
+```
+python shared-assets/jmx-exporter-matching-ui/app.py
+```
+ - play with the UI
+
+![JMX Exporter UI](img/jmxexporter-ui.png)
+
 ### Confluent Platform overview
 
 ![Confluent Platform overview](img/confluent-platform-overview.png)
@@ -123,7 +144,8 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 Demo is based on https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source
 
-To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
+To test:
+ - From the repo, run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
 
 ![oraclecdc](img/oraclecdc.jpg)
 
@@ -171,7 +193,7 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ### KRaft
 
-To test follow the next steps:
+To test use dev-toolkit with _Default_ profile:
 
 1. Start dev-toolkit with
 
