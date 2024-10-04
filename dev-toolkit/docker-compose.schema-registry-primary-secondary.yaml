@@ -1,0 +1,58 @@
+services:
+  schemaregistry:
+    image: confluentinc/cp-schema-registry:${CFLT_TAG}
+    container_name: schemaregistry
+    restart: always
+    profiles:
+      - schema-registry-primary-secondary
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+    ports:
+      - 8081:8081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schemaregistry
+      SCHEMA_REGISTRY_INTER_INSTANCE_PROTOCOL: http
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: PLAINTEXT
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: INFO
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
+      SCHEMA_REGISTRY_DEBUG: "true"
+      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/confluent_schemaregistry.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/confluent_schemaregistry.yml:/tmp/confluent_schemaregistry.yml
+
+  schemaregistry-2:
+    image: confluentinc/cp-schema-registry:${CFLT_TAG}
+    container_name: schemaregistry2
+    restart: always
+    profiles:
+      - schema-registry-primary-secondary
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+      - schemaregistry
+    ports:
+      - 9081:9081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schemaregistry2
+      SCHEMA_REGISTRY_INTER_INSTANCE_PROTOCOL: http
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092
+      SCHEMA_REGISTRY_LEADER_ELIGIBILITY: "false"
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:9081
+      SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: PLAINTEXT
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: INFO
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
+      SCHEMA_REGISTRY_DEBUG: "true"
+      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/confluent_schemaregistry.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/confluent_schemaregistry.yml:/tmp/confluent_schemaregistry.yml

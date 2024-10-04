@@ -97,6 +97,23 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
         replacement: '${1}'
 EOF
 
+# ADD Schema Registry monitoring to prometheus config (default was for 1 SR only)
+cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: "schema-registry-2"
+    static_configs:
+      - targets:
+          - "schemaregistry2:1234"
+        labels:
+          env: "dev"
+          job: "schema-registry"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: hostname
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
 echo -e "\nStarting profiles..."
 
 # Start the development environment
@@ -107,6 +124,7 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.ksqldb.yaml \
   -f docker-compose.consumer.yaml \
   -f docker-compose.consumer-minimal.yaml \
+  -f docker-compose.schema-registry-primary-secondary.yaml \
   up -d
 
 # if docker_args contains replicator, then start the replicator
