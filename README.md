@@ -174,6 +174,7 @@ It's possible to combine profiles as well, i.e. `start.sh --profile schema-regis
 Currently supported profiles:
 - _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 - _schema-registry_: it will add Confluent Schema Registry
+- _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
 - _ksqldb_: it will add ksqldb
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
