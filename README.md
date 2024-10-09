@@ -15,6 +15,7 @@ This project provides metrics and dashboards for:
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
+- [Confluent Cloud with Opentelemetry and Amazon CloudWatch](ccloud-opentelemetry-aws-cloudwatch)
 
 ## 📊 Dashboards
 
