@@ -63,15 +63,19 @@ def evaluate_metric(yaml_content, metric):
             if re.match(blacklist_pattern.replace('*', '.*'), metric):
                 return "Metric is blacklisted."
 
-        # Check if the metric is in the whitelist
-        whitelisted = False
-        for whitelist_pattern in config.get('whitelistObjectNames', []):
-            if re.match(whitelist_pattern.replace('*', '.*'), metric):
-                whitelisted = True
-                break
+        # If whitelistObjectNames is present, check the whitelist
+        whitelist = config.get('whitelistObjectNames', None)
+        if whitelist:
+            whitelisted = False
+            for whitelist_pattern in whitelist:
+                if re.match(whitelist_pattern.replace('*', '.*'), metric):
+                    whitelisted = True
+                    break
 
-        if not whitelisted:
-            return "Metric is not whitelisted."
+            if not whitelisted:
+                return "Metric is not whitelisted."
+
+        # If whitelistObjectNames is not present, skip whitelist check
 
         # Check the metric against the rules
         for rule in config.get('rules', []):
