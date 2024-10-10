@@ -15,6 +15,7 @@ This project provides metrics and dashboards for:
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
+- [Confluent Cloud with Opentelemetry and Amazon CloudWatch](ccloud-opentelemetry-aws-cloudwatch)
 
 ## 📊 Dashboards
 
@@ -60,9 +61,9 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Cloud:**
 
-| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|
-|-----------------------|------------------------|---------|---------------------|
-| Cluster               | yes                    | yes     | yes                 |
+| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|AWS Cloud Watch|
+|-----------------------|------------------------|---------|---------------------|--------|
+| Cluster               | yes                    | yes     | yes                 |yes
 | Producer/Consumer     |                        |      | yes                 |
 | ksql                  | yes                    |      |                  |
 | Billing/Cost tracking | yes                    |      |                  |
