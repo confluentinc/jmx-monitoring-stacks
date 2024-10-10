@@ -393,3 +393,8 @@ rules:
       client-id: "$5"
       topic: "$2"
       partition: "$4"
+
+  ## Confluent Audit
+  - pattern: 'kafka.server<type=confluent-audit-metrics><>(.+):(.*)'
+    name: confluent_audit_log_$1
+    type: GAUGE

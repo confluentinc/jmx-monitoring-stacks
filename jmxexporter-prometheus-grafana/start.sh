@@ -77,6 +77,8 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/tiered-storage.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/tiered-storage.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/zookeeper-cluster.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/zookeeper-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/librdkafka-application.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/librdkafka-application.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-audit.json > ${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-audit.json
+
 
 echo -e "Launch $MONITORING_STACK"
 docker-compose up -d prometheus node-exporter kafka-lag-exporter grafana
