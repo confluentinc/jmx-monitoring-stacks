@@ -44,6 +44,8 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/schema-registry-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/schema-registry-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/tiered-storage.json >${GRAFANA_IMPORT_FOLDER}/dashboards/tiered-storage.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/zookeeper-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/zookeeper-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-audit.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-audit.json
+
 
 # Copy needed files in the current folder
 cp -R ../shared-assets/jmx-exporter .
