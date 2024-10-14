@@ -13,7 +13,7 @@ echo "Using ${OVERRIDE_PATH} for docker-compose override"
 . $MONITORING_STACK/../../utils/setup_cluster-linking_demo.sh
 
 echo -e "Launch clink-demo in CLINK_DEMO_HOME monitoring stack in $MONITORING_STACK"
-(cd $CLINK_DEMO_HOME && docker-compose up -d)
+(cd $CLINK_DEMO_HOME && docker-compose up -d mainZookeeper mainKafka disasterZookeeper disasterKafka)
 
 echo -e "Wait 30 seconds to start up..."
 
