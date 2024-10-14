@@ -70,7 +70,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -84,7 +84,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -474,7 +474,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -488,7 +488,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -692,7 +692,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -706,7 +706,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -997,7 +997,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_connect_app_info,env)",
+        "definition": "label_values(env)",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -1005,8 +1005,9 @@
         "name": "env",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_app_info,env)",
-          "refId": "Prometheus-env-Variable-Query"
+          "qryType": 1,
+          "query": "label_values(env)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -1077,6 +1078,6 @@
   "timezone": "",
   "title": "Kafka Transaction Coordinator",
   "uid": "AEadsSQ97mz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
