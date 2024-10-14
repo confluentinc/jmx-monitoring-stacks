@@ -70,7 +70,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -84,7 +84,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -95,7 +95,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "The number of commit calls per second .",
       "fieldConfig": {
@@ -144,7 +144,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -161,7 +161,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "The average time in ms a request was throttled by a broker.",
       "fieldConfig": {
@@ -212,7 +212,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -229,7 +229,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "Rate of failed authentication attempts\n",
       "fieldConfig": {
@@ -279,7 +279,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -296,7 +296,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "description": "The number of total rebalance events per hour, both successful and unsuccessful rebalance attempts.",
       "fieldConfig": {
@@ -345,7 +345,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -363,7 +363,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -376,7 +376,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "fieldConfig": {
             "defaults": {
@@ -462,7 +462,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -479,7 +479,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "fieldConfig": {
             "defaults": {
@@ -565,7 +565,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "sum without(area)(jvm_memory_bytes_used{env=\"$env\",hostname=~\"$hostname\"})",
@@ -576,7 +576,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "expr": "jvm_memory_bytes_max{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\",area=\"heap\"}",
               "interval": "",
@@ -590,7 +590,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "fieldConfig": {
             "defaults": {
@@ -678,7 +678,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "exemplar": true,
               "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{env=\"$env\",hostname=~\"$hostname\"}[5m]))",
@@ -695,7 +695,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -716,7 +716,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The difference between the last offset stored by the broker and the last committed offset for a specific consumer group name, client ID, member ID, group instance ID, topic name, and partition ID\n",
           "fieldConfig": {
@@ -804,7 +804,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -822,7 +822,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The difference between the last offset stored by the broker and the last committed offset for a specific consumer group name, client ID, member ID, group instance ID, topic name, and partition ID\n",
           "fieldConfig": {
@@ -910,7 +910,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -933,7 +933,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -946,7 +946,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of bytes consumed per second\n",
           "fieldConfig": {
@@ -1034,7 +1034,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1051,7 +1051,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of records consumed per second.",
           "fieldConfig": {
@@ -1138,7 +1138,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1155,7 +1155,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of bytes consumed per topic per second.\n",
           "fieldConfig": {
@@ -1243,7 +1243,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1260,7 +1260,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of records consumed per second per topic.\n",
           "fieldConfig": {
@@ -1347,7 +1347,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1366,7 +1366,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -1378,7 +1378,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1391,7 +1391,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The number of fetch requests per second.\n",
           "fieldConfig": {
@@ -1478,7 +1478,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1495,7 +1495,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average number of bytes fetched per request for a topic",
           "fieldConfig": {
@@ -1582,7 +1582,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1599,7 +1599,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average time taken for a fetch request.",
           "fieldConfig": {
@@ -1686,7 +1686,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1703,7 +1703,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The max time taken for a fetch request.",
           "fieldConfig": {
@@ -1790,7 +1790,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1809,7 +1809,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -1830,7 +1830,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average delay between invocations of poll().\n",
           "fieldConfig": {
@@ -1917,7 +1917,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1934,7 +1934,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The max delay between invocations of poll().",
           "fieldConfig": {
@@ -2021,7 +2021,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2038,7 +2038,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The number of seconds since the last poll() invocation.",
           "fieldConfig": {
@@ -2125,7 +2125,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2142,7 +2142,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average fraction of time the consumer’s poll() is idle as opposed to waiting for the user code to process records.",
           "fieldConfig": {
@@ -2195,7 +2195,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2217,7 +2217,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -2230,7 +2230,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The average time taken for a commit request",
           "fieldConfig": {
@@ -2316,7 +2316,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2333,7 +2333,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "The number of commit calls per second .",
           "fieldConfig": {
@@ -2420,7 +2420,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2439,7 +2439,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -2451,7 +2451,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -2464,7 +2464,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "Number of simultaneous connections\n",
           "fieldConfig": {
@@ -2551,7 +2551,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2568,7 +2568,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "description": "response rate per node\n",
           "fieldConfig": {
@@ -2655,7 +2655,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "Prometheus"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2674,7 +2674,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -2692,7 +2692,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (client_id))",
         "hide": 0,
@@ -2718,7 +2718,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(env)",
         "hide": 0,
@@ -2744,7 +2744,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or label_replace(kafka_consumergroup_group_lag, \"consumergroup\", \"$1\", \"group\", \"(.*)\")) by (consumergroup))",
         "hide": 0,
@@ -2770,7 +2770,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(topic)",
         "hide": 0,
@@ -2796,7 +2796,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (instance))",
         "hide": 0,
@@ -2819,7 +2819,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(process_cpu_seconds_total,hostname)",
         "hide": 0,
