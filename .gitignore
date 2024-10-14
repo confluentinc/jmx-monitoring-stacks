@@ -14,3 +14,5 @@ dev-toolkit/assets/*
 dev-toolkit/jmx-exporter/*
 **/obj/*
 **/bin/*
+
+jmxexporter-prometheus-grafana/assets/grafana/provisioning/import/*

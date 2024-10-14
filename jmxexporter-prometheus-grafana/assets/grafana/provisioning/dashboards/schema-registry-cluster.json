@@ -150,7 +150,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -164,7 +164,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -548,7 +548,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -885,7 +885,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
@@ -897,7 +897,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -1215,7 +1215,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "Prometheus"
+            "uid": "${Prometheus}"
           },
           "refId": "A"
         }
