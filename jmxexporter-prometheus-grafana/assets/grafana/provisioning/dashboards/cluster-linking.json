@@ -31,12 +31,6 @@
     },
     {
       "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
       "id": "table",
       "name": "Table",
       "version": ""
@@ -1085,195 +1079,6 @@
         "type": "prometheus",
         "uid": "${Prometheus}"
       },
-      "description": "Provides metrics on delayed operations on the cluster link.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 42
-      },
-      "id": 132,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Prometheus}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "sum(kafka_server_delayedoperationpurgatory_purgatorysize{delayedoperation=\"ClusterLink\"})",
-          "interval": "",
-          "legendFormat": "DelayedOperations",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Delayed operations ",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Prometheus}"
-      },
-      "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 42
-      },
-      "id": 131,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Prometheus}"
-          },
-          "exemplar": true,
-          "expr": "sum(kafka_network_requestmetrics_requestbytes{request=\"CreateClusterLinks\"})",
-          "interval": "",
-          "legendFormat": "CreateClusterLinks",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Prometheus}"
-          },
-          "exemplar": true,
-          "expr": "sum(kafka_network_requestmetrics_requestbytes{request=\"DeleteClusterLinks\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "DeleteClusterLinks",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Prometheus}"
-          },
-          "exemplar": true,
-          "expr": "sum(kafka_network_requestmetrics_requestbytes{request=\"ListClusterLinks\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "ListClusterLinks",
-          "refId": "C"
-        }
-      ],
-      "title": "Request Bytes",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Prometheus}"
-      },
       "description": "Depending on the request name, provides statistics on requests on the cluster link, including requests and response times, time requests wait in the queue, size of requests (bytes), and so forth.",
       "fieldConfig": {
         "defaults": {
@@ -1335,7 +1140,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 50
+        "y": 42
       },
       "id": 129,
       "links": [],
@@ -1470,7 +1275,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 50
+        "y": 42
       },
       "id": 84,
       "links": [],
@@ -1605,7 +1410,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 50
+        "y": 42
       },
       "id": 124,
       "links": [],
@@ -1740,7 +1545,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 58
+        "y": 50
       },
       "id": 125,
       "links": [],
@@ -1875,7 +1680,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 58
+        "y": 50
       },
       "id": 123,
       "links": [],
@@ -2010,7 +1815,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 58
+        "y": 50
       },
       "id": 127,
       "links": [],
@@ -2145,7 +1950,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 66
+        "y": 58
       },
       "id": 128,
       "links": [],
@@ -2280,7 +2085,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 66
+        "y": 58
       },
       "id": 126,
       "links": [],
@@ -2465,6 +2270,6 @@
   "timezone": "browser",
   "title": "Cluster Linking",
   "uid": "GxJsYfT4k",
-  "version": 18,
+  "version": 2,
   "weekStart": ""
 }
