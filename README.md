@@ -143,11 +143,13 @@ ${MONITORING_STACK}/stop.sh
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/cloud/current/get-started/examples/ccloud-observability/docs/index.html).
 
-# How to use with a minimal configuration: DEV-toolkit
+# How to use with specific configurations: DEV-toolkit
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/confluentinc/jmx-monitoring-stacks/)
 
 Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
+
+Dev-toolkit is based on Prometheus and Grafana stack.
 
 To run a lightweight a **Default** environment, follow the next steps:
 
@@ -180,7 +182,7 @@ Currently supported profiles:
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
 
-## FAQ
+## DEV-toolkit FAQ
 
 - What if I need more components?
 
