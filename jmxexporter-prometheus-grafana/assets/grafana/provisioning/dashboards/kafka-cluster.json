@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "Prometheus",
+      "name": "DS_PROMETHEUS",
       "label": "Prometheus",
       "description": "",
       "type": "datasource",
@@ -77,7 +77,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -91,7 +91,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -186,9 +186,12 @@
         "type": "prometheus",
         "uid": "${Prometheus}"
       },
-      "description": "Number of active controllers in the cluster.",
+      "description": "Number of Brokers Online",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
             {
               "options": {
@@ -204,15 +207,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
+                "color": "#d44a3a",
                 "value": null
               },
               {
-                "color": "#e5ac0e",
-                "value": 2
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 0
               },
               {
-                "color": "#bf1b00"
+                "color": "#299c46",
+                "value": 2
               }
             ]
           },
@@ -226,14 +230,14 @@
         "x": 4,
         "y": 1
       },
-      "id": 152,
+      "id": 14,
       "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "vertical",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -242,25 +246,26 @@
           "values": false
         },
         "text": {},
-        "textMode": "value_and_name"
+        "textMode": "auto"
       },
       "pluginVersion": "10.2.0",
+      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "expr": "kafka_controller_kafkacontroller_activecontrollercount{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"} > 0",
+          "expr": "count(kafka_server_replicamanager_leadercount{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Active Controllers",
+      "title": "Brokers Online",
       "type": "stat"
     },
     {
@@ -439,7 +444,7 @@
         "type": "prometheus",
         "uid": "${Prometheus}"
       },
-      "description": "Stray partitions in Kafka refer to partitions whose data directories remain on a broker, even though the broker no longer serves as a leader or a replica for those partitions.\n\nStray partitions could be left on a broker after reassignment or topic deletion.\n",
+      "description": "Unclean leader election rate",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -460,16 +465,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#508642",
+                "color": "#299c46",
                 "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
-                "value": 40
+                "value": 2
               },
               {
-                "color": "#bf1b00",
-                "value": 100
+                "color": "#d44a3a"
               }
             ]
           },
@@ -483,7 +487,7 @@
         "x": 16,
         "y": 1
       },
-      "id": 32,
+      "id": 16,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -508,18 +512,16 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "editorMode": "code",
-          "expr": "sum(kafka_server_replicamanager_straypartitionscount{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelectionspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
-          "hide": false,
           "instant": true,
           "interval": "",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Stray Partitions Count",
+      "title": "Unclean Leader Election Rate",
       "type": "stat"
     },
     {
@@ -614,7 +616,7 @@
         "type": "prometheus",
         "uid": "${Prometheus}"
       },
-      "description": "Number of Brokers Online",
+      "description": "Number of partitions under min insync replicas.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -635,16 +637,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d44a3a",
+                "color": "#508642",
                 "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0
+                "value": 1
               },
               {
-                "color": "#299c46",
-                "value": 2
+                "color": "#bf1b00",
+                "value": 5
               }
             ]
           },
@@ -658,7 +660,7 @@
         "x": 4,
         "y": 5
       },
-      "id": 14,
+      "id": 152,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -677,23 +679,24 @@
         "textMode": "auto"
       },
       "pluginVersion": "10.2.0",
-      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "expr": "count(kafka_server_replicamanager_leadercount{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+          "editorMode": "code",
+          "expr": "sum(kafka_cluster_partition_underminisr{job=\"kafka-broker\",env=\"$env\"})",
           "format": "time_series",
+          "hide": false,
           "instant": true,
           "interval": "",
-          "intervalFactor": 1,
+          "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Brokers Online",
+      "title": "Under Min ISR Partitions",
       "type": "stat"
     },
     {
@@ -787,7 +790,7 @@
         "type": "prometheus",
         "uid": "${Prometheus}"
       },
-      "description": "Unclean leader election rate",
+      "description": "Stray partitions in Kafka refer to partitions whose data directories remain on a broker, even though the broker no longer serves as a leader or a replica for those partitions.\n\nStray partitions could be left on a broker after reassignment or topic deletion.\n",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -808,15 +811,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
+                "color": "#508642",
                 "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
-                "value": 2
+                "value": 10
               },
               {
-                "color": "#d44a3a"
+                "color": "#bf1b00",
+                "value": 20
               }
             ]
           },
@@ -830,7 +834,7 @@
         "x": 12,
         "y": 5
       },
-      "id": 16,
+      "id": 32,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -855,16 +859,106 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelectionspersec{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+          "editorMode": "code",
+          "expr": "sum(kafka_server_replicamanager_straypartitionscount{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
+          "hide": false,
           "instant": true,
           "interval": "",
-          "intervalFactor": 1,
+          "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Unclean Leader Election Rate",
+      "title": "Stray Partitions Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
+      "description": "indicate the number of partitions that have been incorrectly assigned to brokers or have been mishandled during a rebalance or assignment process",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#508642",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 10
+              },
+              {
+                "color": "#bf1b00",
+                "value": 20
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 5
+      },
+      "id": 155,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum(kafka_server_replicamanager_straypartitionsmisclassifiedcount{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+          "format": "time_series",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Stray Partitions Miss Classified Count",
       "type": "stat"
     },
     {
@@ -1093,10 +1187,111 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
       "datasource": {
         "type": "prometheus",
         "uid": "${Prometheus}"
+      },
+      "description": "Stray partitions in Kafka refer to partitions whose data directories remain on a broker, even though the broker no longer serves as a leader or a replica for those partitions.\n\nStray partitions could be left on a broker after reassignment or topic deletion.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 9
+      },
+      "id": 154,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "kafka_server_replicamanager_straypartitionstotalsize{ job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\" }",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "{{instance}} ",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Stray Partitions Total Size",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -1129,8 +1324,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1201,8 +1395,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1273,8 +1466,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1369,8 +1561,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1443,8 +1634,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1515,8 +1705,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1587,8 +1776,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1643,7 +1831,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -1655,7 +1843,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -2276,7 +2464,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -2288,7 +2476,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -3132,7 +3320,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -3144,7 +3332,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -3360,7 +3548,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -3372,7 +3560,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -3896,7 +4084,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -3908,7 +4096,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -4116,7 +4304,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -4128,7 +4316,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -4335,7 +4523,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -4347,7 +4535,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -4863,7 +5051,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -4875,7 +5063,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -5368,7 +5556,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -5380,7 +5568,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -5898,7 +6086,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -6643,7 +6831,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -6701,8 +6889,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -6801,8 +6988,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -7444,7 +7630,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -7456,7 +7642,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -7703,7 +7889,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -7715,7 +7901,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${Prometheus}"
+        "uid": "Prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -7993,7 +8179,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Prometheus}"
+            "uid": "Prometheus"
           },
           "refId": "A"
         }
@@ -8691,6 +8877,6 @@
   "timezone": "browser",
   "title": "Kafka cluster",
   "uid": "qu-QZdfZz",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
