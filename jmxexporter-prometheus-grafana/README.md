@@ -1,5 +1,7 @@
 # Prometheus and Grafana stack
 
+After run the demo, for Grafana, go to http://localhost:3000 and then login with _admin/password_
+
 - Prometheus version: 2.47.2
 - Grafana version 10.2.0
 
@@ -18,7 +20,7 @@ List of provided dashboards:
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
-  - [Librdkafka based client](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
+- [Librdkafka based client](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Debezium source Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#debezium-cdc-source-connectors)
  - [Mongo source and sink Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#mongo-source-and-sink-connectors)
@@ -28,6 +30,7 @@ List of provided dashboards:
  - [Confluent RBAC](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
  - [Replicator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
  - [Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
+ - [Confluent Audit](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-audit)
 
 ---
 > [!NOTE]
@@ -42,6 +45,27 @@ List of provided dashboards:
 > - Dedicated Kafka lag exporter dashboard
 > - Consumer lag visualizations within the consumer dashboard
 ---
+
+## JMX Exporter UI
+
+**[Experimental]**
+
+You can test JMX metrics using the UI and see if they are matching against a Prometheus ruleset file.
+
+To run the UI:
+
+ - ensure you have Python 3.x install
+ - install python dependencies:
+```
+pip install Flask
+```
+ - run the UI and then connect to localhost:5000
+```
+python shared-assets/jmx-exporter-matching-ui/app.py
+```
+ - play with the UI
+
+![JMX Exporter UI](img/jmxexporter-ui.png)
 
 ### Confluent Platform overview
 
@@ -123,7 +147,8 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 
 Demo is based on https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source
 
-To test run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
+To test:
+ - From the repo, run [playground example](https://github.com/vdesabou/kafka-docker-playground/tree/master/connect/connect-cdc-oracle19-source) using option _--enable-jmx-grafana_
 
 ![oraclecdc](img/oraclecdc.jpg)
 
@@ -171,7 +196,7 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ### KRaft
 
-To test follow the next steps:
+To test use dev-toolkit with _Default_ profile:
 
 1. Start dev-toolkit with
 
@@ -205,3 +230,6 @@ $ start.sh --profile replicator
 
 ### Tiered Storage
 ![tiered-storage](img/tiered-storage.png)
+
+### Confluent Audit
+![confluent-audit](img/audit.png)

@@ -1,0 +1,78 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  
+  prometheus:
+    config:
+      global:
+        scrape_interval: 1m
+        scrape_timeout: 10s
+
+      scrape_configs:
+        - job_name: confluent-cloud
+          sample_limit: 10000
+          scrape_interval: 1m
+          scrape_timeout: 55s
+          honor_timestamps: true
+          static_configs:
+            - targets:
+                - api.telemetry.confluent.cloud
+          scheme: https
+          basic_auth:
+            username: "<CCLOUD_API_KEY>"
+            password: "<CCLOUD_API_SECRET>"
+          metrics_path: /v2/metrics/cloud/export
+          params:
+            "resource.kafka.id":
+              - "lkc-<kafka-cluster-id>"
+
+processors:
+  batch:
+
+exporters:
+  logging:
+    verbosity: detailed # turn off in production to save disk usage
+  debug:
+    verbosity: detailed # turn off in production to save disk usage
+  awsemf:
+    region: ap-northeast-1
+    namespace: 'ECS/ContainerMetrics/OpenTelemetry3'
+    log_group_name: '/aws/ecs/containerinsights/taku-20240912-1438/performance3'
+    dimension_rollup_option: "NoDimensionRollup"
+    resource_to_telemetry_conversion:
+      enabled: true
+    metric_declarations:
+      - dimensions: [[]]
+        metric_name_selectors:
+          - "up"
+      - dimensions: [["kafka_id"]]
+        metric_name_selectors:
+          - "confluent_kafka_server*"
+      - dimensions: [["kafka_id", "principal_id"]]
+        metric_name_selectors:
+          - "confluent_kafka_server*"
+      - dimensions: [["kafka_id", "principal_id", "type"]]
+        metric_name_selectors:
+          - "confluent_kafka_server*"
+      - dimensions: [["kafka_id", "topic"]]
+        metric_name_selectors:
+          - "confluent_kafka_server*"
+      - dimensions: [["kafka_id", "topic", "consumer_group_id"]]
+        metric_name_selectors:
+          - "confluent_kafka_server*"
+      - dimensions: [["kafka_id", "topic", "partition"]]
+        metric_name_selectors:
+          - "confluent_kafka_server*"
+  
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    metrics:
+      receivers: [prometheus]
+      processors: []
+      exporters: [logging, awsemf]

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JMX Metric Evaluator</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+        .container {
+          display: flex;
+          justify-content: space-between;
+          margin: 20px;
+        }
+        textarea, input {
+          width: 45%;
+          height: 200px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        #metric-input {
+          height: 50px;
+        }
+        #result {
+          margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <textarea id="yaml-input" placeholder="Paste JMX Prometheus YAML here..."></textarea>
+    <input type="text" id="metric-input" placeholder="Enter JMX metric to check...">
+</div>
+<button onclick="evaluateMetric()">Evaluate Metric</button>
+<div id="result"></div>
+
+<script>
+    function evaluateMetric() {
+      const yaml = document.getElementById('yaml-input').value;
+      const metric = document.getElementById('metric-input').value;
+
+      if (!yaml || !metric) {
+        alert('Please provide both YAML and JMX Metric.');
+        return;
+      }
+
+      // Send data to the backend
+      fetch('/evaluate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ yaml: yaml, metric: metric })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('result').innerHTML = data.result;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+</script>
+</body>
+</html>

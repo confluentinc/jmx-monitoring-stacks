@@ -6,7 +6,7 @@ services:
     depends_on:
       - kafka1
     profiles:
-      - clientsreduced
+      - consumer-minimal
     command:
       [
         "java",

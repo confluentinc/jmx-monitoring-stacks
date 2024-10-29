@@ -15,6 +15,7 @@ This project provides metrics and dashboards for:
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
 - [Confluent Cloud with Opentelemetry and New Relic](ccloud-opentelemetry-newrelic)
+- [Confluent Cloud with Opentelemetry and Amazon CloudWatch](ccloud-opentelemetry-aws-cloudwatch)
 
 ## 📊 Dashboards
 
@@ -60,9 +61,9 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Cloud:**
 
-| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|
-|-----------------------|------------------------|---------|---------------------|
-| Cluster               | yes                    | yes     | yes                 |
+| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|AWS Cloud Watch|
+|-----------------------|------------------------|---------|---------------------|--------|
+| Cluster               | yes                    | yes     | yes                 |yes
 | Producer/Consumer     |                        |      | yes                 |
 | ksql                  | yes                    |      |                  |
 | Billing/Cost tracking | yes                    |      |                  |
@@ -142,36 +143,50 @@ ${MONITORING_STACK}/stop.sh
 
 For an example that showcases how to monitor Apache Kafka client applications, and steps through various failure scenarios to see how they are reflected in the provided metrics, see the [Observability for Apache Kafka® Clients to Confluent Cloud tutorial](https://docs.confluent.io/cloud/current/get-started/examples/ccloud-observability/docs/index.html).
 
-# How to use with a minimal configuration: DEV-toolkit
+# How to use with specific configurations: DEV-toolkit
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/confluentinc/jmx-monitoring-stacks/)
 
-To run a lightweight dev environment:
+Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
+
+Dev-toolkit is based on Prometheus and Grafana stack.
+
+To run a lightweight a **Default** environment, follow the next steps:
 
 1. `cd dev-toolkit`
-2. Put your new dashboards into the `grafana-wip` folder
-3. `start.sh` -> It will create a minimal environment with a KRaft cluster, prometheus, grafana and a spring based java client
+2. [Optional]: Put your new dashboards into the `grafana-wip` folder. All [existing grafana dashboards](jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards) will be anyway loaded.
+3. `start.sh`
 4. For Grafana, go to http://localhost:3000, login with _admin/password_
 5. `stop.sh`
 
 ## Run with profiles
 
+**Default** profile will create:
+ - 1 Confluent Platform with KRaft and 4 brokers (_kafka1_,_kafka2_,_kafka3_,_kafka4_)
+ - 1 kafka application implemented with Spring to fetch producer and consumer metrics
+ - 1 kafka lag exporter
+ - 1 grafana
+ - 1 prometheus
+
 To add more use cases, we are leveraging the docker profiles. 
 
-To run replicator scenario, i.e. `start.sh --profile replicator`. It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
+To run replicator scenario, i.e. run `start.sh --profile replicator`. 
+
+It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
 Currently supported profiles:
-- replicator 
-- schema-registry
-- ksqldb
-- consumer (with kafka-lag-exported included)
-- clientsreduced (kafka clients with a limited number of metrics exposed)
+- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
+- _schema-registry_: it will add Confluent Schema Registry
+- _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
+- _ksqldb_: it will add ksqldb
+- _consumer_: it will add a demo application implemented with Spring with full client metrics
+- _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
 
-## FAQ
+## DEV-toolkit FAQ
 
 - What if I need more components?
 
-More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer)
+More docker-compose envs will be released in the future, in the meantime you can use [Kafka Docker Composer](https://github.com/sknop/kafka-docker-composer) to create yours.
 
 - What if I need more prometheus jobs?
 

@@ -1,0 +1,650 @@
+{
+    "variables": [
+        {
+            "type": "property",
+            "property": "kafka_id",
+            "inputType": "select",
+            "id": "kafka_id",
+            "label": "kafka_id",
+            "visible": true,
+            "search": "partition_count",
+            "populateFrom": "kafka_id"
+        }
+    ],
+    "widgets": [
+        {
+            "height": 6,
+            "width": 6,
+            "y": 0,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_retained_bytes", "kafka_id", "lkc-7d51wo" ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Total Retained Bytes"
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 17,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_cluster_load_percent", "kafka_id", "lkc-vk0r10", { "id": "m1", "region": "ap-northeast-1" } ]
+                ],
+                "description": "The current count of bytes retained by the cluster, summed across all partitions. The count is sampled every 60 seconds.",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Cluster Load (0.0 - 1.0)",
+                "yAxis": {
+                    "left": {
+                        "label": "Bytes",
+                        "min": 0
+                    },
+                    "right": {
+                        "label": ""
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m1/60", "label": "authentication request/sec", "id": "e1", "region": "ap-northeast-1" } ],
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_successful_authentication_count", "kafka_id", "lkc-7d51wo", { "id": "m1", "visible": false } ]
+                ],
+                "view": "gauge",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Authentication Rate",
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Active Connection Limit",
+                            "value": 60,
+                            "fill": "above",
+                            "yAxis": "right"
+                        },
+                        [
+                            {
+                                "color": "#FFEA00",
+                                "value": 60,
+                                "yAxis": "right"
+                            },
+                            {
+                                "value": 48,
+                                "label": ""
+                            }
+                        ],
+                        {
+                            "value": 48,
+                            "fill": "below"
+                        }
+                    ]
+                },
+                "yAxis": {
+                    "left": {
+                        "showUnits": true,
+                        "min": 0,
+                        "max": 80
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 0,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m1 / 60", "label": "", "id": "e1", "region": "ap-northeast-1", "color": "#2ca02c" } ],
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_request_count", "kafka_id", "lkc-7d51wo", { "id": "m1", "visible": false } ]
+                ],
+                "sparkline": true,
+                "view": "gauge",
+                "region": "ap-northeast-1",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Request Count (per second)",
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 15000
+                    }
+                },
+                "stacked": true,
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "color": "#2ca02c",
+                            "label": "Untitled annotation",
+                            "value": 7500,
+                            "fill": "below"
+                        },
+                        [
+                            {
+                                "color": "#FFEA00",
+                                "label": "Untitled annotation",
+                                "value": 7500
+                            },
+                            {
+                                "value": 10500,
+                                "label": "Untitled annotation"
+                            }
+                        ],
+                        {
+                            "color": "#d62728",
+                            "label": "Untitled annotation",
+                            "value": 10500,
+                            "fill": "above"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 0,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_active_connection_count", "kafka_id", "lkc-7d51wo" ]
+                ],
+                "sparkline": true,
+                "view": "gauge",
+                "region": "ap-northeast-1",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Active Connection (Count)",
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 18000
+                    }
+                },
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "color": "#2ca02c",
+                            "label": "Untitled annotation",
+                            "value": 10800,
+                            "fill": "below"
+                        },
+                        [
+                            {
+                                "color": "#FFEA00",
+                                "label": "Untitled annotation",
+                                "value": 10800
+                            },
+                            {
+                                "value": 12600,
+                                "label": "Untitled annotation"
+                            }
+                        ],
+                        {
+                            "color": "#d62728",
+                            "label": "Untitled annotation",
+                            "value": 12600,
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "legend": {
+                    "position": "hidden"
+                }
+            }
+        },
+        {
+            "height": 5,
+            "width": 24,
+            "y": 12,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_consumer_lag_offsets) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry3\", consumer_group_id,kafka_id,topic) WHERE kafka_id = 'lkc-7d51wo' GROUP BY consumer_group_id, topic ORDER BY MAX() DESC LIMIT 10", "label": "", "id": "q1", "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Consumer Lag Offsets",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false,
+                        "min": 0
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_partition_count", "kafka_id", "lkc-7d51wo" ]
+                ],
+                "sparkline": true,
+                "view": "gauge",
+                "region": "ap-northeast-1",
+                "title": "Total Partition Count",
+                "period": 60,
+                "stat": "Maximum",
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 4500
+                    }
+                },
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "color": "#2ca02c",
+                            "label": "Untitled annotation",
+                            "value": 2700,
+                            "fill": "below"
+                        },
+                        [
+                            {
+                                "color": "#FFEA00",
+                                "label": "Untitled annotation",
+                                "value": 3370
+                            },
+                            {
+                                "value": 2700,
+                                "label": "Untitled annotation"
+                            }
+                        ],
+                        {
+                            "color": "#d62728",
+                            "label": "Untitled annotation",
+                            "value": 3370,
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "legend": {
+                    "position": "hidden"
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m2 / 60", "label": "received bytes/sec", "id": "e1", "region": "ap-northeast-1" } ],
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_received_bytes", "kafka_id", "lkc-7d51wo", { "id": "m2", "visible": false } ]
+                ],
+                "view": "gauge",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Server Received Bytes (byte/sec)",
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 180000000
+                    }
+                },
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "color": "#2ca02c",
+                            "label": "Good",
+                            "value": 0,
+                            "fill": "above"
+                        },
+                        {
+                            "color": "#FFEA00",
+                            "label": "Warning",
+                            "value": 108000000,
+                            "fill": "above"
+                        },
+                        {
+                            "color": "#d62728",
+                            "label": "Danger",
+                            "value": 135000000,
+                            "fill": "above"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m1 / 60", "label": "sent bytes/sec", "id": "e1", "region": "ap-northeast-1" } ],
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_sent_bytes", "kafka_id", "lkc-7d51wo", { "id": "m1", "visible": false } ]
+                ],
+                "view": "gauge",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Server Sent Bytes (byte/sec)",
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 60000000
+                    }
+                },
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "color": "#2ca02c",
+                            "label": "Good",
+                            "value": 0,
+                            "fill": "above"
+                        },
+                        {
+                            "color": "#FFEA00",
+                            "label": "Warning",
+                            "value": 36000000,
+                            "fill": "above"
+                        },
+                        {
+                            "color": "#d62728",
+                            "label": "Danger",
+                            "value": 45000000,
+                            "fill": "above"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 23,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "q1 / 60", "label": "", "id": "e1", "region": "ap-northeast-1" } ],
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_received_bytes) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry2\", kafka_id,topic) WHERE kafka_id = 'lkc-7d51wo' GROUP BY topic ORDER BY MAX() DESC LIMIT 10", "label": "${LABEL}", "id": "q1", "region": "ap-northeast-1", "visible": false } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Server Received Bytes by Topic (bytes/sec) - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 0,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerMetrics/OpenTelemetry3", "confluent_kafka_server_cluster_load_percent", "kafka_id", "lkc-vk0r10", { "region": "ap-northeast-1" } ]
+                ],
+                "sparkline": true,
+                "view": "gauge",
+                "region": "ap-northeast-1",
+                "title": "Total Cluster Load",
+                "period": 60,
+                "stat": "Maximum",
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 1
+                    }
+                },
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "color": "#2ca02c",
+                            "label": "Untitled annotation",
+                            "value": 0.6,
+                            "fill": "below"
+                        },
+                        [
+                            {
+                                "color": "#FFEA00",
+                                "label": "Untitled annotation",
+                                "value": 0.6
+                            },
+                            {
+                                "value": 0.75,
+                                "label": "Untitled annotation"
+                            }
+                        ],
+                        {
+                            "color": "#d62728",
+                            "label": "Untitled annotation",
+                            "value": 0.75,
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "legend": {
+                    "position": "hidden"
+                },
+                "singleValueFullPrecision": true,
+                "liveData": false
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 23,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "q1/60", "label": "", "id": "e1", "region": "ap-northeast-1" } ],
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_sent_bytes) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry3\", kafka_id,topic) WHERE kafka_id = 'lkc-7d51wo' GROUP BY topic ORDER BY MAX() DESC", "label": "", "id": "q1", "visible": false, "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Server Sent Bytes by Topic (bytes/sec) - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 29,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_received_records) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry3\", kafka_id,topic) WHERE kafka_id = 'lkc-7d51wo' GROUP BY topic ORDER BY MAX() DESC", "label": "${LABEL}", "id": "q1", "region": "ap-northeast-1", "visible": false } ],
+                    [ { "expression": "q1/60", "label": "", "id": "e1", "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Received Record by Topic (records/sec) - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 29,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_received_bytes) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry2\", kafka_id,topic) WHERE kafka_id = 'lkc-7d51wo' GROUP BY topic ORDER BY MAX() DESC LIMIT 10", "label": "${LABEL}", "id": "q1", "region": "ap-northeast-1", "visible": false } ],
+                    [ { "expression": "q1 / 60", "label": "", "id": "e1", "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Sent Records by Topic (records/sec) - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 35,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_active_connection_count) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry3\", kafka_id,principal_id) WHERE kafka_id = 'lkc-7d51wo' GROUP BY principal_id ORDER BY MAX() DESC LIMIT 10", "label": "${LABEL}", "id": "q1", "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Connection Count by Principal - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 41,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_request_count) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry3\", kafka_id,principal_id) WHERE kafka_id = 'lkc-7d51wo' GROUP BY principal_id ORDER BY MAX() DESC LIMIT 10", "label": "${LABEL}", "id": "q1", "region": "ap-northeast-1", "visible": false } ],
+                    [ { "expression": "q1 / 60", "label": "", "id": "e1", "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Request Count by Principal (count/sec) - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 35,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "q1/ 60", "label": "", "id": "e1", "region": "ap-northeast-1" } ],
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_active_connection_count) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry3\", kafka_id,principal_id) WHERE kafka_id = 'lkc-7d51wo' GROUP BY principal_id ORDER BY MAX() DESC LIMIT 10", "label": "Query1", "id": "q1", "visible": false, "region": "ap-northeast-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Maximum",
+                "period": 60,
+                "title": "Authentication Count by Principal (req/sec) - Top 10 ",
+                "yAxis": {
+                    "left": {
+                        "label": "Count",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 17,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "SELECT MAX(confluent_kafka_server_received_bytes) FROM SCHEMA(\"ECS/ContainerMetrics/OpenTelemetry2\", kafka_id,topic) WHERE kafka_id = 'lkc-7d51wo' GROUP BY topic ORDER BY MAX() DESC LIMIT 10", "label": "", "id": "q1", "region": "ap-northeast-1" } ]
+                ],
+                "description": "The current count of bytes retained by the cluster, summed across all partitions. The count is sampled every 60 seconds.",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "ap-northeast-1",
+                "stat": "Average",
+                "period": 60,
+                "title": "Total Retained Bytes by Topic (bytes/sec) - Top 10",
+                "yAxis": {
+                    "left": {
+                        "label": "Seconds",
+                        "showUnits": false
+                    }
+                }
+            }
+        }
+    ]
+}

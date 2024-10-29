@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
+# Check if docker-compose exists
+if command -v docker-compose &> /dev/null
+then
+    DOCKER_COMPOSE_CMD="docker-compose"
+else
+    DOCKER_COMPOSE_CMD="docker compose"
+fi
+
 # Cleanup
-docker-compose \
+$DOCKER_COMPOSE_CMD \
     --profile replicator \
     --profile schema-registry \
     --profile ksqldb \
@@ -12,7 +20,8 @@ docker-compose \
     -f docker-compose.schema-registry.yaml \
     -f docker-compose.ksqldb.yaml \
     -f docker-compose.consumer.yaml \
-    -f docker-compose.clientsreduced.yaml \
+    -f docker-compose.consumer-minimal.yaml \
+    -f docker-compose.schema-registry-primary-secondary.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets
