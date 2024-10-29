@@ -6,6 +6,7 @@ docker-compose \
     --profile schema-registry \
     --profile ksqldb \
     --profile consumer \
+    --profile clientsreduced \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \

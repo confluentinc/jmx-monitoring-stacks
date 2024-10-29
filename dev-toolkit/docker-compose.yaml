@@ -37,10 +37,10 @@ services:
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka1:29092
       KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
       KAFKA_REST_BOOTSTRAP_SERVERS: "kafka1:29092"
-      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_config.yml"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/kafka_config.yml"
       KAFKA_CONFLUENT_CONSUMER_LAG_EMITTER_ENABLED: true
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
 
   kafka2:
@@ -78,10 +78,10 @@ services:
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka2:29092
       KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
       KAFKA_REST_BOOTSTRAP_SERVERS: "kafka2:29092"
-      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_config.yml"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/kafka_config.yml"
       KAFKA_CONFLUENT_CONSUMER_LAG_EMITTER_ENABLED: true
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
 
   kafka3:
@@ -119,10 +119,10 @@ services:
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka3:29092
       KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
       KAFKA_REST_BOOTSTRAP_SERVERS: "kafka3:29092"
-      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_config.yml"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/kafka_config.yml"
       KAFKA_CONFLUENT_CONSUMER_LAG_EMITTER_ENABLED: true
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
 
   kafka4:
@@ -160,10 +160,10 @@ services:
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka4:29092
       KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
       KAFKA_REST_BOOTSTRAP_SERVERS: "kafka4:29092"
-      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/kafka_config.yml"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/kafka_config.yml"
       KAFKA_CONFLUENT_CONSUMER_LAG_EMITTER_ENABLED: true
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml
 
   prometheus:
@@ -199,7 +199,7 @@ services:
     command:
       [
         "java",
-        "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=9191:/tmp/kafka_client.yml",
+        "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=9191:/tmp/kafka_client.yml",
         "-jar",
         "app.jar",
         "--spring.config.location=/app/application.properties",
@@ -209,5 +209,5 @@ services:
       - "8080:8080"
     volumes:
       - $PWD/client/application.properties:/app/application.properties
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
       - $PWD/jmx-exporter/kafka_client.yml:/tmp/kafka_client.yml

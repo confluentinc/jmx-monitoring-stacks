@@ -1,5 +1,6 @@
 services:
   consumer-ok:
+    platform: linux/amd64
     image: ghcr.io/ram-pi/consumer:ok
     profiles:
       - consumer
@@ -17,6 +18,7 @@ services:
       - $PWD/jmx-exporter/kafka_client.yml:/exporter.yaml
 
   consumer-faulty:
+    platform: linux/amd64
     image: ghcr.io/ram-pi/consumer:faulty
     profiles:
       - consumer
@@ -34,6 +36,7 @@ services:
       - $PWD/jmx-exporter/kafka_client.yml:/exporter.yaml
 
   kafka-lag-exporter:
+    platform: linux/amd64
     hostname: kafka-lag-exporter
     container_name: kafka-lag-exporter
     volumes:
