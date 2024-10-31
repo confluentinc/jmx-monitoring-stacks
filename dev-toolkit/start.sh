@@ -154,3 +154,15 @@ echo -e "http://localhost:9090"
 # Look at Grafana dashboards
 echo -e "\nView Grafana dashboards at (admin/password) ->"
 echo -e "http://localhost:3000"
+
+echo -e "\nDo you want to apply quotas to the cluster? (y/n)"
+# if yes let's apply quotas
+read -r apply_quotas
+if [[ "$apply_quotas" == "y" ]]; then
+  # wait for the cluster to be up and running
+  echo -e "\nWaiting 60s for the cluster to be up and running..."
+  sleep 60
+  echo -e "\nApplying quotas to the cluster..."
+  # apply quotas
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-configs --bootstrap-server localhost:9092 --alter --add-config 'producer_byte_rate=10485760,consumer_byte_rate=10485760' --entity-type clients --entity-default"
+fi
