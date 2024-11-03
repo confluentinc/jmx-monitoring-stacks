@@ -1,7 +1,6 @@
 services:
   consumer-ok:
-    platform: linux/amd64
-    image: ghcr.io/ram-pi/consumer:ok
+    image: ghcr.io/ram-pi/consumer-ok:v1.0.1
     profiles:
       - consumer
     hostname: consumer-ok
@@ -18,8 +17,7 @@ services:
       - $PWD/jmx-exporter/kafka_client.yml:/exporter.yaml
 
   consumer-faulty:
-    platform: linux/amd64
-    image: ghcr.io/ram-pi/consumer:faulty
+    image: ghcr.io/ram-pi/consumer-faulty:v1.0.1
     profiles:
       - consumer
     hostname: consumer-faulty
