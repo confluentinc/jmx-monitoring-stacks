@@ -14,6 +14,8 @@ $DOCKER_COMPOSE_CMD \
     --profile schema-registry \
     --profile ksqldb \
     --profile consumer \
+    --profile consumer-minimal \
+    --profile schema-registry-primary-secondary \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \
