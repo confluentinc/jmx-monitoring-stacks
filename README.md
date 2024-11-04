@@ -34,39 +34,40 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard|Prometheus and Grafana| New Relic |Metricbeat and Kibana| Telegraf and Influx |Datadog|
-|-----------------------|----|-----------|--------------------|---------------------|---------------------|
-| Kafka Cluster         |yes| yes       | yes| yes                 |yes|
-| Zookeeper             |yes| yes       |yes|
-| KRaft                 |yes|
-| Schema Registry       |yes|           |yes|
-| Kafka Connect         |yes|           |yes|
-| ksqlDB                |yes|           |yes|
-| Producer/Consumer     |yes| yes       |yes|                     |yes|
-| Lag Exporter          |yes|           ||
-| Topics                |yes|           |yes|
-| Kafka Streams         |yes|           ||
-| Kafka Streams RocksDB |yes|           ||
-| Quotas                |yes|           ||
-| TX Coordinator        |yes|           ||
-| Rest Proxy            |yes|           ||
-| Cluster Linking       |yes|           ||
-| Oracle CDC connector  |yes|           ||
-| Debezium connectors   |yes|           ||
-| Mongo connector       |yes|           ||
-| librdkafka clients    |yes|           ||
-| Confluent RBAC        |yes|           ||
-| Replicator            |yes|           ||
-| Tiered Storage        |yes|           ||
+| Dashboard                      |Prometheus/Grafana|New Relic|Metricbeat/Kibana| Telegraf/Influx |Datadog|
+|--------------------------------|------------------|---------|-----------------|-----------------|---------------------|
+| Kafka Cluster                  | yes              | yes     | yes             | yes             |yes|
+| Zookeeper                      | yes              | yes     | yes             |
+| KRaft                          | yes              |
+| Confluent Schema Registry      | yes              |         | yes             |
+| Kafka Connect                  | yes              |         | yes             |
+| ksqlDB                         | yes              |         | yes             |
+| Producer/Consumer              | yes              | yes     | yes             |                 |yes|
+| Lag Exporter                   | yes              |         |                 |
+| Topics                         | yes              |         | yes             |
+| Kafka Streams                  | yes              |         |                 |
+| Kafka Streams RocksDB          | yes              |         |                 |
+| Quotas                         | yes              |         |                 |
+| TX Coordinator                 | yes              |         |                 |
+| Confluent Rest Proxy           | yes              |         |                 |
+| Confluent Cluster Linking      | yes              |         |                 |
+| Confluent Oracle CDC connector | yes              |         |                 |
+| Debezium connectors            | yes              |         |                 |
+| Mongo connector                | yes              |         |                 |
+| librdkafka clients             | yes              |         |                 |
+| Confluent RBAC                 | yes              |         |                 |
+| Confluent Replicator           | yes              |         |                 |
+| Confluent Tiered Storage       | yes              |         |                 |
+| Confluent Flink                | yes              |         |                 |
 
 **List of available dashboards for Confluent Cloud:**
 
-| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|AWS Cloud Watch|
-|-----------------------|------------------------|---------|---------------------|--------|
-| Cluster               | yes                    | yes     | yes                 |yes
-| Producer/Consumer     |                        |      | yes                 |
-| ksql                  | yes                    |      |                  |
-| Billing/Cost tracking | yes                    |      |                  |
+| Dashboard             |Prometheus/Grafana|New Relic| Metricbeat/Kibana |AWS Cloud Watch|
+|-----------------------|------------------|---------|-------------------|--------|
+| Cluster               | yes              | yes     | yes               |yes
+| Producer/Consumer     |                  |      | yes               |
+| ksql                  | yes              |      |                   |
+| Billing/Cost tracking | yes              |      |                   |
 
 ## ⚠️ Alerts
 
@@ -181,6 +182,7 @@ Currently supported profiles:
 - _ksqldb_: it will add ksqldb
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
+- _jr_: it will add [JR](https://jrnd.io/) to generate random traffic with for kafka.
 
 ## DEV-toolkit FAQ
 

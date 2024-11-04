@@ -20,7 +20,7 @@ List of provided dashboards:
  - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
-- [Librdkafka based client](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
+ - [Librdkafka based client](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Debezium source Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#debezium-cdc-source-connectors)
  - [Mongo source and sink Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#mongo-source-and-sink-connectors)
@@ -236,4 +236,8 @@ $ start.sh --profile replicator
 ![confluent-audit](img/audit.png)
 
 ### Flink Cluster
+
+To test follow instructions exsisting at:
+[flink folder](flink/README.md)
+
 ![flink-cluster](img/flink-cp.png)
