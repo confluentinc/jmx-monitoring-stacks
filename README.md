@@ -182,7 +182,7 @@ Currently supported profiles:
 - _ksqldb_: it will add ksqldb
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
-- _jr_: it will add [JR](https://jrnd.io/) to generate random traffic with for kafka.
+- _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
 
 ## DEV-toolkit FAQ
 
