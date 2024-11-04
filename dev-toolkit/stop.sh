@@ -16,6 +16,7 @@ $DOCKER_COMPOSE_CMD \
     --profile consumer \
     --profile consumer-minimal \
     --profile schema-registry-primary-secondary \
+    --profile jr \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \
@@ -23,6 +24,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.consumer.yaml \
     -f docker-compose.consumer-minimal.yaml \
     -f docker-compose.schema-registry-primary-secondary.yaml \
+    -f docker-compose.jr.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets
