@@ -1,0 +1,15 @@
+services:
+  jr:
+    image: ghcr.io/jrnd-io/jr:${JR_TAG}
+    profiles:
+      - jr
+    hostname: jr
+    container_name: jr
+    command: >
+      /bin/sh -c "
+      echo 'Starting JR...';
+      tail -f /dev/null
+      "
+    volumes:
+      - $PWD/client/config.properties:/kafka/config.properties
+      - $PWD/client/registry.properties:/kafka/registry.properties

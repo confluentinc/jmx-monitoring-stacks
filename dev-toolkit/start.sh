@@ -127,6 +127,7 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.consumer.yaml \
   -f docker-compose.consumer-minimal.yaml \
   -f docker-compose.schema-registry-primary-secondary.yaml \
+  -f docker-compose.jr.yaml \
   up -d
 
 # if docker_args contains replicator, then start the replicator
