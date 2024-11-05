@@ -42,6 +42,8 @@ kubectl create configmap grafana-zookeeper-cluster --from-file=dashboards/zookee
 kubectl label configmap grafana-zookeeper-cluster grafana_dashboard=1
 kubectl create configmap grafana-kafka-cluster --from-file=dashboards/kafka-cluster.json
 kubectl label configmap grafana-kafka-cluster grafana_dashboard=1
+kubectl create configmap grafana-cluster-linking --from-file=dashboards/cluster-linking.json
+kubectl label configmap grafana-cluster-linking grafana_dashboard=1
 
 # Wait resources to be ready
 echo "Waiting resources to be ready"
