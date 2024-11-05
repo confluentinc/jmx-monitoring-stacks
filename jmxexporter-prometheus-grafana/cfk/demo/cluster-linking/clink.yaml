@@ -1,0 +1,39 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaRestClass
+metadata:
+  name: cfk-cluster
+  namespace: confluent
+spec:
+  kafkaClusterRef:
+    name: kafka
+  kafkaRest:
+    endpoint: http://kafka:8090
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaRestClass
+metadata:
+  name: cfk-cluster-src
+  namespace: confluent
+spec:
+  kafkaClusterRef:
+    name: kafka
+  kafkaRest:
+    endpoint: http://kafka-cl-source:8090
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ClusterLink
+metadata:
+  name: clink
+  namespace: confluent
+spec:
+  destinationKafkaCluster:
+    kafkaRestClassRef:
+      name: cfk-cluster
+      namespace: confluent
+  sourceKafkaCluster:
+    bootstrapEndpoint: kafka-cl-source:9071
+    kafkaRestClassRef:
+      name: cfk-cluster-src
+      namespace: confluent
+  mirrorTopics:
+    - name: test
