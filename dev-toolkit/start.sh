@@ -25,10 +25,10 @@ cp -rf ${MONITORING_STACK}/assets/grafana/provisioning/datasources/datasource.ym
 cp -rf ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/dashboard.yml ${GRAFANA_IMPORT_FOLDER}/dashboards/dashboard.yml
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/cluster-linking.json >${GRAFANA_IMPORT_FOLDER}/dashboards/cluster-linking.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-oracle-cdc.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-oracle-cdc.json
-sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-platform.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-platform.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-platform-kraft.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-platform.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-rbac.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-rbac.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/rest-proxy.json >${GRAFANA_IMPORT_FOLDER}/dashboards/rest-proxy.json
-sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-cluster.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-cluster-kraft.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-connect-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-connect-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-consumer.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-consumer.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-lag-exporter.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-lag-exporter.json
@@ -36,7 +36,7 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-quotas.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-quotas.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-stream.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-stream.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-streams-rocksdb.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-streams-rocksdb.json
-sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-topics.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-topics.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-topics-kraft.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-topics.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kafka-transaction-coordinator.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kafka-transaction-coordinator.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/kraft.json >${GRAFANA_IMPORT_FOLDER}/dashboards/kraft.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/ksqldb-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/ksqldb-cluster.json

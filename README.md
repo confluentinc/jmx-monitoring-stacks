@@ -34,40 +34,40 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard                      |Prometheus/Grafana|New Relic|Metricbeat/Kibana| Telegraf/Influx |Datadog|
-|--------------------------------|------------------|---------|-----------------|-----------------|---------------------|
-| Kafka Cluster                  | yes              | yes     | yes             | yes             |yes|
-| Zookeeper                      | yes              | yes     | yes             |
-| KRaft                          | yes              |
-| Confluent Schema Registry      | yes              |         | yes             |
-| Kafka Connect                  | yes              |         | yes             |
-| ksqlDB                         | yes              |         | yes             |
-| Producer/Consumer              | yes              | yes     | yes             |                 |yes|
-| Lag Exporter                   | yes              |         |                 |
-| Topics                         | yes              |         | yes             |
-| Kafka Streams                  | yes              |         |                 |
-| Kafka Streams RocksDB          | yes              |         |                 |
-| Quotas                         | yes              |         |                 |
-| TX Coordinator                 | yes              |         |                 |
-| Confluent Rest Proxy           | yes              |         |                 |
-| Confluent Cluster Linking      | yes              |         |                 |
-| Confluent Oracle CDC connector | yes              |         |                 |
-| Debezium connectors            | yes              |         |                 |
-| Mongo connector                | yes              |         |                 |
-| librdkafka clients             | yes              |         |                 |
-| Confluent RBAC                 | yes              |         |                 |
-| Confluent Replicator           | yes              |         |                 |
-| Confluent Tiered Storage       | yes              |         |                 |
-| Confluent Flink                | yes              |         |                 |
+| Dashboard                      |Prometheus/Grafana|New Relic|Metricbeat/Kibana|Telegraf/Influx |Datadog|
+|--------------------------------|---|-|----------|---------------|-------|
+| Kafka Cluster                  |yes|yes|yes|yes|yes|
+| Zookeeper                      |yes|yes|yes|
+| KRaft                          |yes|
+| Confluent Schema Registry      |yes||yes|
+| Kafka Connect                  |yes||yes|
+| ksqlDB                         |yes||yes|
+| Producer/Consumer              |yes|yes|yes||yes|
+| Lag Exporter                   |yes|
+| Topics                         |yes||yes|
+| Kafka Streams                  |yes|
+| Kafka Streams RocksDB          |yes|
+| Quotas                         |yes|
+| TX Coordinator                 |yes|
+| Confluent Rest Proxy           |yes|
+| Confluent Cluster Linking      |yes|
+| Confluent Oracle CDC connector |yes|
+| Debezium connectors            |yes|
+| MongoDB connector              |yes|
+| librdkafka clients             |yes|
+| Confluent RBAC                 |yes|
+| Confluent Replicator           |yes|
+| Confluent Tiered Storage       |yes|
+| Confluent Flink                |yes|
 
 **List of available dashboards for Confluent Cloud:**
 
-| Dashboard             |Prometheus/Grafana|New Relic| Metricbeat/Kibana |AWS Cloud Watch|
-|-----------------------|------------------|---------|-------------------|--------|
-| Cluster               | yes              | yes     | yes               |yes
-| Producer/Consumer     |                  |      | yes               |
-| ksql                  | yes              |      |                   |
-| Billing/Cost tracking | yes              |      |                   |
+| Dashboard|Prometheus/Grafana|New Relic|Metricbeat/Kibana|AWS Cloud Watch|
+|-----------------------|---------------|--------|----------------|--------|
+| Cluster               |yes|yes|yes|yes
+| Producer/Consumer     ||yes|
+| ksql                  |yes|
+| Billing/Cost tracking |yes|
 
 ## ⚠️ Alerts
 
