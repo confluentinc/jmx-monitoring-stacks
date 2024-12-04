@@ -46,7 +46,7 @@ services:
         sleep infinity
 
   broker-replicator-dst:
-    image: confluentinc/cp-kafka:${CFLT_TAG}
+    image: confluentinc/cp-server:${CFLT_TAG}
     hostname: broker-replicator-dst
     container_name: broker-replicator-dst
     profiles:

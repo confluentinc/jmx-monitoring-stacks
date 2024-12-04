@@ -150,15 +150,17 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 
 Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
 
-Dev-toolkit is based on Prometheus and Grafana stack.
+Dev-toolkit is based on:
+ - Confluent Platform _(current 7.8.0)_ 
+ - Prometheus and Grafana stack.
 
 To run a lightweight a **Default** environment, follow the next steps:
 
 1. `cd dev-toolkit`
 2. [Optional]: Put your new dashboards into the `grafana-wip` folder. All [existing grafana dashboards](jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards) will be anyway loaded.
-3. `start.sh`
+3. Execute script `start.sh`
 4. For Grafana, go to http://localhost:3000, login with _admin/password_
-5. `stop.sh`
+5. To teardown, execute script `stop.sh`
 
 ## Run with profiles
 
