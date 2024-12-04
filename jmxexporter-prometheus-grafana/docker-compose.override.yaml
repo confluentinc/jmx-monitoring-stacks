@@ -48,7 +48,7 @@ services:
       KAFKAREST_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/confluent_rest.yml
 
   prometheus:
-    image: prom/prometheus:v2.47.2
+    image: prom/prometheus:v3.0.0
     container_name: prometheus
     ports:
       - 9090:9090
