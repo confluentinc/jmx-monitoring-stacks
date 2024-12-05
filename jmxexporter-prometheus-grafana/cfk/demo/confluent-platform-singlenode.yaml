@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-zookeeper:7.5.0
-    init: confluentinc/confluent-init-container:2.7.0
+    application: confluentinc/cp-zookeeper:7.8.0
+    init: confluentinc/confluent-init-container:2.10.0
   dataVolumeCapacity: 10Gi
   logVolumeCapacity: 10Gi
   podTemplate:
@@ -120,8 +120,9 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-server:7.5.0
-    init: confluentinc/confluent-init-container:2.7.0
+    # application: confluentinc/cp-server:7.8.0
+    application: local/cp-server:7.8.0
+    init: confluentinc/confluent-init-container:2.10.0
   dataVolumeCapacity: 10Gi
   configOverrides:
     server:
@@ -375,7 +376,7 @@ spec:
             "$3": "$4"
             "$5": "$6"
         # 'confluent.metadata.service:type=*, node-id=*, client-id=*'
-        - pattern: 'confluent.metadata.service<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+        - pattern: "confluent.metadata.service<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
           name: $1
           type: GAUGE
           cache: true
@@ -393,7 +394,7 @@ spec:
           cache: true
           labels:
             "$3": "$4"
-        - pattern: 'confluent.(.+)<type=(.+), (.+)=(.+)><>(.+):'
+        - pattern: "confluent.(.+)<type=(.+), (.+)=(.+)><>(.+):"
           name: confluent_$1_$2
           type: GAUGE
           cache: true
@@ -401,7 +402,7 @@ spec:
             "$3": "$4"
             attribute_name: "$5"
         # Quotas
-        - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+), client-id=(.+)><>(.+):'
+        - pattern: "kafka.server<type=(Produce|Fetch|Request), user=(.+), client-id=(.+)><>(.+):"
           name: kafka_server_$1_$4
           type: GAUGE
           cache: true
@@ -409,47 +410,47 @@ spec:
             user: "$2"
             client-id: "$3"
 
-        - pattern : 'kafka.server<type=(Produce|Fetch|Request), user=(.+)><>(.+):'
+        - pattern: "kafka.server<type=(Produce|Fetch|Request), user=(.+)><>(.+):"
           name: kafka_server_$1_$3
           type: GAUGE
           cache: true
           labels:
             user: "$2"
 
-        - pattern : 'kafka.server<type=(Produce|Fetch|Request), client-id=(.+)><>(.+):'
+        - pattern: "kafka.server<type=(Produce|Fetch|Request), client-id=(.+)><>(.+):"
           name: kafka_server_$1_$3
           type: GAUGE
           cache: true
           labels:
             client-id: "$2"
 
-      # Broker  Metrics
-        - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec|TotalProduceRequestsPerSec|TotalFetchRequestsPerSec), topic=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+        # Broker  Metrics
+        - pattern: "kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec|TotalProduceRequestsPerSec|TotalFetchRequestsPerSec), topic=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)"
           name: kafka_server_brokertopicmetrics_$1_$3
           type: GAUGE
           cache: true
           labels:
             topic: "$2"
 
-        - pattern : 'kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+        - pattern: "kafka.server<type=BrokerTopicMetrics, name=(MessagesInPerSec|BytesInPerSec|BytesOutPerSec)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)"
           name: kafka_server_brokertopicmetrics_$1_$2_alltopics
           type: GAUGE
 
-      # Network Request  Metrics
-        - pattern : 'kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+), version=([0-9]+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+        # Network Request  Metrics
+        - pattern: "kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+), version=([0-9]+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)"
           name: kafka_network_requestmetrics_requestspersec_$3
           type: GAUGE
           cache: true
           labels:
             request: "$1"
 
-      # "kafka.server:type=raft-metrics"
+        # "kafka.server:type=raft-metrics"
         - pattern: kafka.server<type=raft-metrics><>(.+):(.*)
           name: kafka_server_raft_metrics_$1
           type: GAUGE
           cache: true
 
-      # kafka.server:type=transaction-coordinator-metrics
+        # kafka.server:type=transaction-coordinator-metrics
         - pattern: kafka.server<type=transaction-coordinator-metrics><>(.+):(.*)
           name: kafka_server_transaction_coordinator_metrics_$1
           type: GAUGE
@@ -465,7 +466,7 @@ spec:
             "$2": "$3"
             "$4": "$5"
         # kafka.server:type=cluster-link-fetcher-metrics,link-name=*,broker-id=*,fetcher-id=*, mechanism=*
-        - pattern: 'kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+        - pattern: "kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
           name: kafka_server_cluster_link_fetcher_metrics_$9
           type: GAUGE
           labels:
@@ -474,7 +475,7 @@ spec:
             "$5": "$6"
             "$7": "$8"
         # kafka.server:type=cluster-link-fetcher-metrics,link-name=*,broker-id=*,fetcher-id=*
-        - pattern: 'kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+        - pattern: "kafka.server<type=cluster-link-fetcher-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
           name: kafka_server_cluster_link_fetcher_metrics_$7
           type: GAUGE
           cache: true
@@ -483,7 +484,7 @@ spec:
             "$3": "$4"
             "$5": "$6"
         # kafka.server:type=cluster-link-metrics, mode=*, state=*, link-name=*, name=*
-        - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):'
+        - pattern: "kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
           name: kafka_server_cluster_link_metrics_$7
           type: GAUGE
           labels:
@@ -491,7 +492,7 @@ spec:
             "$3": "$4"
             "$5": "$6"
         # kafka.server:type=cluster-link-metrics,state=*,link-name=*,name=*
-        - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+)><>(.+):'
+        - pattern: "kafka.server<type=cluster-link-metrics, (.+)=(.+), (.+)=(.+)><>(.+):"
           name: kafka_server_cluster_link_metrics_$5
           type: GAUGE
           cache: true
@@ -499,13 +500,13 @@ spec:
             "$1": "$2"
             "$3": "$4"
         # kafka.server:type=cluster-link-metrics,name=*,link-name=*
-        - pattern: 'kafka.server<type=cluster-link-metrics, (.+)=(.+)><>(.+):'
+        - pattern: "kafka.server<type=cluster-link-metrics, (.+)=(.+)><>(.+):"
           name: kafka_server_cluster_link_metrics_$3
           type: GAUGE
           labels:
             "$1": "$2"
         # kafka.server:type=cluster-link-source-metrics,request=*,link-id=*
-        - pattern: 'kafka.server<type=cluster-link-source-metrics, request=(.+), link-id=(.+)><>(.+):(.+)'
+        - pattern: "kafka.server<type=cluster-link-source-metrics, request=(.+), link-id=(.+)><>(.+):(.+)"
           name: kafka_server_cluster_link_source_metrics_$1_$3
           value: $4
           type: GAUGE
@@ -515,11 +516,10 @@ spec:
 
         ## Needed for Tiered Storage Metrics
         # kafka.tier.tasks.archive:type=TierArchiver,name=*
-        - pattern: 'kafka.tier.tasks.archive<type=TierArchiver, name=(.+)><>(.+):(.+)'
+        - pattern: "kafka.tier.tasks.archive<type=TierArchiver, name=(.+)><>(.+):(.+)"
           name: kafka_tier_tasks_archive_tierarchiver_$1
           type: GAUGE
         # kafka.tier.tasks:type=TierTasks,name=*
-        - pattern: 'kafka.tier.tasks<type=TierTasks, name=(.+)><>(.+):(.+)'
+        - pattern: "kafka.tier.tasks<type=TierTasks, name=(.+)><>(.+):(.+)"
           name: kafka_tier_tasks_tiertasks_$1
           type: GAUGE
-        

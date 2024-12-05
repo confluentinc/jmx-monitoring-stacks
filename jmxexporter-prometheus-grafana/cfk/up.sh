@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+# build docker image with jmx exporter version 1.1.0
+docker build . --no-cache --pull -t local/cp-server:7.8.0
+docker save local/cp-server:7.8.0 -o cp-server.tar
+
 # Start local k8s cluster with kind
 echo "Starting local k8s cluster with kind"
 kind create cluster --config ./demo/cluster.yaml
+kind load image-archive cp-server.tar
 
 # Helm repo add and update
 echo "Adding and updating helm repos"
