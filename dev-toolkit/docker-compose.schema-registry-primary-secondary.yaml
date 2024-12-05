@@ -22,9 +22,9 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
       SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
       SCHEMA_REGISTRY_DEBUG: "true"
-      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/confluent_schemaregistry.yml"
+      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/confluent_schemaregistry.yml"
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
       - $PWD/jmx-exporter/confluent_schemaregistry.yml:/tmp/confluent_schemaregistry.yml
 
   schemaregistry-2:
@@ -52,7 +52,7 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
       SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
       SCHEMA_REGISTRY_DEBUG: "true"
-      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/confluent_schemaregistry.yml"
+      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/confluent_schemaregistry.yml"
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
       - $PWD/jmx-exporter/confluent_schemaregistry.yml:/tmp/confluent_schemaregistry.yml

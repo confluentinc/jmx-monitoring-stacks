@@ -1369,7 +1369,7 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"ksqldb\", env=\"$env\",instance=~\"$instance\"})",
+          "expr": "sum without(area)(jvm_memory_used_bytes{job=\"ksqldb\", env=\"$env\",instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "Used:{{instance}}",
           "refId": "A"
@@ -2679,7 +2679,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "expr": "kafka_streams_stream_state_metrics_put_if_absent_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
@@ -2968,7 +2968,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "kafka_streams_stream_state_metrics_fetch_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
+              "expr": "kafka_streams_stream_state_metrics_get_rate{job=\"ksqldb\", env=\"$env\", thread_id=~\".+$ksqldb_cluster_id.+\", instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
@@ -3064,7 +3064,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "kafka_streams_stream_state_metrics_fetch_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_get_latency_avg{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"
@@ -3160,7 +3160,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "kafka_streams_stream_state_metrics_put_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
+              "expr": "kafka_streams_stream_state_metrics_get_latency_max{job=\"ksqldb\", thread_id=~\".+$ksqldb_cluster_id.+\"}",
               "interval": "",
               "legendFormat": "{{thread_id}}",
               "refId": "B"

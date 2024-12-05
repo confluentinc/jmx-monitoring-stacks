@@ -1431,7 +1431,7 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"})",
+          "expr": "sum without(area)(jvm_memory_used_bytes{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{kafka_connect_cluster_id}}-{{instance}}",
           "refId": "A"
@@ -3244,7 +3244,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "kafka_connect_connect_metrics_failed_authentication_total{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
+              "expr": "kafka_connect_connect_metrics_failed_authentication{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -3762,7 +3762,7 @@
                 "uid": "${Prometheus}"
               },
               "exemplar": true,
-              "expr": "kafka_connect_connect_worker_rebalance_metrics_completed_rebalances_total{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",job=\"kafka-connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
+              "expr": "kafka_connect_connect_worker_rebalance_metrics_completed_rebalances{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",job=\"kafka-connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
               "format": "time_series",
               "instant": false,
               "interval": "",

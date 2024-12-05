@@ -2,6 +2,25 @@
 
 To add JMX exporter configurations from this project into [Confluent cp-ansible](https://github.com/confluentinc/cp-ansible) add the following configurations:
 
+Add JMX Exporter 1.1.0:
+
+```yaml
+    jmxexporter_jar_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar
+```
+
+KRaft Cluster:
+
+```yaml
+    kafka_controller_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
+    kafka_broker_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
+    schema_registry_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_schemaregistry.yml
+    kafka_connect_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_connect.yml
+    kafka_rest_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_rest.yml
+    ksql_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_ksql.yml
+```
+
+Zookeeper Cluster:
+
 ```yaml
     zookeeper_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/zookeeper.yml
     kafka_broker_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml

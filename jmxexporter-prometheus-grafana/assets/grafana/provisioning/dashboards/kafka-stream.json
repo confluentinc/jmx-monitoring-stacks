@@ -449,7 +449,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": " sum(kafka_streams_stream_task_metrics_dropped_records_total{ env=\"$env\"})",
+          "expr": " sum(kafka_streams_stream_task_metrics_dropped_records{ env=\"$env\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -2002,7 +2002,7 @@
             "uid": "${Prometheus}"
           },
           "editorMode": "code",
-          "expr": "kafka_streams_stream_thread_metrics_task_closed_total",
+          "expr": "kafka_streams_stream_thread_metrics_task_closed",
           "instant": false,
           "legendFormat": "{{thread_id}}",
           "range": true,
@@ -2205,7 +2205,7 @@
             "uid": "${Prometheus}"
           },
           "editorMode": "code",
-          "expr": " (kafka_streams_stream_task_metrics_dropped_records_total{env=\"$env\"})",
+          "expr": " (kafka_streams_stream_task_metrics_dropped_records{env=\"$env\"})",
           "instant": false,
           "legendFormat": "{{task_id}} {{thread_id}}",
           "range": true,
@@ -2706,7 +2706,7 @@
             "uid": "${Prometheus}"
           },
           "editorMode": "code",
-          "expr": "(kafka_streams_stream_processor_node_metrics_process_total{env=\"$env\"})",
+          "expr": "(kafka_streams_stream_processor_node_metrics_process{env=\"$env\"})",
           "instant": false,
           "legendFormat": "{{task_id}} {{thread_id}}",
           "range": true,

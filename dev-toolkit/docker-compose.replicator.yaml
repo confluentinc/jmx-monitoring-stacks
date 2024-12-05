@@ -28,16 +28,16 @@ services:
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connect-plugin-jars
       CONNECT_REST_EXTENSION_CLASSES: io.confluent.connect.replicator.monitoring.ReplicatorMonitoringExtension
-      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/kafka_connect.yml"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/kafka_connect.yml"
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
       - $PWD/jmx-exporter/kafka_connect.yml:/tmp/kafka_connect.yml
     command:
       - bash
       - -c
       - |
         echo "Installing Connector"
-        confluent-hub install --no-prompt confluentinc/kafka-connect-replicator:7.5.2
+        confluent-hub install --no-prompt confluentinc/kafka-connect-replicator:7.8.0
         cp /usr/share/java/kafka-connect-replicator/replicator-rest-extension-*.jar /etc/kafka-connect/jars/
         #
         echo "Launching Kafka Connect worker"
@@ -78,7 +78,7 @@ services:
       CLUSTER_ID: "N3Ept9vxTMijB5S74gkfPA"
       KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
       KAFKA_REST_BOOTSTRAP_SERVERS: "broker-replicator-dst:29092"
-      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.0.1.jar=1234:/tmp/kafka_config.yml"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/kafka_config.yml"
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar:/tmp/jmx_prometheus_javaagent-1.0.1.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
       - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml

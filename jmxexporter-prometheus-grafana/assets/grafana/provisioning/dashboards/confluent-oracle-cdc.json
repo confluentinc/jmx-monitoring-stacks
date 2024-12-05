@@ -1270,7 +1270,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "sum without(area)(jvm_memory_bytes_used{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"})",
+              "expr": "sum without(area)(jvm_memory_used_bytes{job=\"kafka-connect\",env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"})",
               "interval": "",
               "legendFormat": "{{kafka_connect_cluster_id}}-{{instance}}",
               "refId": "A"

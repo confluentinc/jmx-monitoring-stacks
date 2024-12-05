@@ -3,28 +3,28 @@ services:
     volumes:
       - $MONITORING_STACK/../../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
 
   mainKafka:
     volumes:
       - $MONITORING_STACK/../../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   disasterZookeeper:
     volumes:
       - $MONITORING_STACK/../../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar=1234:/usr/share/jmx-exporter/zookeeper.yml
 
   disasterKafka:
     volumes:
       - $MONITORING_STACK/../../shared-assets/jmx-exporter/:/usr/share/jmx-exporter
     environment:
-      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.0.1.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+      EXTRA_ARGS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
 
   prometheus:
-    image: prom/prometheus:v2.47.2
+    image: prom/prometheus:v3.0.0
     container_name: prometheus
     ports:
       - 9090:9090
