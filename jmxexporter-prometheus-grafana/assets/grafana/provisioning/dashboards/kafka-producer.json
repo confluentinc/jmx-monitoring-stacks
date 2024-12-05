@@ -3275,7 +3275,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "count(kafka_producer_app_info{env=\"$env\",client_id=~\"$client_id\",instance=~\"$instance\",version!=\"\"}) by (version)",
+          "expr": "count(kafka_producer_app{env=\"$env\",client_id=~\"$client_id\",instance=~\"$instance\",version!=\"\"}) by (version)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{version}}",
@@ -3403,7 +3403,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_producer_app_info, client_id)",
+        "definition": "label_values(kafka_producer_app, client_id)",
         "hide": 0,
         "includeAll": true,
         "label": "Client ID",
@@ -3411,7 +3411,7 @@
         "name": "client_id",
         "options": [],
         "query": {
-          "query": "label_values(kafka_producer_app_info, client_id)",
+          "query": "label_values(kafka_producer_app, client_id)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -3481,7 +3481,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_producer_app_info,instance)",
+        "definition": "label_values(kafka_producer_app,instance)",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -3490,7 +3490,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(kafka_producer_app_info,instance)",
+          "query": "label_values(kafka_producer_app,instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,

@@ -132,8 +132,14 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
 
 # if docker_args contains replicator, then start the replicator
 if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
-  echo -e "\nWaiting 120 seconds before starting replicator connector..."
-  sleep 120
+
+  echo -e "\nWaiting 60 seconds before starting replicator connector..."
+  sleep 60
+
+  echo -e "\nCreating topic quotes on source cluster..."
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic quotes --replication-factor 1 --partitions 1"
+  sleep 3
+
   echo -e "\nStarting replicator connector..."
 
   curl --request PUT \

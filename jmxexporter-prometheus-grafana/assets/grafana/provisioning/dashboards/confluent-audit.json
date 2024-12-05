@@ -699,7 +699,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_connect_app_info,env)",
+        "definition": "label_values(env)",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -707,7 +707,7 @@
         "name": "env",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_app_info,env)",
+          "query": "label_values(env)",
           "refId": "Prometheus-env-Variable-Query"
         },
         "refresh": 1,

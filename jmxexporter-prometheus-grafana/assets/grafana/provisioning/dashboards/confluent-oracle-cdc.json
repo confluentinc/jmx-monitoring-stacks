@@ -1411,7 +1411,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_connect_app_info,env)",
+        "definition": "label_values(kafka_connect_app,env)",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -1419,7 +1419,7 @@
         "name": "env",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_app_info,env)",
+          "query": "label_values(kafka_connect_app,env)",
           "refId": "Prometheus-env-Variable-Query"
         },
         "refresh": 1,
@@ -1438,7 +1438,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_connect_app_info,kafka_connect_cluster_id)",
+        "definition": "label_values(kafka_connect_app,kafka_connect_cluster_id)",
         "hide": 0,
         "includeAll": true,
         "label": "Cluster ID",
@@ -1446,7 +1446,7 @@
         "name": "kafka_connect_cluster_id",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_app_info,kafka_connect_cluster_id)",
+          "query": "label_values(kafka_connect_app,kafka_connect_cluster_id)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1464,7 +1464,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_connect_app_info{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
+        "definition": "label_values(kafka_connect_app{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -1472,7 +1472,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_app_info{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
+          "query": "label_values(kafka_connect_app{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
           "refId": "Prometheus-instance-Variable-Query"
         },
         "refresh": 1,

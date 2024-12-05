@@ -2694,7 +2694,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (client_id))",
+        "definition": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app or kafka_consumergroup_group_lag) by (client_id))",
         "hide": 0,
         "includeAll": true,
         "label": "Client ID",
@@ -2702,7 +2702,7 @@
         "name": "client_id",
         "options": [],
         "query": {
-          "query": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (client_id))",
+          "query": "query_result(count(kafka_server_tenant_metrics_consumer_lag_offsets or kafka_consumer_app or kafka_consumergroup_group_lag) by (client_id))",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -2798,7 +2798,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (instance))",
+        "definition": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app or kafka_consumergroup_group_lag) by (instance))",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -2806,7 +2806,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app_info or kafka_consumergroup_group_lag) by (instance))",
+          "query": "query_result(count(kafka_server_kafkaserver_brokerstate or kafka_consumer_app or kafka_consumergroup_group_lag) by (instance))",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
