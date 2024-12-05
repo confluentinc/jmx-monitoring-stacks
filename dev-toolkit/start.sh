@@ -132,8 +132,14 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
 
 # if docker_args contains replicator, then start the replicator
 if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
-  echo -e "\nWaiting 120 seconds before starting replicator connector..."
-  sleep 120
+
+  echo -e "\nWaiting 60 seconds before starting replicator connector..."
+  sleep 60
+
+  echo -e "\nCreating topic quotes on source cluster..."
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic quotes --replication-factor 1 --partitions 1"
+  sleep 3
+
   echo -e "\nStarting replicator connector..."
 
   curl --request PUT \
@@ -144,6 +150,22 @@ if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
 
   echo -e "\nWaiting 45 seconds to initialize replicator connector..."
   sleep 45
+fi
+
+# if docker_args contains ksqldb, deploy ksql sample app
+if [[ " ${docker_args[@]} " =~ " ksqldb " ]]; then
+
+  echo -e "\nWaiting 45 seconds before deploying ksql app..."
+  sleep 45
+
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic device --replication-factor 1 --partitions 1"
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic temperature.data --replication-factor 1 --partitions 1"
+
+  chmod +x ksqlapp/ksql-statements.sh
+  cd ksqlapp
+  sh ksql-statements.sh
+  cd ..
+
 fi
 
 echo -e "\ndev-toolkit started!"

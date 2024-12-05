@@ -2091,11 +2091,11 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "sum without(area)(jvm_memory_bytes_used{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum without(area)(jvm_memory_used_bytes{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"})",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
-              "metric": "jvm_memory_bytes_used",
+              "metric": "jvm_memory_used_bytes",
               "refId": "A",
               "step": 4
             },
@@ -3544,7 +3544,7 @@
                 "type": "prometheus",
                 "uid": "${Prometheus}"
               },
-              "expr": "1 - kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "1 - kafka_server_kafkarequesthandlerpool_controlplanerequesthandleravgidlepercent{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{instance}}",
               "refId": "A"

@@ -730,7 +730,7 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"zookeeper\",env=\"$env\"})",
+          "expr": "sum without(area)(jvm_memory_used_bytes{job=\"zookeeper\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "Used:{{instance}}",
           "refId": "A"

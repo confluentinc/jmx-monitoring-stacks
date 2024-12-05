@@ -881,7 +881,7 @@
             "uid": "${Prometheus}"
           },
           "exemplar": true,
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"rest-proxy\",env=\"$env\",instance=~\"$instance\"})",
+          "expr": "sum without(area)(jvm_memory_used_bytes{job=\"rest-proxy\",env=\"$env\",instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"

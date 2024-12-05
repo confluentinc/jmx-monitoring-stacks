@@ -3549,7 +3549,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_streams_stream_thread_metrics_process_total, thread_id)",
+        "definition": "label_values(kafka_streams_stream_thread_metrics_process, thread_id)",
         "hide": 0,
         "includeAll": false,
         "label": "Thread",
@@ -3557,7 +3557,7 @@
         "name": "thread_id",
         "options": [],
         "query": {
-          "query": "label_values(kafka_streams_stream_thread_metrics_process_total, thread_id)",
+          "query": "label_values(kafka_streams_stream_thread_metrics_process, thread_id)",
           "refId": "Prometheus-thread_id-Variable-Query"
         },
         "refresh": 1,

@@ -16,3 +16,4 @@ dev-toolkit/jmx-exporter/*
 **/bin/*
 
 jmxexporter-prometheus-grafana/assets/grafana/provisioning/import/*
+jmxexporter-prometheus-grafana/cfk/cp-server.tar

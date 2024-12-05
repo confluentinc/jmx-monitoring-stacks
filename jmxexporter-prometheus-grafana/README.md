@@ -2,6 +2,7 @@
 
 After run the demo, for Grafana, go to http://localhost:3000 and then login with _admin/password_
 
+- JMX Exporter 1.1.0
 - Prometheus version: 2.47.2
 - Grafana version 10.2.0
 

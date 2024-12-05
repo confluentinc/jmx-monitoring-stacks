@@ -1670,7 +1670,7 @@
             "uid": "${Prometheus}"
           },
           "editorMode": "code",
-          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"kafka-controller\",env=\"$env\"})",
+          "expr": "sum without(area)(jvm_memory_used_bytes{job=\"kafka-controller\",env=\"$env\"})",
           "interval": "",
           "legendFormat": "Used:{{instance}}",
           "range": true,
