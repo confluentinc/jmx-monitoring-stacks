@@ -6,6 +6,16 @@ After run the demo, for Grafana, go to http://localhost:3000 and then login with
 - Prometheus version: 2.47.2
 - Grafana version 10.2.0
 
+---
+> [!NOTE]
+> **JMX Exporter 1.x Dashboards**
+>
+> Grafana dashboards are supported for JMX Exporter version 1.x.
+> 
+> If you still use JMX Exporter version < 1.x (example 0.20), you would need to use the dashboards from this folder: [grafana-dashboards-exporter-pre-1.x](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards-old-exporter)
+>
+---
+
 List of provided dashboards:
 
  - [Confluent Platform overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
