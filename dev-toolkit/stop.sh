@@ -25,6 +25,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.consumer-minimal.yaml \
     -f docker-compose.schema-registry-primary-secondary.yaml \
     -f docker-compose.jr.yaml \
+    -f docker-compose.clusterlinking.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets

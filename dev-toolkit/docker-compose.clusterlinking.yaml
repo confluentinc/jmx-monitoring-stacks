@@ -1,0 +1,38 @@
+services:
+  broker-replicator-dst:
+    image: confluentinc/cp-server:${CFLT_TAG}
+    hostname: broker-replicator-dst
+    container_name: broker-replicator-dst
+    profiles:
+      - clusterlinking
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://broker-replicator-dst:29092"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_METADATA_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_SECURITY_EVENT_LOGGER_EXPORTER_KAFKA_TOPIC_REPLICAS: 1
+      KAFKA_CONFLUENT_CLUSTER_LINK_METADATA_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_REPORTER_RESULT_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_ENABLE: false
+      KAFKA_AUTO_CREATE_TOPICS: true
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@broker-replicator-dst:29093"
+      KAFKA_LISTENERS: "PLAINTEXT://broker-replicator-dst:29092,CONTROLLER://broker-replicator-dst:29093"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+      KAFKA_LOG4J_LOGGERS: "org.apache.kafka.image.loader.MetadataLoader=WARN"
+      CLUSTER_ID: "N3Ept9vxTMijB5S74gkfPA"
+      KAFKA_CONFLUENT_HTTP_SERVER_LISTENERS: http://0.0.0.0:8090
+      KAFKA_REST_BOOTSTRAP_SERVERS: "broker-replicator-dst:29092"
+      KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/kafka_config.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
+      - $PWD/jmx-exporter/kafka_broker.yml:/tmp/kafka_config.yml

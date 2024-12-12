@@ -99,6 +99,23 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
         replacement: '${1}'
 EOF
 
+# ADD Brokers dest cluster monitoring to prometheus config
+cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: "kafka-broker-dest"
+    static_configs:
+      - targets:
+          - "broker-replicator-dst:1234"
+        labels:
+          env: "dev"
+          job: "kafka-broker"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: hostname
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
 # ADD Schema Registry monitoring to prometheus config (default was for 1 SR only)
 cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
 
@@ -128,6 +145,7 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.consumer-minimal.yaml \
   -f docker-compose.schema-registry-primary-secondary.yaml \
   -f docker-compose.jr.yaml \
+  -f docker-compose.clusterlinking.yaml \
   up -d
 
 # if docker_args contains replicator, then start the replicator
@@ -165,6 +183,28 @@ if [[ " ${docker_args[@]} " =~ " ksqldb " ]]; then
   cd ksqlapp
   sh ksql-statements.sh
   cd ..
+
+fi
+
+# if docker_args contains clusterlinking, then start the clusterlinking
+if [[ " ${docker_args[@]} " =~ " clusterlinking " ]]; then
+
+  echo -e "\nWaiting 45 seconds before starting clusterlinking..."
+  sleep 45
+
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic product --replication-factor 1 --partitions 1"
+
+  echo -e "Create link main-to-disaster-cl"
+
+  docker exec broker-replicator-dst bash -c '\
+  echo "\
+  bootstrap.servers=kafka1:29092
+  " > /home/appuser/cl.properties'
+
+  docker exec broker-replicator-dst bash -c "KAFKA_OPTS= kafka-cluster-links --bootstrap-server broker-replicator-dst:29092 --create --link main-to-disaster-cl --config-file /home/appuser/cl.properties"
+
+  docker exec broker-replicator-dst bash -c "KAFKA_OPTS= kafka-mirrors --create --source-topic product --mirror-topic product --link main-to-disaster-cl --bootstrap-server broker-replicator-dst:29092"
+
 
 fi
 

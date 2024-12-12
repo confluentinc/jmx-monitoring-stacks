@@ -174,29 +174,13 @@ To test:
 
 ### Cluster Linking
 
-Demo is based on https://github.com/confluentinc/demo-scene/tree/master/cluster-linking-disaster-recovery
+To test use dev-toolkit with _clusterlinking_ profile:
 
-To test follow the next steps:
-
-1. Set env:
- ```bash
-MONITORING_STACK=jmxexporter-prometheus-grafana
- ```
-2. Clone demo cluster linking disaster recovery from confluentinc/demo-scene:
-```bash
-   [[ -d "clink-demo" ]] || git clone git@github.com:confluentinc/demo-scene.git clink-demo
-   (cd clink-demo && git fetch && git pull)
-   ```
-3. Start the monitoring solution with the STACK selected. This command also starts clink-demo, you do not need to start clink-demo separately.
+1. Start dev-toolkit with
 
 ```bash
-${MONITORING_STACK}/cluster-linking/start.sh
-``` 
-
-4. Stop the monitoring solution. This command also stops clink-demo, you do not need to stop clink-demo separately.
-
-```bash
-${MONITORING_STACK}/cluster-linking/stop.sh
+$ cd dev-toolkit
+$ start.sh --profile clusterlinking
 ```
 
 ![clusterlinking](img/clusterlinking.png)
@@ -208,7 +192,7 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ### KRaft
 
-To test use dev-toolkit with _Default_ profile:
+To test use dev-toolkit with _default_ profile:
 
 1. Start dev-toolkit with
 
