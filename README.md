@@ -186,6 +186,7 @@ Currently supported profiles:
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
 - _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
+- _clusterlinking_: add Cluster Linking between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 
 ## DEV-toolkit FAQ
 

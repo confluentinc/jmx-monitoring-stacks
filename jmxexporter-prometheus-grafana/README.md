@@ -18,30 +18,30 @@ After run the demo, for Grafana, go to http://localhost:3000 and then login with
 
 List of provided dashboards:
 
- - [Confluent Platform overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
- - [Zookeeper cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#zookeeper-cluster)
- - [Kafka cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-cluster)
- - [Kafka topics](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-topics)
- - [Kafka clients](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
- - [Kafka quotas](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-quotas)
- - [Kafka lag exporter](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
- - [Kafka transaction coordinator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
- - [Schema Registry cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
- - [Kafka Connect cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
- - [ksqlDB cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
- - [Kafka streams](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
- - [Kafka streams RocksDB](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
- - [Librdkafka based client](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
+ - [Confluent Platform overview _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-platform-overview)
+ - [Zookeeper cluster _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#zookeeper-cluster)
+ - [Kafka cluster _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-cluster)
+ - [Kafka topics _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-topics)
+ - [Kafka clients _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-clients)
+ - [Kafka quotas _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-quotas)
+ - [Kafka lag exporter _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-lag-exporter)
+ - [Kafka transaction coordinator _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-transaction-coordinator)
+ - [Schema Registry cluster _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#schema-registry-cluster)
+ - [Kafka Connect cluster _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-connect-cluster)
+ - [ksqlDB cluster _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
+ - [Kafka streams _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
+ - [Kafka streams RocksDB _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
+ - [Librdkafka based client _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Debezium source Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#debezium-cdc-source-connectors)
  - [Mongo source and sink Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#mongo-source-and-sink-connectors)
- - [Cluster Linking](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
- - [Rest Proxy](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
- - [KRaft overview](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
- - [Confluent RBAC](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
- - [Replicator](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
+ - [Cluster Linking _(dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#cluster-linking)
+ - [Rest Proxy _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
+ - [KRaft overview _(dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
+ - [Confluent RBAC _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
+ - [Replicator _(dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
  - [Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
- - [Confluent Audit](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-audit)
+ - [Confluent Audit _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-audit)
  - [Flink Cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#flink-cluster)
 
 ---
@@ -174,29 +174,13 @@ To test:
 
 ### Cluster Linking
 
-Demo is based on https://github.com/confluentinc/demo-scene/tree/master/cluster-linking-disaster-recovery
+To test use dev-toolkit with _clusterlinking_ profile:
 
-To test follow the next steps:
-
-1. Set env:
- ```bash
-MONITORING_STACK=jmxexporter-prometheus-grafana
- ```
-2. Clone demo cluster linking disaster recovery from confluentinc/demo-scene:
-```bash
-   [[ -d "clink-demo" ]] || git clone git@github.com:confluentinc/demo-scene.git clink-demo
-   (cd clink-demo && git fetch && git pull)
-   ```
-3. Start the monitoring solution with the STACK selected. This command also starts clink-demo, you do not need to start clink-demo separately.
+1. Start dev-toolkit with
 
 ```bash
-${MONITORING_STACK}/cluster-linking/start.sh
-``` 
-
-4. Stop the monitoring solution. This command also stops clink-demo, you do not need to stop clink-demo separately.
-
-```bash
-${MONITORING_STACK}/cluster-linking/stop.sh
+$ cd dev-toolkit
+$ start.sh --profile clusterlinking
 ```
 
 ![clusterlinking](img/clusterlinking.png)
@@ -208,7 +192,7 @@ ${MONITORING_STACK}/cluster-linking/stop.sh
 
 ### KRaft
 
-To test use dev-toolkit with _Default_ profile:
+To test use dev-toolkit with _default_ profile:
 
 1. Start dev-toolkit with
 
