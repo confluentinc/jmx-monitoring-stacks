@@ -60,6 +60,10 @@ curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/kafkaLagExporter_overview.ndjson
 # Add Topic Drill Down Dashboard
 curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/kafkaTopicDrillDown_overview.ndjson
+# Add JAVA Producer Dashboard
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/producer_dashboard.ndjson
+# Add JAVA Consumer Dashboard
+curl -X POST "http://localhost:5601/api/saved_objects/_import?overwrite=true" -H "kbn-xsrf: true" -H "securitytenant: global" --form file=@${MONITORING_STACK}/assets/kibana/consumer_dashboard.ndjson
 
 
 echo -e "\nView Kibana dashboards at ->"
