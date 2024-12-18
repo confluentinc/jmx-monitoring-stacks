@@ -146,7 +146,29 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.schema-registry-primary-secondary.yaml \
   -f docker-compose.jr.yaml \
   -f docker-compose.clusterlinking.yaml \
+  -f docker-compose.connect.yaml \
   up -d
+
+# if docker_args contains connect, then start the connect
+if [[ " ${docker_args[@]} " =~ " connect " ]]; then
+
+  echo -e "\nWaiting 60 seconds before starting datagen connector..."
+  sleep 60
+
+  echo -e "\nCreating topic pageviews..."
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic pageviews --replication-factor 1 --partitions 1"
+  sleep 3
+
+  echo -e "\nStarting datagen connector..."
+
+  curl -X POST -H Accept:application/json -H Content-Type:application/json http://localhost:8083/connectors/ -d @connect/connector_datagen.json
+
+  echo -e "\nStarting filesink connector..."
+
+  curl -X POST -H Accept:application/json -H Content-Type:application/json http://localhost:8083/connectors/ -d @connect/connector_filesink.json
+
+
+fi
 
 # if docker_args contains replicator, then start the replicator
 if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
@@ -163,7 +185,6 @@ if [[ " ${docker_args[@]} " =~ " replicator " ]]; then
   curl --request PUT \
     --url http://localhost:8083/connectors/replicator/config \
     --header 'content-type: application/json' \
-    --header 'user-agent: vscode-restclient' \
     --data '{"connector.class": "io.confluent.connect.replicator.ReplicatorSourceConnector","topic.regex": "quotes","key.converter": "io.confluent.connect.replicator.util.ByteArrayConverter","value.converter": "io.confluent.connect.replicator.util.ByteArrayConverter","header.converter": "io.confluent.connect.replicator.util.ByteArrayConverter","src.kafka.bootstrap.servers": "kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092","dest.kafka.bootstrap.servers": "broker-replicator-dst:29092","error.tolerance": "all","errors.log.enable": "true","errors.log.include.messages": "true","confluent.topic.replication.factor": 1,"provenance.header.enable": "true","topic.timestamp.type": "LogAppendTime","topic.rename.format": "replica-${topic}","tasks.max": "1"}'
 
   echo -e "\nWaiting 45 seconds to initialize replicator connector..."

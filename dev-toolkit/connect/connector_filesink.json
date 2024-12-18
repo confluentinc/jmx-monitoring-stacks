@@ -1,0 +1,10 @@
+{
+  "name" : "filesink-sample",
+  "config": {
+    "connector.class": "FileStreamSink",
+    "topics" : "pageviews",
+    "file": "/tmp/pageviews.txt",
+    "name" : "filesink-sample",
+    "tasks.max": "1"
+  }
+}

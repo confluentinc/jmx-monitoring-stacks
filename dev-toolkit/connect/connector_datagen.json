@@ -1,0 +1,13 @@
+{
+  "name" : "datagen-sample",
+  "config": {
+    "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
+    "kafka.topic" : "pageviews",
+    "quickstart" : "pageviews",
+    "tasks.max" : "4",
+    "max.interval": 1000,
+    "iterations": 10000000,
+    "topic.creation.default.replication.factor": 1,
+    "topic.creation.default.partitions": 10
+  }
+}
