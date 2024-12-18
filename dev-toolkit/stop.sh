@@ -26,6 +26,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.schema-registry-primary-secondary.yaml \
     -f docker-compose.jr.yaml \
     -f docker-compose.clusterlinking.yaml \
+    -f docker-compose.connect.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets
