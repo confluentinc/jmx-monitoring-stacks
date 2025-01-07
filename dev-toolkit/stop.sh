@@ -17,6 +17,9 @@ $DOCKER_COMPOSE_CMD \
     --profile consumer-minimal \
     --profile schema-registry-primary-secondary \
     --profile jr \
+    --profile clusterlinking \
+    --profile kstream \
+    --profile kui \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \
@@ -27,6 +30,8 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.jr.yaml \
     -f docker-compose.clusterlinking.yaml \
     -f docker-compose.connect.yaml \
+    -f docker-compose.kstream.yaml \
+    -f docker-compose.kui.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets

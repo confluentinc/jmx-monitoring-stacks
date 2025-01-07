@@ -1,0 +1,76 @@
+services:
+  schemaregistry:
+    image: confluentinc/cp-schema-registry:${CFLT_TAG}
+    container_name: schemaregistry
+    restart: always
+    profiles:
+      - kstream
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+    ports:
+      - 8081:8081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schemaregistry
+      SCHEMA_REGISTRY_INTER_INSTANCE_PROTOCOL: http
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: PLAINTEXT
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: INFO
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
+      SCHEMA_REGISTRY_DEBUG: "true"
+      EXTRA_ARGS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/confluent_schemaregistry.yml"
+    volumes:
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
+      - $PWD/jmx-exporter/confluent_schemaregistry.yml:/tmp/confluent_schemaregistry.yml
+
+
+  jr:
+    image: ghcr.io/jrnd-io/jr:${JR_TAG}
+    profiles:
+      - kstream
+    hostname: jr
+    container_name: jr
+    command: >
+      /bin/sh -c "
+      echo 'Starting JR...';
+      tail -f /dev/null
+      "
+    volumes:
+      - $PWD/client/config.properties:/kafka/config.properties
+      - $PWD/client/registry.properties:/kafka/registry.properties
+
+  kafka-stream-stateful-demo-1:
+    image: ghcr.io/ram-pi/ram-pi/kafka-streams-demo:v0.0.2
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+      - schemaregistry
+      - jr
+    profiles:
+      - kstream
+    hostname: kafka-stream-stateful-demo-1
+    container_name: kafka-stream-stateful-demo-1
+    volumes:
+      - $PWD/client/kstream.properties:/client.properties
+
+  kafka-stream-stateful-demo-2:
+    image: ghcr.io/ram-pi/ram-pi/kafka-streams-demo:v0.0.2
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+      - schemaregistry
+      - jr
+    profiles:
+      - kstream
+    hostname: kafka-stream-stateful-demo-2
+    container_name: kafka-stream-stateful-demo-2
+    volumes:
+      - $PWD/client/kstream.properties:/client.properties
