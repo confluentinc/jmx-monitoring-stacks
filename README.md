@@ -190,6 +190,7 @@ Currently supported profiles:
 - _clusterlinking_: add Cluster Linking between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 - _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)
 - _kui_: it will add an instance of _kafka-ui_ for topics data visualizion (available on port 18080).
+- _tieredstroage_: it will configure Confluent Platform to use Confluent Tiered Storage and a compatible S3 storage.
 
 ## DEV-toolkit FAQ
 
