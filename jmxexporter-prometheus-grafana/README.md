@@ -232,7 +232,7 @@ To test follow the next steps:
 
 ```bash
 $ cd dev-toolkit
-$ start.sh --profile replicator
+$ start.sh --profile tieredstorage
 ```
 
 ![tiered-storage](img/tiered-storage.png)
