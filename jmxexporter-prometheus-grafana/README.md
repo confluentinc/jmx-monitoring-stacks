@@ -39,8 +39,8 @@ List of provided dashboards:
  - [Rest Proxy _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rest-proxy)
  - [KRaft overview _(dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kraft)
  - [Confluent RBAC _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#rbac)
- - [Replicator _(dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
- - [Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
+ - [Confluent Replicator _(dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#replicator)
+ - [Confluent Tiered Storage](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#tiered-storage)
  - [Confluent Audit _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#confluent-audit)
  - [Flink Cluster](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#flink-cluster)
 
@@ -225,6 +225,16 @@ $ start.sh --profile replicator
 
 
 ### Tiered Storage
+
+To test follow the next steps:
+
+1. Start dev-toolkit with _tieredstorage_ profile
+
+```bash
+$ cd dev-toolkit
+$ start.sh --profile replicator
+```
+
 ![tiered-storage](img/tiered-storage.png)
 
 ### Confluent Audit

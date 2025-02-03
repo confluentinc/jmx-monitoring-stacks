@@ -163,7 +163,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(kafka_log_log_size{job=\"kafka-broker\",env=\"$env\", instance=\"$instance\"}) by (instance)",
+          "expr": "sum(kafka_log_log_size{job=\"kafka-broker\",env=\"$env\", instance=~\"$instance\"}) by (instance)",
           "format": "time_series",
           "hide": false,
           "interval": "",

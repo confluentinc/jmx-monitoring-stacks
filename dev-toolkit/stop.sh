@@ -8,6 +8,16 @@ else
     DOCKER_COMPOSE_CMD="docker compose"
 fi
 
+# get args from command line (if any) and put them in a variable
+docker_args=("$@")
+echo "docker_args: ${docker_args[@]}"
+
+# if docker_args contains tieredstorage, then create topics required for tieredstorage
+if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
+  echo -e "\nWaiting 3 seconds before creating democp-bucket on minio..."
+  $DOCKER_COMPOSE_CMD stop kafka1 kafka2 kafka3 kafka4 minio
+fi
+
 # Cleanup
 $DOCKER_COMPOSE_CMD \
     --profile replicator \

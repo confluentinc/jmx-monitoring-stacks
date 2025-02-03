@@ -114,6 +114,7 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
         target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
+
 EOF
 
 # ADD Schema Registry monitoring to prometheus config (default was for 1 SR only)
@@ -168,6 +169,7 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.connect.yaml \
   -f docker-compose.kstream.yaml \
   -f docker-compose.kui.yaml \
+  -f docker-compose.tieredstorage.yaml \
   up -d
 
 # if docker_args contains connect, then start the connect
@@ -256,6 +258,29 @@ if [[ " ${docker_args[@]} " =~ " kstream " ]]; then
   echo -e "\nWaiting 60 seconds before starting generate data through jr..."
   sleep 60
   docker exec jr bash -c 'jr emitter run shoestore'
+
+fi
+
+# if docker_args contains tieredstorage, then create topics required for tieredstorage
+if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
+  echo -e "\nWaiting 3 seconds before creating democp-bucket on minio..."
+  sleep 3
+
+  docker exec -it minio mc alias set local http://minio:9000 admin minioadmin
+  docker exec -it minio mc mb local/democp-bucket
+  docker exec -it minio mc anonymous set public local/democp-bucket
+  docker exec -it minio mc ls local
+
+  echo -e "\nWaiting 30 seconds before creating topic trades..."
+  sleep 30
+
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-topics --bootstrap-server kafka1:29092 --create --topic trades --replication-factor 3 --partitions 6 --config confluent.tier.enable=true --config confluent.tier.local.hotset.ms=30000  --config segment.bytes=2000000"
+
+  sleep 5
+
+  echo -e "\nProduce on topic trades..."
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-producer-perf-test --producer-props bootstrap.servers=kafka1:29092 --topic trades --record-size 1000 --throughput 1000 --num-records 3600000"
+
 
 fi
 
