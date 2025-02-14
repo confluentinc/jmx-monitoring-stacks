@@ -179,17 +179,17 @@ To run replicator scenario, i.e. run `start.sh --profile replicator`.
 It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
 Currently supported profiles:
-- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
-- _schema-registry_: it will add Confluent Schema Registry.
-- _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
+- _clusterlinking_: add Cluster Linking between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 - _connect_: it will add Kafka Connect with a datagen source connector and a file sink connector.
-- _ksqldb_: it will add ksqldb server. It requires _schema-registry_ profile.
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
 - _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
-- _clusterlinking_: add Cluster Linking between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
+- _ksqldb_: it will add ksqldb server. It requires _schema-registry_ profile.
 - _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)
 - _kui_: it will add an instance of _kafka-ui_ for topics data visualizion (available on port 18080).
+- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
+- _schema-registry_: it will add Confluent Schema Registry.
+- _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
 - _tieredstroage_: it will configure Confluent Platform to use Confluent Tiered Storage and a compatible S3 storage.
 
 ## DEV-toolkit FAQ

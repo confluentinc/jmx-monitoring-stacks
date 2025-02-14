@@ -11,7 +11,7 @@ Add JMX Exporter 1.1.0:
 KRaft Cluster:
 
 ```yaml
-    kafka_controller_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
+    kafka_controller_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_controller.yml
     kafka_broker_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_broker.yml
     schema_registry_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/confluent_schemaregistry.yml
     kafka_connect_jmxexporter_config_source_path: ../../jmx-monitoring-stacks/shared-assets/jmx-exporter/kafka_connect.yml
