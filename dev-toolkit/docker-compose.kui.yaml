@@ -1,5 +1,7 @@
 services:
   kafka-ui:
+    profiles:
+      - kui
     container_name: kui
     image: provectuslabs/kafka-ui:latest
     ports:

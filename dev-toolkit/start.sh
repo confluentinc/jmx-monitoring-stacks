@@ -155,9 +155,9 @@ EOF
 
 echo -e "\nStarting profiles..."
 
-# Start the development environment
-$DOCKER_COMPOSE_CMD ${docker_args[@]} \
-  -f docker-compose.yaml \
+# Define string with all docker-compose files
+DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
+-f docker-compose.yaml \
   -f docker-compose.replicator.yaml \
   -f docker-compose.schema-registry.yaml \
   -f docker-compose.ksqldb.yaml \
@@ -169,7 +169,16 @@ $DOCKER_COMPOSE_CMD ${docker_args[@]} \
   -f docker-compose.connect.yaml \
   -f docker-compose.kstream.yaml \
   -f docker-compose.kui.yaml \
-  -f docker-compose.tieredstorage.yaml \
+"
+
+# if docker_args contains tieredstorage, then add the tieredstorage file
+if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
+  DOCKER_COMPOSE_FILES="${DOCKER_COMPOSE_FILES} -f docker-compose.tieredstorage.yaml"
+fi
+
+# Start the development environment
+$DOCKER_COMPOSE_CMD ${docker_args[@]} \
+  $DOCKER_COMPOSE_FILES \
   up -d
 
 # if docker_args contains connect, then start the connect
