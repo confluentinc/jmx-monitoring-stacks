@@ -114,8 +114,8 @@ MONITORING_STACK=datadog
 3. Clone `cp-demo` and checkout a branch.
 
 ```bash
-# Example with CP-DEMO 7.7.1 version
-CP_DEMO_VERSION=7.7.1-post
+# Example with CP-DEMO 7.8.1 version
+CP_DEMO_VERSION=7.8.1-post
 
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
 (cd cp-demo && git fetch && git checkout $CP_DEMO_VERSION && git pull)
@@ -151,7 +151,7 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
 
 Dev-toolkit is based on:
- - Confluent Platform _(current 7.8.0)_ 
+ - Confluent Platform _(current 7.8.1)_ 
  - Prometheus and Grafana stack.
  - JMX Exporter 1.1.0
 

@@ -6,7 +6,7 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-zookeeper:7.8.0
+    application: confluentinc/cp-zookeeper:7.8.1
     init: confluentinc/confluent-init-container:2.10.0
   dataVolumeCapacity: 10Gi
   logVolumeCapacity: 10Gi
@@ -120,8 +120,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    # application: confluentinc/cp-server:7.8.0
-    application: local/cp-server:7.8.0
+    # application: confluentinc/cp-server:7.8.1
+    application: local/cp-server:7.8.1
     init: confluentinc/confluent-init-container:2.10.0
   dataVolumeCapacity: 10Gi
   configOverrides:
