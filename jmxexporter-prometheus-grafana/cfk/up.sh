@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # build docker image with jmx exporter version 1.1.0
-docker build . --no-cache --pull -t local/cp-server:7.8.0
-docker save local/cp-server:7.8.0 -o cp-server.tar
+docker build . --no-cache --pull -t local/cp-server:7.8.1
+docker save local/cp-server:7.8.1 -o cp-server.tar
 
 # Start local k8s cluster with kind
 echo "Starting local k8s cluster with kind"

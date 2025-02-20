@@ -37,7 +37,7 @@ services:
       - -c
       - |
         echo "Installing Connector"
-        confluent-hub install --no-prompt confluentinc/kafka-connect-replicator:7.8.0
+        confluent-hub install --no-prompt confluentinc/kafka-connect-replicator:7.8.1
         cp /usr/share/java/kafka-connect-replicator/replicator-rest-extension-*.jar /etc/kafka-connect/jars/
         #
         echo "Launching Kafka Connect worker"
