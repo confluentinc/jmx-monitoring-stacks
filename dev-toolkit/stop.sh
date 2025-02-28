@@ -30,6 +30,7 @@ $DOCKER_COMPOSE_CMD \
     --profile clusterlinking \
     --profile kstream \
     --profile kui \
+    --profile restproxy \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \
@@ -42,6 +43,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.connect.yaml \
     -f docker-compose.kstream.yaml \
     -f docker-compose.kui.yaml \
+    -f docker-compose.restproxy.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets
