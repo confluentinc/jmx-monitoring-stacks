@@ -169,6 +169,7 @@ DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
   -f docker-compose.connect.yaml \
   -f docker-compose.kstream.yaml \
   -f docker-compose.kui.yaml \
+  -f docker-compose.restproxy.yaml
 "
 
 # if docker_args contains tieredstorage, then add the tieredstorage file

@@ -6,10 +6,7 @@ services:
     hostname: connect
     container_name: connect
     depends_on:
-      - kafka1
-      - kafka2
-      - kafka3
-      - kafka4
+      - schemaregistry
     ports:
       - "8083:8083"
     environment:
