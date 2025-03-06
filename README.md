@@ -9,8 +9,6 @@ This project provides metrics and dashboards for:
 - [Confluent Platform on Kubernetes with Prometheus and Grafana](jmxexporter-prometheus-grafana/cfk)
 - [Confluent Platform with New Relic](jmxexporter-newrelic)
 - [Confluent Platform with Prometheus, Metricbeat and Kibana](metricbeat-elastic-kibana)
-- [Confluent Platform with Jolokia Agent](jolokia)
-- [Confluent Platform with Jolokia, Telegraf and InfluxDB](jolokia-telegraf-influxdb)
 - [Confluent Platform with Datadog agent](datadog)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
@@ -26,9 +24,7 @@ This project provides metrics and dashboards for:
   <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" height="200" /> 
   <img src="jmxexporter-prometheus-grafana/img/kafka-quotas.png" width="250" height="200" /> 
   <img src="jmxexporter-newrelic/img/Cluster.png" width="250" height="200" />
-  <img src="jmxexporter-newrelic/img/Throughput.png" width="250" height="200" />
   <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
-  <img src="jolokia-telegraf-influxdb/img/kafka-cluster-0.png" width="250" height="200" />
   <img src="datadog/img/overview.png" width="250" height="200" />
 </p>
 
@@ -106,8 +102,6 @@ Verify in the advanced Docker preferences settings that the memory available to 
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
-MONITORING_STACK=jolokia
-MONITORING_STACK=jolokia-telegraf-influxdb
 MONITORING_STACK=datadog
 ```
 
