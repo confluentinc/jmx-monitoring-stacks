@@ -45,6 +45,7 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/tiered-storage.json >${GRAFANA_IMPORT_FOLDER}/dashboards/tiered-storage.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/zookeeper-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/zookeeper-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-audit.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-audit.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/mongo.json >${GRAFANA_IMPORT_FOLDER}/dashboards/mongo.json
 
 
 # Copy needed files in the current folder
@@ -142,7 +143,6 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
       - targets:
           - "kafka-stream-stateful-demo-1:9999"
           - "kafka-stream-stateful-demo-2:9999"
-          - "kafka-stream-stateful-demo-3:9999"
         labels:
           env: "dev"
           job: "kstreams"
@@ -169,7 +169,8 @@ DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
   -f docker-compose.connect.yaml \
   -f docker-compose.kstream.yaml \
   -f docker-compose.kui.yaml \
-  -f docker-compose.restproxy.yaml
+  -f docker-compose.restproxy.yaml \
+  -f docker-compose.mongo.yaml
 "
 
 # if docker_args contains tieredstorage, then add the tieredstorage file
@@ -200,6 +201,31 @@ if [[ " ${docker_args[@]} " =~ " connect " ]]; then
 
   curl -X POST -H Accept:application/json -H Content-Type:application/json http://localhost:8083/connectors/ -d @connect/connector_filesink.json
 
+
+fi
+
+# if docker_args contains mongo-connect, then start the mongo-connect
+if [[ " ${docker_args[@]} " =~ " mongo-connect " ]]; then
+
+  echo -e "\nWaiting 60 seconds before starting mongo connectors..."
+  sleep 60
+
+  echo "Create roles for mongo CDC..."
+
+  chmod +x mongoconnectors/mongo_init.sh
+  chmod +x mongoconnectors/mongo_query.sh
+
+  sh mongoconnectors/mongo_init.sh
+
+  sleep 3
+
+  echo -e "\nStarting mongo source connector..."
+
+  curl -X POST -H Accept:application/json -H Content-Type:application/json http://localhost:8083/connectors/ -d @mongoconnectors/connector_mongosource.json
+
+  echo -e "\nStarting mongo sink connector..."
+
+  curl -X POST -H Accept:application/json -H Content-Type:application/json http://localhost:8083/connectors/ -d @mongoconnectors/connector_mongosink.json
 
 fi
 

@@ -12,10 +12,14 @@ fi
 docker_args=("$@")
 echo "docker_args: ${docker_args[@]}"
 
-# if docker_args contains tieredstorage, then create topics required for tieredstorage
+# if docker_args contains tieredstorage
 if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
-  echo -e "\nWaiting 3 seconds before creating democp-bucket on minio..."
   $DOCKER_COMPOSE_CMD stop kafka1 kafka2 kafka3 kafka4 minio
+fi
+
+# if docker_args contains tieredstorage
+if [[ " ${docker_args[@]} " =~ " mongo-connect " ]]; then
+  docker stop mongo && docker rm -v mongo
 fi
 
 # Cleanup
@@ -44,6 +48,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.kstream.yaml \
     -f docker-compose.kui.yaml \
     -f docker-compose.restproxy.yaml \
+    -f docker-compose.mongo.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets

@@ -34,7 +34,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -47,7 +47,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "\t\nThe total number of records a MongoDB source task passed to the Kafka Connect framework.",
           "fieldConfig": {
@@ -98,7 +98,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -119,7 +119,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "records\nThe total number of records a MongoDB source task passed to the Kafka Connect framework.\n\nrecords-filtered\nThe number of records a MongoDB source task passed to the Kafka Connect framework that were then filtered by the framework. A filtered record is not written to Kafka.\n\nrecords-acknowledged\nThe total number of records a MongoDB source task passed to the Kafka Connect framework that were then successfully written to Kafka.",
           "fieldConfig": {
@@ -194,7 +194,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -210,7 +210,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "expr": "kafka_connect_mongodb_source_task_metrics_records_acknowledged{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task=~\"source-task-[0-9]*\"}",
@@ -222,7 +222,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "expr": "kafka_connect_mongodb_source_task_metrics_records_filtered{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task=~\"source-task-[0-9]*\"}",
@@ -238,7 +238,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "\t\nThe total number of bytes a MongoDB source task read from the MongoDB cluster.",
           "fieldConfig": {
@@ -289,7 +289,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -310,7 +310,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "Perform the following calculation with the mongodb-bytes-read and records metrics",
           "fieldConfig": {
@@ -361,7 +361,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -382,7 +382,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "latest-mongodb-time-difference-secs\n\n\t\nThe number of seconds of the most recent time difference recorded between a MongoDB cluster and the post-batch resume token held by a MongoDB source task. This value is calculated by subtracting the timestamp of the task's post-batch resume token from the operationTime value of the most recent successful MongoDB command executed by the task.",
           "fieldConfig": {
@@ -433,7 +433,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -454,7 +454,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "",
           "fieldConfig": {
@@ -529,7 +529,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -550,7 +550,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds the Kafka Connect framework spent executing the poll() method of a MongoDB source task.",
           "fieldConfig": {
@@ -625,7 +625,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -646,7 +646,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds the Kafka Connect framework spent executing the poll() method of a MongoDB source task.",
           "fieldConfig": {
@@ -721,7 +721,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -738,7 +738,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -755,7 +755,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -772,7 +772,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -789,7 +789,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -810,7 +810,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds spent executing code in the Kafka Connect framework since the framework first invoked the poll() method of the MongoDB source task. This metric does not count time executing code in the MongoDB sink task towards the total.",
           "fieldConfig": {
@@ -885,7 +885,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -906,7 +906,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds spent executing code in the Kafka Connect framework since the framework first invoked the poll() method of the MongoDB source task. This metric does not count time executing code in the MongoDB sink task towards the total.",
           "fieldConfig": {
@@ -981,7 +981,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -998,7 +998,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1015,7 +1015,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1032,7 +1032,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1049,7 +1049,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1070,7 +1070,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of initial commands issued by a MongoDB source task that succeeded. An initial command is a find or aggregate command sent to a MongoDB cluster that retrieves the first set of documents in a cursor. A getMore command is not an initial command.",
           "fieldConfig": {
@@ -1121,7 +1121,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1142,7 +1142,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "\t\nThe total number of milliseconds a MongoDB source task spent executing getMore commands that succeeded.",
           "fieldConfig": {
@@ -1217,7 +1217,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1238,7 +1238,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of getMore commands issued by a MongoDB source task that succeeded.",
           "fieldConfig": {
@@ -1289,7 +1289,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1310,7 +1310,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "\t\nThe total number of milliseconds a MongoDB source task spent executing getMore commands that succeeded.",
           "fieldConfig": {
@@ -1385,7 +1385,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1420,7 +1420,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of Kafka records a MongoDB sink task received.",
           "fieldConfig": {
@@ -1470,7 +1470,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1491,7 +1491,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "records-successful\nThe total number of Kafka records a MongoDB sink task successfully wrote to MongoDB.\nrecords-failed\nThe total number of Kafka records a MongoDB sink task failed to write to MongoDB.",
           "fieldConfig": {
@@ -1565,7 +1565,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "expr": "kafka_connect_mongodb_sink_task_metrics_records_successful{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task=~\"sink-task-[0-9]*\"}",
@@ -1577,7 +1577,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "expr": "kafka_connect_mongodb_sink_task_metrics_records_failed{job=\"kafka-connect\", env=\"$env\",instance=~\"$instance\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task=~\"sink-task-[0-9]*\"}",
@@ -1593,7 +1593,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The number of milliseconds of the most recent time difference recorded between a MongoDB sink task and Kafka. This value is calculated by subtracting the current time of the connector's clock and the timestamp of the last record the task received.",
           "fieldConfig": {
@@ -1643,7 +1643,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1664,7 +1664,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "",
           "fieldConfig": {
@@ -1738,7 +1738,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1759,7 +1759,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds the Kafka Connect framework spent executing the put() method of a MongoDB sink task.",
           "fieldConfig": {
@@ -1833,7 +1833,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1854,7 +1854,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of times code in the Kafka Connect framework executed after the first invocation of the put() method of the MongoDB sink task.",
           "fieldConfig": {
@@ -1928,7 +1928,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1949,7 +1949,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds a MongoDB sink task spent processing records before writing them to MongoDB.",
           "fieldConfig": {
@@ -2023,7 +2023,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -2044,7 +2044,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "description": "The total number of milliseconds a MongoDB sink task spent successfully writing to the MongoDB cluster.",
           "fieldConfig": {
@@ -2118,7 +2118,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -2135,7 +2135,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "${Prometheus}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -2161,7 +2161,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "${Prometheus}"
       },
       "gridPos": {
         "h": 1,
@@ -2174,7 +2174,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2266,7 +2266,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2363,7 +2363,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${Prometheus}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2473,7 +2473,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_connect_app,env)",
         "hide": 0,
@@ -2508,7 +2508,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_connect_app,kafka_connect_cluster_id)",
         "hide": 0,
@@ -2538,7 +2538,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_connect_app{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
         "hide": 0,
@@ -2568,7 +2568,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${Prometheus}"
         },
         "definition": "label_values(kafka_connect_connector_task_metrics_pause_ratio{job=\"kafka-connect\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},connector)",
         "hide": 0,

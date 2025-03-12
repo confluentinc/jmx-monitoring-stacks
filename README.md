@@ -30,31 +30,31 @@ This project provides metrics and dashboards for:
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard                      |Prometheus/Grafana|New Relic|Metricbeat/Kibana|Telegraf/Influx |Datadog|
-|--------------------------------|---|-|----------|---------------|-------|
-| Kafka Cluster                  |yes|yes|yes|yes|yes|
-| Zookeeper                      |yes|yes|yes|
-| KRaft                          |yes|
-| Confluent Schema Registry      |yes||yes|
-| Kafka Connect                  |yes||yes|
-| ksqlDB                         |yes||yes|
-| Producer/Consumer              |yes|yes|yes||yes|
-| Lag Exporter                   |yes|
-| Topics                         |yes||yes|
-| Kafka Streams                  |yes|
-| Kafka Streams RocksDB          |yes|
-| Quotas                         |yes|
-| TX Coordinator                 |yes|
-| Confluent Rest Proxy           |yes|
-| Confluent Cluster Linking      |yes|
-| Confluent Oracle CDC connector |yes|
-| Debezium connectors            |yes|
-| MongoDB connector              |yes|
-| librdkafka clients             |yes|
-| Confluent RBAC                 |yes|
-| Confluent Replicator           |yes|
-| Confluent Tiered Storage       |yes|
-| Confluent Flink                |yes|
+| Dashboard                      | Prometheus/Grafana  | New Relic |Metricbeat/Kibana|Datadog|
+|--------------------------------|---------------------|-----------|---------|-----------
+| Kafka Cluster                  | yes                 | yes       |yes|yes|
+| Zookeeper                      | yes                 | yes       |yes|
+| KRaft                          | yes                 |
+| Confluent Schema Registry      | yes                 |           |yes|
+| Kafka Connect                  | yes                 |           |yes|
+| ksqlDB                         | yes                 |           |yes|
+| Producer/Consumer              | yes                 | yes       |yes|yes|
+| Lag Exporter                   | yes                 |
+| Topics                         | yes                 |           |yes|
+| Kafka Streams                  | yes                 |
+| Kafka Streams RocksDB          | yes                 |
+| Quotas                         | yes                 |
+| TX Coordinator                 | yes                 |
+| Confluent Rest Proxy           | yes                 |
+| Confluent Cluster Linking      | yes                 |
+| Confluent Oracle CDC connector | yes                 |
+| Debezium connectors            | yes                 |
+| MongoDB connectors             | yes                 |
+| librdkafka clients             | yes                 |
+| Confluent RBAC                 | yes                 |
+| Confluent Replicator           | yes                 |
+| Confluent Tiered Storage       | yes                 |
+| Confluent Flink                | yes                 |
 
 **List of available dashboards for Confluent Cloud:**
 
@@ -180,7 +180,8 @@ Currently supported profiles:
 - _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
 - _ksqldb_: it will add ksqldb server. It requires _schema-registry_ profile.
 - _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)
-- _kui_: it will add an instance of _kafka-ui_ for topics data visualizion (available on port 18080).
+- _kui_: it will add an instance of _kafka-ui_ for topics data visualization (available on port 18080).
+- _mongo-connect_: it will add Kafka Connect with MongoDB replica set and a MongoDB source connector and a MongoDB sink connector. It requires _schema-registry_ profile.
 - _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 - _restproxy_: it will add Confluent Rest Proxy. It requires _schema-registry_ profile.
 - _schema-registry_: it will add Confluent Schema Registry.
