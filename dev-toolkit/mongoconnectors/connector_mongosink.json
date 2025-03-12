@@ -1,0 +1,17 @@
+{
+  "name": "mongo-sink",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+    "errors.tolerance": "all",
+    "topics": "mongo.Employee.users",
+    "errors.deadletterqueue.topic.name": "dlq.mongo.users",
+    "errors.deadletterqueue.topic.replication.factor": "1",
+    "errors.deadletterqueue.context.headers.enable": "true",
+    "connection.uri": "mongodb://data-platform-cdc:password@mongo:27017/?replicaSet=rs0",
+    "database": "Employee",
+    "collection": "accounts",
+    "insert.mode": "insert",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+  }
+}
