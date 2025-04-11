@@ -170,7 +170,8 @@ DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
   -f docker-compose.kstream.yaml \
   -f docker-compose.kui.yaml \
   -f docker-compose.restproxy.yaml \
-  -f docker-compose.mongo.yaml
+  -f docker-compose.mongo.yaml \
+  -f docker-compose.c3.yaml
 "
 
 # if docker_args contains tieredstorage, then add the tieredstorage file
@@ -333,3 +334,8 @@ echo -e "http://localhost:3000"
 # Print message to apply quotas if needed
 echo -e "\nRun the following command if you want to add quotas (this will make few metrics available) ->"
 echo -e "docker exec kafka1 bash -c \"KAFKA_OPTS= kafka-configs --bootstrap-server kafka1:29092 --alter --add-config 'producer_byte_rate=10485760,consumer_byte_rate=10485760' --entity-type clients --entity-default\""
+
+if [[ " ${docker_args[@]} " =~ " control-center " ]]; then
+echo -e "\nView Control Center at  ->"
+echo -e "http://localhost:9021"
+fi

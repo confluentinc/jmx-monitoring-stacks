@@ -22,6 +22,11 @@ if [[ " ${docker_args[@]} " =~ " mongo-connect " ]]; then
   docker stop mongo && docker rm -v mongo
 fi
 
+# if docker_args contains control-center
+if [[ " ${docker_args[@]} " =~ " control-center " ]]; then
+  docker stop control-center && docker rm -v control-center
+fi
+
 # Cleanup
 $DOCKER_COMPOSE_CMD \
     --profile replicator \
@@ -49,6 +54,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.kui.yaml \
     -f docker-compose.restproxy.yaml \
     -f docker-compose.mongo.yaml \
+    -f docker-compose.c3.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets
