@@ -145,7 +145,7 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
 
 Dev-toolkit is based on:
- - Confluent Platform _(current 7.8.1)_ 
+ - Confluent Platform _(current 7.9.0)_ 
  - Prometheus and Grafana stack.
  - JMX Exporter 1.1.0
 
@@ -177,6 +177,7 @@ Currently supported profiles:
 - _connect_: it will add Kafka Connect with a datagen source connector and a file sink connector. It requires _schema-registry_ profile.
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
+- _control-center_: it will add Confluent Control Center. It requires _schema-registry_, _connect_ and _ksqldb_ profiles.
 - _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
 - _ksqldb_: it will add ksqldb server. It requires _schema-registry_ profile.
 - _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)

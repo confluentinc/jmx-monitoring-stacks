@@ -2,6 +2,7 @@ services:
   schemaregistry:
     image: confluentinc/cp-schema-registry:${CFLT_TAG}
     container_name: schemaregistry
+    hostname: schemaregistry
     restart: always
     profiles:
       - schema-registry
