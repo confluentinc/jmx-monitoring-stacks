@@ -166,8 +166,8 @@ rules:
   #   labels:
   #     "$3": "$4"
   #     attribute_name: "$5"
-  - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
-    name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total
+  - pattern: 'kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate:'
+    name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_oneminuterate
     type: GAUGE
   # "kafka.server:type=*, listener=*, networkProcessor=*, clientSoftwareName=*, clientSoftwareVersion=*"
   - pattern: kafka.server<type=socket-server-metrics, clientSoftwareName=(.+), clientSoftwareVersion=(.+), listener=(.+), networkProcessor=(.+)><>connections
