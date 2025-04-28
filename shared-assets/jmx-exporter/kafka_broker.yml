@@ -29,6 +29,7 @@ blacklistObjectNames:
 rules:
   - pattern: 'kafka.network<type=RequestMetrics, name=DeprecatedRequestsPerSec, request=(.+), version=(.+), clientSoftwareName=(.+), clientSoftwareVersion=(.+)><>(Count)'
     name: kafka_network_requestmetrics_deprecatedrequestspersec_$5
+    type: COUNTER
     cache: true
     labels:
       api_name:  "$1"
