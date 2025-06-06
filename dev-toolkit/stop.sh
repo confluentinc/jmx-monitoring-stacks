@@ -40,6 +40,7 @@ $DOCKER_COMPOSE_CMD \
     --profile kstream \
     --profile kui \
     --profile restproxy \
+    --profile otel \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \
@@ -55,6 +56,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.restproxy.yaml \
     -f docker-compose.mongo.yaml \
     -f docker-compose.c3.yaml \
+    -f docker-compose.otel.yaml \
     down -v
 rm -rf jmx-exporter
 rm -rf assets

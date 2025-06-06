@@ -46,6 +46,8 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/zookeeper-cluster.json >${GRAFANA_IMPORT_FOLDER}/dashboards/zookeeper-cluster.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/confluent-audit.json >${GRAFANA_IMPORT_FOLDER}/dashboards/confluent-audit.json
 sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/mongo.json >${GRAFANA_IMPORT_FOLDER}/dashboards/mongo.json
+sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioning/dashboards/OTel_kafkametrics.json >${GRAFANA_IMPORT_FOLDER}/dashboards/OTel_kafkametrics.json
+
 
 
 # Copy needed files in the current folder
@@ -97,7 +99,7 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
       - source_labels: [__address__]
         target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+        replacement: '\${1}'
 EOF
 
 # ADD Brokers dest cluster monitoring to prometheus config
@@ -114,7 +116,7 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
       - source_labels: [__address__]
         target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+        replacement: '\${1}'
 
 EOF
 
@@ -132,7 +134,7 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
       - source_labels: [__address__]
         target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+        replacement: '\${1}'
 EOF
 
 # ADD kstreams monitoring to prometheus config
@@ -150,7 +152,24 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
       - source_labels: [__address__]
         target_label: hostname
         regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+        replacement: '\${1}'
+EOF
+
+# ADD otel-collector monitoring to prometheus config
+cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: "otel-collector"
+    static_configs:
+      - targets:
+          - "otel-collector:9876"
+        labels:
+          env: "dev"
+          job: "otel-collector"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: hostname
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '\${1}'
 EOF
 
 echo -e "\nStarting profiles..."
@@ -171,7 +190,8 @@ DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
   -f docker-compose.kui.yaml \
   -f docker-compose.restproxy.yaml \
   -f docker-compose.mongo.yaml \
-  -f docker-compose.c3.yaml
+  -f docker-compose.c3.yaml \
+  -f docker-compose.otel.yaml
 "
 
 # if docker_args contains tieredstorage, then add the tieredstorage file
@@ -289,7 +309,7 @@ if [[ " ${docker_args[@]} " =~ " clusterlinking " ]]; then
 
 fi
 
-# if docker_args contains kstream, then create topics required for kstream 
+# if docker_args contains kstream, then create topics required for kstream
 if [[ " ${docker_args[@]} " =~ " kstream " ]]; then
 
   echo -e "\nWaiting 60 seconds before starting generate data through jr..."
@@ -328,7 +348,7 @@ echo -e "\nView Prometheus metrics at ->"
 echo -e "http://localhost:9090"
 
 # Look at Grafana dashboards
-echo -e "\nView Grafana dashboards at (admin/password) ->"
+echo -e "\nView Grafana dashboards at ->"
 echo -e "http://localhost:3000"
 
 # Print message to apply quotas if needed

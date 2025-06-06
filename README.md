@@ -21,8 +21,8 @@ This project provides metrics and dashboards for:
 
 <p float="left">
   <img src="jmxexporter-prometheus-grafana/img/kafka-cluster-0.png" width="250" height="200" />
-  <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" height="200" /> 
-  <img src="jmxexporter-prometheus-grafana/img/kafka-quotas.png" width="250" height="200" /> 
+  <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" height="200" />
+  <img src="jmxexporter-prometheus-grafana/img/kafka-quotas.png" width="250" height="200" />
   <img src="jmxexporter-newrelic/img/Cluster.png" width="250" height="200" />
   <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
   <img src="datadog/img/overview.png" width="250" height="200" />
@@ -145,7 +145,7 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
 
 Dev-toolkit is based on:
- - Confluent Platform _(current 7.9.0)_ 
+ - Confluent Platform _(current 7.9.0)_
  - Prometheus and Grafana stack.
  - JMX Exporter 1.1.0
 
@@ -166,9 +166,9 @@ To run a lightweight a **Default** environment, follow the next steps:
  - 1 grafana
  - 1 prometheus
 
-To add more use cases, we are leveraging the docker profiles. 
+To add more use cases, we are leveraging the docker profiles.
 
-Example, to run replicator scenario, run `start.sh --profile replicator`. 
+Example, to run replicator scenario, run `start.sh --profile replicator`.
 
 It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
@@ -183,6 +183,7 @@ Currently supported profiles:
 - _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)
 - _kui_: it will add an instance of _kafka-ui_ for topics data visualization (available on port 18080).
 - _mongo-connect_: it will add Kafka Connect with MongoDB replica set and a MongoDB source connector and a MongoDB sink connector. It requires _schema-registry_ profile.
+- _otel_: it will retrieve metrics from kafka brokers and expose them as a prometheus endpoint. More info at [kafkametricsreceiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/kafkametricsreceiver).
 - _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
 - _restproxy_: it will add Confluent Rest Proxy. It requires _schema-registry_ profile.
 - _schema-registry_: it will add Confluent Schema Registry.
