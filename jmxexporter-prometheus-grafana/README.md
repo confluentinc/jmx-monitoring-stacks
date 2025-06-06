@@ -235,5 +235,10 @@ $ start.sh --profile replicator
 ### Confluent Audit
 ![confluent-audit](img/audit.png)
 
-### Flink Cluster
-![flink-cluster](img/flink-cp.png)
+### Flink Job Manager
+
+![flink-jobmanager](img/cp-flink-jobmanager.png)
+
+### Flink Task Manager
+
+![flink-taskmanager](img/cp-flink-taskmanager.png)
