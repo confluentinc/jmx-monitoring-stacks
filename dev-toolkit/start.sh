@@ -52,6 +52,7 @@ sed 's/${Prometheus}/Prometheus/g' ${MONITORING_STACK}/assets/grafana/provisioni
 
 # Copy needed files in the current folder
 cp -R ../shared-assets/jmx-exporter .
+cp -R ../shared-assets/otel .
 cp -R ${MONITORING_STACK}/assets/prometheus/prometheus-config ./assets/prometheus
 cp -R ${GRAFANA_IMPORT_FOLDER}/dashboards/* ./assets/grafana/provisioning/dashboards
 cp -R ${GRAFANA_IMPORT_FOLDER}/datasources/* ./assets/grafana/provisioning/datasources

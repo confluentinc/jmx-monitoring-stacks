@@ -58,7 +58,9 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.c3.yaml \
     -f docker-compose.otel.yaml \
     down -v
+
 rm -rf jmx-exporter
+rm -rf otel
 rm -rf assets
 GRAFANA_IMPORT_FOLDER=../jmxexporter-prometheus-grafana/assets/grafana/provisioning/import
 rm -rf ${GRAFANA_IMPORT_FOLDER}
