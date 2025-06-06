@@ -1,0 +1,18 @@
+services:
+  otel-collector:
+    profiles:
+      - otel
+    image: otel/opentelemetry-collector-contrib:${OTEL_COLLECTOR_TAG:-0.127.0}
+    container_name: otel-collector
+    hostname: otel-collector
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+    volumes:
+      - $PWD/otel/otel-collector-config.yaml:/etc/otelcol/config.yaml
+    command: ["--config", "/etc/otelcol/config.yaml"]
+    ports:
+      - "4317:4317"
+      - "9876:9876"

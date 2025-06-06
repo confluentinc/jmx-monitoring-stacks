@@ -1164,12 +1164,104 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
+      "description": "The aggregate count of messages in a topic across all partitions",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
+      "id": 25,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "sum by(topic) (kafka_log_log_logendoffset{env=~\"$env\", topic=~\"$topic\", job=\"kafka-broker\", instance=~\"$instance\"}) - sum by(topic) (kafka_log_log_logstartoffset{env=~\"$env\", topic=~\"$topic\", job=\"kafka-broker\", instance=~\"$instance\"})",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Total message count",
+      "transformations": [
+        {
+          "id": "timeSeriesTable",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Trend": "total message count"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 45
       },
       "id": 22,
       "panels": [],
@@ -1242,7 +1334,7 @@
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 38
+        "y": 46
       },
       "id": 23,
       "options": {
@@ -1308,7 +1400,7 @@
         "h": 10,
         "w": 7,
         "x": 9,
-        "y": 38
+        "y": 46
       },
       "id": 24,
       "options": {
@@ -1462,6 +1554,6 @@
   "timezone": "",
   "title": "Kafka Topics",
   "uid": "vQT4b1-Mz",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
