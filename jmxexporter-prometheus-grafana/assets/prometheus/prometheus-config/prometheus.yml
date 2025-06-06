@@ -89,6 +89,56 @@ scrape_configs:
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
 
+  - job_name: "flink"
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      # Keep only TaskManager pods with matching name pattern
+      - source_labels: [__meta_kubernetes_pod_name]
+        regex: .+(?:-taskmanager-[0-9]+-[0-9]+|-.*)
+        action: keep
+  
+      # Use pod IP and append port 9249
+      - source_labels: [__meta_kubernetes_pod_ip]
+        target_label: __address__
+        replacement: ${1}:9249
+  
+      # Optional: Add pod name as a label for PromQL queries
+      - source_labels: [__meta_kubernetes_pod_name]
+        target_label: pod
+  
+      # Optional: Add namespace
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: namespace
+
+      # Assign "taskManager" based on name match
+      - source_labels: [__meta_kubernetes_pod_name]
+        regex: .+-taskmanager-[0-9]+-[0-9]+
+        target_label: role_type
+        replacement: taskManager
+        action: replace
+
+      # Assign "jobManager" only if "role_type" is still missing
+      - target_label: role_type
+        replacement: jobManager
+        action: replace
+        regex: ""           # only replace if missing
+        source_labels: [role_type]
+      
+      # add an "env" label
+      - target_label: env
+        replacement: dev
+        action: replace
+
+      # add "flink_cluster_id"
+      - target_label: flink_cluster_id
+        replacement: basic-example-cluster
+        action: replace
+
+      - source_labels: [__address__]
+        target_label: hostname
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
 
   - job_name: "ksqldb"
     static_configs:
