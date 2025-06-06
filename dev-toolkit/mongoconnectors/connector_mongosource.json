@@ -1,0 +1,16 @@
+{
+  "name": "mongo-source-connector",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "tasks.max": "1",
+    "connection.uri": "mongodb://data-platform-cdc:password@mongo:27017/?replicaSet=rs0",
+    "database": "Employee",
+    "collection": "users",
+    "topic.prefix": "mongo",
+    "startup.mode": "copy_existing",
+    "poll.await.time.ms": "5000",
+    "poll.max.batch.size": "1000",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+  }
+}

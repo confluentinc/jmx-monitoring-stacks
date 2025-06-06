@@ -1,0 +1,20 @@
+services:
+  kafka-ui:
+    profiles:
+      - kui
+    container_name: kui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 18080:8080
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: dev-toolkit
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schemaregistry:8081
+      KAFKA_CLUSTERS_0_AUDIT_TOPICAUDITENABLED: 'true'
+      KAFKA_CLUSTERS_0_AUDIT_CONSOLEAUDITENABLED: 'true'

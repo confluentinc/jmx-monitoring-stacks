@@ -9,8 +9,6 @@ This project provides metrics and dashboards for:
 - [Confluent Platform on Kubernetes with Prometheus and Grafana](jmxexporter-prometheus-grafana/cfk)
 - [Confluent Platform with New Relic](jmxexporter-newrelic)
 - [Confluent Platform with Prometheus, Metricbeat and Kibana](metricbeat-elastic-kibana)
-- [Confluent Platform with Jolokia Agent](jolokia)
-- [Confluent Platform with Jolokia, Telegraf and InfluxDB](jolokia-telegraf-influxdb)
 - [Confluent Platform with Datadog agent](datadog)
 - [Confluent Cloud with Prometheus and Grafana](ccloud-prometheus-grafana)
 - [Confluent Cloud with Metricbeat and Kibana](ccloud-metricbeat-elastic-kibana)
@@ -26,47 +24,46 @@ This project provides metrics and dashboards for:
   <img src="jmxexporter-prometheus-grafana/img/kraft_2.png" width="250" height="200" /> 
   <img src="jmxexporter-prometheus-grafana/img/kafka-quotas.png" width="250" height="200" /> 
   <img src="jmxexporter-newrelic/img/Cluster.png" width="250" height="200" />
-  <img src="jmxexporter-newrelic/img/Throughput.png" width="250" height="200" />
   <img src="metricbeat-elastic-kibana/img/kafka-overview.png" width="250" height="200" />
-  <img src="jolokia-telegraf-influxdb/img/kafka-cluster-0.png" width="250" height="200" />
   <img src="datadog/img/overview.png" width="250" height="200" />
 </p>
 
 **List of available dashboards for Confluent Platform:**
 
-| Dashboard|Prometheus and Grafana| New Relic |Metricbeat and Kibana| Telegraf and Influx |Datadog|
-|-----------------------|----|-----------|--------------------|---------------------|---------------------|
-| Kafka Cluster         |yes| yes       | yes| yes                 |yes|
-| Zookeeper             |yes| yes       |yes|
-| KRaft                 |yes|
-| Schema Registry       |yes|           |yes|
-| Kafka Connect         |yes|           |yes|
-| ksqlDB                |yes|           |yes|
-| Producer/Consumer     |yes| yes       |yes|                     |yes|
-| Lag Exporter          |yes|           ||
-| Topics                |yes|           |yes|
-| Kafka Streams         |yes|           ||
-| Kafka Streams RocksDB |yes|           ||
-| Quotas                |yes|           ||
-| TX Coordinator        |yes|           ||
-| Rest Proxy            |yes|           ||
-| Cluster Linking       |yes|           ||
-| Oracle CDC connector  |yes|           ||
-| Debezium connectors   |yes|           ||
-| Mongo connector       |yes|           ||
-| librdkafka clients    |yes|           ||
-| Confluent RBAC        |yes|           ||
-| Replicator            |yes|           ||
-| Tiered Storage        |yes|           ||
+| Dashboard                      | Prometheus/Grafana  | New Relic |Metricbeat/Kibana|Datadog|
+|--------------------------------|---------------------|-----------|---------|-----------
+| Kafka Cluster                  | yes                 | yes       |yes|yes|
+| Zookeeper                      | yes                 | yes       |yes|
+| KRaft                          | yes                 |
+| Confluent Schema Registry      | yes                 |           |yes|
+| Kafka Connect                  | yes                 |           |yes|
+| ksqlDB                         | yes                 |           |yes|
+| Producer/Consumer              | yes                 | yes       |yes|yes|
+| Lag Exporter                   | yes                 |
+| Topics                         | yes                 |           |yes|
+| Kafka Streams                  | yes                 |
+| Kafka Streams RocksDB          | yes                 |
+| Quotas                         | yes                 |
+| TX Coordinator                 | yes                 |
+| Confluent Rest Proxy           | yes                 |
+| Confluent Cluster Linking      | yes                 |
+| Confluent Oracle CDC connector | yes                 |
+| Debezium connectors            | yes                 |
+| MongoDB connectors             | yes                 |
+| librdkafka clients             | yes                 |
+| Confluent RBAC                 | yes                 |
+| Confluent Replicator           | yes                 |
+| Confluent Tiered Storage       | yes                 |
+| Confluent Flink                | yes                 |
 
 **List of available dashboards for Confluent Cloud:**
 
-| Dashboard             | Prometheus and Grafana |New Relic|Metricbeat and Kibana|AWS Cloud Watch|
-|-----------------------|------------------------|---------|---------------------|--------|
-| Cluster               | yes                    | yes     | yes                 |yes
-| Producer/Consumer     |                        |      | yes                 |
-| ksql                  | yes                    |      |                  |
-| Billing/Cost tracking | yes                    |      |                  |
+| Dashboard|Prometheus/Grafana|New Relic|Metricbeat/Kibana|AWS Cloud Watch|
+|-----------------------|---------------|--------|----------------|--------|
+| Cluster               |yes|yes|yes|yes
+| Producer/Consumer     ||yes|
+| ksql                  |yes|
+| Billing/Cost tracking |yes|
 
 ## ⚠️ Alerts
 
@@ -105,16 +102,14 @@ Verify in the advanced Docker preferences settings that the memory available to 
 MONITORING_STACK=jmxexporter-prometheus-grafana
 MONITORING_STACK=metricbeat-elastic-kibana
 MONITORING_STACK=jmxexporter-newrelic
-MONITORING_STACK=jolokia
-MONITORING_STACK=jolokia-telegraf-influxdb
 MONITORING_STACK=datadog
 ```
 
 3. Clone `cp-demo` and checkout a branch.
 
 ```bash
-# Example with CP-DEMO 7.7.1 version
-CP_DEMO_VERSION=7.7.1-post
+# Example with CP-DEMO 7.8.1 version
+CP_DEMO_VERSION=7.8.1-post
 
 [[ -d "cp-demo" ]] || git clone https://github.com/confluentinc/cp-demo.git
 (cd cp-demo && git fetch && git checkout $CP_DEMO_VERSION && git pull)
@@ -149,15 +144,18 @@ For an example that showcases how to monitor Apache Kafka client applications, a
 
 Dev-toolkit is an environment that allows you to easily create different configurations and deployments to verify the metrics exposed by different components of the Confluent Platform.
 
-Dev-toolkit is based on Prometheus and Grafana stack.
+Dev-toolkit is based on:
+ - Confluent Platform _(current 7.9.0)_ 
+ - Prometheus and Grafana stack.
+ - JMX Exporter 1.1.0
 
 To run a lightweight a **Default** environment, follow the next steps:
 
 1. `cd dev-toolkit`
 2. [Optional]: Put your new dashboards into the `grafana-wip` folder. All [existing grafana dashboards](jmxexporter-prometheus-grafana/assets/grafana/provisioning/dashboards) will be anyway loaded.
-3. `start.sh`
+3. Execute script `start.sh`
 4. For Grafana, go to http://localhost:3000, login with _admin/password_
-5. `stop.sh`
+5. To teardown, execute script `stop.sh`
 
 ## Run with profiles
 
@@ -170,17 +168,26 @@ To run a lightweight a **Default** environment, follow the next steps:
 
 To add more use cases, we are leveraging the docker profiles. 
 
-To run replicator scenario, i.e. run `start.sh --profile replicator`. 
+Example, to run replicator scenario, run `start.sh --profile replicator`. 
 
 It's possible to combine profiles as well, i.e. `start.sh --profile schema-registry --profile ksqldb`.
 
 Currently supported profiles:
-- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
-- _schema-registry_: it will add Confluent Schema Registry
-- _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
-- _ksqldb_: it will add ksqldb
+- _clusterlinking_: add Cluster Linking between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
+- _connect_: it will add Kafka Connect with a datagen source connector and a file sink connector. It requires _schema-registry_ profile.
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
+- _control-center_: it will add Confluent Control Center. It requires _schema-registry_, _connect_ and _ksqldb_ profiles.
+- _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
+- _ksqldb_: it will add ksqldb server. It requires _schema-registry_ profile.
+- _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)
+- _kui_: it will add an instance of _kafka-ui_ for topics data visualization (available on port 18080).
+- _mongo-connect_: it will add Kafka Connect with MongoDB replica set and a MongoDB source connector and a MongoDB sink connector. It requires _schema-registry_ profile.
+- _replicator_: it will add a Kafka connect cluster with Confluent Replicator between _kafka1-kafka2-kafka3-kafka4_ and a new cluster with 1 broker _broker-dest_
+- _restproxy_: it will add Confluent Rest Proxy. It requires _schema-registry_ profile.
+- _schema-registry_: it will add Confluent Schema Registry.
+- _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
+- _tieredstroage_: it will configure Confluent Platform to use Confluent Tiered Storage and a compatible S3 storage.
 
 ## DEV-toolkit FAQ
 

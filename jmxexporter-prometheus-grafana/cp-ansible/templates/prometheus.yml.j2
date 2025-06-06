@@ -35,6 +35,24 @@ scrape_configs:
 {% endif %}
 
 {% endif %}
+{% if groups['kafka_controller'] is defined %}
+  - job_name: "kafka_controller"
+    static_configs:
+      - targets:
+{% for host in groups['kafka_controller'] %}
+          - "{{host}}:{{kafka_controller_jmxexporter_port}}"
+{% endfor %}
+        labels:
+          env: "{{env}}"
+{% if relabel_configs_enabled %}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+{% endif %}
+
+{% endif %}
 {% if groups['kafka_broker'] is defined %}
   - job_name: "kafka-broker"
     static_configs:

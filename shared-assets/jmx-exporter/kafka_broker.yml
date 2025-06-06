@@ -27,6 +27,25 @@ blacklistObjectNames:
   - "confluent.metadata.service:type=app-info,client-id=*"
   - "confluent.metadata:type=kafkaauthstore,*"
 rules:
+  - pattern: 'kafka.network<type=RequestMetrics, name=DeprecatedRequestsPerSec, request=(.+), version=(.+), clientSoftwareName=(.+), clientSoftwareVersion=(.+)><>(Count)'
+    name: kafka_network_requestmetrics_deprecatedrequestspersec_$5
+    type: COUNTER
+    cache: true
+    labels:
+      api_name:  "$1"
+      api_version: "$2"
+      client_software_name: "$3"
+      client_software_version: "$4"
+
+  - pattern: 'kafka.network<type=RequestMetrics, name=DeprecatedRequestsPerSec, request=(.+), version=(.+), clientSoftwareName=(.+), clientSoftwareVersion=(.+)><>(Count|OneMinuteRate|FiveMinuteRate|FifteenMinuteRate)'
+    name: kafka_network_requestmetrics_deprecatedrequestspersec_$5
+    type: GAUGE
+    cache: true
+    labels:
+      api_name:  "$1"
+      api_version: "$2"
+      client_software_name: "$3"
+      client_software_version: "$4"
   # This rule is more specific than the next rule; it has to come before it otherwise it will never be hit
   # "kafka.server:type=*,name=*, client-id=*, topic=*, partition=*"
   - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
@@ -166,8 +185,8 @@ rules:
   #   labels:
   #     "$3": "$4"
   #     attribute_name: "$5"
-  - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate
-    name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total
+  - pattern: 'kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>OneMinuteRate:'
+    name: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_oneminuterate
     type: GAUGE
   # "kafka.server:type=*, listener=*, networkProcessor=*, clientSoftwareName=*, clientSoftwareVersion=*"
   - pattern: kafka.server<type=socket-server-metrics, clientSoftwareName=(.+), clientSoftwareVersion=(.+), listener=(.+), networkProcessor=(.+)><>connections

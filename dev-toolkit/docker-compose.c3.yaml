@@ -1,0 +1,40 @@
+services:
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:${CFLT_TAG}
+    profiles:
+      - control-center
+    hostname: control-center
+    container_name: control-center
+    depends_on:
+      - schemaregistry
+      - connect
+      - ksqldb-server
+    healthcheck:
+      start_period: 10s
+      interval: 10s
+      retries: 20
+      test: curl --fail --silent http://control-center:9021 --output /dev/null || exit 1
+    ports:
+      - 9021:9021
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka1:29092,kafka2:29092,kafka3:29092,kafka4:29092
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONTROL_CENTER_METRICS_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_METRICS_TOPIC_PARTITIONS: 1
+      CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_COMMAND_TOPIC_PARTITIONS: 1
+      CONTROL_CENTER_STREAMS_CACHE_MAX_BYTES_BUFFERING: 100000000
+      CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
+      CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
+      CONTROL_CENTER_REST_LISTENERS: http://0.0.0.0:9021
+      PORT: 9021
+      # Connect
+      CONTROL_CENTER_CONNECT_CONNECT1_CLUSTER: http://connect:8083
+      # ksqlDB
+      CONTROL_CENTER_KSQL_TEST_URL: http://ksqldb-server:8088
+      CONTROL_CENTER_KSQL_TEST_ADVERTISED_URL: http://ksqldb-server:8088
+      # Schema Registry
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: http://schemaregistry:8081

@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+# build docker image with jmx exporter version 1.1.0
+docker build . --no-cache --pull -t local/cp-server:7.8.1
+docker save local/cp-server:7.8.1 -o cp-server.tar
+
 # Start local k8s cluster with kind
 echo "Starting local k8s cluster with kind"
 kind create cluster --config ./demo/cluster.yaml
+kind load image-archive cp-server.tar
 
 # Helm repo add and update
 echo "Adding and updating helm repos"
@@ -42,6 +47,8 @@ kubectl create configmap grafana-zookeeper-cluster --from-file=dashboards/zookee
 kubectl label configmap grafana-zookeeper-cluster grafana_dashboard=1
 kubectl create configmap grafana-kafka-cluster --from-file=dashboards/kafka-cluster.json
 kubectl label configmap grafana-kafka-cluster grafana_dashboard=1
+kubectl create configmap grafana-cluster-linking --from-file=dashboards/cluster-linking.json
+kubectl label configmap grafana-cluster-linking grafana_dashboard=1
 
 # Wait resources to be ready
 echo "Waiting resources to be ready"

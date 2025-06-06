@@ -48,7 +48,7 @@
     },
     {
       "datasource": "Prometheus",
-      "description": "The number of registered schemas",
+      "description": "The number of Kafka Cluster",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -112,7 +112,7 @@
     },
     {
       "datasource": "Prometheus",
-      "description": "The number of registered schemas",
+      "description": "The number of connectors",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -176,7 +176,7 @@
     },
     {
       "datasource": "Prometheus",
-      "description": "The number of registered schemas",
+      "description": "The number of ksqlDB Clusters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -937,7 +937,7 @@
     },
     {
       "datasource": "Prometheus",
-      "description": "The average active connections to a cluster. Basic clusters limit active connections to 1000.",
+      "description": "The average authentication rate",
       "fieldConfig": {
         "defaults": {
           "color": {

@@ -55,7 +55,7 @@ groups:
     
   # Page when Broker IO Activity < 40% for more than 10m.
   - alert: Broker IO Activity < 0.4
-    expr: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total < 1
+    expr: kafka_server_kafkarequesthandlerpool_controlplanerequesthandleravgidlepercent < 1
     for: 1m
     labels:
       severity: page
@@ -65,7 +65,7 @@ groups:
   
   # Page when Broker Network Activity < 40% for more than 10m.
   - alert: Broker IO Activity < 40%
-    expr: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_total < 0.4
+    expr: kafka_server_kafkarequesthandlerpool_controlplanerequesthandleravgidlepercent < 0.4
     for: 1m
     labels:
       severity: page

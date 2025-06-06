@@ -24,7 +24,7 @@ services:
       KSQL_PRODUCER_ENABLE_IDEMPOTENCE: 'true'
       # Schema Registry using HTTP
       KSQL_KSQL_SCHEMA_REGISTRY_URL: http://schemaregistry:8081
-      KSQL_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-0.20.0.jar=1234:/tmp/confluent_ksql.yml"
+      KSQL_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/confluent_ksql.yml"
     volumes:
-      - $PWD/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar:/tmp/jmx_prometheus_javaagent-0.20.0.jar
+      - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
       - $PWD/jmx-exporter/confluent_ksql.yml:/tmp/confluent_ksql.yml

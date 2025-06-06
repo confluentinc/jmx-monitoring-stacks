@@ -7,6 +7,12 @@ metadata:
   name: pm-confluent
 spec:
   jobLabel: platform.confluent.io/type
+  podTargetLabels:
+    - app
+    - clusterId
+    - confluent-platform
+    - platform.confluent.io/type
+    - type
   podMetricsEndpoints:
     - port: prometheus
       interval: 60s

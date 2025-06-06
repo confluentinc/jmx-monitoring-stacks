@@ -1283,7 +1283,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(confluent_replicator_task_metrics_info,env)",
+        "definition": "label_values(confluent_replicator_task_metrics,env)",
         "hide": 0,
         "includeAll": true,
         "label": "Environment",
@@ -1292,7 +1292,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(confluent_replicator_task_metrics_info,env)",
+          "query": "label_values(confluent_replicator_task_metrics,env)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -1307,7 +1307,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(confluent_replicator_task_metrics_info,kafka_connect_cluster_id)",
+        "definition": "label_values(confluent_replicator_task_metrics,kafka_connect_cluster_id)",
         "hide": 0,
         "includeAll": true,
         "label": "Connect Cluster",
@@ -1316,7 +1316,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(confluent_replicator_task_metrics_info,kafka_connect_cluster_id)",
+          "query": "label_values(confluent_replicator_task_metrics,kafka_connect_cluster_id)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,

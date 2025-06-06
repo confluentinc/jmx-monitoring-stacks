@@ -809,7 +809,7 @@
 						"type": "prometheus",
 						"uid": "${Prometheus}"
 					},
-					"expr": "sum(rate(jvm_memory_bytes_used[5m]))",
+					"expr": "sum(rate(jvm_memory_used_bytes[5m]))",
 					"format": "time_series",
 					"intervalFactor": 1,
 					"legendFormat": "localhost",
