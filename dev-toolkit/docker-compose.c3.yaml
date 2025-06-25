@@ -1,6 +1,6 @@
 services:
   control-center:
-    image: confluentinc/cp-enterprise-control-center:${CFLT_TAG}
+    image: confluentinc/cp-enterprise-control-center-next-gen:latest
     profiles:
       - control-center
     hostname: control-center
