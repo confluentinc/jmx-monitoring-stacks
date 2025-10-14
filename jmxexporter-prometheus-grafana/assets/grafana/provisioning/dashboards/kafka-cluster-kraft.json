@@ -3357,7 +3357,7 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "description": "Average fraction of time the network processor threads are idle. Values are between 0 (all resources are used) and 100 (all resources are available)\n",
+          "description": "Average fraction of time the network processor threads are busy. Values are between 0 (all resources are available) and 100 (all resources are used)\n",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3457,7 +3457,7 @@
             "type": "prometheus",
             "uid": "${Prometheus}"
           },
-          "description": "Average fraction of time the request handler threads are idle. Values are between 0 (all resources are used) and 100 (all resources are available).\n",
+          "description": "Average fraction of time the request handler threads are busy. Values are between 0 (all resources are available) and 100 (all resources are used).\n",
           "fieldConfig": {
             "defaults": {
               "color": {
