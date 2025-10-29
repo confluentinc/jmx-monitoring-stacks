@@ -31,7 +31,7 @@ services:
       KAFKA_OPTS: "-javaagent:/tmp/jmx_prometheus_javaagent-1.1.0.jar=1234:/tmp/kafka_connect.yml"
     volumes:
       - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
-      - $PWD/jmx-exporter/kafka_connect.yml:/tmp/kafka_connect.yml
+      - $PWD/jmx-exporter/kafka_connect_replicator.yml:/tmp/kafka_connect.yml
     command:
       - bash
       - -c
