@@ -180,7 +180,7 @@ Currently supported profiles:
 - _consumer_: it will add a demo application implemented with Spring with full client metrics
 - _consumer-minimal_: it will add a demo application implemented with Spring with a limited number of client metrics
 - _control-center_: it will add Confluent Control Center. It requires _schema-registry_, _connect_ and _ksqldb_ profiles.
-- _jmxexporter_: it will secure the prometheus jmx exporter (java agent) with basic authentication and it will add SSL to the agent endpoint.
+- _jmxexporter_: it will secure the prometheus jmx exporter (java agent) with basic authentication using PBKDF2WithHmacSHA256 algorithm and it will add SSL to the agent endpoint.
 - _jr_: it will add [JR](https://jrnd.io/) to generate random traffic for kafka.
 - _ksqldb_: it will add ksqldb server. It requires _schema-registry_ profile.
 - _kstream_: it will add a demo stateful kafka streams application with full client metrics (_TRACE_ level selected)
@@ -219,10 +219,10 @@ You can also change the prometheus configuration [here](https://github.com/confl
 
 - **_jmxexporter_** profile uses a username and a password to secure the agent. How to generate a new password?
 
-You can use the python script in _utils/jmxexporter_hash_pwd.py_, edit the file adding your new password and then launch the command:
+You can use the python script in _utils/jmxexporter_hash_password_PBKDF2WithHmacSHA512.py_, edit the file adding your new password and then launch the command:
 
 ```
- python jmxexporter_hash_pwd.py
+ python jmxexporter_hash_password_PBKDF2WithHmacSHA512.py
 ```
 
 Copy the hex password generated in output and modify the file _shared-assets/jmx-exporter/kafka_broker_ssl_basic_auth.yml_, replacing the value for `passwordHash` with the new hex value.
