@@ -35,6 +35,9 @@ services:
       - schema-registry-primary-secondary
     depends_on:
       - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
       - schemaregistry
     ports:
       - 9081:9081

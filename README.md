@@ -225,13 +225,7 @@ You can use the python script in _utils/jmxexporter_hash_pwd.py_, edit the file 
  python jmxexporter_hash_pwd.py
 ```
 
-Copy the hex password generated in output and modify the file _shared-assets/jmx-exporter/kafka_broker_ssl_basic_auth.yml_ with the value for  
-
-```
-passwordHash: 40bea3fa629758fdf1ce7ef7b396c0e5c2d0cbd4430287cfe18957fc45eb5882607ca74470da98da3c01b82647383fd517c094e8cbeb795456b811a324bf68ac1a8c444f25cdee1e7e0239027dfa82f391de1a7f9338277884b3f1c6071018640aa7fd3c1dbecae6058f1accf73032acaec07cc444f7cbbe899a1a5757061558 
-```
-
-with the new hex value.
+Copy the hex password generated in output and modify the file _shared-assets/jmx-exporter/kafka_broker_ssl_basic_auth.yml_, replacing the value for `passwordHash` with the new hex value.
 
 Then modify file _dev-toolkit/start.sh_ 
 
