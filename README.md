@@ -235,4 +235,4 @@ basic_auth:
   password: 'MySecretPassword'
 ```
 
-with the value of the clean password chosen.
+with the value of the clear password chosen.
