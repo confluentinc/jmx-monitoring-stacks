@@ -179,7 +179,7 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
   - job_name: "kafka-broker-ssl-auth"
     scheme: https
     tls_config:
-      insecure_skip_verify: true
+      ca_file: /etc/prometheus/ca.crt
     basic_auth:
       username: 'Prometheus'
       password: 'MySecretPassword'

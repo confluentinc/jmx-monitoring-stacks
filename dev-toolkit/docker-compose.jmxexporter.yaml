@@ -30,3 +30,9 @@ services:
       - $PWD/jmx-exporter/jmx_prometheus_javaagent-1.1.0.jar:/tmp/jmx_prometheus_javaagent-1.1.0.jar
       - $PWD/jmx-exporter/kafka_broker_ssl_basic_auth.yml:/tmp/kafka_config.yml
       - $PWD/jmx-exporter/localhost.pkcs12:/tmp/localhost.pkcs12
+
+  prometheus:
+    profiles:
+      - jmxexporter
+    volumes:
+      - $PWD/assets/prometheus/prometheus-config/ca.crt:/etc/prometheus/ca.crt
