@@ -173,6 +173,32 @@ cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
         replacement: '\${1}'
 EOF
 
+# ADD Brokers monitoring to prometheus config with jmx exporter ssl + basic auth
+cat <<EOF >>assets/prometheus/prometheus-config/prometheus.yml
+
+  - job_name: "kafka-broker-ssl-auth"
+    scheme: https
+    tls_config:
+      ca_file: /etc/prometheus/ca.crt
+    basic_auth:
+      username: 'Prometheus'
+      password: 'MySecretPassword'
+    static_configs:
+      - targets:
+          - "kafka1:1234"
+          - "kafka2:1234"
+          - "kafka3:1234"
+          - "kafka4:1234"
+        labels:
+          env: "dev"
+          job: "kafka-broker"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: hostname
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '\${1}'
+EOF
+
 echo -e "\nStarting profiles..."
 
 # Define string with all docker-compose files
@@ -192,7 +218,8 @@ DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
   -f docker-compose.restproxy.yaml \
   -f docker-compose.mongo.yaml \
   -f docker-compose.c3.yaml \
-  -f docker-compose.otel.yaml
+  -f docker-compose.otel.yaml \
+  -f docker-compose.jmxexporter.yaml
 "
 
 # if docker_args contains tieredstorage, then add the tieredstorage file

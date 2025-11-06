@@ -41,6 +41,7 @@ $DOCKER_COMPOSE_CMD \
     --profile kui \
     --profile restproxy \
     --profile otel \
+    --profile jmxexporter \
     -f docker-compose.yaml \
     -f docker-compose.replicator.yaml \
     -f docker-compose.schema-registry.yaml \
@@ -57,6 +58,7 @@ $DOCKER_COMPOSE_CMD \
     -f docker-compose.mongo.yaml \
     -f docker-compose.c3.yaml \
     -f docker-compose.otel.yaml \
+    -f docker-compose.jmxexporter.yaml \
     down -v
 
 rm -rf jmx-exporter
