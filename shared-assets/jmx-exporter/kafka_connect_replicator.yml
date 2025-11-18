@@ -1,0 +1,107 @@
+---
+lowercaseOutputName: false
+lowercaseOutputLabelNames: true
+whitelistObjectNames:
+  - kafka.connect:type=app-info,client-id=*
+  - kafka.connect:type=connect-worker-rebalance-metrics
+  - kafka.connect:type=connect-coordinator-metrics,*
+  - kafka.connect:type=connect-metrics,*
+  - kafka.connect:type=connect-worker-metrics
+  - kafka.connect:type=connect-worker-metrics,*
+  - kafka.connect:type=connector-metrics,*
+  - kafka.connect:type=*-task-metrics,*
+  - kafka.connect:type=task-error-metrics,*
+  - confluent.replicator:type=confluent-replicator-task-metrics,*
+blacklistObjectNames:
+  # This will ignore the admin client metrics from KSQL server and will blacklist certain metrics
+  # that do not make sense for ingestion.
+  - "kafka.admin.client:*"
+  - "kafka.consumer:type=*,id=*"
+  - "kafka.producer:type=*,id=*"
+  - "kafka.producer:client-id=confluent.monitoring*,*"
+  - "kafka.*:type=kafka-metrics-count,*"
+  # - "kafka.*:type=app-info,*"
+rules:
+  # kafka.connect:type=connect-worker-rebalance-metrics
+  - pattern: "kafka.connect<type=connect-worker-rebalance-metrics><>([^:]+)"
+    name: "kafka_connect_connect_worker_rebalance_metrics_$1"
+  # kafka.connect:type=connect-coordinator-metrics,client-id=*
+  # kafka.connect:type=connect-metrics,client-id=*
+  - pattern: "kafka.connect<type=(.+), client-id=(.+)><>([^:]+)"
+    name: kafka_connect_$1_$3
+    labels:
+      client_id: $2
+  # kafka.connect:type=connect-worker-metrics
+  - pattern: "kafka.connect<type=connect-worker-metrics><>([^:]+)"
+    name: kafka_connect_connect_worker_metrics_$1
+    labels:
+      connector: "aggregate"
+  # kafka.connect:type=connect-worker-metrics,connector=*
+  - pattern: "kafka.connect<type=connect-worker-metrics, connector=(.+)><>([^:]+)"
+    name: kafka_connect_connect_worker_metrics_$2
+    labels:
+      connector: $1
+  # kafka.connect:type=connector-metrics,connector=*
+  - pattern: "kafka.connect<type=connector-metrics, connector=(.+)><>(.+): (.+)"
+    value: 1
+    name: kafka_connect_connector_metrics
+    labels:
+      connector: $1
+      $2: $3
+    type: UNTYPED
+
+  - pattern : "kafka.connect<type=connect-worker-metrics>([^:]+):"
+    name: "kafka_connect_worker_metrics_$1"
+  - pattern : "kafka.connect<type=connect-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_connect_metrics_$2"
+    labels:
+      client: "$1"
+  # kafka.connect:type=*-task-metrics,*
+  # kafka.connect:type=source-task-metrics,connector=*,task=*
+  # kafka.connect:type=sink-task-metrics,connector=*,task=*
+  # kafka.connect:type=connector-task-metrics,connector=*,task=*
+  - pattern: "kafka.connect<type=(.+)-task-metrics, connector=(.+), task=(\\d+)><>(.+): (.+)"
+    name: kafka_connect_$1_task_metrics_$4
+    labels:
+      connector: "$2"
+      task: "$3"
+  # kafka.connect:type=task-error-metrics,*
+  # kafka.connect:type=task-error-metrics,connector=*,task=*
+  - pattern: "kafka.connect<type=task-error-metrics, connector=(.+), task=(\\d+)><>([^:]+)"
+    name: kafka_connect_task_error_metrics_$3
+    labels:
+      connector: "$1"
+      task: "$2"
+
+  - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>confluent-replicator-task-topic-partition-latency: (.+)"
+    name: "confluent_replicator_task_metrics_latency"
+    type: GAUGE
+    labels:
+      $1: "$2"
+      $3: "$4"
+      $5: "$6"
+      $7: "$8"
+
+  - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+)><>confluent-replicator-task-topic-partition-message-lag: (.+)"
+    name: "confluent_replicator_task_metrics_message_lag"
+    type: GAUGE
+    labels:
+      $1: "$2"
+      $3: "$4"
+      $5: "$6"
+      $7: "$8"
+
+  - pattern: "confluent.replicator<type=confluent-replicator-task-metrics, confluent-replicator-(.*)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.+)=(.+), confluent-replicator-(.*)=(.+)><>(.+): (.+)"
+    name: confluent_replicator_task_metrics_info
+    value: 1
+    labels:
+      $1: "$2"
+      $3: "$4"
+      $5: "$6"
+      $7: "$8"
+      $9: "$10"
+
+  - pattern: "kafka.(.+)<type=(.+)><>(.+):"
+    name: kafka_$1_$2_$3
+    labels:
+      client_type: $1

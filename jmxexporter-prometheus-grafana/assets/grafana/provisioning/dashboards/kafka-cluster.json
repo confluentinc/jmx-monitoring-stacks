@@ -2537,7 +2537,7 @@
                 "uid": "${Prometheus}"
               },
               "exemplar": true,
-              "expr": "kafka_server_kafkaserver_linux_disk_read_bytes{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "rate(kafka_server_kafkaserver_linux_disk_read_bytes{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
               "interval": "",
               "legendFormat": "{{instance}}",
               "refId": "B"
