@@ -31,6 +31,7 @@ List of provided dashboards:
  - [ksqlDB cluster _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#ksqldb-cluster)
  - [Kafka streams _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams)
  - [Kafka streams RocksDB _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-rocksdb)
+ - [Kafka streams GlobalKTable _(cp-demo,dev-toolkit)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#kafka-streams-globalktable)
  - [Librdkafka based client _(cp-demo)_](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#Librdkafka)
  - [Oracle CDC source Connector](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#oracle-cdc-source-connector)
  - [Debezium source Connectors](https://github.com/confluentinc/jmx-monitoring-stacks/blob/main/jmxexporter-prometheus-grafana/README.md#debezium-cdc-source-connectors)
@@ -149,6 +150,11 @@ docker-compose exec kafka1 kafka-configs --bootstrap-server kafka1:12091 --alter
 ### Kafka streams RocksDB 
 
 ![kafkastreams-rocksdb 0](img/kafkastreams-rocksdb.png)
+
+
+### Kafka streams GlobalKTable
+
+![kafkastreams-globalktable 0](img/kafkastreams-globalktable.png)
 
 
 ### Librdkafka

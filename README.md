@@ -43,6 +43,7 @@ This project provides metrics and dashboards for:
 | Topics                         | yes                 |           |yes|
 | Kafka Streams                  | yes                 |
 | Kafka Streams RocksDB          | yes                 |
+| Kafka Streams GlobalKTable     | yes                 |
 | Quotas                         | yes                 |
 | TX Coordinator                 | yes                 |
 | Confluent Rest Proxy           | yes                 |
