@@ -110,7 +110,7 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 3,
+        "w": 12,
         "x": 0,
         "y": 1
       },
@@ -152,7 +152,7 @@
           "format": "time_series",
           "hide": false,
           "interval": "",
-          "legendFormat": "tier",
+          "legendFormat": "tier: {{instance}}",
           "range": true,
           "refId": "A"
         },
@@ -167,13 +167,101 @@
           "format": "time_series",
           "hide": false,
           "interval": "",
-          "legendFormat": "disk",
+          "legendFormat": "disk: {{instance}}",
           "range": true,
           "refId": "C"
         }
       ],
       "title": "Storage distribution",
       "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Prometheus}"
+      },
+      "description": "Number of partitions that the archiver was unable to upload that are in an error state",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#d44a3a",
+                "value": null
+              },
+              {
+                "color": "#299c46",
+                "value": 0
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 26,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "kafka_tier_tasks_tiertasks_numpartitionsinerror{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Partitions in error",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -234,10 +322,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 7,
-        "x": 3,
-        "y": 1
+        "h": 9,
+        "w": 10,
+        "x": 0,
+        "y": 11
       },
       "id": 27,
       "options": {
@@ -335,10 +423,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 7,
         "x": 10,
-        "y": 1
+        "y": 11
       },
       "id": 28,
       "options": {
@@ -436,10 +524,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 7,
         "x": 17,
-        "y": 1
+        "y": 11
       },
       "id": 29,
       "options": {
@@ -483,70 +571,83 @@
         "type": "prometheus",
         "uid": "${Prometheus}"
       },
-      "description": "Number of partitions that the archiver was unable to upload that are in an error state",
+      "description": "Rate of bytes per second that the fetcher is retrieving data from cloud storage.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
-          ],
+          },
+          "links": [],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d44a3a",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "#299c46",
-                "value": 0
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 1
               }
             ]
           },
-          "unit": "none"
+          "unit": "decbytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 3,
+        "h": 9,
+        "w": 10,
         "x": 0,
-        "y": 11
+        "y": 20
       },
-      "id": 26,
-      "links": [],
-      "maxDataPoints": 100,
+      "id": 32,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
-            "lastNotNull"
+            "mean",
+            "lastNotNull",
+            "max"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.2.0",
-      "repeatDirection": "h",
+      "pluginVersion": "8.1.3",
       "targets": [
         {
           "datasource": {
@@ -554,17 +655,17 @@
             "uid": "${Prometheus}"
           },
           "editorMode": "code",
-          "expr": "kafka_tier_tasks_tiertasks_numpartitionsinerror{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}",
-          "format": "time_series",
-          "instant": true,
+          "exemplar": false,
+          "expr": "rate(kafka_server_tierfetcher_bytesfetchedrate{job=\"kafka-broker\",env=\"$env\",instance=~\"$instance\"}[5m])",
+          "instant": false,
           "interval": "",
-          "intervalFactor": 1,
           "legendFormat": "{{instance}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Partitions in error",
-      "type": "stat"
+      "title": "Fetcher rate in bytes from cloud storage",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -572,7 +673,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 29
       },
       "id": 22,
       "panels": [],
@@ -645,7 +746,7 @@
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 17
+        "y": 30
       },
       "id": 23,
       "options": {
@@ -711,7 +812,7 @@
         "h": 10,
         "w": 7,
         "x": 9,
-        "y": 17
+        "y": 30
       },
       "id": 24,
       "options": {
@@ -865,6 +966,6 @@
   "timezone": "",
   "title": "Tiered Storage",
   "uid": "vQT4b1-Mo",
-  "version": 1,
+  "version": 5,
   "weekStart": ""
 }

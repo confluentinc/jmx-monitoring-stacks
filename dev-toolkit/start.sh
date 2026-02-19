@@ -203,7 +203,6 @@ echo -e "\nStarting profiles..."
 
 # Define string with all docker-compose files
 DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
--f docker-compose.yaml \
   -f docker-compose.replicator.yaml \
   -f docker-compose.schema-registry.yaml \
   -f docker-compose.ksqldb.yaml \
@@ -218,14 +217,17 @@ DOCKER_COMPOSE_FILES="-f docker-compose.yaml \
   -f docker-compose.restproxy.yaml \
   -f docker-compose.mongo.yaml \
   -f docker-compose.c3.yaml \
-  -f docker-compose.otel.yaml \
-  -f docker-compose.jmxexporter.yaml
-"
+  -f docker-compose.otel.yaml"
 
-# if docker_args contains tieredstorage, then add the tieredstorage file
+if [[ " ${docker_args[@]} " =~ " jmxexporter " ]]; then
+  DOCKER_COMPOSE_FILES="${DOCKER_COMPOSE_FILES} -f docker-compose.jmxexporter.yaml"
+fi
+
 if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
   DOCKER_COMPOSE_FILES="${DOCKER_COMPOSE_FILES} -f docker-compose.tieredstorage.yaml"
 fi
+
+
 
 # Start the development environment
 $DOCKER_COMPOSE_CMD ${docker_args[@]} \
@@ -363,9 +365,11 @@ if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
 
   sleep 5
 
-  echo -e "\nProduce on topic trades..."
+  echo -e "\nProduce 3600000 messages on topic trades..."
   docker exec kafka1 bash -c "KAFKA_OPTS= kafka-producer-perf-test --producer-props bootstrap.servers=kafka1:29092 --topic trades --record-size 1000 --throughput 1000 --num-records 3600000"
 
+  echo -e "\Consume 3600000 messages from topic trades..."
+  docker exec kafka1 bash -c "KAFKA_OPTS= kafka-consumer-perf-test --consumer.config bootstrap.servers=kafka1:29092 --topic trades --messages 3600000"
 
 fi
 

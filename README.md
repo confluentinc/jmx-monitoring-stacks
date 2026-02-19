@@ -192,7 +192,7 @@ Currently supported profiles:
 - _restproxy_: it will add Confluent Rest Proxy. It requires _schema-registry_ profile.
 - _schema-registry_: it will add Confluent Schema Registry.
 - _schema-registry-primary-secondary_: it will add 2 Confluent Schema Registry, primary and secondary.
-- _tieredstroage_: it will configure Confluent Platform to use Confluent Tiered Storage and a compatible S3 storage.
+- _tieredstorage_: it will configure Confluent Platform to use Confluent Tiered Storage and a compatible S3 storage.
 
 ## DEV-toolkit FAQ
 

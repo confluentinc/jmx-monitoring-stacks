@@ -36,3 +36,9 @@ services:
       - jmxexporter
     volumes:
       - $PWD/assets/prometheus/prometheus-config/ca.crt:/etc/prometheus/ca.crt
+
+  grafana:
+    profiles:
+      - jmxexporter
+    volumes:
+      - $PWD/assets/prometheus/prometheus-config/ca.crt:/etc/prometheus/ca.crt

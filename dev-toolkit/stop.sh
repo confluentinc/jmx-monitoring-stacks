@@ -17,9 +17,12 @@ if [[ " ${docker_args[@]} " =~ " tieredstorage " ]]; then
   $DOCKER_COMPOSE_CMD stop kafka1 kafka2 kafka3 kafka4 minio
 fi
 
-# if docker_args contains tieredstorage
 if [[ " ${docker_args[@]} " =~ " mongo-connect " ]]; then
   docker stop mongo && docker rm -v mongo
+fi
+
+if [[ " ${docker_args[@]} " =~ " jmxexporter " ]]; then
+  $DOCKER_COMPOSE_CMD stop kafka1 kafka2 kafka3 kafka4 prometheus grafana
 fi
 
 # if docker_args contains control-center

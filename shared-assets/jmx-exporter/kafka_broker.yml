@@ -401,6 +401,10 @@ rules:
   - pattern: 'kafka.tier.tasks<type=TierTasks, name=(.+)><>(.+):(.+)'
     name: kafka_tier_tasks_tiertasks_$1
     type: GAUGE
+  # kafka.server:type=TierFetcher
+  - pattern: 'kafka.server<type=TierFetcher><>(BytesFetchedRate)'
+    name: kafka_server_tierfetcher_bytesfetchedrate
+    type: GAUGE
 
   ## Consumer Lag Offsets
   # "kafka.server:type=tenant-metrics,name=*,consumer-group=*,client-id=*,topic=*,partition=*"

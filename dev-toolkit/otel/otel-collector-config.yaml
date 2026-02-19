@@ -1,0 +1,25 @@
+receivers:
+  kafkametrics:
+    cluster_alias: "dev-toolkit"
+    brokers: ["kafka1:29092", "kafka2:29092", "kafka3:29092", "kafka4:29092"]
+    protocol_version: 3.9.1
+    scrapers: [topics, brokers, consumers]
+    topic_match: ".*"
+    initial_delay: 60s
+    collection_interval: 10s
+
+exporters:
+  debug:
+    verbosity: detailed
+  prometheus:
+    endpoint: "0.0.0.0:9876"
+    send_timestamps: true
+    metric_expiration: 180m
+    enable_open_metrics: true
+    add_metric_suffixes: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [kafkametrics]
+      exporters: [debug, prometheus]
