@@ -1,0 +1,76 @@
+---
+- name: Install and Configure Node Exporter (Local Source)
+  hosts: all:!control_center:!control_center_next_gen
+  become: yes
+  vars:
+    node_exporter_version: "1.8.2" # Match this exactly to your file version
+    # The absolute or relative path to the file on your Ansible server:
+    local_tar_path: "/path/to/your/local/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
+
+  tasks:
+    - name: Create prometheus system group
+      group:
+        name: prometheus
+        system: yes
+        state: present
+
+    - name: Create prometheus system user
+      user:
+        name: prometheus
+        group: prometheus
+        system: yes
+        shell: /sbin/nologin
+        create_home: no
+        state: present
+
+    - name: Ensure configuration directory exists
+      file:
+        path: /etc/node_exporter
+        state: directory
+        owner: prometheus
+        group: prometheus
+        mode: '0755'
+
+    - name: Copy and unarchive local Node Exporter tarball to remote hosts
+      unarchive:
+        src: "{{ local_tar_path }}"
+        dest: /tmp
+        remote_src: no  # Tells Ansible the source is on the control node
+        owner: prometheus
+        group: prometheus
+
+    - name: Copy binary to standard executable path
+      copy:
+        src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter"
+        dest: /usr/local/bin/node_exporter
+        remote_src: yes # This remains 'yes' because the file is now extracted in /tmp on the target machine
+        owner: prometheus
+        group: prometheus
+        mode: '0755'
+
+    - name: Create Systemd service file
+      copy:
+        dest: /etc/systemd/system/node_exporter.service
+        content: |
+          [Unit]
+          Description=Node Exporter
+          Wants=network-online.target
+          After=network-online.target
+
+          [Service]
+          User=prometheus
+          Group=prometheus
+          Type=simple
+          ExecStart=/usr/local/bin/node_exporter
+          [Install]
+          WantedBy=multi-user.target
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Force systemd to reload config and start service
+      systemd:
+        name: node_exporter
+        state: restarted
+        enabled: yes
+        daemon_reload: yes

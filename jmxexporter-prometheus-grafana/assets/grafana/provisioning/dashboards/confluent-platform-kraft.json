@@ -1421,7 +1421,7 @@
             "uid": "${Prometheus}"
           },
           "exemplar": true,
-          "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=\"$env\",job=\"connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
+          "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{env=\"$env\",job=\"kafka-connect\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"} >= 0",
           "format": "time_series",
           "instant": false,
           "interval": "",
