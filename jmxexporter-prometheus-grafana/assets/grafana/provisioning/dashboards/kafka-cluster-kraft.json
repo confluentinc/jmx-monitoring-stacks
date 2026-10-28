@@ -8270,7 +8270,7 @@
           "type": "prometheus",
           "uid": "${Prometheus}"
         },
-        "definition": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+        "definition": "label_values(up{env=\"${env}\", job=~\"kafka-broker|kafka-controller\"},instance)",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -8278,7 +8278,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+          "query": "label_values(up{env=\"${env}\", job=~\"kafka-broker|kafka-controller\"},instance)",
           "refId": "Prometheus-instance-Variable-Query"
         },
         "refresh": 1,
