@@ -57,7 +57,9 @@
           },
           "expr": "clamp_max(max(ccloud_cdc:source_lag_ms:max{connector_id=~\"$source\"}) + max(ccloud_cdc:sink_fetch_queue_seconds{connector_id=~\"$sink\"}) * 1000 + max(ccloud_cdc:sink_put_batch_ms:max{connector_id=~\"$sink\"}), 1e15)",
           "legendFormat": "pipeline latency",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -139,7 +141,9 @@
           },
           "expr": "max(ccloud_cdc:source_lag_ms:max{connector_id=~\"$source\"})",
           "legendFormat": "source lag",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -172,7 +176,7 @@
       },
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "center",
         "orientation": "auto",
         "textMode": "value",
@@ -208,7 +212,9 @@
           },
           "expr": "clamp_max(max(ccloud_cdc:sink_fetch_queue_seconds{connector_id=~\"$sink\"}) * 1000, 1e15)",
           "legendFormat": "queue time (fetch lag)",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -290,7 +296,9 @@
           },
           "expr": "max(ccloud_cdc:sink_put_batch_ms:max{connector_id=~\"$sink\"})",
           "legendFormat": "put-batch",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -323,7 +331,7 @@
       },
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "center",
         "orientation": "auto",
         "textMode": "value",
@@ -359,7 +367,9 @@
           },
           "expr": "clamp_max((max(ccloud_cdc:sink_queue_seconds:max{connector_id=~\"$sink\"}) or vector(0)) * 1000, 1e15)",
           "legendFormat": "committed-offset queue",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -602,7 +612,9 @@
           },
           "expr": "((max(ccloud_cdc:sink_queue_seconds:max{connector_id=~\"$sink\"}) or vector(0)) > bool 5) * ((max(confluent_kafka_connect_records_lag_max{connector_id=~\"$sink\"}) or vector(1000000000)) < bool 100)",
           "legendFormat": "check",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -1500,7 +1512,8 @@
           "expr": "(3 * (max by (connector_id, connector_name) ({__name__=~\"confluent_kafka_connect_(sql_server|postgres|mysql)_cdc_source_connector_snapshot_running\", connector_id=~\"$source\"}) == 1)) or (2 * (max by (connector_id, connector_name) ({__name__=~\"confluent_kafka_connect_(sql_server|postgres|mysql)_cdc_source_connector_snapshot_aborted\", connector_id=~\"$source\"}) == 1)) or (1 * (max by (connector_id, connector_name) ({__name__=~\"confluent_kafka_connect_(sql_server|postgres|mysql)_cdc_source_connector_snapshot_completed\", connector_id=~\"$source\"}) == 1)) or (0 * max by (connector_id, connector_name) ({__name__=~\"confluent_kafka_connect_(sql_server|postgres|mysql)_cdc_source_connector_snapshot_running\", connector_id=~\"$source\"}))",
           "instant": true,
           "legendFormat": "{{connector_name}}",
-          "refId": "A"
+          "refId": "A",
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -1995,7 +2008,8 @@
           "expr": "confluent_kafka_connect_connector_status{connector_id=~\"$source|$sink\"} == 1 and on (connector_id, status) (timestamp(confluent_kafka_connect_connector_status{connector_id=~\"$source|$sink\"}) == on (connector_id) group_left () max by (connector_id) (timestamp(confluent_kafka_connect_connector_status{connector_id=~\"$source|$sink\"})))",
           "instant": true,
           "legendFormat": "{{connector_name}} ({{plugin_type}}): {{status}}",
-          "refId": "A"
+          "refId": "A",
+          "range": false
         }
       ],
       "fieldConfig": {
@@ -2088,7 +2102,8 @@
           "expr": "confluent_kafka_connect_connector_task_status{connector_id=~\"$source|$sink\"} == 1 and on (connector_id, task, status) (timestamp(confluent_kafka_connect_connector_task_status{connector_id=~\"$source|$sink\"}) == on (connector_id, task) group_left () max by (connector_id, task) (timestamp(confluent_kafka_connect_connector_task_status{connector_id=~\"$source|$sink\"})))",
           "instant": true,
           "legendFormat": "{{connector_name}} task {{task}}: {{status}}",
-          "refId": "A"
+          "refId": "A",
+          "range": false
         }
       ],
       "fieldConfig": {
