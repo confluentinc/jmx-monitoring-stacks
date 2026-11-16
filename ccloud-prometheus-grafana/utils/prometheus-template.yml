@@ -1,3 +1,5 @@
+rule_files:
+  - /etc/prometheus/rules/*.yml
 scrape_configs:
   - job_name: Confluent Cloud
     scrape_interval: 1m

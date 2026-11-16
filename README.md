@@ -65,6 +65,7 @@ This project provides metrics and dashboards for:
 | Producer/Consumer     ||yes|
 | ksql                  |yes|
 | Billing/Cost tracking |yes|
+| CDC pipeline latency  |yes|
 
 ## ⚠️ Alerts
 

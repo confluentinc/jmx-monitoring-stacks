@@ -2,10 +2,20 @@ services:
   prometheus:
     image: prom/prometheus:v2.29.2
     container_name: prometheus
+    # The Metrics API export endpoint returns samples timestamped a few minutes in the past, so a
+    # sample can be ~5 minutes old just before the next scrape. A 10m lookback keeps instant queries
+    # from dropping out at the edge of the default 5m.
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+      - --query.lookback-delta=10m
     ports:
       - 9090:9090
     volumes:
       - $MONITORING_STACK/assets/prometheus/prometheus-config/:/etc/prometheus
+      - $MONITORING_STACK/assets/prometheus-rules/:/etc/prometheus/rules
 
   grafana:
     image: grafana/grafana:11.1.0
