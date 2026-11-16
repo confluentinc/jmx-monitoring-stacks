@@ -1,0 +1,113 @@
+# Recording rules for the "Confluent Cloud CDC Pipeline Latency" dashboard (ccloud-cdc-latency.json).
+#
+# Notes on the source data (Confluent Cloud Metrics API /export):
+#  - Counter-like metrics (received_records, sent_records, ...) are exported as per-minute DELTA gauges.
+#    They must never be wrapped in rate()/irate()/increase().
+#  - Samples carry explicit timestamps a few minutes behind real time (honor_timestamps: true), so a
+#    [10m] window at evaluation time holds fewer than 10 one-minute buckets. Rates therefore divide the
+#    summed records by the number of buckets actually in the window, counted on a series the API emits
+#    every minute (partition_count per cluster, connector_status per connector). A minute with no
+#    data point for a topic or connector still counts as zero traffic.
+#  - Gauges are read with last_over_time(...[10m]) because a sample can be ~5 minutes old just before
+#    the next scrape, which is at the edge of Prometheus' default 5m lookback.
+#  - Internal topics (_*, dbhistory.*, connect-*, dlq-*, *.schema-changes*) are excluded from per-topic series.
+groups:
+  - name: ccloud-cdc-latency
+    interval: 1m
+    rules:
+      # Number of one-minute buckets inside the 10m window, per cluster (denominator for the topic rates below).
+      - record: ccloud_cdc:kafka_buckets:count10m
+        expr: max by (kafka_id) (count_over_time(confluent_kafka_server_partition_count[10m]))
+
+      # Records/s produced to each user topic, 10m smoothed from per-minute delta gauges (gap = zero traffic).
+      - record: ccloud_cdc:topic_produced_records:rate10m
+        expr: |
+          sum by (kafka_id, topic) (
+            sum_over_time(confluent_kafka_server_received_records{topic!~"_.*|dbhistory\\..*|connect-.*|dlq-.*|.*\\.schema-changes.*"}[10m])
+          )
+          / on (kafka_id) group_left () (60 * ccloud_cdc:kafka_buckets:count10m)
+
+      # Records/s sent to consumers of each user topic (all consumer groups), 10m smoothed from per-minute delta gauges.
+      - record: ccloud_cdc:topic_consumed_records:rate10m
+        expr: |
+          sum by (kafka_id, topic) (
+            sum_over_time(confluent_kafka_server_sent_records{topic!~"_.*|dbhistory\\..*|connect-.*|dlq-.*|.*\\.schema-changes.*"}[10m])
+          )
+          / on (kafka_id) group_left () (60 * ccloud_cdc:kafka_buckets:count10m)
+
+      # Committed consumer lag (offsets) per topic for managed sink connectors, with connector_id derived from group connect-<connector_id>.
+      - record: ccloud_cdc:sink_topic_lag_offsets
+        expr: |
+          max by (kafka_id, topic, connector_id) (
+            label_replace(
+              last_over_time(confluent_kafka_server_consumer_lag_offsets{consumer_group_id=~"connect-lcc-.*", topic!~"_.*|dbhistory\\..*|connect-.*|dlq-.*|.*\\.schema-changes.*"}[10m]),
+              "connector_id", "$1", "consumer_group_id", "connect-(lcc-.+)"
+            )
+          )
+
+      # Kafka queue time (s) = lag / consumed rate, only where lag > 0; +Inf when the consumed rate is 0 or absent (stalled).
+      - record: ccloud_cdc:sink_topic_queue_seconds
+        expr: |
+          (ccloud_cdc:sink_topic_lag_offsets > 0)
+          / on (kafka_id, topic) group_left ()
+          (
+            max by (kafka_id, topic) (ccloud_cdc:topic_consumed_records:rate10m)
+            or
+            (0 * max by (kafka_id, topic) (ccloud_cdc:sink_topic_lag_offsets))
+          )
+
+      # Worst currently-backlogged topic per sink connector (+Inf if any backlogged topic is stalled); absent when no backlog.
+      - record: ccloud_cdc:sink_queue_seconds:max
+        expr: max by (connector_id) (ccloud_cdc:sink_topic_queue_seconds)
+
+      # Worst CDC source lag (ms) per source connector across all connector types and tasks; the -1 "no events yet" sentinel becomes 0,
+      # other negative values (clock skew between database and connector) are kept so they stay visible.
+      - record: ccloud_cdc:source_lag_ms:max
+        expr: |
+          max by (connector_id, connector_name) (
+            (last_over_time({__name__=~"confluent_kafka_connect_(sql_server|postgres|mysql|oracle|dynamodb|mongodb)_cdc_source_connector_lag_milliseconds"}[10m]) != -1)
+            or
+            (last_over_time({__name__=~"confluent_kafka_connect_(sql_server|postgres|mysql|oracle|dynamodb|mongodb)_cdc_source_connector_lag_milliseconds"}[10m]) * 0)
+          )
+
+      - record: ccloud_cdc:sink_put_batch_ms:max
+        expr: max by (connector_id, connector_name) (last_over_time(confluent_kafka_connect_sink_task_put_batch_avg_time_milliseconds[10m]))
+
+      # Number of one-minute buckets inside the 10m window, per connector (denominator for connector rates).
+      - record: ccloud_cdc:connector_buckets:count10m
+        expr: sum by (connector_id) (count_over_time(confluent_kafka_connect_connector_status[10m]))
+
+      # Connector throughput in records/s (10m smoothed): direction="out" for sources (sent_records), direction="in" for sinks (received_records).
+      - record: ccloud_cdc:connector_records:rate10m
+        expr: |
+          label_replace(
+            sum by (connector_id) (sum_over_time(confluent_kafka_connect_sent_records[10m]))
+            / on (connector_id) (60 * ccloud_cdc:connector_buckets:count10m),
+            "direction", "out", "", ""
+          )
+          or
+          label_replace(
+            sum by (connector_id) (sum_over_time(confluent_kafka_connect_received_records[10m]))
+            / on (connector_id) (60 * ccloud_cdc:connector_buckets:count10m),
+            "direction", "in", "", ""
+          )
+
+      # Sink fetch lag (records_lag_max: records the sink's consumer is behind on its worst partition).
+      - record: ccloud_cdc:sink_fetch_lag_records
+        expr: max by (connector_id, connector_name) (last_over_time(confluent_kafka_connect_records_lag_max[10m]))
+
+      # Kafka queue time (s) per sink from fetch lag = records_lag_max / sink consume rate. 0 when the sink
+      # is not behind; +Inf when it is behind and consumes nothing (stalled). Used for the headline estimate.
+      - record: ccloud_cdc:sink_fetch_queue_seconds
+        expr: |
+          (
+            (ccloud_cdc:sink_fetch_lag_records > 0)
+            / on (connector_id) group_left ()
+            (
+              max by (connector_id) (ccloud_cdc:connector_records:rate10m{direction="in"})
+              or
+              (0 * max by (connector_id) (ccloud_cdc:sink_fetch_lag_records))
+            )
+          )
+          or
+          (0 * ccloud_cdc:sink_fetch_lag_records)

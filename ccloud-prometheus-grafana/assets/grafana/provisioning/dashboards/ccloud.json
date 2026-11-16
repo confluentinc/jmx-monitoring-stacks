@@ -395,7 +395,7 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "Bps"
         },
         "overrides": []
       },
@@ -426,7 +426,7 @@
           "datasource": "Prometheus",
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[1m]))",
+          "expr": "sum(sum by (kafka_id) (sum_over_time(confluent_kafka_server_received_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[10m])) / on (kafka_id) (60 * max by (kafka_id) (count_over_time(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[10m]))))",
           "interval": "",
           "legendFormat": "{{kafka_id}}",
           "range": true,
@@ -464,7 +464,7 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "Bps"
         },
         "overrides": []
       },
@@ -496,7 +496,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(confluent_kafka_server_sent_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[1m]))",
+          "expr": "sum(sum by (kafka_id) (sum_over_time(confluent_kafka_server_sent_bytes{topic=~\"$topic\", kafka_id=~\"$cluster\"}[10m])) / on (kafka_id) (60 * max by (kafka_id) (count_over_time(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[10m]))))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -538,7 +538,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -569,7 +569,7 @@
         {
           "datasource": "Prometheus",
           "editorMode": "code",
-          "expr": "sum(rate(confluent_kafka_server_request_count{type=~\".*\", kafka_id=~\"$cluster\"}[1m]))",
+          "expr": "sum(sum by (kafka_id) (sum_over_time(confluent_kafka_server_request_count{type=~\".*\", kafka_id=~\"$cluster\"}[10m])) / on (kafka_id) (60 * max by (kafka_id) (count_over_time(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[10m]))))",
           "interval": "",
           "legendFormat": "{{cluster}}",
           "range": true,
@@ -747,7 +747,7 @@
     },
     {
       "datasource": "Prometheus",
-      "description": "Basic clusters have a limit on the number of partitions that can be created and deleted in a 5 minute period. This single stat provides the absolute difference between the number of partitions are the beginning and end of the 5 minute period. This over simplifies the problem, so more conservative thresholds are put in place. ",
+      "description": "Basic clusters have a limit on the number of partitions that can be created and deleted in a 5 minute period. This single stat provides the absolute difference between two partition counts reported 5 minutes apart (measured 6 minutes behind real time, because exported samples arrive a few minutes late). This over simplifies the problem, so more conservative thresholds are put in place. ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -832,7 +832,7 @@
         {
           "datasource": "Prometheus",
           "exemplar": true,
-          "expr": "abs(delta(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[5m]))",
+          "expr": "abs(last_over_time(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[2m] offset 6m) - last_over_time(confluent_kafka_server_partition_count{kafka_id=~\"$cluster\"}[2m] offset 11m))",
           "format": "time_series",
           "hide": false,
           "instant": false,
